@@ -3,6 +3,12 @@ using UnityEngine.Networking;
 
 public class PlayerController : NetworkBehaviour
 {
+
+    public override void OnStartLocalPlayer()
+    {
+        Camera.main.GetComponent<FollowCamera>().SetTarget(gameObject);
+    }
+
     void Update()
     {
         if (!isLocalPlayer)
