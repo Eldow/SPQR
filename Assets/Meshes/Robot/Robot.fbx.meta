@@ -1,0 +1,220 @@
+fileFormatVersion: 2
+guid: 59749ef33e5631c4d8ab335a698ce938
+timeCreated: 1485552344
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Robot:ArmLeft
+    100004: Robot:ArmRight
+    100006: Robot:back
+    100008: Robot:Ball
+    100010: Robot:Body
+    100012: Robot:ElbowLeft
+    100014: Robot:ElbowRight
+    100016: Robot:ForearmLeft
+    100018: Robot:ForearmRight
+    100020: Robot:Head
+    100022: Robot:Hips
+    100024: Robot:JBall
+    100026: Robot:JBall 1
+    100028: Robot:JElbowLeft
+    100030: Robot:JElbowRight
+    100032: Robot:JForearmLeft
+    100034: Robot:JForearmLeft 1
+    100036: Robot:JForearmRight
+    100038: Robot:JHead
+    100040: Robot:JLegsBottom
+    100042: Robot:JLegsTop
+    100044: Robot:JNeck
+    100046: Robot:JPelvis
+    100048: Robot:JShoulderLeft
+    100050: Robot:JShoulderRight
+    100052: Robot:JSternum
+    100054: Robot:JSwordRotationLeft
+    100056: Robot:JSwordRotationRight
+    100058: Robot:JTorso
+    100060: Robot:left
+    100062: Robot:Legs
+    100064: Robot:LPelvis
+    100066: Robot:LSternum
+    100068: Robot:Mudguard
+    100070: Robot:Neck
+    100072: Robot:ShoulderLeft
+    100074: Robot:ShoulderRight
+    100076: Robot:SwordRight
+    100078: Robot:SwordRight 1
+    100080: Robot:Torso
+    100082: Robot:TorsoMiddle
+    100084: Robot:TorsoSpine
+    100086: Robot:TorsoTop
+    400000: //RootNode
+    400002: Robot:ArmLeft
+    400004: Robot:ArmRight
+    400006: Robot:back
+    400008: Robot:Ball
+    400010: Robot:Body
+    400012: Robot:ElbowLeft
+    400014: Robot:ElbowRight
+    400016: Robot:ForearmLeft
+    400018: Robot:ForearmRight
+    400020: Robot:Head
+    400022: Robot:Hips
+    400024: Robot:JBall
+    400026: Robot:JBall 1
+    400028: Robot:JElbowLeft
+    400030: Robot:JElbowRight
+    400032: Robot:JForearmLeft
+    400034: Robot:JForearmLeft 1
+    400036: Robot:JForearmRight
+    400038: Robot:JHead
+    400040: Robot:JLegsBottom
+    400042: Robot:JLegsTop
+    400044: Robot:JNeck
+    400046: Robot:JPelvis
+    400048: Robot:JShoulderLeft
+    400050: Robot:JShoulderRight
+    400052: Robot:JSternum
+    400054: Robot:JSwordRotationLeft
+    400056: Robot:JSwordRotationRight
+    400058: Robot:JTorso
+    400060: Robot:left
+    400062: Robot:Legs
+    400064: Robot:LPelvis
+    400066: Robot:LSternum
+    400068: Robot:Mudguard
+    400070: Robot:Neck
+    400072: Robot:ShoulderLeft
+    400074: Robot:ShoulderRight
+    400076: Robot:SwordRight
+    400078: Robot:SwordRight 1
+    400080: Robot:Torso
+    400082: Robot:TorsoMiddle
+    400084: Robot:TorsoSpine
+    400086: Robot:TorsoTop
+    2300000: Robot:ArmLeft
+    2300002: Robot:ArmRight
+    2300004: Robot:Ball
+    2300006: Robot:ElbowLeft
+    2300008: Robot:ElbowRight
+    2300010: Robot:ForearmLeft
+    2300012: Robot:ForearmRight
+    2300014: Robot:Head
+    2300016: Robot:Hips
+    2300018: Robot:Legs
+    2300020: Robot:Mudguard
+    2300022: Robot:Neck
+    2300024: Robot:ShoulderLeft
+    2300026: Robot:ShoulderRight
+    2300028: Robot:SwordRight
+    2300030: Robot:SwordRight 1
+    2300032: Robot:TorsoMiddle
+    2300034: Robot:TorsoSpine
+    2300036: Robot:TorsoTop
+    3300000: Robot:ArmLeft
+    3300002: Robot:ArmRight
+    3300004: Robot:Ball
+    3300006: Robot:ElbowLeft
+    3300008: Robot:ElbowRight
+    3300010: Robot:ForearmLeft
+    3300012: Robot:ForearmRight
+    3300014: Robot:Head
+    3300016: Robot:Hips
+    3300018: Robot:Legs
+    3300020: Robot:Mudguard
+    3300022: Robot:Neck
+    3300024: Robot:ShoulderLeft
+    3300026: Robot:ShoulderRight
+    3300028: Robot:SwordRight
+    3300030: Robot:SwordRight 1
+    3300032: Robot:TorsoMiddle
+    3300034: Robot:TorsoSpine
+    3300036: Robot:TorsoTop
+    4300000: Robot:Neck
+    4300002: Robot:Head
+    4300004: Robot:ForearmRight
+    4300006: Robot:SwordRight
+    4300008: Robot:ElbowRight
+    4300010: Robot:ShoulderRight
+    4300012: Robot:ArmRight
+    4300014: Robot:ForearmLeft
+    4300016: Robot:SwordRight
+    4300018: Robot:ElbowLeft
+    4300020: Robot:ShoulderLeft
+    4300022: Robot:ArmLeft
+    4300024: Robot:TorsoTop
+    4300026: Robot:TorsoMiddle
+    4300028: Robot:TorsoSpine
+    4300030: Robot:Mudguard
+    4300032: Robot:Ball
+    4300034: Robot:Legs
+    4300036: Robot:Hips
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 1
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
