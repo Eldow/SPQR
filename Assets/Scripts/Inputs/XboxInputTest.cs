@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class XboxInputTest : MonoBehaviour {
 
-	public int id;
 	public XboxInput xboxInput;
 
 	public float RightStickX,RightStickY;
@@ -12,7 +11,7 @@ public class XboxInputTest : MonoBehaviour {
 	public float DPadX, DPadY;
 
 	void Start () {
-		xboxInput = new XboxInput (id);
+		xboxInput = new XboxInput (1);
 	}
 		
 	void Update () {
