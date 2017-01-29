@@ -54,6 +54,22 @@ InputManager:
     axis: 3
     joyNum: 1
   - serializedVersion: 3
+    m_Name: MAC_RX_1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: left
+    positiveButton: right
+    altNegativeButton: a
+    altPositiveButton: d
+    gravity: 3
+    dead: 0.3
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 2
+    joyNum: 1
+  - serializedVersion: 3
     m_Name: LX_2
     descriptiveName: 
     descriptiveNegativeName: 
@@ -84,6 +100,22 @@ InputManager:
     invert: 0
     type: 2
     axis: 3
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: MAC_RX_2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: left
+    positiveButton: right
+    altNegativeButton: a
+    altPositiveButton: d
+    gravity: 3
+    dead: 0.3
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 2
     joyNum: 2
   - serializedVersion: 3
     m_Name: LX_3
@@ -118,6 +150,22 @@ InputManager:
     axis: 3
     joyNum: 3
   - serializedVersion: 3
+    m_Name: MAC_RX_3
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: left
+    positiveButton: right
+    altNegativeButton: a
+    altPositiveButton: d
+    gravity: 3
+    dead: 0.3
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 2
+    joyNum: 3
+  - serializedVersion: 3
     m_Name: LX_4
     descriptiveName: 
     descriptiveNegativeName: 
@@ -134,7 +182,7 @@ InputManager:
     axis: 0
     joyNum: 4
   - serializedVersion: 3
-    m_Name: RX_4
+    m_Name: MAC_RX_4
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: left
@@ -147,7 +195,7 @@ InputManager:
     snap: 1
     invert: 0
     type: 2
-    axis: 3
+    axis: 2
     joyNum: 4
   - serializedVersion: 3
     m_Name: Vertical
@@ -198,6 +246,22 @@ InputManager:
     axis: 4
     joyNum: 1
   - serializedVersion: 3
+    m_Name: MAC_RY_1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: down
+    positiveButton: up
+    altNegativeButton: s
+    altPositiveButton: w
+    gravity: 0
+    dead: 0.3
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 3
+    joyNum: 1
+  - serializedVersion: 3
     m_Name: LY_2
     descriptiveName: 
     descriptiveNegativeName: 
@@ -228,6 +292,22 @@ InputManager:
     invert: 1
     type: 2
     axis: 4
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: MAC_RY_2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: down
+    positiveButton: up
+    altNegativeButton: s
+    altPositiveButton: w
+    gravity: 3
+    dead: 0.3
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 3
     joyNum: 2
   - serializedVersion: 3
     m_Name: LY_3
@@ -262,6 +342,22 @@ InputManager:
     axis: 4
     joyNum: 3
   - serializedVersion: 3
+    m_Name: MAC_RY_3
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: down
+    positiveButton: up
+    altNegativeButton: s
+    altPositiveButton: w
+    gravity: 3
+    dead: 0.3
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 3
+    joyNum: 3
+  - serializedVersion: 3
     m_Name: LY_4
     descriptiveName: 
     descriptiveNegativeName: 
@@ -292,6 +388,22 @@ InputManager:
     invert: 1
     type: 2
     axis: 4
+    joyNum: 4
+  - serializedVersion: 3
+    m_Name: MAC_RY_4
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: down
+    positiveButton: up
+    altNegativeButton: s
+    altPositiveButton: w
+    gravity: 3
+    dead: 0.3
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 3
     joyNum: 4
   - serializedVersion: 3
     m_Name: _________
@@ -374,6 +486,70 @@ InputManager:
     axis: 8
     joyNum: 4
   - serializedVersion: 3
+    m_Name: MAC_LT_1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: down
+    positiveButton: up
+    altNegativeButton: s
+    altPositiveButton: w
+    gravity: 3
+    dead: 0.3
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 4
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: MAC_LT_2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: down
+    positiveButton: up
+    altNegativeButton: s
+    altPositiveButton: w
+    gravity: 3
+    dead: 0.3
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 4
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: MAC_LT_3
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: down
+    positiveButton: up
+    altNegativeButton: s
+    altPositiveButton: w
+    gravity: 3
+    dead: 0.3
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 4
+    joyNum: 3
+  - serializedVersion: 3
+    m_Name: MAC_LT_4
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: down
+    positiveButton: up
+    altNegativeButton: s
+    altPositiveButton: w
+    gravity: 3
+    dead: 0.3
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 4
+    joyNum: 4
+  - serializedVersion: 3
     m_Name: __________
     descriptiveName: 
     descriptiveNegativeName: 
@@ -454,6 +630,70 @@ InputManager:
     axis: 9
     joyNum: 4
   - serializedVersion: 3
+    m_Name: MAC_RT_1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: down
+    positiveButton: up
+    altNegativeButton: s
+    altPositiveButton: w
+    gravity: 3
+    dead: 0.3
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 5
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: MAC_RT_2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: down
+    positiveButton: up
+    altNegativeButton: s
+    altPositiveButton: w
+    gravity: 3
+    dead: 0.3
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 5
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: MAC_RT_3
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: down
+    positiveButton: up
+    altNegativeButton: s
+    altPositiveButton: w
+    gravity: 3
+    dead: 0.3
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 5
+    joyNum: 3
+  - serializedVersion: 3
+    m_Name: MAC_RT_4
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: down
+    positiveButton: up
+    altNegativeButton: s
+    altPositiveButton: w
+    gravity: 3
+    dead: 0.3
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 5
+    joyNum: 4
+  - serializedVersion: 3
     m_Name: _________
     descriptiveName: 
     descriptiveNegativeName: 
@@ -481,7 +721,7 @@ InputManager:
     dead: 0.3
     sensitivity: 1
     snap: 1
-    invert: 1
+    invert: 0
     type: 2
     axis: 5
     joyNum: 1
@@ -497,7 +737,7 @@ InputManager:
     dead: 0.3
     sensitivity: 1
     snap: 1
-    invert: 1
+    invert: 0
     type: 2
     axis: 5
     joyNum: 2
@@ -513,7 +753,7 @@ InputManager:
     dead: 0.3
     sensitivity: 1
     snap: 1
-    invert: 1
+    invert: 0
     type: 2
     axis: 5
     joyNum: 3
@@ -529,7 +769,7 @@ InputManager:
     dead: 0.3
     sensitivity: 1
     snap: 1
-    invert: 1
+    invert: 0
     type: 2
     axis: 5
     joyNum: 4
@@ -561,7 +801,7 @@ InputManager:
     dead: 0.3
     sensitivity: 1
     snap: 1
-    invert: 1
+    invert: 0
     type: 2
     axis: 6
     joyNum: 1
@@ -577,7 +817,7 @@ InputManager:
     dead: 0.3
     sensitivity: 1
     snap: 1
-    invert: 1
+    invert: 0
     type: 2
     axis: 6
     joyNum: 2
@@ -593,7 +833,7 @@ InputManager:
     dead: 0.3
     sensitivity: 1
     snap: 1
-    invert: 1
+    invert: 0
     type: 2
     axis: 6
     joyNum: 3
@@ -609,7 +849,7 @@ InputManager:
     dead: 0.3
     sensitivity: 1
     snap: 1
-    invert: 1
+    invert: 0
     type: 2
     axis: 6
     joyNum: 4

@@ -7,20 +7,21 @@ public class XboxInputTest : MonoBehaviour {
 	public int id;
 	public XboxInput xboxInput;
 
-	float RightStickX,RightStickY;
-	float LeftStickX,LeftStickY;
-	float DPadX, DPadY;
+	public float RightStickX,RightStickY;
+	public float LeftStickX,LeftStickY;
+	public float DPadX, DPadY;
 
 	void Start () {
 		xboxInput = new XboxInput (id);
 	}
 		
 	void Update () {
+		
 		if(xboxInput.LT())
-			print ("Controller "+xboxInput.id + " : LT PRESSED");
+			print ("Controller "+xboxInput.getID() + " : LT PRESSED");
 
 		if(xboxInput.RT())
-			print ("Controller "+xboxInput.id + " : RT PRESSED");
+			print ("Controller "+xboxInput.getID() + " : RT PRESSED");
 
 		RightStickX = xboxInput.getRightStickX ();
 		RightStickY = xboxInput.getRightStickY ();
@@ -31,11 +32,10 @@ public class XboxInputTest : MonoBehaviour {
 		DPadX = xboxInput.getDPadX ();
 		DPadY = xboxInput.getDPadY ();
 
-		//print (DPadX + " " + DPadY);
-
-		foreach (KeyValuePair<string,KeyCode> current in xboxInput.allButtons) {
+		//print (LeftStickX + " " + LeftStickY);
+		foreach (KeyValuePair<string,KeyCode> current in xboxInput.getAllButtons()) {
 			if (Input.GetKeyDown (current.Value)) {
-				print ("Controller "+xboxInput.id + " : "+ current.Key);
+				print ("Controller "+xboxInput.getID() + " : "+ current.Key);
 
 			}	
 		}
