@@ -49,6 +49,18 @@ ModelImporter:
     100082: Robot:TorsoMiddle
     100084: Robot:TorsoSpine
     100086: Robot:TorsoTop
+    100088: Robot:ArmLeft 1
+    100090: Robot:ArmRight 1
+    100092: Robot:ForearmLeft 1
+    100094: Robot:ForearmRight 1
+    100096: Robot:HeadInside
+    100098: Robot:JTipLeft
+    100100: Robot:JTipRight
+    100102: Robot:JTipRotationLeft
+    100104: Robot:JTipRotationRight
+    100106: Robot:JTop
+    100108: Robot:ShoulderRight1
+    100110: Robot:SwordLeft
     400000: //RootNode
     400002: Robot:ArmLeft
     400004: Robot:ArmRight
@@ -93,6 +105,18 @@ ModelImporter:
     400082: Robot:TorsoMiddle
     400084: Robot:TorsoSpine
     400086: Robot:TorsoTop
+    400088: Robot:ArmLeft 1
+    400090: Robot:ArmRight 1
+    400092: Robot:ForearmLeft 1
+    400094: Robot:ForearmRight 1
+    400096: Robot:HeadInside
+    400098: Robot:JTipLeft
+    400100: Robot:JTipRight
+    400102: Robot:JTipRotationLeft
+    400104: Robot:JTipRotationRight
+    400106: Robot:JTop
+    400108: Robot:ShoulderRight1
+    400110: Robot:SwordLeft
     2300000: Robot:ArmLeft
     2300002: Robot:ArmRight
     2300004: Robot:Ball
@@ -112,6 +136,13 @@ ModelImporter:
     2300032: Robot:TorsoMiddle
     2300034: Robot:TorsoSpine
     2300036: Robot:TorsoTop
+    2300038: Robot:ArmLeft 1
+    2300040: Robot:ArmRight 1
+    2300042: Robot:ForearmLeft 1
+    2300044: Robot:ForearmRight 1
+    2300046: Robot:HeadInside
+    2300048: Robot:ShoulderRight1
+    2300050: Robot:SwordLeft
     3300000: Robot:ArmLeft
     3300002: Robot:ArmRight
     3300004: Robot:Ball
@@ -131,6 +162,13 @@ ModelImporter:
     3300032: Robot:TorsoMiddle
     3300034: Robot:TorsoSpine
     3300036: Robot:TorsoTop
+    3300038: Robot:ArmLeft 1
+    3300040: Robot:ArmRight 1
+    3300042: Robot:ForearmLeft 1
+    3300044: Robot:ForearmRight 1
+    3300046: Robot:HeadInside
+    3300048: Robot:ShoulderRight1
+    3300050: Robot:SwordLeft
     4300000: Robot:Neck
     4300002: Robot:Head
     4300004: Robot:ForearmRight
@@ -150,6 +188,9 @@ ModelImporter:
     4300032: Robot:Ball
     4300034: Robot:Legs
     4300036: Robot:Hips
+    4300038: Robot:HeadInside
+    4300040: Robot:SwordLeft
+    4300042: Robot:ShoulderRight1
   materials:
     importMaterials: 1
     materialName: 0
