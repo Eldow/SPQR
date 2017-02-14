@@ -104,12 +104,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 302206142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7b1b9d9fb3cf8243aecb215e1538ba7, type: 3}
+  m_Script: {fileID: 11500000, guid: 4422ca7769b29bf4eb1b264f4920d978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State: {fileID: 0}
-  Animator: {fileID: 0}
-  PlayerController: {fileID: 0}
 --- !u!1 &363723139
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,7 +515,8 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114118059244494838, guid: 455f8e4704053f44c85e3c72e01499ec, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 455f8e4704053f44c85e3c72e01499ec, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &2014021047

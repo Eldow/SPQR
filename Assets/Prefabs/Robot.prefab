@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 114984880265354442}
   - component: {fileID: 114886034956261182}
   - component: {fileID: 114567099467924348}
-  - component: {fileID: 114118059244494838}
+  - component: {fileID: 114251584550831258}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Untagged
@@ -2084,7 +2084,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114118059244494838
+--- !u!114 &114251584550831258
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2092,12 +2092,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1193922369073566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7b1b9d9fb3cf8243aecb215e1538ba7, type: 3}
+  m_Script: {fileID: 11500000, guid: 4422ca7769b29bf4eb1b264f4920d978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 0}
-  PlayerController: {fileID: 0}
-  DefaultState: RobotIdleState
 --- !u!114 &114567099467924348
 MonoBehaviour:
   m_ObjectHideFlags: 1
