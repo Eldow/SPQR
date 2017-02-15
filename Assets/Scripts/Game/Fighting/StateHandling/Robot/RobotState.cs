@@ -3,16 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RobotState : State {
-    void Start() {
 
-    }
-
-    void Update() {
-       
-    }
-
-    public virtual RobotState HandleInput(
-    RobotStateMachine stateMachine, XboxInput xboxInput) {
+    public virtual RobotState HandleInput(RobotStateMachine stateMachine, XboxInput xboxInput) {
         return null;
     }
 

@@ -8,8 +8,8 @@ using UnityEngine.Networking;
 public class PlayerController : NetworkBehaviour
 {
     private bool lockedMovement;
-	public XboxInput xboxInput;
-	public float maxIncline = 30f;
+	  public XboxInput xboxInput;
+	  public float maxIncline = 30f;
 
     // On Player spawn
     public override void OnStartLocalPlayer()
@@ -18,7 +18,7 @@ public class PlayerController : NetworkBehaviour
         gameObject.tag = "LocalPlayer";
         TargetManager.instance.SetPlayer(gameObject);
         GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
-		xboxInput = new XboxInput (1);
+		    xboxInput = new XboxInput (1);
     }
 
     // On Opponent spawn
@@ -30,7 +30,7 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    // Updates the character 
+    // Updates the character
     void Update()
     {
         if (!isLocalPlayer)
@@ -53,7 +53,7 @@ public class PlayerController : NetworkBehaviour
     {
         // Locked movement implementation
         float x = xboxInput.getLeftStickX() * Time.deltaTime * 10.0f;
-		float z = xboxInput.getLeftStickY() * Time.deltaTime * 3.0f;
+		    float z = xboxInput.getLeftStickY() * Time.deltaTime * 3.0f;
 
         transform.Translate(x, 0, 0);
         transform.Translate(0, 0, z);
@@ -64,12 +64,23 @@ public class PlayerController : NetworkBehaviour
     {
         // Unlocked movement implementation
         float x = xboxInput.getLeftStickX() * Time.deltaTime * 150.0f;
-		float z = xboxInput.getLeftStickY() * Time.deltaTime * 3.0f;
-		//float x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
-		//float z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
+		    float z = xboxInput.getLeftStickY() * Time.deltaTime * 3.0f;
+		    //float x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
+		    //float z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
 
         transform.Rotate(0, x, 0);
         transform.Translate(0, 0, z);
+    }
 
+    public void UnlockedRunMovement()
+    {
+        // Unlocked movement implementation
+        float x = xboxInput.getLeftStickX() * Time.deltaTime * 2 * 150.0f;
+        float z = xboxInput.getLeftStickY() * Time.deltaTime * 2 * 3.0f;
+        //float x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
+        //float z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
+
+        transform.Rotate(0, x, 0);
+        transform.Translate(0, 0, z);
     }
 }

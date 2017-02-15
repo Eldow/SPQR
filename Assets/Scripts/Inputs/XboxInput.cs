@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class XboxInput
 {
 
-	private float triggerMagnitudeMin = -0.2f;
+	private float triggerMagnitudeMin = 0.2f;
 
 	private int id;
 	private Dictionary<string, KeyCode> allButtons;
@@ -93,9 +93,9 @@ public class XboxInput
 	public bool RT ()
 	{
 		#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-		return Input.GetAxis ("RT_" + id) < triggerMagnitudeMin;
+		return (Input.GetAxis ("RT_" + id) < triggerMagnitudeMin);
 		#elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
-		return Input.GetAxis ("MAC_RT_" + id) < triggerMagnitudeMin;
+		return (Input.GetAxis ("MAC_RT_" + id) < triggerMagnitudeMin);
 		#else
 		Debug.Log("CONTROLS AREN'T DEFINED FOR LINUX");
 		#endif
@@ -177,4 +177,3 @@ public class XboxInput
 		return id;
 	}
 }
-

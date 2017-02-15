@@ -13,11 +13,11 @@ public class RobotNoSpecialState : RobotState {
 
     public override RobotState HandleInput(
     RobotStateMachine stateMachine, XboxInput xboxInput) {
-        if (Input.GetKeyDown("joystick button 0")) {
+        if (Input.GetKeyDown( xboxInput.A )) {
             return new RobotAttackState();
         }
 
-        if (Input.GetKeyDown("joystick button 1")) {
+        if (Input.GetKeyDown( xboxInput.B )) {
             return new RobotBlockState();
         }
 

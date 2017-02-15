@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RobotBlockState : RobotState {
-    void Start() {
-
-    }
-
-    void Update() {
-
-    }
 
     public override RobotState HandleInput(
     RobotStateMachine stateMachine, XboxInput xboxInput) {

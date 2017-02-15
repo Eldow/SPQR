@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RobotAttackState : RobotState {
-    void Start() {
-
-    }
-
-    void Update() {
-
-    }
 
     public override RobotState HandleInput(
     RobotStateMachine stateMachine, XboxInput xboxInput) {
@@ -21,14 +14,12 @@ public class RobotAttackState : RobotState {
         if (stateMachine.Animator.GetCurrentAnimatorStateInfo(0)
             .normalizedTime > 1 &&
             !stateMachine.Animator.IsInTransition(0)) {
-            if (stateMachine.Animator.GetBool("IsWalk")) {
                 return new RobotWalkState();
-            } else {
-                return new RobotIdleState();
-            }
-        } else {
-            return null;
+                // On renvoie un Walk qui se changera en Idle s'il le faut.
+                // L'inverse provoque un blocage si on commence l'attaque en
+                // Idle et qu'on commence à bouger pendant.
         }
+        else return null;
     }
 
     public override void Update(RobotStateMachine stateMachine) {

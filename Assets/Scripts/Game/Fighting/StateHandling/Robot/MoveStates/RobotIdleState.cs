@@ -3,34 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RobotIdleState : RobotState {
-    void Start() {
-
-    }
-
-    void Update() {
-
-    }
 
     public override RobotState HandleInput(
     RobotStateMachine stateMachine, XboxInput xboxInput) {
+
         if (!stateMachine.Animator.GetCurrentAnimatorStateInfo(0)
             .IsName("RobotIdle")) {
             return null;
         }
 
-        if (Input.GetKeyDown("joystick button 0")) {
+        if (Input.GetKeyDown( xboxInput.A )) {
             return new RobotAttackState();
         }
 
-        if (Input.GetKeyDown("joystick button 1")) {
+        if (Input.GetKeyDown( xboxInput.B )) {
             return new RobotBlockState();
         }
 
-        if (Mathf.Abs(Input.GetAxis("Horizontal")) <= 0.2f &&
-            Mathf.Abs(Input.GetAxis("Vertical")) <= 0.02) {
+        if (Mathf.Abs( xboxInput.getLeftStickX() ) <= 0.2f &&
+            Mathf.Abs( xboxInput.getLeftStickY() ) <= 0.2f) {
             return null;
         } else {
-            return new RobotWalkState();
+            if (xboxInput.RT()) {
+                return new RobotRunState();
+            }
+            else return new RobotWalkState();
         }
     }
 
