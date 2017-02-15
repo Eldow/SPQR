@@ -265,7 +265,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!23 &497542457
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -555,7 +555,7 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 1193922369073566, guid: 455f8e4704053f44c85e3c72e01499ec,
+  m_PlayerPrefab: {fileID: 1356818416241256, guid: aed95fda8edd41f4d989a906c5f12e36,
     type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0

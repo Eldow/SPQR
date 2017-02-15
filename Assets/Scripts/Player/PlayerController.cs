@@ -19,6 +19,8 @@ public class PlayerController : NetworkBehaviour
         TargetManager.instance.SetPlayer(gameObject);
         GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
 		xboxInput = new XboxInput (1);
+
+
     }
 
     // On Opponent spawn
