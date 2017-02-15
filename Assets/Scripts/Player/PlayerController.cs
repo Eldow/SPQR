@@ -43,15 +43,15 @@ public class PlayerController : NetworkBehaviour
         // Movement management
         if (!lockedMovement)
         {
-            UnlockedMovement();
+            //UnlockedMovement();
         } else
         {
-            LockedMovement();
+            //LockedMovement();
         }
 
     }
 
-    void LockedMovement()
+    public void LockedMovement()
     {
         // Locked movement implementation
         float x = xboxInput.getLeftStickX() * Time.deltaTime * 10.0f;
@@ -62,7 +62,7 @@ public class PlayerController : NetworkBehaviour
 
     }
 
-    void UnlockedMovement()
+    public void UnlockedMovement()
     {
         // Unlocked movement implementation
         float x = xboxInput.getLeftStickX() * Time.deltaTime * 150.0f;
