@@ -13,6 +13,12 @@ public class RobotIdleState : RobotState {
 
     public override RobotState HandleInput(
     RobotStateMachine stateMachine, XboxInput xboxInput) {
+        if (!stateMachine.Animator.GetCurrentAnimatorStateInfo(0)
+            .IsName("RobotIdle")) {
+            return null;
+        }
+
+
         string x = Input.GetAxis("Horizontal").ToString();
         string y = Input.GetAxis("Vertical").ToString();
         string x2 = xboxInput.getLeftStickX().ToString();

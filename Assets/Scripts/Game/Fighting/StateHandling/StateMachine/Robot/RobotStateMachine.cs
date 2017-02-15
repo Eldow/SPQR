@@ -8,6 +8,8 @@ public class RobotStateMachine : StateMachine {
     public Animator Animator = null;
     public PlayerController PlayerController = null;
     protected RobotState _robotState = null;
+    [HideInInspector]
+    public RobotAutomata RobotAutomata = null;
 
     public virtual String DefaultState {
         get {
@@ -39,16 +41,26 @@ public class RobotStateMachine : StateMachine {
             this._robotState = new RobotState(); // for logic's sake
         } else {
             this._robotState = (RobotState)Activator.CreateInstance(stateType);
-        }        
+        }
+
+        this.RobotAutomata = this.gameObject.GetComponent<RobotAutomata>();
     }
 
     public override void HandleInput(XboxInput xboxInput) {
         RobotState robotState = this._robotState.HandleInput(this, xboxInput);
 
-        if (robotState != null) {
-            this._robotState.Exit(this);
-            this._robotState = robotState;
-            this._robotState.Enter(this);
-        }
+        this.SwitchState(robotState);
+    }
+
+    protected virtual void SwitchState(RobotState robotState) {
+        if (robotState == null) return;
+
+        this._robotState.Exit(this);
+        this._robotState = robotState;
+        this._robotState.Enter(this);
+    }
+
+    public virtual void SetState(RobotState robotState) {
+        this.SwitchState(robotState);
     }
 }

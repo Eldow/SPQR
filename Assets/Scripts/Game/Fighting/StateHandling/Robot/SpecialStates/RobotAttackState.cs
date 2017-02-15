@@ -13,12 +13,17 @@ public class RobotAttackState : RobotState {
 
     public override RobotState HandleInput(
     RobotStateMachine stateMachine, XboxInput xboxInput) {
+        if (!stateMachine.Animator.GetCurrentAnimatorStateInfo(0)
+            .IsName("RobotAttack")) {
+            return null;
+        }
+
         if (stateMachine.Animator.GetCurrentAnimatorStateInfo(0)
             .normalizedTime > 1 &&
             !stateMachine.Animator.IsInTransition(0)) {
-            return null;
-        } else {
             return new RobotNoSpecialState();
+        } else {
+            return null;
         }
     }
 
@@ -31,6 +36,7 @@ public class RobotAttackState : RobotState {
     }
 
     public override void Exit(RobotStateMachine stateMachine) {
+        Debug.Log("ATTACK finished!");
         stateMachine.Animator.SetBool("IsAttack", false);
     }
 }

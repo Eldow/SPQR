@@ -17,6 +17,10 @@ public class RobotNoSpecialState : RobotState {
             return new RobotAttackState();
         }
 
+        if (Input.GetKeyDown("joystick button 1")) {
+            return new RobotBlockState();
+        }
+
         return null;
     }
 
@@ -27,5 +31,6 @@ public class RobotNoSpecialState : RobotState {
     }
 
     public override void Exit(RobotStateMachine stateMachine) {
+        Debug.Log("NOSPECIALSTATE finished!");
     }
 }
