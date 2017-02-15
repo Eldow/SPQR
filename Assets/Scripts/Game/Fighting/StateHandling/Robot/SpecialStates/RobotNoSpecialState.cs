@@ -28,9 +28,10 @@ public class RobotNoSpecialState : RobotState {
     }
 
     public override void Enter(RobotStateMachine stateMachine) {
+        Debug.Log("NOSPECIALSTATE ENTER!");
     }
 
     public override void Exit(RobotStateMachine stateMachine) {
-        Debug.Log("NOSPECIALSTATE finished!");
+        Debug.Log("NOSPECIALSTATE EXIT!");
     }
 }

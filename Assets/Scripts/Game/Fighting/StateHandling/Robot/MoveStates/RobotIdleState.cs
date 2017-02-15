@@ -18,15 +18,14 @@ public class RobotIdleState : RobotState {
             return null;
         }
 
+        if (Input.GetKeyDown("joystick button 0")) {
+            return new RobotAttackState();
+        }
 
-        string x = Input.GetAxis("Horizontal").ToString();
-        string y = Input.GetAxis("Vertical").ToString();
-        string x2 = xboxInput.getLeftStickX().ToString();
-        string y2 = xboxInput.getLeftStickX().ToString();
-        string test = "X " + x + " | " + "Y " + y;
-        string test2 = "X2 " + x2 + " | " + "Y2 " + y2;
-        // Debug.Log(test);
-        // Debug.Log(test2);
+        if (Input.GetKeyDown("joystick button 1")) {
+            return new RobotBlockState();
+        }
+
         if (Mathf.Abs(Input.GetAxis("Horizontal")) <= 0.2f &&
             Mathf.Abs(Input.GetAxis("Vertical")) <= 0.02) {
             return null;
@@ -40,10 +39,11 @@ public class RobotIdleState : RobotState {
     }
 
     public override void Enter(RobotStateMachine stateMachine) {
-
+        Debug.Log("IDLE ENTER!");
+        stateMachine.Animator.SetBool("IsWalk", false);
     }
 
     public override void Exit(RobotStateMachine stateMachine) {
-
+        Debug.Log("IDLE EXIT!");
     }
 }

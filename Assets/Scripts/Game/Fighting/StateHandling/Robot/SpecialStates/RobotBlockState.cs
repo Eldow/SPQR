@@ -21,7 +21,7 @@ public class RobotBlockState : RobotState {
         if (stateMachine.Animator.GetCurrentAnimatorStateInfo(0)
             .normalizedTime > 1 &&
             !stateMachine.Animator.IsInTransition(0)) {
-            return new RobotNoSpecialState();
+            return new RobotIdleState();
         } else {
             return null;
         }
@@ -32,13 +32,12 @@ public class RobotBlockState : RobotState {
     }
 
     public override void Enter(RobotStateMachine stateMachine) {
+        Debug.Log("BLOCK ENTER!");
         stateMachine.Animator.SetBool("IsBlock", true);
-        stateMachine.RobotAutomata.StateMachine.SetState(new RobotIdleState());
-        stateMachine.Animator.SetBool("IsWalk", false);
     }
 
     public override void Exit(RobotStateMachine stateMachine) {
-        Debug.Log("BLOCK finished!");
+        Debug.Log("BLOCK EXIT!");
         stateMachine.Animator.SetBool("IsBlock", false);
     }
 }
