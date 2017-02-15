@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RobotNoSpecialState : RobotState {
-    void Start() {
-
-    }
-
-    void Update() {
-
-    }
-
+public class RobotIdleState : RobotState {
     public override RobotState HandleInput(
     RobotStateMachine stateMachine, XboxInput xboxInput) {
+        if (!this.IsAnimationPlaying(stateMachine, "RobotIdle")) {
+            return null;
+        }
+
         if (Input.GetKeyDown( xboxInput.A )) {
             return new RobotAttackState();
         }
@@ -21,17 +17,28 @@ public class RobotNoSpecialState : RobotState {
             return new RobotBlockState();
         }
 
-        return null;
+        if (Mathf.Abs( xboxInput.getLeftStickX() ) <= 0.2f &&
+            Mathf.Abs( xboxInput.getLeftStickY() ) <= 0.2f) {
+            return null;
+        } else {
+            if (xboxInput.RT()) {
+                return new RobotRunState();
+            } else {
+                return new RobotWalkState();
+            }
+        }
     }
 
     public override void Update(RobotStateMachine stateMachine) {
+
     }
 
     public override void Enter(RobotStateMachine stateMachine) {
-        Debug.Log("NOSPECIALSTATE ENTER!");
+        Debug.Log("IDLE ENTER!");
+        stateMachine.Animator.SetBool("IsWalk", false);
     }
 
     public override void Exit(RobotStateMachine stateMachine) {
-        Debug.Log("NOSPECIALSTATE EXIT!");
+        Debug.Log("IDLE EXIT!");
     }
 }

@@ -93,7 +93,7 @@ public class XboxInput
 	public bool RT ()
 	{
 		#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-		return (Input.GetAxis ("RT_" + id) < triggerMagnitudeMin);
+		return (Mathf.Abs(Input.GetAxis ("RT_" + id)) > triggerMagnitudeMin);
 		#elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
 		return (Input.GetAxis ("MAC_RT_" + id) < triggerMagnitudeMin);
 		#else

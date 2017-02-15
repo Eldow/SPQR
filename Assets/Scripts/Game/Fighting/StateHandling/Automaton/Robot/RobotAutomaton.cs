@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RobotAutomata : Automata {
+public class RobotAutomaton : Automaton {
     public RobotStateMachine StateMachine;
 
 	void Start () {

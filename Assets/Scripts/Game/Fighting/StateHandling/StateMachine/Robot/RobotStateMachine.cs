@@ -9,9 +9,9 @@ public class RobotStateMachine : StateMachine {
     public PlayerController PlayerController = null;
     protected RobotState _robotState = null;
     [HideInInspector]
-    public RobotAutomata RobotAutomata = null;
+    public RobotAutomaton RobotAutomata = null;
 
-    public virtual String DefaultState {
+    public virtual string DefaultState {
         get {
             return "RobotIdleState";
         }
@@ -43,7 +43,7 @@ public class RobotStateMachine : StateMachine {
             this._robotState = (RobotState)Activator.CreateInstance(stateType);
         }
 
-        this.RobotAutomata = this.gameObject.GetComponent<RobotAutomata>();
+        this.RobotAutomata = this.gameObject.GetComponent<RobotAutomaton>();
     }
 
     public override void HandleInput(XboxInput xboxInput) {
