@@ -56,7 +56,7 @@ public class PlayerController : NetworkBehaviour
         {
             return;
         }
-        // Movement();
+        Movement(); // TO REMOVED WHEN PC INPUTS WILL BE IMPLEMENTED!
     }
 
     // Movement management

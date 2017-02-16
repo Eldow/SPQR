@@ -3,29 +3,20 @@
 public class RobotWalkState : RobotState {
     public override RobotState HandleInput(RobotStateMachine stateMachine, 
         XboxInput xboxInput) {
-        if (Input.GetKeyDown(xboxInput.A)) { // IsWalk is still true!
-
+        if (Input.GetKeyDown(xboxInput.A)) {
             return new RobotAttackState();
         }
 
         if (Input.GetKeyDown(xboxInput.B)) {
-            // prevent from going back to Idle Animation
-            stateMachine.Animator.SetBool("IsBlock", true);
-            stateMachine.Animator.SetBool("IsWalk", false);
-
             return new RobotBlockState();
         }
 
         if (Mathf.Abs(xboxInput.getLeftStickX()) <= 0.2f &&
             Mathf.Abs(xboxInput.getLeftStickY()) <= 0.2f) {
-            stateMachine.Animator.SetBool("IsWalk", false);
-
             return new RobotIdleState();
         }
 
         if (xboxInput.RT()) {
-            stateMachine.Animator.SetBool("IsWalk", false);
-
             return new RobotRunState();
         }
 
@@ -48,7 +39,6 @@ public class RobotWalkState : RobotState {
 
     public override void Enter(RobotStateMachine stateMachine) {
         Debug.Log("WALK ENTER!");
-        stateMachine.Animator.SetBool("IsWalk", true); // always necessary!
         this.SaveToHistory(stateMachine); // necessary to keep track of history
     }
 

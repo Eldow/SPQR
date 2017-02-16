@@ -18,13 +18,13 @@ public class RobotIdleState : RobotState {
         if (Mathf.Abs(xboxInput.getLeftStickX()) <= 0.2f &&
             Mathf.Abs(xboxInput.getLeftStickY()) <= 0.2f) {
             return null;
-        } else {
-            if (xboxInput.RT()) {
-                return new RobotRunState();
-            } else {
-                return new RobotWalkState();
-            }
         }
+
+        if (xboxInput.RT()) {
+            return new RobotRunState();
+        }
+
+        return new RobotWalkState();
     }
 
     public override void Update(RobotStateMachine stateMachine) {
@@ -33,7 +33,6 @@ public class RobotIdleState : RobotState {
 
     public override void Enter(RobotStateMachine stateMachine) {
         Debug.Log("IDLE ENTER!");
-        stateMachine.Animator.SetBool("IsWalk", false);
         this.SaveToHistory(stateMachine);
     }
 

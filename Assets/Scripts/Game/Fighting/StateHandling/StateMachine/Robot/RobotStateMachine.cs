@@ -60,6 +60,8 @@ public class RobotStateMachine : StateMachine {
         this.RobotState.Exit(this);
         this.RobotState = robotState;
         this.RobotState.Enter(this);
+
+        this.Animator.SetTrigger(robotState.GetType().Name);
     }
 
     public virtual void SetState(RobotState robotState) {

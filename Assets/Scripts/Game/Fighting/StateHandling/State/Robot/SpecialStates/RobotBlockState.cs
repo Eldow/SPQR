@@ -33,6 +33,7 @@ public class RobotBlockState : RobotState {
         }
 
         if (this.IsCurrentAnimationFinished(stateMachine)) {
+
             return new RobotIdleState();
         }
 
@@ -45,12 +46,10 @@ public class RobotBlockState : RobotState {
 
     public override void Enter(RobotStateMachine stateMachine) {
         Debug.Log("BLOCK ENTER!");
-        stateMachine.Animator.SetBool("IsBlock", true);
     }
 
     public override void Exit(RobotStateMachine stateMachine) {
         Debug.Log("BLOCK EXIT!");
-        stateMachine.Animator.SetBool("IsBlock", false);
     }
 
     protected virtual bool CheckIfBlockHolding(XboxInput xboxInput) {
