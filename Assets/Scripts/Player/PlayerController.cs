@@ -14,19 +14,22 @@ public class PlayerController : NetworkBehaviour
     public float ballRotationSpeed = 50f;                                               // Ball rotation speed
     public const int maxHealth = 100;                                                   // Maximum health 
     public const int overheat = 100;                                                    // Maximum overheat
-    [SyncVar]
+    [SyncVar(hook = "OnChangeHealth")]
     public int currentHealth = maxHealth;                                               // Health synced with the other clients
     public int currentHeat = 0;                                                         // Overheat level
 
     private bool lockedMovement;                                                        // Locked/Unlocked camera boolean - TODO : replace with the actual input
     private Vector3 movement;                                                           // Vector representing the current direction & speed of the robot
+    private GameObject healthBar;                                                       // Health bar
 
     // On Player spawn
     public override void OnStartLocalPlayer()
     {
+        healthBar = GameObject.Find("HealthBar");
         lockedMovement = false;
         gameObject.tag = "LocalPlayer";
         TargetManager.instance.SetPlayer(gameObject);
+        GetComponent<RobotAutomaton>().enabled = true;
         GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
 		xboxInput = new XboxInput (1);
     }
@@ -108,7 +111,7 @@ public class PlayerController : NetworkBehaviour
     }
 
     // Call this anytime the robot takes damage to decrease its health
-    void TakeDamage(int amount)
+    public void TakeDamage(int amount)
     {
         if (!isServer)
         {
@@ -125,7 +128,7 @@ public class PlayerController : NetworkBehaviour
     }
 
     // Call this anytime the robot uses an ability to increase its heat
-    void IncreaseHeat(int amount)
+    public void IncreaseHeat(int amount)
     {
         if (!isServer)
         {
@@ -138,5 +141,13 @@ public class PlayerController : NetworkBehaviour
             Debug.Log("Overheat!");
         }
         Debug.Log(currentHeat);
+    }
+
+    void OnChangeHealth(int health)
+    {
+        if (healthBar != null)
+        {
+            healthBar.GetComponent<UIAnimHealthPersonal>().health = health;
+        }
     }
 }
