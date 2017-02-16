@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 114191337934088740}
   - component: {fileID: 114598020879292950}
   - component: {fileID: 54120004900048954}
+  - component: {fileID: 114368177117886938}
   m_Layer: 0
   m_Name: RobotWithColliders
   m_TagString: Untagged
@@ -2091,7 +2092,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 114
+  m_Constraints: 112
   m_CollisionDetection: 2
 --- !u!54 &54677871650331104
 Rigidbody:
@@ -2237,6 +2238,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxIncline: 30
+--- !u!114 &114368177117886938
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1356818416241256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4422ca7769b29bf4eb1b264f4920d978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StateMachine: {fileID: 0}
 --- !u!114 &114598020879292950
 MonoBehaviour:
   m_ObjectHideFlags: 1

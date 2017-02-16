@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking.NetworkSystem;
 
 public class RobotStateMachine : StateMachine {
     public Animator Animator = null;
     public PlayerController PlayerController = null;
-    protected RobotState _robotState = null;
+    protected RobotState RobotState = null;
     [HideInInspector]
-    public RobotAutomata RobotAutomata = null;
+    public RobotAutomaton RobotAutomata = null;
 
-    public virtual String DefaultState {
+    // to be changed in a child class, if necessary
+    public virtual string DefaultState {
         get {
             return "RobotIdleState";
         }
@@ -23,10 +21,10 @@ public class RobotStateMachine : StateMachine {
 
     void Update() {
         this.HandleInput(this.PlayerController.xboxInput);
-        this._robotState.Update(this);
+        this.RobotState.Update(this);
     }
 
-    public virtual void Initialize(String startingState = null) {
+    public virtual void Initialize(string startingState = null) {
         this.Animator = this.GetComponent<Animator>();
         this.PlayerController = this.GetComponent<PlayerController>();
 
@@ -38,16 +36,16 @@ public class RobotStateMachine : StateMachine {
 
         if (stateType == null) {
             Debug.LogError(startingState + ": unknown state to initialize!");
-            this._robotState = new RobotState(); // for logic's sake
+            this.RobotState = new RobotState(); // for logic's sake
         } else {
-            this._robotState = (RobotState)Activator.CreateInstance(stateType);
+            this.RobotState = (RobotState)Activator.CreateInstance(stateType);
         }
 
-        this.RobotAutomata = this.gameObject.GetComponent<RobotAutomata>();
+        this.RobotAutomata = this.gameObject.GetComponent<RobotAutomaton>();
     }
 
     public override void HandleInput(XboxInput xboxInput) {
-        RobotState robotState = this._robotState.HandleInput(this, xboxInput);
+        RobotState robotState = this.RobotState.HandleInput(this, xboxInput);
 
         this.SwitchState(robotState);
     }
@@ -55,9 +53,9 @@ public class RobotStateMachine : StateMachine {
     protected virtual void SwitchState(RobotState robotState) {
         if (robotState == null) return;
 
-        this._robotState.Exit(this);
-        this._robotState = robotState;
-        this._robotState.Enter(this);
+        this.RobotState.Exit(this);
+        this.RobotState = robotState;
+        this.RobotState.Enter(this);
     }
 
     public virtual void SetState(RobotState robotState) {

@@ -1,31 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RobotWalkState : RobotState {
-    void Start() {
-
-    }
-
-    void Update() {
-
-    }
-
-    public override RobotState HandleInput(
-    RobotStateMachine stateMachine, XboxInput xboxInput) {
-        if (Input.GetKeyDown("joystick button 0")) {
+    public override RobotState HandleInput(RobotStateMachine stateMachine, 
+        XboxInput xboxInput) {
+        if (Input.GetKeyDown(xboxInput.A)) {
             return new RobotAttackState();
         }
 
-        if (Input.GetKeyDown("joystick button 1")) {
+        if (Input.GetKeyDown(xboxInput.B)) {
             return new RobotBlockState();
         }
 
-        if (Mathf.Abs(Input.GetAxis("Horizontal")) <= 0.2f &&
-            Mathf.Abs(Input.GetAxis("Vertical")) <= 0.2f) {
+        if (Mathf.Abs(xboxInput.getLeftStickX()) <= 0.2f &&
+            Mathf.Abs(xboxInput.getLeftStickY()) <= 0.2f) {
             return new RobotIdleState();
         } else {
-            return null;
+            return xboxInput.RT() ? new RobotRunState() : null;
         }
     }
 
@@ -40,5 +30,6 @@ public class RobotWalkState : RobotState {
 
     public override void Exit(RobotStateMachine stateMachine) {
         Debug.Log("WALK EXIT!");
+        stateMachine.Animator.SetBool("IsWalk", false);
     }
 }

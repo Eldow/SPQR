@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: a2c6be79e5ed3d144bf7e5519d3e0b9c
-timeCreated: 1486654271
+guid: 1a73ba0f1c62eb74c98408ffb301e2f0
+timeCreated: 1487203112
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -23,6 +23,8 @@ ModelImporter:
     100030: Robot:JTop
     100032: Robot:JTorso
     100034: //RootNode
+    100036: Robot:Body
+    100038: Robot:CTRLGlobal
     400000: Robot:JBall
     400002: Robot:JBall 1
     400004: Robot:JElbowLeft
@@ -41,7 +43,9 @@ ModelImporter:
     400030: Robot:JTop
     400032: Robot:JTorso
     400034: //RootNode
-    7400000: RobotBlock
+    400036: Robot:Body
+    400038: Robot:CTRLGlobal
+    7400000: RobotAttack
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -65,9 +69,9 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: RobotBlock
+      name: RobotAttack
       takeName: Take 001
-      firstFrame: 7
+      firstFrame: 1
       lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0

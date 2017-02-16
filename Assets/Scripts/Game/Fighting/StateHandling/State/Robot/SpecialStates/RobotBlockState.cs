@@ -1,26 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RobotBlockState : RobotState {
-    void Start() {
-
-    }
-
-    void Update() {
-
-    }
-
-    public override RobotState HandleInput(
-    RobotStateMachine stateMachine, XboxInput xboxInput) {
-        if (!stateMachine.Animator.GetCurrentAnimatorStateInfo(0)
-            .IsName("RobotBlock")) {
+    public override RobotState HandleInput(RobotStateMachine stateMachine, 
+        XboxInput xboxInput) {
+        if (!this.IsAnimationPlaying(stateMachine, "RobotBlock")) {
             return null;
         }
 
-        if (stateMachine.Animator.GetCurrentAnimatorStateInfo(0)
-            .normalizedTime > 1 &&
-            !stateMachine.Animator.IsInTransition(0)) {
+        if (this.IsCurrentAnimationFinished(stateMachine)) {
             return new RobotIdleState();
         } else {
             return null;
