@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: a8af3f41c15bd444faeada5de5782f49
-timeCreated: 1487191834
+timeCreated: 1487266248
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -75,7 +75,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -91,40 +91,39 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: Robot:JPelvis
+      - path: Robot:JBall
         weight: 1
-      - path: Robot:JPelvis/Robot:JLegsTop
+      - path: Robot:JBall/Robot:JBall 1
         weight: 1
-      - path: Robot:JPelvis/Robot:JLegsTop/Robot:JLegsBottom
+      - path: Robot:JBall/Robot:JLegsBottom
         weight: 1
-      - path: Robot:JPelvis/Robot:JLegsTop/Robot:JLegsBottom/Robot:JBall
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JLegsTop
         weight: 1
-      - path: Robot:JPelvis/Robot:JLegsTop/Robot:JLegsBottom/Robot:JBall/Robot:JBall
-          1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft/Robot:JTipRotationLeft
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft/Robot:JTipRotationLeft
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft/Robot:JTipRotationLeft/Robot:JTipLeft
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft/Robot:JTipRotationLeft/Robot:JTipLeft
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight/Robot:JTipRotationRight
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight/Robot:JTipRotationRight
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight/Robot:JTipRotationRight/Robot:JTipRight
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight/Robot:JTipRotationRight/Robot:JTipRight
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JSternum
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JSternum
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JSternum/Robot:JHead
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JSternum/Robot:JHead
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JSternum/Robot:JHead/Robot:JTop
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JSternum/Robot:JHead/Robot:JTop
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}

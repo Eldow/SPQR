@@ -1,46 +1,48 @@
 fileFormatVersion: 2
 guid: a2c6be79e5ed3d144bf7e5519d3e0b9c
-timeCreated: 1486654271
+timeCreated: 1487266248
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Robot:JBall
-    100002: Robot:JBall 1
-    100004: Robot:JElbowLeft
-    100006: Robot:JElbowRight
-    100008: Robot:JHead
-    100010: Robot:JLegsBottom
-    100012: Robot:JLegsTop
-    100014: Robot:JPelvis
-    100016: Robot:JShoulderLeft
-    100018: Robot:JShoulderRight
-    100020: Robot:JSternum
-    100022: Robot:JTipLeft
-    100024: Robot:JTipRight
-    100026: Robot:JTipRotationLeft
-    100028: Robot:JTipRotationRight
-    100030: Robot:JTop
-    100032: Robot:JTorso
-    100034: //RootNode
-    400000: Robot:JBall
-    400002: Robot:JBall 1
-    400004: Robot:JElbowLeft
-    400006: Robot:JElbowRight
-    400008: Robot:JHead
-    400010: Robot:JLegsBottom
-    400012: Robot:JLegsTop
-    400014: Robot:JPelvis
-    400016: Robot:JShoulderLeft
-    400018: Robot:JShoulderRight
-    400020: Robot:JSternum
-    400022: Robot:JTipLeft
-    400024: Robot:JTipRight
-    400026: Robot:JTipRotationLeft
-    400028: Robot:JTipRotationRight
-    400030: Robot:JTop
-    400032: Robot:JTorso
-    400034: //RootNode
+    100000: Robot:ForearmLeft
+    100002: Robot:JBall
+    100004: Robot:JBall 1
+    100006: Robot:JElbowLeft
+    100008: Robot:JElbowRight
+    100010: Robot:JHead
+    100012: Robot:JLegsBottom
+    100014: Robot:JLegsTop
+    100016: Robot:JPelvis
+    100018: Robot:JShoulderLeft
+    100020: Robot:JShoulderRight
+    100022: Robot:JSternum
+    100024: Robot:JTipLeft
+    100026: Robot:JTipRight
+    100028: Robot:JTipRotationLeft
+    100030: Robot:JTipRotationRight
+    100032: Robot:JTop
+    100034: Robot:JTorso
+    100036: //RootNode
+    400000: Robot:ForearmLeft
+    400002: Robot:JBall
+    400004: Robot:JBall 1
+    400006: Robot:JElbowLeft
+    400008: Robot:JElbowRight
+    400010: Robot:JHead
+    400012: Robot:JLegsBottom
+    400014: Robot:JLegsTop
+    400016: Robot:JPelvis
+    400018: Robot:JShoulderLeft
+    400020: Robot:JShoulderRight
+    400022: Robot:JSternum
+    400024: Robot:JTipLeft
+    400026: Robot:JTipRight
+    400028: Robot:JTipRotationLeft
+    400030: Robot:JTipRotationRight
+    400032: Robot:JTop
+    400034: Robot:JTorso
+    400036: //RootNode
     7400000: RobotBlock
     9500000: //RootNode
   materials:
@@ -67,8 +69,8 @@ ModelImporter:
     - serializedVersion: 16
       name: RobotBlock
       takeName: Take 001
-      firstFrame: 7
-      lastFrame: 15
+      firstFrame: 1
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -91,40 +93,41 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: Robot:JPelvis
+      - path: Robot:JBall
         weight: 1
-      - path: Robot:JPelvis/Robot:JLegsTop
+      - path: Robot:JBall/Robot:JBall 1
         weight: 1
-      - path: Robot:JPelvis/Robot:JLegsTop/Robot:JLegsBottom
+      - path: Robot:JBall/Robot:JLegsBottom
         weight: 1
-      - path: Robot:JPelvis/Robot:JLegsTop/Robot:JLegsBottom/Robot:JBall
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JLegsTop
         weight: 1
-      - path: Robot:JPelvis/Robot:JLegsTop/Robot:JLegsBottom/Robot:JBall/Robot:JBall
-          1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft/Robot:JTipRotationLeft
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft/Robot:JTipRotationLeft
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft/Robot:JTipRotationLeft/Robot:JTipLeft
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft/Robot:JTipRotationLeft/Robot:JTipLeft
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft/Robot:JTipRotationLeft/Robot:JTipLeft/Robot:ForearmLeft
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight/Robot:JTipRotationRight
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight/Robot:JTipRotationRight/Robot:JTipRight
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight/Robot:JTipRotationRight
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JSternum
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight/Robot:JTipRotationRight/Robot:JTipRight
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JSternum/Robot:JHead
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JSternum
         weight: 1
-      - path: Robot:JPelvis/Robot:JTorso/Robot:JSternum/Robot:JHead/Robot:JTop
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JSternum/Robot:JHead
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JSternum/Robot:JHead/Robot:JTop
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}
