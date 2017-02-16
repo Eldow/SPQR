@@ -219,7 +219,7 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
-    swapUVChannels: 0
+    swapUVChannels: 1
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
@@ -231,7 +231,7 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
-    normalSmoothAngle: 60
+    normalSmoothAngle: 180
     normalImportMode: 1
     tangentImportMode: 3
   importAnimation: 1

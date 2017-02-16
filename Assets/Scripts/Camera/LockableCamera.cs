@@ -20,7 +20,7 @@ public class LockableCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-        // Lock button pressed : Player look at the opponent
+        // Lock button pressed : Player looks at the opponent
         if (isLocked)
         {
             if (TargetManager.instance.opponents.Count > 0)
