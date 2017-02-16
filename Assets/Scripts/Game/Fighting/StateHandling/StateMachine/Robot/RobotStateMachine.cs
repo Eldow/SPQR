@@ -19,7 +19,7 @@ public class RobotStateMachine : StateMachine {
         this.Initialize();
     }
 
-    void Update() {
+    void FixedUpdate() {
         this.HandleInput(this.PlayerController.xboxInput);
         this.RobotState.Update(this);
     }
