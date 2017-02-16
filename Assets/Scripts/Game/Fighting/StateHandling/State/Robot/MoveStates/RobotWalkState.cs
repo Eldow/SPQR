@@ -9,6 +9,8 @@ public class RobotWalkState : RobotState {
         }
 
         if (Input.GetKeyDown(xboxInput.B)) {
+            // prevent from going back to Idle Animation
+            stateMachine.Animator.SetBool("IsBlock", true);
             stateMachine.Animator.SetBool("IsWalk", false);
 
             return new RobotBlockState();

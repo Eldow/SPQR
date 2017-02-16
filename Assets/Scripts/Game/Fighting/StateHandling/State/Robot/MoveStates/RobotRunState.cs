@@ -23,6 +23,7 @@ public class RobotRunState : RobotState {
         }
 
         if (!xboxInput.RT()) {
+            stateMachine.Animator.SetBool("IsWalk", true);
             stateMachine.Animator.SetBool("IsRun", false);
 
             return new RobotWalkState();

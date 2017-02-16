@@ -1,4 +1,10 @@
 ﻿public class RobotState : State {
+    public float IASA { get; protected set; }
+
+    protected virtual void Initialize() {
+        this.IASA = 1.0f;
+    }
+
     public virtual RobotState HandleInput(RobotStateMachine stateMachine,
         XboxInput xboxInput) {
         return null;
@@ -49,12 +55,15 @@
 
     public virtual void SaveToHistory(RobotStateMachine stateMachine) {
         stateMachine.StateHistory.Enqueue(this.GetType().Name);
-        int a = 1;
     }
 
     public virtual bool IsLastState(RobotStateMachine stateMachine, 
         string lastStateGuessed) {
         return stateMachine.StateHistory.Peek() == 
             lastStateGuessed;
+    }
+
+    public virtual bool IsInterruptible(RobotStateMachine stateMachine) {
+        return this.IsCurrentAnimationPlayedPast(stateMachine, this.IASA);
     }
 }

@@ -13,9 +13,9 @@ public class RobotAttackState : RobotState {
             }
 
             return new RobotIdleState();
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     public override void Update(RobotStateMachine stateMachine) {

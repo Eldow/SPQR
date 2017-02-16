@@ -14,6 +14,7 @@ public class PlayerController : NetworkBehaviour
     public float ballRotationSpeed = 50f;                                               // Ball rotation speed
     public const int maxHealth = 100;                                                   // Maximum health 
     public const int overheat = 100;                                                    // Maximum overheat
+    public const float runSpeed = 3f;                                                  // Maximum run speed
     [SyncVar(hook = "OnChangeHealth")]
     public int currentHealth = maxHealth;                                               // Health synced with the other clients
     public int currentHeat = 0;                                                         // Overheat level
@@ -55,7 +56,7 @@ public class PlayerController : NetworkBehaviour
         {
             return;
         }
-        Movement();
+        // Movement();
     }
 
     // Movement management
@@ -78,7 +79,7 @@ public class PlayerController : NetworkBehaviour
 
     public void RunMovement()
     {
-        Movement(2);
+        Movement(runSpeed);
     }
     // Locked movement management : player translates with the left stick forward, backward and sideways
 	public void LockedMovement(float multiplier = 1)
@@ -98,8 +99,8 @@ public class PlayerController : NetworkBehaviour
 	public void UnlockedMovement(float multiplier = 1)
     {
         // Unlocked movement implementation
-        float x = xboxInput.getLeftStickX() * Time.deltaTime * 150.0f;
-        float z = xboxInput.getLeftStickY() * Time.deltaTime * 3.0f;
+        float x = xboxInput.getLeftStickX() * Time.deltaTime * multiplier * 150.0f;
+        float z = xboxInput.getLeftStickY() * Time.deltaTime * multiplier * 3.0f;
         //float x = Input.GetAxis("Horizontal") * Time.deltaTime * multiplier * 150.0f;
 		//float z = Input.GetAxis("Vertical") * Time.deltaTime * multiplier *3.0f;
 

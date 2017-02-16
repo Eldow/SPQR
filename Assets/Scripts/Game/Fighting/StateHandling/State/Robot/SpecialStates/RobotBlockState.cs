@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 
 public class RobotBlockState : RobotState {
+    protected override void Initialize() {
+        this.IASA = .7f;
+    }
+
     public override RobotState HandleInput(RobotStateMachine stateMachine, 
         XboxInput xboxInput) {
         if (!this.IsAnimationPlaying(stateMachine, "RobotBlock")) {
@@ -18,11 +22,21 @@ public class RobotBlockState : RobotState {
 
         this.ResumeAnimation(stateMachine);
 
+        if (this.IsInterruptible(stateMachine) && // can be interrupted!
+            (xboxInput.getLeftStickX() > .02f || 
+            xboxInput.getLeftStickY() > .02f)) {
+            if (xboxInput.RT()) {
+                return new RobotRunState();
+            }
+
+            return new RobotWalkState();
+        }
+
         if (this.IsCurrentAnimationFinished(stateMachine)) {
             return new RobotIdleState();
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     public override void Update(RobotStateMachine stateMachine) {
