@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿/* RobotAutomaton is an object that contains all the FSMs and other useful
+ * attributes / methods necessary for it. */
 public class RobotAutomaton : Automaton {
     public RobotStateMachine StateMachine;
 

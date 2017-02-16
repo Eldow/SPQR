@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RobotIdleState : RobotState {
-    public override RobotState HandleInput(
-    RobotStateMachine stateMachine, XboxInput xboxInput) {
+    public override RobotState HandleInput(RobotStateMachine stateMachine, 
+        XboxInput xboxInput) {
         if (!this.IsAnimationPlaying(stateMachine, "RobotIdle")) {
             return null;
         }

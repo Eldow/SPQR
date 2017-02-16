@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking.NetworkSystem;
 
 public class RobotStateMachine : StateMachine {
     public Animator Animator = null;

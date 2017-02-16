@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class RobotState : State {
-    public virtual RobotState HandleInput(RobotStateMachine stateMachine, XboxInput xboxInput) {
+﻿public class RobotState : State {
+    public virtual RobotState HandleInput(RobotStateMachine stateMachine, 
+        XboxInput xboxInput) {
         return null;
     }
 

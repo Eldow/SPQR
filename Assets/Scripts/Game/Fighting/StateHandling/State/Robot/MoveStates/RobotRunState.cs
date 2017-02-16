@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RobotRunState : RobotState {
-    public override RobotState HandleInput(
-    RobotStateMachine stateMachine, XboxInput xboxInput) {
+    public override RobotState HandleInput(RobotStateMachine stateMachine, 
+        XboxInput xboxInput) {
         if (Input.GetKeyDown(xboxInput.A)) {
             Debug.Log("Can't attack while running!");
             return null;
