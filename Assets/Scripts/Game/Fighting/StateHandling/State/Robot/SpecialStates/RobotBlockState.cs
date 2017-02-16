@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RobotBlockState : RobotState {
     public override RobotState HandleInput(RobotStateMachine stateMachine, 
@@ -10,7 +9,7 @@ public class RobotBlockState : RobotState {
 
         if (this.CheckIfBlockHolding(xboxInput)) {
             if (this.IsCurrentAnimationPlayedPast(stateMachine, .5f) && 
-                Math.Abs(stateMachine.Animator.speed) > .01f) {
+                Mathf.Abs(stateMachine.Animator.speed) > .01f) {
                 this.FreezeAnimation(stateMachine);
             }
 

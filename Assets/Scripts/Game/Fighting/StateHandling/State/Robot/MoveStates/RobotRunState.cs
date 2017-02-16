@@ -9,14 +9,31 @@ public class RobotRunState : RobotState {
         }
 
         if (Input.GetKeyDown(xboxInput.B)) {
+            this.ResumeAnimation(stateMachine);
+
             return new RobotBlockState();
         }
 
         if (Mathf.Abs(xboxInput.getLeftStickX()) <= 0.2f &&
             Mathf.Abs(xboxInput.getLeftStickY()) <= 0.2f) {
+            this.ResumeAnimation(stateMachine);
+
             return new RobotIdleState();
         } else {
-            return !xboxInput.RT() ? new RobotWalkState() : null;
+            this.ResumeAnimation(stateMachine);
+
+            if (!xboxInput.RT()) {
+                this.ResumeAnimation(stateMachine);
+
+                return new RobotWalkState();
+            } else {
+                if (this.IsCurrentAnimationPlayedPast(stateMachine, .5f) &&
+                Mathf.Abs(stateMachine.Animator.speed) > .01f) {
+                    this.FreezeAnimation(stateMachine);
+                }
+
+                return null;
+            }
         }
     }
 
