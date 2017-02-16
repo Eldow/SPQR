@@ -20,7 +20,7 @@ public class RobotWalkState : RobotState {
     }
 
     public override void Update(RobotStateMachine stateMachine) {
-        stateMachine.PlayerController.UnlockedMovement();
+        stateMachine.PlayerController.Movement();
     }
 
     public override void Enter(RobotStateMachine stateMachine) {

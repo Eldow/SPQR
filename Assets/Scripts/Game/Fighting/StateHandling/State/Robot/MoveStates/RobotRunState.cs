@@ -21,7 +21,7 @@ public class RobotRunState : RobotState {
     }
 
     public override void Update(RobotStateMachine stateMachine) {
-        stateMachine.PlayerController.UnlockedRunMovement();
+        stateMachine.PlayerController.RunMovement();
     }
 
     public override void Enter(RobotStateMachine stateMachine) {

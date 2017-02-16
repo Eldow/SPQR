@@ -57,16 +57,16 @@ public class PlayerController : NetworkBehaviour
     }
 
     // Movement management
-    void Movement()
+    public void Movement(float multiplier = 1)
     {
         // Player's movement
         if (!lockedMovement)
         {
-            UnlockedMovement();
+            UnlockedMovement(multiplier);
         }
         else
         {
-            LockedMovement();
+            LockedMovement(multiplier);
         }
         // Make the sphere move around its center depending on the robot's direction and speed
         ball.transform.RotateAround(ball.transform.position, Vector3.up, movement.y * ballRotationSpeed);
@@ -74,12 +74,16 @@ public class PlayerController : NetworkBehaviour
         ball.transform.RotateAround(ball.transform.position, Vector3.right, movement.x * ballRotationSpeed);
     }
 
+    public void RunMovement()
+    {
+        Movement(2);
+    }
     // Locked movement management : player translates with the left stick forward, backward and sideways
-	public void LockedMovement()
+	public void LockedMovement(float multiplier = 1)
     {
         // Locked movement implementation
-        float x = xboxInput.getLeftStickX() * Time.deltaTime * 10.0f;
-		float z = xboxInput.getLeftStickY() * Time.deltaTime * 3.0f;
+        float x = xboxInput.getLeftStickX() * Time.deltaTime * multiplier * 10.0f;
+		float z = xboxInput.getLeftStickY() * Time.deltaTime * multiplier * 3.0f;
 
         transform.Translate(x, 0, 0);
         transform.Translate(0, 0, z);
@@ -89,13 +93,13 @@ public class PlayerController : NetworkBehaviour
     }
 
     // Unlocked movement management : player translates with the left stick forward and backward and rotates around itself sideways
-	public void UnlockedMovement()
+	public void UnlockedMovement(float multiplier = 1)
     {
         // Unlocked movement implementation
-        //float x = xboxInput.getLeftStickX() * Time.deltaTime * 150.0f;
-        //float z = xboxInput.getLeftStickY() * Time.deltaTime * 3.0f;
-        float x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
-		float z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
+        float x = xboxInput.getLeftStickX() * Time.deltaTime * 150.0f;
+        float z = xboxInput.getLeftStickY() * Time.deltaTime * 3.0f;
+        //float x = Input.GetAxis("Horizontal") * Time.deltaTime * multiplier * 150.0f;
+		//float z = Input.GetAxis("Vertical") * Time.deltaTime * multiplier *3.0f;
 
         transform.Rotate(0, x, 0);
         ball.transform.Rotate(0, -x, 0);
@@ -103,20 +107,6 @@ public class PlayerController : NetworkBehaviour
 
         movement = new Vector3(0.0f, 0.0f, z);
     }
-
-	// Unlocked movement management : player translates with the left stick forward and backward and rotates around itself sideways faster
-
-	public void UnlockedRunMovement ()
-	{
-		float x = Input.GetAxis("Horizontal") * Time.deltaTime *2* 150.0f;
-		float z = Input.GetAxis("Vertical") * Time.deltaTime *2* 3.0f;
-
-		transform.Rotate(0, x, 0);
-		ball.transform.Rotate(0, -x, 0);
-		transform.Translate(0, 0, z);
-
-		movement = new Vector3(0.0f, 0.0f, z);
-	}
 
     // Call this anytime the robot takes damage to decrease its health
     void TakeDamage(int amount)
