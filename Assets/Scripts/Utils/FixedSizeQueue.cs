@@ -3,6 +3,7 @@
 public class FixedSizedQueue<T> {
     private readonly object _privateLockObject = new object();
     private readonly Queue<T> _queue = new Queue<T>();
+    private T _lastAdded;
     public int Size { get; private set; }
 
     public FixedSizedQueue(int size) {
@@ -11,6 +12,7 @@ public class FixedSizedQueue<T> {
 
     public void Enqueue(T obj) {
         lock (this._privateLockObject) {
+            this._lastAdded = obj;
             this._queue.Enqueue(obj);
         }
 
@@ -23,7 +25,7 @@ public class FixedSizedQueue<T> {
 
     public T Peek() {
         lock (this._privateLockObject) {
-            return this._queue.Peek();
+            return this._lastAdded;
         }
     }
 }
