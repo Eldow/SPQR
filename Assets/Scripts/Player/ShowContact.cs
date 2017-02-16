@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColliderController : MonoBehaviour
+public class ShowContact : MonoBehaviour
 {
 
 	public GameObject hitPointPrefab;

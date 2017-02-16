@@ -28,9 +28,6 @@ public class PlayerController : NetworkBehaviour
 	{
 		if (!isLocalPlayer) {
 			TargetManager.instance.AddOpponent (gameObject);
-			Destroy (GetComponent<Rigidbody> ());
-			Destroy (GetComponent<RobotAutomaton> ());
-			Destroy (GetComponent<PlayerController> ());
 		}
 	}
 
