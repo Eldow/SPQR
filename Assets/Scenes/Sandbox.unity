@@ -2887,6 +2887,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 198016839608633838, guid: aed95fda8edd41f4d989a906c5f12e36,
+        type: 2}
+      propertyPath: CollisionModule.plane0
+      value: 
+      objectReference: {fileID: 828790074}
     - target: {fileID: 1356818416241256, guid: aed95fda8edd41f4d989a906c5f12e36, type: 2}
       propertyPath: m_IsActive
       value: 0

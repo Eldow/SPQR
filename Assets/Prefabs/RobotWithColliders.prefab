@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4341803406948408}
   - component: {fileID: 33844916670391112}
   - component: {fileID: 23118646863154842}
-  - component: {fileID: 65806571098146412}
+  - component: {fileID: 135702618761822226}
   m_Layer: 0
   m_Name: Robot:Ball
   m_TagString: Untagged
@@ -810,7 +810,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1938000325887996}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.0087}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4398248801033222}
@@ -2234,18 +2234,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0225754, y: 0.012359399, z: 0.011438336}
   m_Center: {x: -0.029496623, y: 0.016189806, z: -0.002322193}
---- !u!65 &65806571098146412
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1045149970008784}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.01, y: 0.04170783, z: 0.01}
-  m_Center: {x: 0.00000010900176, y: 0.010853303, z: 1.1510368e-10}
 --- !u!65 &65839083554870580
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2443,6 +2431,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.006009344
   m_Center: {x: -7.3457944e-13, y: 0.000016870445, z: 0.000070105765}
+--- !u!135 &135702618761822226
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1045149970008784}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.010000009
+  m_Center: {x: -4.656617e-10, y: -0.000000008381903, z: -0.0000000037252903}
 --- !u!198 &198016839608633838
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -2498,7 +2498,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -34815498
+  randomSeed: 1154910756
   InitialModule:
     serializedVersion: 3
     enabled: 1
