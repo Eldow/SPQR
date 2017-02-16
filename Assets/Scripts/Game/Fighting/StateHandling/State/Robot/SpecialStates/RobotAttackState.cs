@@ -8,10 +8,11 @@ public class RobotAttackState : RobotState {
         }
 
         if (this.IsCurrentAnimationFinished(stateMachine)) {
-            /* Will return a Walk State which will shift to an Idle State,
-             * if necessary. The opposite won't work if we attack being in an
-             * Idle State and start moving in the same time. */
-            return new RobotWalkState();
+            if (this.IsLastState(stateMachine, "RobotWalkState")) {
+                return new RobotWalkState();
+            }
+
+            return new RobotIdleState();
         } else {
             return null;
         }

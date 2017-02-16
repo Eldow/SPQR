@@ -34,6 +34,7 @@ public class RobotIdleState : RobotState {
     public override void Enter(RobotStateMachine stateMachine) {
         Debug.Log("IDLE ENTER!");
         stateMachine.Animator.SetBool("IsWalk", false);
+        this.SaveToHistory(stateMachine);
     }
 
     public override void Exit(RobotStateMachine stateMachine) {

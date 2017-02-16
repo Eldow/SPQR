@@ -46,4 +46,15 @@
         float speed = 1) {
         stateMachine.Animator.speed = speed;
     }
+
+    public virtual void SaveToHistory(RobotStateMachine stateMachine) {
+        stateMachine.StateHistory.Enqueue(this.GetType().Name);
+        int a = 1;
+    }
+
+    public virtual bool IsLastState(RobotStateMachine stateMachine, 
+        string lastStateGuessed) {
+        return stateMachine.StateHistory.Peek() == 
+            lastStateGuessed;
+    }
 }

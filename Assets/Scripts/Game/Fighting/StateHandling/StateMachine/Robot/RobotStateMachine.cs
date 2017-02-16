@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RobotStateMachine : StateMachine {
@@ -7,6 +8,8 @@ public class RobotStateMachine : StateMachine {
     protected RobotState RobotState = null;
     [HideInInspector]
     public RobotAutomaton RobotAutomata = null;
+    [HideInInspector] public FixedSizedQueue<string> StateHistory;
+    public int MaxHistorySize = 12;
 
     // to be changed in a child class, if necessary
     public virtual string DefaultState {
@@ -24,7 +27,7 @@ public class RobotStateMachine : StateMachine {
         this.RobotState.Update(this);
     }
 
-    public virtual void Initialize(string startingState = null) {
+    protected virtual void Initialize(string startingState = null) {
         this.Animator = this.GetComponent<Animator>();
         this.PlayerController = this.GetComponent<PlayerController>();
 
@@ -42,6 +45,7 @@ public class RobotStateMachine : StateMachine {
         }
 
         this.RobotAutomata = this.gameObject.GetComponent<RobotAutomaton>();
+        this.StateHistory = new FixedSizedQueue<string>(this.MaxHistorySize);
     }
 
     public override void HandleInput(XboxInput xboxInput) {

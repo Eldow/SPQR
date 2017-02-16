@@ -4,7 +4,8 @@ public class RobotAutomaton : Automaton {
     public RobotStateMachine StateMachine;
 
 	void Start () {
-	    this.StateMachine = this.gameObject.AddComponent<RobotStateMachine>();
+	    this.StateMachine = 
+            this.gameObject.AddComponent<RobotStateMachine>();
 	}
 
 	void Update () {
