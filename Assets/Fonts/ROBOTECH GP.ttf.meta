@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: e93d6925e1653f74382cda5c1613cd08
+timeCreated: 1485480317
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: ROBOTECH GP
+  fontNames:
+  - ROBOTECH GP
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
