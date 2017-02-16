@@ -43,16 +43,15 @@ public class PlayerController : NetworkBehaviour
     // Updates the character 
     void Update()
     {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-
     }
 
     // Update physics
     void FixedUpdate()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
         Movement();
     }
 
