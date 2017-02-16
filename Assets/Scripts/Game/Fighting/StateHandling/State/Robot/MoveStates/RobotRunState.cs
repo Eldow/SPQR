@@ -18,11 +18,7 @@ public class RobotRunState : RobotState {
             Mathf.Abs(xboxInput.getLeftStickY()) <= 0.2f) {
             return new RobotIdleState();
         } else {
-            if (!xboxInput.RT()) {
-                return new RobotWalkState();
-            } else {
-                return null;
-            }
+            return !xboxInput.RT() ? new RobotWalkState() : null;
         }
     }
 

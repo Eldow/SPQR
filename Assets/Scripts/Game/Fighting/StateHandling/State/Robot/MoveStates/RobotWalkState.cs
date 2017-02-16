@@ -13,15 +13,11 @@ public class RobotWalkState : RobotState {
             return new RobotBlockState();
         }
 
-        if (Mathf.Abs( xboxInput.getLeftStickX() ) <= 0.2f &&
-            Mathf.Abs( xboxInput.getLeftStickY() ) <= 0.2f) {
+        if (Mathf.Abs(xboxInput.getLeftStickX()) <= 0.2f &&
+            Mathf.Abs(xboxInput.getLeftStickY()) <= 0.2f) {
             return new RobotIdleState();
         } else {
-            if (xboxInput.RT()) {
-                return new RobotRunState();
-            } else {
-                return null;
-            }
+            return xboxInput.RT() ? new RobotRunState() : null;
         }
     }
 

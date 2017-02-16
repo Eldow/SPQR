@@ -9,16 +9,16 @@ public class RobotIdleState : RobotState {
             return null;
         }
 
-        if (Input.GetKeyDown( xboxInput.A )) {
+        if (Input.GetKeyDown(xboxInput.A)) {
             return new RobotAttackState();
         }
 
-        if (Input.GetKeyDown( xboxInput.B )) {
+        if (Input.GetKeyDown(xboxInput.B)) {
             return new RobotBlockState();
         }
 
-        if (Mathf.Abs( xboxInput.getLeftStickX() ) <= 0.2f &&
-            Mathf.Abs( xboxInput.getLeftStickY() ) <= 0.2f) {
+        if (Mathf.Abs(xboxInput.getLeftStickX()) <= 0.2f &&
+            Mathf.Abs(xboxInput.getLeftStickY()) <= 0.2f) {
             return null;
         } else {
             if (xboxInput.RT()) {

@@ -5,15 +5,11 @@ using UnityEngine;
 public class RobotNoSpecialState : RobotState {
     public override RobotState HandleInput(
     RobotStateMachine stateMachine, XboxInput xboxInput) {
-        if (Input.GetKeyDown( xboxInput.A )) {
+        if (Input.GetKeyDown(xboxInput.A)) {
             return new RobotAttackState();
         }
 
-        if (Input.GetKeyDown( xboxInput.B )) {
-            return new RobotBlockState();
-        }
-
-        return null;
+        return Input.GetKeyDown(xboxInput.B) ? new RobotBlockState() : null;
     }
 
     public override void Update(RobotStateMachine stateMachine) {
