@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MainMenuManager : MonoBehaviour {
     private SceneStateMachine _sceneStateMachine = null;
