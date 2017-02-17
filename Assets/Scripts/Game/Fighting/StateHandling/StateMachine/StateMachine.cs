@@ -2,7 +2,8 @@
 using UnityEngine;
 
 public class StateMachine : MonoBehaviour {
-    protected State CurrentState = null;
+    [HideInInspector]
+    public State CurrentState { get; protected set; }
     [HideInInspector]
     public Automaton Automaton = null;
 

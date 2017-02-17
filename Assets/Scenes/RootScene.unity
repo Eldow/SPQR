@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 2027099026}
   - component: {fileID: 2027099025}
   m_Layer: 0
-  m_Name: SceneStateMachine
+  m_Name: SceneHandling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Automaton: {fileID: 0}
-  StateToLoadFirst: SceneStateSandbox
+  StateToLoadFirst: SceneStateMainMenu
 --- !u!114 &2027099026
 MonoBehaviour:
   m_ObjectHideFlags: 0

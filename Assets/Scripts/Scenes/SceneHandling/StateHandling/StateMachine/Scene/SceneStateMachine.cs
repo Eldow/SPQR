@@ -20,7 +20,7 @@ public class SceneStateMachine : StateMachine {
     protected override void Initialize(string startingState = null) {
         Type stateType = this.CheckStartingState(startingState);
 
-        if (stateType == null) return;    
+        if (stateType == null) return;
 
         this.CurrentState = (SceneState)Activator.CreateInstance(stateType);
 
@@ -28,18 +28,22 @@ public class SceneStateMachine : StateMachine {
     }
 
     public virtual void LoadScene(string sceneName) {
-        StartCoroutine(this.Test(sceneName));
+        this.StartCoroutine(this.LoadSceneRoutine(sceneName));
     }
 
-    public virtual IEnumerator Test(string sceneName) {
+    public virtual IEnumerator LoadSceneRoutine(string sceneName) {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
 
         yield return new WaitForEndOfFrame();
     }
 
-    public virtual bool UnloadScene(string sceneName) {
-        AsyncOperation operation = SceneManager.UnloadSceneAsync(sceneName);
+    public virtual void UnloadScene(string sceneName) {
+        SceneManager.UnloadSceneAsync(sceneName);
+    }
 
-        return operation.isDone; // to change
+    protected override void SwitchState(State state) {
+        if (!(state is SceneState)) return;
+
+        base.SwitchState(state);
     }
 }

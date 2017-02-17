@@ -32,8 +32,6 @@ public class SceneState : State {
     public override void Exit(StateMachine stateMachine) {
         if (!(stateMachine is SceneStateMachine)) return;
 
-        if (!((SceneStateMachine)stateMachine).UnloadScene(this.SceneName)) {
-            Debug.LogError(this.SceneName + ": error while unloading!");
-        }
+        ((SceneStateMachine)stateMachine).UnloadScene(this.SceneName);
     }
 }
