@@ -31,10 +31,6 @@ public class RobotStateMachine : StateMachine {
         this.Animator = this.GetComponent<Animator>();
         this.PlayerController = this.GetComponent<PlayerController>();
 
-        if (String.IsNullOrEmpty(startingState)) {
-            startingState = this.DefaultState;
-        }
-
         Type stateType = this.CheckStartingState(startingState);
 
         if (stateType == null) return;
