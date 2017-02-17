@@ -4,7 +4,7 @@ public class RobotNoSpecialState : RobotState {
     public override RobotState HandleInput(RobotStateMachine stateMachine, 
         XboxInput xboxInput) {
         if (Input.GetKeyDown(xboxInput.A)) {
-            return new RobotAttackState();
+            return new RobotAttack1State();
         }
 
         return Input.GetKeyDown(xboxInput.B) ? new RobotBlockState() : null;

@@ -8,7 +8,7 @@ public class RobotIdleState : RobotState {
         }
 
         if (Input.GetKeyDown(xboxInput.A)) {
-            return new RobotAttackState();
+            return new RobotAttack1State();
         }
 
         if (Input.GetKeyDown(xboxInput.B)) {

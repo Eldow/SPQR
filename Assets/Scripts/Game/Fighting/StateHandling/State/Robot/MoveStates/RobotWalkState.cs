@@ -4,7 +4,7 @@ public class RobotWalkState : RobotState {
     public override RobotState HandleInput(RobotStateMachine stateMachine, 
         XboxInput xboxInput) {
         if (Input.GetKeyDown(xboxInput.A)) {
-            return new RobotAttackState();
+            return new RobotAttack1State();
         }
 
         if (Input.GetKeyDown(xboxInput.B)) {

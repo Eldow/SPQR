@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 
-public class RobotAttackState : RobotState {
+public class RobotAttack1State : RobotState {
     public override RobotState HandleInput(RobotStateMachine stateMachine, 
         XboxInput xboxInput) {
-        if (!this.IsAnimationPlaying(stateMachine, "RobotAttack")) {
+        if (!this.IsAnimationPlaying(stateMachine, "RobotAttack1")) {
             return null;
+        }
+
+        if (Input.GetKeyDown(xboxInput.A)) {
+            return new RobotAttack2State();
         }
 
         if (this.IsCurrentAnimationFinished(stateMachine)) {
@@ -23,12 +27,10 @@ public class RobotAttackState : RobotState {
     }
 
     public override void Enter(RobotStateMachine stateMachine) {
-        Debug.Log("ATTACK ENTER!");
-        stateMachine.Animator.SetBool("IsAttack", true);
+        Debug.Log("ATTACK1 ENTER!");
     }
 
     public override void Exit(RobotStateMachine stateMachine) {
-        Debug.Log("ATTACK EXIT!");
-        stateMachine.Animator.SetBool("IsAttack", false);
+        Debug.Log("ATTACK1 EXIT!");
     }
 }

@@ -1,49 +1,47 @@
 fileFormatVersion: 2
 guid: 1a73ba0f1c62eb74c98408ffb301e2f0
-timeCreated: 1487266248
+timeCreated: 1487294422
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Robot:ForearmRight
-    100002: Robot:JBall
-    100004: Robot:JBall 1
-    100006: Robot:JElbowLeft
-    100008: Robot:JElbowRight
-    100010: Robot:JHead
-    100012: Robot:JLegsBottom
-    100014: Robot:JLegsTop
-    100016: Robot:JPelvis
-    100018: Robot:JShoulderLeft
-    100020: Robot:JShoulderRight
-    100022: Robot:JSternum
-    100024: Robot:JTipLeft
-    100026: Robot:JTipRight
-    100028: Robot:JTipRotationLeft
-    100030: Robot:JTipRotationRight
-    100032: Robot:JTop
-    100034: Robot:JTorso
-    100036: //RootNode
-    400000: Robot:ForearmRight
-    400002: Robot:JBall
-    400004: Robot:JBall 1
-    400006: Robot:JElbowLeft
-    400008: Robot:JElbowRight
-    400010: Robot:JHead
-    400012: Robot:JLegsBottom
-    400014: Robot:JLegsTop
-    400016: Robot:JPelvis
-    400018: Robot:JShoulderLeft
-    400020: Robot:JShoulderRight
-    400022: Robot:JSternum
-    400024: Robot:JTipLeft
-    400026: Robot:JTipRight
-    400028: Robot:JTipRotationLeft
-    400030: Robot:JTipRotationRight
-    400032: Robot:JTop
-    400034: Robot:JTorso
-    400036: //RootNode
-    7400000: RobotAttack
+    100000: Robot:JBall
+    100002: Robot:JBall 1
+    100004: Robot:JElbowLeft
+    100006: Robot:JElbowRight
+    100008: Robot:JHead
+    100010: Robot:JLegsBottom
+    100012: Robot:JLegsTop
+    100014: Robot:JPelvis
+    100016: Robot:JShoulderLeft
+    100018: Robot:JShoulderRight
+    100020: Robot:JSternum
+    100022: Robot:JTipLeft
+    100024: Robot:JTipRight
+    100026: Robot:JTipRotationLeft
+    100028: Robot:JTipRotationRight
+    100030: Robot:JTop
+    100032: Robot:JTorso
+    100034: //RootNode
+    400000: Robot:JBall
+    400002: Robot:JBall 1
+    400004: Robot:JElbowLeft
+    400006: Robot:JElbowRight
+    400008: Robot:JHead
+    400010: Robot:JLegsBottom
+    400012: Robot:JLegsTop
+    400014: Robot:JPelvis
+    400016: Robot:JShoulderLeft
+    400018: Robot:JShoulderRight
+    400020: Robot:JSternum
+    400022: Robot:JTipLeft
+    400024: Robot:JTipRight
+    400026: Robot:JTipRotationLeft
+    400028: Robot:JTipRotationRight
+    400030: Robot:JTop
+    400032: Robot:JTorso
+    400034: //RootNode
+    7400000: RobotAttack1
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -67,7 +65,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: RobotAttack
+      name: RobotAttack1
       takeName: Take 001
       firstFrame: 1
       lastFrame: 24
@@ -120,8 +118,6 @@ ModelImporter:
       - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight/Robot:JTipRotationRight
         weight: 1
       - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight/Robot:JTipRotationRight/Robot:JTipRight
-        weight: 1
-      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight/Robot:JTipRotationRight/Robot:JTipRight/Robot:ForearmRight
         weight: 1
       - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JSternum
         weight: 1
