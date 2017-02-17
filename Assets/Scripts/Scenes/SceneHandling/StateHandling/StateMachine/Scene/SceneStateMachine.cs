@@ -7,7 +7,7 @@ public class SceneStateMachine : StateMachine {
     public string StateToLoadFirst = "";
 
     // to be changed in a child class, if necessary
-    public virtual string DefaultState {
+    public override string DefaultState {
         get {
             return "SandboxSceneState";
         }
