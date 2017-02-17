@@ -1,5 +1,8 @@
 ﻿public class State {
-	  public virtual State HandleInput(StateMachine stateMachine, 
+    protected virtual void Initialize() {
+    }
+
+    public virtual State HandleInput(StateMachine stateMachine, 
           XboxInput xboxInput) {
 	      return null;
 	  }

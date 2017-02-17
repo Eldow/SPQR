@@ -12,7 +12,7 @@ public class RobotStateMachine : StateMachine {
     public int MaxHistorySize = 12;
 
     // to be changed in a child class, if necessary
-    public virtual string DefaultState {
+    public override string DefaultState {
         get {
             return "RobotIdleState";
         }
@@ -27,7 +27,7 @@ public class RobotStateMachine : StateMachine {
         this.RobotState.Update(this);
     }
 
-    protected virtual void Initialize(string startingState = null) {
+    protected override void Initialize(string startingState = null) {
         this.Animator = this.GetComponent<Animator>();
         this.PlayerController = this.GetComponent<PlayerController>();
 
@@ -35,14 +35,11 @@ public class RobotStateMachine : StateMachine {
             startingState = this.DefaultState;
         }
 
-        Type stateType = Type.GetType(startingState);
+        Type stateType = this.CheckStartingState(startingState);
 
-        if (stateType == null) {
-            Debug.LogError(startingState + ": unknown state to initialize!");
-            this.RobotState = new RobotState(); // for logic's sake
-        } else {
-            this.RobotState = (RobotState)Activator.CreateInstance(stateType);
-        }
+        if (stateType == null) return;
+
+        this.RobotState = (RobotState)Activator.CreateInstance(stateType);
 
         this.RobotAutomata = this.gameObject.GetComponent<RobotAutomaton>();
         this.StateHistory = new FixedSizedQueue<string>(this.MaxHistorySize);

@@ -1,7 +1,7 @@
 ﻿public class RobotState : State {
     public float IASA { get; protected set; }
 
-    protected virtual void Initialize() {
+    protected override void Initialize() {
         this.IASA = 1.0f;
     }
 
