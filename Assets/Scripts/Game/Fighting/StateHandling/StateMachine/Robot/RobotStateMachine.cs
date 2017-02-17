@@ -5,29 +5,25 @@ using UnityEngine;
 public class RobotStateMachine : StateMachine {
     public Animator Animator = null;
     public PlayerController PlayerController = null;
-    protected RobotState RobotState = null;
-    [HideInInspector]
-    public RobotAutomaton RobotAutomata = null;
     [HideInInspector] public FixedSizedQueue<string> StateHistory;
     public int MaxHistorySize = 12;
 
     // to be changed in a child class, if necessary
     public override string DefaultState {
-        get {
-            return "RobotIdleState";
-        }
+        get { return "RobotIdleState"; }
     }
 
     void Start() {
         this.Initialize();
     }
 
-    void FixedUpdate() {
+    void Update() {
         this.HandleInput(this.PlayerController.xboxInput);
-        this.RobotState.Update(this);
     }
 
     protected override void Initialize(string startingState = null) {
+        base.Initialize();
+
         this.Animator = this.GetComponent<Animator>();
         this.PlayerController = this.GetComponent<PlayerController>();
 
@@ -35,29 +31,15 @@ public class RobotStateMachine : StateMachine {
 
         if (stateType == null) return;
 
-        this.RobotState = (RobotState)Activator.CreateInstance(stateType);
-
-        this.RobotAutomata = this.gameObject.GetComponent<RobotAutomaton>();
+        this.CurrentState = (RobotState) Activator.CreateInstance(stateType);
         this.StateHistory = new FixedSizedQueue<string>(this.MaxHistorySize);
     }
 
-    public override void HandleInput(XboxInput xboxInput) {
-        RobotState robotState = this.RobotState.HandleInput(this, xboxInput);
+    protected override void SwitchState(State state) {
+        if (!(state is RobotState)) return;
 
-        this.SwitchState(robotState);
-    }
+        base.SwitchState(state);
 
-    protected virtual void SwitchState(RobotState robotState) {
-        if (robotState == null) return;
-
-        this.RobotState.Exit(this);
-        this.RobotState = robotState;
-        this.RobotState.Enter(this);
-
-        this.Animator.SetTrigger(robotState.GetType().Name);
-    }
-
-    public virtual void SetState(RobotState robotState) {
-        this.SwitchState(robotState);
+        this.Animator.SetTrigger(state.GetType().Name);
     }
 }

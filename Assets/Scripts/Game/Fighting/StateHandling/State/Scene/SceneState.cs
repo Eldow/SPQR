@@ -19,19 +19,20 @@ public class SceneState : State {
         this.SceneName = sceneName;
     }
 
-    public virtual void Update(SceneStateMachine stateMachine) {
+    public override void Update(StateMachine stateMachine) {
 
     }
 
-    protected virtual void 
-        Enter(SceneStateMachine stateMachine) {
-        if (!stateMachine.LoadScene(this.SceneName)) {
-            Debug.LogError(this.SceneName + ": unknown scene to load!");
-        }
+    public override void Enter(StateMachine stateMachine) {
+        if (!(stateMachine is SceneStateMachine)) return;
+
+        ((SceneStateMachine)stateMachine).LoadScene(this.SceneName);
     }
 
-    public virtual void Exit(SceneStateMachine stateMachine) {
-        if (!stateMachine.UnloadScene(this.SceneName)) {
+    public override void Exit(StateMachine stateMachine) {
+        if (!(stateMachine is SceneStateMachine)) return;
+
+        if (!((SceneStateMachine)stateMachine).UnloadScene(this.SceneName)) {
             Debug.LogError(this.SceneName + ": error while unloading!");
         }
     }

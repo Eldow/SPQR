@@ -2,6 +2,10 @@
 using UnityEngine;
 
 public class StateMachine : MonoBehaviour {
+    protected State CurrentState = null;
+    [HideInInspector]
+    public Automaton Automaton = null;
+
     // to be changed in a child class, if necessary
     public virtual string DefaultState {
         get {
@@ -9,8 +13,12 @@ public class StateMachine : MonoBehaviour {
         }
     }
 
+    void FixedUpdate() {
+        this.CurrentState.Update(this);
+    }
+
     protected virtual void Initialize(string startingState = null) {
-        
+        this.Automaton = this.gameObject.GetComponent<Automaton>();
     }
 
     protected virtual Type CheckStartingState(string startingState) {
@@ -30,6 +38,20 @@ public class StateMachine : MonoBehaviour {
     }
 
     public virtual void HandleInput(XboxInput xboxInput) {
+        State state = this.CurrentState.HandleInput(this, xboxInput);
 
+        this.SwitchState(state);
+    }
+
+    protected virtual void SwitchState(State state) {
+        if (state == null) return;
+
+        this.CurrentState.Exit(this);
+        this.CurrentState = state;
+        this.CurrentState.Enter(this);
+    }
+
+    public virtual void SetState(State state) {
+        this.SwitchState(state);
     }
 }

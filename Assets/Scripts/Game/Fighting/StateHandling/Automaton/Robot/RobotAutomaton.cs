@@ -1,13 +1,12 @@
 ﻿/* RobotAutomaton is an object that contains all the FSMs and other useful
  * attributes / methods necessary for it. */
 public class RobotAutomaton : Automaton {
-    public RobotStateMachine StateMachine;
+    void Start() {
+        if ((this.StateMachine =
+                this.gameObject.GetComponent<StateMachine>()) != null) {
+            return;
+        }
 
-	void Start () {
-	    this.StateMachine = 
-            this.gameObject.AddComponent<RobotStateMachine>();
-	}
-
-	void Update () {
-	}
+        this.StateMachine = this.gameObject.AddComponent<RobotStateMachine>();
+    }
 }

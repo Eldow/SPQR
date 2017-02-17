@@ -5,24 +5,28 @@ public class RobotBlockState : RobotState {
         this.IASA = .7f;
     }
 
-    public override RobotState HandleInput(RobotStateMachine stateMachine, 
+    public override State HandleInput(StateMachine stateMachine,
         XboxInput xboxInput) {
-        if (!this.IsAnimationPlaying(stateMachine, "RobotBlock")) {
+        if (!(stateMachine is RobotStateMachine)) return null;
+
+        RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
+
+        if (!this.IsAnimationPlaying(robotStateMachine, "RobotBlock")) {
             return null;
         }
 
         if (this.CheckIfBlockHolding(xboxInput)) {
-            if (this.IsCurrentAnimationPlayedPast(stateMachine, .5f) && 
-                Mathf.Abs(stateMachine.Animator.speed) > .01f) {
-                this.FreezeAnimation(stateMachine);
+            if (this.IsCurrentAnimationPlayedPast(robotStateMachine, .5f) && 
+                Mathf.Abs(robotStateMachine.Animator.speed) > .01f) {
+                this.FreezeAnimation(robotStateMachine);
             }
 
             return null;
         }
 
-        this.ResumeAnimation(stateMachine);
+        this.ResumeAnimation(robotStateMachine);
 
-        if (this.IsInterruptible(stateMachine) && // can be interrupted!
+        if (this.IsInterruptible(robotStateMachine) && // can be interrupted!
             (xboxInput.getLeftStickX() > .02f || 
             xboxInput.getLeftStickY() > .02f)) {
             if (xboxInput.RT()) {
@@ -32,7 +36,7 @@ public class RobotBlockState : RobotState {
             return new RobotWalkState();
         }
 
-        if (this.IsCurrentAnimationFinished(stateMachine)) {
+        if (this.IsCurrentAnimationFinished(robotStateMachine)) {
 
             return new RobotIdleState();
         }
@@ -40,15 +44,15 @@ public class RobotBlockState : RobotState {
         return null;
     }
 
-    public override void Update(RobotStateMachine stateMachine) {
+    public override void Update(StateMachine stateMachine) {
 
     }
 
-    public override void Enter(RobotStateMachine stateMachine) {
+    public override void Enter(StateMachine stateMachine) {
         Debug.Log("BLOCK ENTER!");
     }
 
-    public override void Exit(RobotStateMachine stateMachine) {
+    public override void Exit(StateMachine stateMachine) {
         Debug.Log("BLOCK EXIT!");
     }
 

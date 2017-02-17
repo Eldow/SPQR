@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 
-public class Automaton : MonoBehaviour {
-	void Start () {
-		
-	}
+/* Automaton is an object that contains all the FSMs and other useful
+ * attributes / methods necessary for it. */
 
-	void Update () {
-		
-	}
+public class Automaton : MonoBehaviour {
+    [HideInInspector]
+    public StateMachine StateMachine = null;
+
+    void Start() {
+        if ((this.StateMachine =
+                this.gameObject.GetComponent<StateMachine>()) != null) {
+            return;
+        }
+    }
 }

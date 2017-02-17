@@ -5,21 +5,9 @@
         this.IASA = 1.0f;
     }
 
-    public virtual RobotState HandleInput(RobotStateMachine stateMachine,
+    public override State HandleInput(StateMachine stateMachine,
         XboxInput xboxInput) {
         return null;
-    }
-
-    public virtual void Update(RobotStateMachine stateMachine) {
-
-    }
-
-    public virtual void Enter(RobotStateMachine stateMachine) {
-
-    }
-
-    public virtual void Exit(RobotStateMachine stateMachine) {
-
     }
 
     public virtual bool IsAnimationPlaying(RobotStateMachine stateMachine,

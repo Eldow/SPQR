@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 
 public class RobotWalkState : RobotState {
-    public override RobotState HandleInput(RobotStateMachine stateMachine, 
+    public override State HandleInput(StateMachine stateMachine,
         XboxInput xboxInput) {
+        if (!(stateMachine is RobotStateMachine)) return null;
         if (Input.GetKeyDown(xboxInput.A)) {
             return new RobotAttack1State();
         }
@@ -25,26 +26,36 @@ public class RobotWalkState : RobotState {
          * and ending. We have to freeze it in the middle while the player is
          * walking.
          */
-        if (this.IsCurrentAnimationPlayedPast(stateMachine, .5f) &&
-            Mathf.Abs(stateMachine.Animator.speed) > .01f) {
-            this.FreezeAnimation(stateMachine);
+        RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
+
+        if (this.IsCurrentAnimationPlayedPast(robotStateMachine, .5f) &&
+            Mathf.Abs(robotStateMachine.Animator.speed) > .01f) {
+            this.FreezeAnimation(robotStateMachine);
         }
 
         return null;
     }
 
-    public override void Update(RobotStateMachine stateMachine) {
-        stateMachine.PlayerController.Movement(); // movement is allowed
+    public override void Update(StateMachine stateMachine) {
+        if (!(stateMachine is RobotStateMachine)) return;
+
+        ((RobotStateMachine)stateMachine).PlayerController.Movement();
     }
 
-    public override void Enter(RobotStateMachine stateMachine) {
+    public override void Enter(StateMachine stateMachine) {
         Debug.Log("WALK ENTER!");
-        this.SaveToHistory(stateMachine); // necessary to keep track of history
+        if (!(stateMachine is RobotStateMachine)) return;
+
+        // necessary to keep track of history
+        this.SaveToHistory((RobotStateMachine)stateMachine);
     }
 
-    public override void Exit(RobotStateMachine stateMachine) {
+    public override void Exit(StateMachine stateMachine) {
         Debug.Log("WALK EXIT!");
+
+        if (!(stateMachine is RobotStateMachine)) return;
+
         // the animation don't have to be frozen anymore
-        this.ResumeAnimation(stateMachine);
+        this.ResumeAnimation((RobotStateMachine)stateMachine);
     }
 }

@@ -99,9 +99,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2027099024}
+  - component: {fileID: 2027099026}
   - component: {fileID: 2027099025}
   m_Layer: 0
-  m_Name: RootSceneStateMachine
+  m_Name: SceneStateMachine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,4 +132,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c29ffa1bd54bd144be9e5e520c46027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StateToLoadFirst: SandboxSceneState
+  Automaton: {fileID: 0}
+  StateToLoadFirst: SceneStateSandbox
+--- !u!114 &2027099026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2027099023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dcf61f0027c1844eb3f914507b1f232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StateMachine: {fileID: 2027099025}

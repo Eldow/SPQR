@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 
 public class RobotIdleState : RobotState {
-    public override RobotState HandleInput(RobotStateMachine stateMachine, 
+    public override State HandleInput(StateMachine stateMachine, 
         XboxInput xboxInput) {
-        if (!this.IsAnimationPlaying(stateMachine, "RobotIdle")) {
+        if (!(stateMachine is RobotStateMachine)) return null;
+
+        if (!this.IsAnimationPlaying((RobotStateMachine)stateMachine, 
+            "RobotIdle")) {
             return null;
         }
 
@@ -27,16 +30,24 @@ public class RobotIdleState : RobotState {
         return new RobotWalkState();
     }
 
-    public override void Update(RobotStateMachine stateMachine) {
+    public override void Update(StateMachine stateMachine) {
 
     }
 
-    public override void Enter(RobotStateMachine stateMachine) {
+    public override void Enter(StateMachine stateMachine) {
         Debug.Log("IDLE ENTER!");
-        this.SaveToHistory(stateMachine);
+        if (!(stateMachine is RobotStateMachine)) return;
+
+        // necessary to keep track of history
+        this.SaveToHistory((RobotStateMachine)stateMachine);
     }
 
-    public override void Exit(RobotStateMachine stateMachine) {
+    public override void Exit(StateMachine stateMachine) {
         Debug.Log("IDLE EXIT!");
+
+        if (!(stateMachine is RobotStateMachine)) return;
+
+        // the animation don't have to be frozen anymore
+        this.ResumeAnimation((RobotStateMachine)stateMachine);
     }
 }

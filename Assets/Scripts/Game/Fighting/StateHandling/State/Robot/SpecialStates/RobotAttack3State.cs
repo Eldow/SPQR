@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
 
 public class RobotAttack3State : RobotState {
-    public override RobotState HandleInput(RobotStateMachine stateMachine,
+    public override State HandleInput(StateMachine stateMachine,
         XboxInput xboxInput) {
-        if (!this.IsAnimationPlaying(stateMachine, "RobotAttack3")) {
+        if (!(stateMachine is RobotStateMachine)) return null;
+
+        RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
+
+        if (!this.IsAnimationPlaying(robotStateMachine, "RobotAttack3")) {
             return null;
         }
 
-        if (this.IsCurrentAnimationFinished(stateMachine)) {
-            if (this.IsLastState(stateMachine, "RobotWalkState")) {
+        if (this.IsCurrentAnimationFinished(robotStateMachine)) {
+            if (this.IsLastState(robotStateMachine, "RobotWalkState")) {
                 return new RobotWalkState();
             }
 
@@ -18,15 +22,17 @@ public class RobotAttack3State : RobotState {
         return null;
     }
 
-    public override void Update(RobotStateMachine stateMachine) {
-        stateMachine.PlayerController.Movement();
+    public override void Update(StateMachine stateMachine) {
+        if (!(stateMachine is RobotStateMachine)) return;
+
+        ((RobotStateMachine)stateMachine).PlayerController.Movement();
     }
 
-    public override void Enter(RobotStateMachine stateMachine) {
+    public override void Enter(StateMachine stateMachine) {
         Debug.Log("ATTACK3 ENTER!");
     }
 
-    public override void Exit(RobotStateMachine stateMachine) {
+    public override void Exit(StateMachine stateMachine) {
         Debug.Log("ATTACK3 EXIT!");
     }
 }
