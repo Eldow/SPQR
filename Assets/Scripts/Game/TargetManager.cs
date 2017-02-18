@@ -48,6 +48,12 @@ public class TargetManager : MonoBehaviour {
     // TODO : Multiple ennemy focus - Gets nearest opponent to focus
     public GameObject GetNearestOpponent()
     {
-        return opponents[0];
+        if(opponents.Count > 0)
+        {
+            return opponents[0];
+        } else
+        {
+            return null;
+        }
     }
 }

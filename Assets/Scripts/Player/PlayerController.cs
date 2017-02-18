@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 */
 public class PlayerController : NetworkBehaviour
 {
+    public GameObject cameraHolder;                                                     // Camera holder
     public XboxInput xboxInput;                                                         // Input manager
     public GameObject ball;                                                             // Ball gameObject 
     public float lockedForwardSpeed, lockedBackwardSpeed, lockedSidewaySpeed;           // Locked speeds
@@ -14,12 +15,12 @@ public class PlayerController : NetworkBehaviour
     public float ballRotationSpeed = 50f;                                               // Ball rotation speed
     public const int maxHealth = 100;                                                   // Maximum health 
     public const int overheat = 100;                                                    // Maximum overheat
-    public const float runSpeed = 3f;                                                  // Maximum run speed
+    public const float runSpeed = 3f;                                                   // Maximum run speed
     [SyncVar(hook = "OnChangeHealth")]
     public int currentHealth = maxHealth;                                               // Health synced with the other clients
     public int currentHeat = 0;                                                         // Overheat level
 
-    private bool lockedMovement;                                                        // Locked/Unlocked camera boolean - TODO : replace with the actual input
+    public bool lockedMovement;                                                        // Locked/Unlocked camera boolean - TODO : replace with the actual input
     private Vector3 movement;                                                           // Vector representing the current direction & speed of the robot
     private GameObject healthBar;                                                       // Health bar
 
@@ -29,10 +30,11 @@ public class PlayerController : NetworkBehaviour
         healthBar = GameObject.Find("HealthBar");
         lockedMovement = false;
         gameObject.tag = "LocalPlayer";
-        TargetManager.instance.SetPlayer(gameObject);
         GetComponent<RobotAutomaton>().enabled = true;
         GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
 		xboxInput = new XboxInput (1);
+        TargetManager.instance.SetPlayer(gameObject);
+        cameraHolder.GetComponent<FreeCameraLook>().SetTarget(transform);
     }
 
     // On Opponent spawn
@@ -56,7 +58,6 @@ public class PlayerController : NetworkBehaviour
         {
             return;
         }
-        Movement(); // TO REMOVED WHEN PC INPUTS WILL BE IMPLEMENTED!
     }
 
     // Movement management
