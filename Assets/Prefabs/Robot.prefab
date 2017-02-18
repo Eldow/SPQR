@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 54684690784134410}
   m_Layer: 0
   m_Name: Robot
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1001,7 +1001,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1621624485160120}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.0054}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4584077605139554}
@@ -2882,6 +2882,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87a2c13c89103441b9d2106650b91ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraHolder: {fileID: 1119744968098582, guid: 2c64c8025846ca044be72463b8832733,
+    type: 2}
   ball: {fileID: 1522624969207744}
   lockedForwardSpeed: 5
   lockedBackwardSpeed: 5
@@ -2892,6 +2894,7 @@ MonoBehaviour:
   ballRotationSpeed: 50
   currentHealth: 100
   currentHeat: 0
+  lockedMovement: 0
 --- !u!114 &114217376815515758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3032,7 +3035,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1621624485160120}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -3079,7 +3082,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -209018099
+  randomSeed: -1940595222
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5603,8 +5606,8 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: f63c576739a709747a1a571260d4fabd, type: 2}
+  - {fileID: 2100000, guid: 77d08210df254d845885518314593544, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
