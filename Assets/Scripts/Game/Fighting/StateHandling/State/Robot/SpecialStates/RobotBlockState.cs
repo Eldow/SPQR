@@ -5,8 +5,7 @@ public class RobotBlockState : RobotState {
         this.IASA = .7f;
     }
 
-    public override State HandleInput(StateMachine stateMachine,
-        XboxInput xboxInput) {
+    public override State HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
 
         RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
@@ -15,21 +14,20 @@ public class RobotBlockState : RobotState {
             return null;
         }
 
-        if (this.CheckIfBlockHolding(xboxInput)) {
+        if (this.CheckIfBlockHolding()) {
             if (this.IsCurrentAnimationPlayedPast(robotStateMachine, .5f) && 
                 Mathf.Abs(robotStateMachine.Animator.speed) > .01f) {
                 this.FreezeAnimation(robotStateMachine);
             }
-
             return null;
         }
 
         this.ResumeAnimation(robotStateMachine);
 
         if (this.IsInterruptible(robotStateMachine) && // can be interrupted!
-            (xboxInput.getLeftStickX() > .02f || 
-            xboxInput.getLeftStickY() > .02f)) {
-            if (xboxInput.RT()) {
+			(InputManager.moveX() > .02f || 
+				InputManager.moveY() > .02f)) {
+			if (InputManager.runButton()) {
                 return new RobotRunState();
             }
 
@@ -56,7 +54,8 @@ public class RobotBlockState : RobotState {
         Debug.Log("BLOCK EXIT!");
     }
 
-    protected virtual bool CheckIfBlockHolding(XboxInput xboxInput) {
-        return Input.GetKey(xboxInput.B);
+    protected virtual bool CheckIfBlockHolding() {
+		// TODO bon retour mais ne peut pas bouger ?
+		return InputManager.blockButton();
     }
 }

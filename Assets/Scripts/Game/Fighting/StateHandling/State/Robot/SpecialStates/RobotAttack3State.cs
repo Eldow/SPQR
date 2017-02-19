@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
 public class RobotAttack3State : RobotState {
-    public override State HandleInput(StateMachine stateMachine,
-        XboxInput xboxInput) {
+    public override State HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
 
         RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;

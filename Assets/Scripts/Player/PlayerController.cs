@@ -8,7 +8,6 @@ using UnityEngine.Networking;
 public class PlayerController : NetworkBehaviour
 {
     public GameObject cameraHolder;                                                     // Camera holder
-    public XboxInput xboxInput;                                                         // Input manager
     public GameObject ball;                                                             // Ball gameObject 
     public float lockedForwardSpeed, lockedBackwardSpeed, lockedSidewaySpeed;           // Locked speeds
     public float unlockedForwardSpeed, unlockedBackwardSpeed, unlockedRotationSpeed;    // Unlocked speeds
@@ -32,7 +31,6 @@ public class PlayerController : NetworkBehaviour
         gameObject.tag = "LocalPlayer";
         GetComponent<RobotAutomaton>().enabled = true;
         GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
-		xboxInput = new XboxInput (1);
         TargetManager.instance.SetPlayer(gameObject);
         cameraHolder.GetComponent<FreeCameraLook>().SetTarget(transform);
     }
@@ -86,8 +84,8 @@ public class PlayerController : NetworkBehaviour
 	public void LockedMovement(float multiplier = 1)
     {
         // Locked movement implementation
-        float x = xboxInput.getLeftStickX() * Time.deltaTime * multiplier * 10.0f;
-		float z = xboxInput.getLeftStickY() * Time.deltaTime * multiplier * 3.0f;
+		float x = InputManager.moveX () * Time.deltaTime * multiplier * 10.0f;
+		float z = InputManager.moveY () * Time.deltaTime * multiplier * 3.0f;
 
         transform.Translate(x, 0, 0);
         transform.Translate(0, 0, z);
@@ -100,8 +98,8 @@ public class PlayerController : NetworkBehaviour
 	public void UnlockedMovement(float multiplier = 1)
     {
         // Unlocked movement implementation
-        float x = xboxInput.getLeftStickX() * Time.deltaTime * multiplier * 150.0f;
-        float z = xboxInput.getLeftStickY() * Time.deltaTime * multiplier * 3.0f;
+		float x = InputManager.moveX () * Time.deltaTime * multiplier * 150.0f;
+		float z = InputManager.moveY () * Time.deltaTime * multiplier * 3.0f;
         //float x = Input.GetAxis("Horizontal") * Time.deltaTime * multiplier * 150.0f;
 		//float z = Input.GetAxis("Vertical") * Time.deltaTime * multiplier *3.0f;
 

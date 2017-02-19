@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 
 public class RobotNoSpecialState : RobotState {
-    public override State HandleInput(StateMachine stateMachine,
-        XboxInput xboxInput) {
-        if (Input.GetKeyDown(xboxInput.A)) {
+    public override State HandleInput(StateMachine stateMachine) {
+		if (InputManager.attackButton()) {
             return new RobotAttack1State();
         }
 
-        return Input.GetKeyDown(xboxInput.B) ? new RobotBlockState() : null;
+		return InputManager.blockButton() ? new RobotBlockState() : null;
     }
 
     public override void Update(StateMachine stateMachine) {

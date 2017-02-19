@@ -5,8 +5,7 @@
         this.IASA = 1.0f;
     }
 
-    public override State HandleInput(StateMachine stateMachine,
-        XboxInput xboxInput) {
+    public override State HandleInput(StateMachine stateMachine) {
         return null;
     }
 

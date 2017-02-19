@@ -8,7 +8,6 @@ public abstract class FollowTarget : MonoBehaviour
     [SerializeField]
     private bool autoTargetPlayer = true;
     public bool lockCamera = false;
-    public XboxInput xboxInput;
     GameObject player, opponent;
 
     virtual protected void Start()
@@ -25,13 +24,13 @@ public abstract class FollowTarget : MonoBehaviour
         {
             FindTargetPlayer();
         }
-        if (target != null && xboxInput != null)
+        if (target != null)
         {
-            if (Input.GetKeyUp(xboxInput.LB))
+			if (InputManager.cameraButtonDown())
             {
                 FindTargetPlayer();
             }
-            if (Input.GetKey(xboxInput.LB))
+			if (InputManager.cameraButton())
             {
                 LookAtOpponent();
             }
@@ -48,10 +47,6 @@ public abstract class FollowTarget : MonoBehaviour
         player = TargetManager.instance.player;
         if (player != null)
         {
-            if(xboxInput == null)
-            {
-                xboxInput = player.GetComponent<PlayerController>().xboxInput;
-            }
             SetTarget(player.transform);
             player.GetComponent<PlayerController>().lockedMovement = false;
         }

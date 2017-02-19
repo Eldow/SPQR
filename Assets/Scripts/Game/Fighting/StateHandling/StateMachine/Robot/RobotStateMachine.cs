@@ -17,7 +17,7 @@ public class RobotStateMachine : StateMachine {
     }
 
     void Update() {
-        this.HandleInput(this.PlayerController.xboxInput);
+        this.HandleInput();
     }
 
     protected override void Initialize(string startingState = null) {

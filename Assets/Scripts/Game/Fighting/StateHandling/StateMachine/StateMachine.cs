@@ -38,9 +38,9 @@ public class StateMachine : MonoBehaviour {
         return stateType;
     }
 
-    public virtual void HandleInput(XboxInput xboxInput) {
-        State state = this.CurrentState.HandleInput(this, xboxInput);
-
+    public virtual void HandleInput() {
+        State state = this.CurrentState.HandleInput(this);
+	
         this.SwitchState(state);
     }
 

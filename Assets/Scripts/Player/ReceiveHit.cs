@@ -10,7 +10,8 @@ public class ReceiveHit : MonoBehaviour
 		//Use for different players
 		if (other.transform.name.Equals ("Robot:SwordRight") || other.transform.name.Equals ("Robot:SwordLeft")) {
 			Debug.Log ("Player got hit in :" + other.contacts [0].thisCollider.name);
-            TargetManager.instance.GetNearestOpponent().GetComponent<PlayerController>().TakeDamage(10);
+            //TargetManager.instance.GetNearestOpponent().GetComponent<PlayerController>().TakeDamage(10);
+			// TODO fix this <3
 		} 
 	}
 }

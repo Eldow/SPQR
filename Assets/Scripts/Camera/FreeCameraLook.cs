@@ -45,7 +45,7 @@ public class FreeCameraLook : Pivot
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, turnSpeed);
         }
-        else if(xboxInput != null)
+		else
         {
             HandleRotationMovement();
         }
@@ -69,8 +69,8 @@ public class FreeCameraLook : Pivot
 
     void HandleRotationMovement()
     {
-        float x = xboxInput.getRightStickX();
-        float y = xboxInput.getRightStickY();
+		float x = InputManager.cameraX();
+		float y = InputManager.cameraY();
 
         if (turnsmoothing > 0)
         {

@@ -2,8 +2,7 @@
     protected virtual void Initialize() {
     }
 
-    public virtual State HandleInput(StateMachine stateMachine, 
-          XboxInput xboxInput) {
+    public virtual State HandleInput(StateMachine stateMachine) {
 	      return null;
 	  }
 

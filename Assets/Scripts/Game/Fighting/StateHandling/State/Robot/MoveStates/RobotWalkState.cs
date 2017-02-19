@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
 
 public class RobotWalkState : RobotState {
-    public override State HandleInput(StateMachine stateMachine,
-        XboxInput xboxInput) {
+    public override State HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
-        if (Input.GetKeyDown(xboxInput.A)) {
+		if (InputManager.attackButton()) {
             return new RobotAttack1State();
         }
 
-        if (Input.GetKeyDown(xboxInput.B)) {
+		if (InputManager.blockButton()) {
             return new RobotBlockState();
         }
 
-        if (Mathf.Abs(xboxInput.getLeftStickX()) <= 0.2f &&
-            Mathf.Abs(xboxInput.getLeftStickY()) <= 0.2f) {
+		if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
+			Mathf.Abs(InputManager.moveY()) <= 0.2f) {
             return new RobotIdleState();
         }
 
-        if (xboxInput.RT()) {
+		if (InputManager.runButton()) {
             return new RobotRunState();
         }
 
