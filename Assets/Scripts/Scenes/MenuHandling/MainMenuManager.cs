@@ -18,4 +18,8 @@ public class MainMenuManager : MonoBehaviour {
     protected virtual bool CheckSceneStateMachine() {
         return this._sceneStateMachine != null;
     }
+	
+	public void QuitGame() {
+			Application.Quit();
+	}
 }
