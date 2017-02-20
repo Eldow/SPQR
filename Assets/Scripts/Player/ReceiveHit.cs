@@ -12,6 +12,7 @@ public class ReceiveHit : MonoBehaviour
 			Debug.Log ("Player got hit in :" + other.contacts [0].thisCollider.name);
             TargetManager.instance.GetNearestOpponent().GetComponent<PlayerController>().TakeDamage(10);
 			// TODO fix this <3
-		} 
+		}
+		TargetManager.instance.GetNearestOpponent().GetComponent<PlayerController>().automaton.StateMachine.SetState(new RobotHitstunState(200));
 	}
 }

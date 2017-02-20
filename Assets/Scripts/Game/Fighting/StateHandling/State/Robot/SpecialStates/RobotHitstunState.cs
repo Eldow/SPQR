@@ -1,35 +1,41 @@
 ﻿using UnityEngine;
 
-public class RobotAttack1State : RobotState {
+public class RobotHitstunState : RobotState {
+
+    private float HitstunTime;
+    private float StunStartTime;
+    private bool IsStunOver;
+
+    public RobotHitstunState(float Duration) {
+        StunStartTime = Time.frameCount;
+        HitstunTime = Duration;
+    }
 
     public override State HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
 
         RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
 
-        if (!this.IsAnimationPlaying(robotStateMachine, "RobotAttack1")) {
+        if (!this.IsAnimationPlaying(robotStateMachine, "RobotHitstun")) {
             return null;
         }
 
-    		if (InputManager.attackButton()) {
-                return new RobotAttack2State();
-        }
-
-        if (this.IsCurrentAnimationFinished(robotStateMachine)) {
+        /*if (this.IsCurrentAnimationFinished(robotStateMachine)) {
             if (this.IsLastState(robotStateMachine, "RobotWalkState")) {
                 return new RobotWalkState();
-        }
+            }
 
             return new RobotIdleState();
-        }
+        }*/
 
-        return null;
+        if (IsStunOver) {
+            return new RobotWalkState();
+        }
+        else return null;
     }
 
     public override void Update(StateMachine stateMachine) {
-        if (!(stateMachine is RobotStateMachine)) return;
-
-        ((RobotStateMachine)stateMachine).PlayerController.Movement();
+        IsStunOver =  ((Time.frameCount - StunStartTime) >= HitstunTime);
     }
 
     public override void Enter(StateMachine stateMachine) {

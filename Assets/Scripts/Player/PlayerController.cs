@@ -8,11 +8,11 @@ using UnityEngine.Networking;
 public class PlayerController : NetworkBehaviour
 {
     public GameObject cameraHolder;                                                     // Camera holder
-    public GameObject ball;                                                             // Ball gameObject 
+    public GameObject ball;                                                             // Ball gameObject
     public float lockedForwardSpeed, lockedBackwardSpeed, lockedSidewaySpeed;           // Locked speeds
     public float unlockedForwardSpeed, unlockedBackwardSpeed, unlockedRotationSpeed;    // Unlocked speeds
     public float ballRotationSpeed = 50f;                                               // Ball rotation speed
-    public const int maxHealth = 100;                                                   // Maximum health 
+    public const int maxHealth = 100;                                                   // Maximum health
     public const int overheat = 100;                                                    // Maximum overheat
     public const float runSpeed = 3f;                                                   // Maximum run speed
     [SyncVar(hook = "OnChangeHealth")]
@@ -24,13 +24,15 @@ public class PlayerController : NetworkBehaviour
     private Vector3 movement;                                                           // Vector representing the current direction & speed of the robot
     public GameObject playerInfo, opponentInfo;
     public GameObject canvas;
+    public Automaton automaton;
 
     // On Player spawn
     public override void OnStartLocalPlayer()
     {
         lockedMovement = false;
         gameObject.tag = "LocalPlayer";
-        GetComponent<RobotAutomaton>().enabled = true;
+        this.automaton = GetComponent<RobotAutomaton>();
+        this.automaton.enabled = true;
         GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
         TargetManager.instance.SetPlayer(gameObject);
         cameraHolder.GetComponent<FreeCameraLook>().SetTarget(transform);
@@ -50,7 +52,7 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    // Updates the character 
+    // Updates the character
     void Update()
     {
     }
