@@ -41,9 +41,9 @@ public class SceneStateMachine : StateMachine {
         SceneManager.UnloadSceneAsync(sceneName);
     }
 
-    protected override void SwitchState(State state) {
-        if (!(state is SceneState)) return;
+    protected override void SwitchState() {
+        if (!(this.NextState is SceneState)) return;
 
-        base.SwitchState(state);
+        base.SwitchState();
     }
 }

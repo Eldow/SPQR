@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Robot_RobotGreyArmor
+  m_Name: Arena
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
@@ -84,16 +84,16 @@ Material:
       second: 0
     - first:
         name: _GlossMapScale
-      second: 1
+      second: 0
     - first:
         name: _Glossiness
-      second: 0.71
+      second: 0
     - first:
         name: _GlossyReflections
       second: 1
     - first:
         name: _Metallic
-      second: 0
+      second: 0.577
     - first:
         name: _Mode
       second: 0
@@ -124,4 +124,4 @@ Material:
       second: {r: 0.49264705, g: 0.49264705, b: 0.49264705, a: 1}
     - first:
         name: _EmissionColor
-      second: {r: 0.28676468, g: 0.28676468, b: 0.28676468, a: 1}
+      second: {r: 0.66176474, g: 0.66176474, b: 0.66176474, a: 1}

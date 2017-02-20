@@ -16,8 +16,6 @@ public class MainMenuManager : MonoBehaviour {
     }
 
     protected virtual bool CheckSceneStateMachine() {
-        if (this._sceneStateMachine == null) return false;
-
-        return true;
+        return this._sceneStateMachine != null;
     }
 }
