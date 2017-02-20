@@ -6,6 +6,7 @@ public class StateMachine : MonoBehaviour {
     public State CurrentState { get; protected set; }
     [HideInInspector]
     public Automaton Automaton = null;
+    protected State NextState = null;
 
     // to be changed in a child class, if necessary
     public virtual string DefaultState {
@@ -14,7 +15,13 @@ public class StateMachine : MonoBehaviour {
         }
     }
 
+    void Update() {
+        this.HandleInput();
+    }
+
     void FixedUpdate() {
+        this.SwitchState();
+
         this.CurrentState.Update(this);
     }
 
@@ -39,20 +46,20 @@ public class StateMachine : MonoBehaviour {
     }
 
     public virtual void HandleInput() {
-        State state = this.CurrentState.HandleInput(this);
-	
-        this.SwitchState(state);
+        this.NextState = this.CurrentState.HandleInput(this);
     }
 
-    protected virtual void SwitchState(State state) {
-        if (state == null) return;
+    protected virtual void SwitchState() {
+        if (this.NextState == null) return;
 
         this.CurrentState.Exit(this);
-        this.CurrentState = state;
+        this.CurrentState = this.NextState;
         this.CurrentState.Enter(this);
+        this.NextState = null;
     }
 
     public virtual void SetState(State state) {
-        this.SwitchState(state);
+        this.NextState = state;
+        this.SwitchState();
     }
 }

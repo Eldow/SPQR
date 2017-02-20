@@ -43,7 +43,7 @@ ModelImporter:
     400032: Robot:JTop
     400034: Robot:JTorso
     400036: //RootNode
-    7400000: Take 001
+    7400000: RobotAttack3
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -65,7 +65,73 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: RobotAttack3
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Robot:JBall
+        weight: 1
+      - path: Robot:JBall/Robot:JBall 1
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JLegsTop
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft/Robot:JTipRotationLeft
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft/Robot:JTipRotationLeft/Robot:JTipLeft
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight/Robot:JTipRotationRight
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight/Robot:JTipRotationRight/Robot:JTipRight
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight/Robot:JTipRotationRight/Robot:JTipRight/Robot:ForearmRight
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JSternum
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JSternum/Robot:JHead
+        weight: 1
+      - path: Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JSternum/Robot:JHead/Robot:JTop
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

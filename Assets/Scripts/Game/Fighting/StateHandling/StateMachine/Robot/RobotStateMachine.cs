@@ -1,9 +1,11 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class RobotStateMachine : StateMachine {
     public Animator Animator = null;
     public PlayerController PlayerController = null;
+    public NetworkAnimator NetworkAnimator = null;
     [HideInInspector] public FixedSizedQueue<string> StateHistory;
     public int MaxHistorySize = 12;
 
@@ -16,15 +18,12 @@ public class RobotStateMachine : StateMachine {
         this.Initialize();
     }
 
-    void Update() {
-        this.HandleInput();
-    }
-
     protected override void Initialize(string startingState = null) {
         base.Initialize();
 
         this.Animator = this.GetComponent<Animator>();
         this.PlayerController = this.GetComponent<PlayerController>();
+        this.NetworkAnimator = this.GetComponent<NetworkAnimator>();
 
         Type stateType = this.CheckStartingState(startingState);
 
@@ -34,11 +33,12 @@ public class RobotStateMachine : StateMachine {
         this.StateHistory = new FixedSizedQueue<string>(this.MaxHistorySize);
     }
 
-    protected override void SwitchState(State state) {
-        if (!(state is RobotState)) return;
+    protected override void SwitchState() {
+        if (!(this.NextState is RobotState)) {
+            return;
+        }
 
-        base.SwitchState(state);
-
-        this.Animator.SetTrigger(state.GetType().Name);
+        base.SwitchState();
+        this.NetworkAnimator.SetTrigger(this.CurrentState.GetType().Name);
     }
 }

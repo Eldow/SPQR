@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Robot_RobotGreyArmor
+  m_Name: ArenaGround
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION
+  m_ShaderKeywords: _EMISSION _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -84,10 +84,10 @@ Material:
       second: 0
     - first:
         name: _GlossMapScale
-      second: 1
+      second: 0.201
     - first:
         name: _Glossiness
-      second: 0.71
+      second: 0.187
     - first:
         name: _GlossyReflections
       second: 1
@@ -105,7 +105,7 @@ Material:
       second: 0.02
     - first:
         name: _SmoothnessTextureChannel
-      second: 0
+      second: 1
     - first:
         name: _SpecularHighlights
       second: 1
@@ -121,7 +121,7 @@ Material:
     m_Colors:
     - first:
         name: _Color
-      second: {r: 0.49264705, g: 0.49264705, b: 0.49264705, a: 1}
+      second: {r: 0.33823532, g: 0.33823532, b: 0.33823532, a: 1}
     - first:
         name: _EmissionColor
-      second: {r: 0.28676468, g: 0.28676468, b: 0.28676468, a: 1}
+      second: {r: 0.09558821, g: 0.09558821, b: 0.09558821, a: 1}
