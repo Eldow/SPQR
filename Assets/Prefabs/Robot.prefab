@@ -1238,7 +1238,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1030093271883994}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -3.736, y: 0, z: 2.01}
   m_LocalScale: {x: 26, y: 26, z: 26}
   m_Children:
   - {fileID: 4613628759474078}
@@ -2898,6 +2898,7 @@ MonoBehaviour:
   playerInfo: {fileID: 1059415653837992, guid: 05b13813766746d459baefd7488ee9d0, type: 2}
   opponentInfo: {fileID: 1077164756332756, guid: abd98ddbc4fe97f44a9526f20e20b0f1,
     type: 2}
+  canvas: {fileID: 0}
 --- !u!114 &114217376815515758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3038,7 +3039,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1621624485160120}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

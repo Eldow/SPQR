@@ -20,6 +20,6 @@ public class PlayerHealthView : MonoBehaviour
     public void FixedUpdate()
     {
         rotation = startRotation * (1.0f - (target.currentHealth / (float) PlayerController.maxHealth));
-        rect.eulerAngles = new Vector3(rect.eulerAngles.x, rect.eulerAngles.y, rotation);
+        rect.eulerAngles = Vector3.Lerp(rect.eulerAngles, new Vector3(rect.eulerAngles.x, rect.eulerAngles.y, rotation), Time.deltaTime * animationSpeed);
     }
 }
