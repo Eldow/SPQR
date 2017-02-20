@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 */
 public class PlayerController : NetworkBehaviour
 {
+	public string tagName = "LocalPlayer"; 
     public GameObject cameraHolder;                                                     // Camera holder
     public GameObject ball;                                                             // Ball gameObject 
     public float lockedForwardSpeed, lockedBackwardSpeed, lockedSidewaySpeed;           // Locked speeds
@@ -29,7 +30,7 @@ public class PlayerController : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         lockedMovement = false;
-        gameObject.tag = "LocalPlayer";
+		setTags (tagName);
         GetComponent<RobotAutomaton>().enabled = true;
         GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
         TargetManager.instance.SetPlayer(gameObject);
@@ -38,6 +39,15 @@ public class PlayerController : NetworkBehaviour
         playerInfo = canvas.transform.GetChild(1).gameObject;
         playerInfo.SetActive(true);
     }
+
+	private void setTags(string tagName){
+		Transform[] temp;
+		transform.tag = tagName;
+		temp = GetComponentsInChildren<Transform> ();
+		foreach (Transform t in temp) {
+			t.tag = tagName;
+		}
+	}
 
     // On Opponent spawn
     void Start()
