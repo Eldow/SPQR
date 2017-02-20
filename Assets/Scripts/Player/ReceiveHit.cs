@@ -14,9 +14,9 @@ public class ReceiveHit : MonoBehaviour
             // TODO fix this <3
 
 
-            PlayerController p = TargetManager.instance.GetNearestOpponent().GetComponent<PlayerController>();
+            /*PlayerController p = TargetManager.instance.GetNearestOpponent().GetComponent<PlayerController>();
             TargetManager.instance.GetNearestOpponent().GetComponent<PlayerController>().automaton.enabled = true;
-            TargetManager.instance.GetNearestOpponent().GetComponent<PlayerController>().automaton.StateMachine.SetState(new RobotHitstunState(200));
+            TargetManager.instance.GetNearestOpponent().GetComponent<PlayerController>().automaton.StateMachine.SetState(new RobotHitstunState(200));*/
         }
 	}
 }
