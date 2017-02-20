@@ -11,8 +11,12 @@ public class ReceiveHit : MonoBehaviour
 		if (other.transform.name.Equals ("Robot:SwordRight") || other.transform.name.Equals ("Robot:SwordLeft")) {
 			Debug.Log ("Player got hit in :" + other.contacts [0].thisCollider.name);
             TargetManager.instance.GetNearestOpponent().GetComponent<PlayerController>().TakeDamage(10);
-			// TODO fix this <3
-		}
-		TargetManager.instance.GetNearestOpponent().GetComponent<PlayerController>().automaton.StateMachine.SetState(new RobotHitstunState(200));
+            // TODO fix this <3
+
+
+            PlayerController p = TargetManager.instance.GetNearestOpponent().GetComponent<PlayerController>();
+            TargetManager.instance.GetNearestOpponent().GetComponent<PlayerController>().automaton.enabled = true;
+            TargetManager.instance.GetNearestOpponent().GetComponent<PlayerController>().automaton.StateMachine.SetState(new RobotHitstunState(200));
+        }
 	}
 }

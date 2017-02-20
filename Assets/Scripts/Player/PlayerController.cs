@@ -44,8 +44,8 @@ public class PlayerController : NetworkBehaviour
     // On Opponent spawn
     void Start()
     {
-        if (!isLocalPlayer)
-        {
+        if (!isLocalPlayer) {
+            this.automaton = GetComponent<RobotAutomaton>();
             canvas = GameObject.FindGameObjectWithTag("Canvas");
             TargetManager.instance.AddOpponent(gameObject);
             opponentInfo = canvas.transform.GetChild(0).gameObject;
