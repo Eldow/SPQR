@@ -9,6 +9,7 @@ public abstract class FollowTarget : MonoBehaviour
     private bool autoTargetPlayer = true;
     public bool lockCamera = false;
     GameObject player, opponent;
+    private GameObject healthBar;
 
     virtual protected void Start()
     {
@@ -26,13 +27,16 @@ public abstract class FollowTarget : MonoBehaviour
         }
         if (target != null)
         {
-			if (InputManager.cameraButtonDown())
+            if (InputManager.cameraButtonDown())
             {
-                FindTargetPlayer();
+                SwitchCameraMode();
             }
-			if (InputManager.cameraButton())
+            if (lockCamera)
             {
                 LookAtOpponent();
+            } else
+            {
+                FindTargetPlayer();
             }
             Follow(Time.deltaTime, lockCamera);
         }
@@ -43,7 +47,6 @@ public abstract class FollowTarget : MonoBehaviour
 
     public void FindTargetPlayer()
     {
-        lockCamera = false;
         player = TargetManager.instance.player;
         if (player != null)
         {
@@ -54,13 +57,26 @@ public abstract class FollowTarget : MonoBehaviour
 
     public void LookAtOpponent()
     {
-        lockCamera = true;
         opponent = TargetManager.instance.GetNearestOpponent();
         if (player != null && opponent != null)
         {
             Quaternion neededRotation = Quaternion.LookRotation(opponent.transform.position - player.transform.position);
             player.transform.rotation = Quaternion.Slerp(player.transform.rotation, neededRotation, Time.deltaTime * 5f);
             player.GetComponent<PlayerController>().lockedMovement = true;
+        }
+    }
+
+    public void SwitchCameraMode()
+    {
+        lockCamera = !lockCamera;
+        opponent = TargetManager.instance.GetNearestOpponent();
+        if(opponent != null)
+        {
+            if (lockCamera)
+            {
+                healthBar = opponent.GetComponent<PlayerController>().opponentInfo;
+            }
+            healthBar.SetActive(lockCamera);
         }
     }
 
