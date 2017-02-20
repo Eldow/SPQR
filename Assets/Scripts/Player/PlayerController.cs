@@ -17,22 +17,26 @@ public class PlayerController : NetworkBehaviour
     public const float runSpeed = 3f;                                                   // Maximum run speed
     [SyncVar(hook = "OnChangeHealth")]
     public int currentHealth = maxHealth;                                               // Health synced with the other clients
-    public int currentHeat = 0;                                                         // Overheat level
-
-    public bool lockedMovement;                                                        // Locked/Unlocked camera boolean - TODO : replace with the actual input
+    [SyncVar(hook = "OnChangeHeat")]
+    public int currentHeat = 0;                                                         // Heat synced with the other clients
+    private GameObject infoHandler;
+    public bool lockedMovement;                                                         // Locked/Unlocked camera boolean
     private Vector3 movement;                                                           // Vector representing the current direction & speed of the robot
-    private GameObject healthBar;                                                       // Health bar
+    public GameObject playerInfo, opponentInfo;
+    public GameObject canvas;
 
     // On Player spawn
     public override void OnStartLocalPlayer()
     {
-        healthBar = GameObject.Find("HealthBar");
         lockedMovement = false;
         gameObject.tag = "LocalPlayer";
         GetComponent<RobotAutomaton>().enabled = true;
         GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
         TargetManager.instance.SetPlayer(gameObject);
         cameraHolder.GetComponent<FreeCameraLook>().SetTarget(transform);
+        canvas = GameObject.FindGameObjectWithTag("Canvas");
+        playerInfo = canvas.transform.GetChild(1).gameObject;
+        playerInfo.SetActive(true);
     }
 
     // On Opponent spawn
@@ -40,7 +44,9 @@ public class PlayerController : NetworkBehaviour
     {
         if (!isLocalPlayer)
         {
+            canvas = GameObject.FindGameObjectWithTag("Canvas");
             TargetManager.instance.AddOpponent(gameObject);
+            opponentInfo = canvas.transform.GetChild(0).gameObject;
         }
     }
 
@@ -113,7 +119,7 @@ public class PlayerController : NetworkBehaviour
     // Call this anytime the robot takes damage to decrease its health
     public void TakeDamage(int amount)
     {
-        if (!isServer)
+        if (!isLocalPlayer)
         {
             return;
         }
@@ -130,7 +136,7 @@ public class PlayerController : NetworkBehaviour
     // Call this anytime the robot uses an ability to increase its heat
     public void IncreaseHeat(int amount)
     {
-        if (!isServer)
+        if (!isLocalPlayer)
         {
             return;
         }
@@ -145,9 +151,11 @@ public class PlayerController : NetworkBehaviour
 
     void OnChangeHealth(int health)
     {
-        if (healthBar != null)
-        {
-            healthBar.GetComponent<UIAnimHealthPersonal>().health = health;
-        }
+        currentHealth = health;
+    }
+
+    void OnChangeHeat(int heat)
+    {
+        currentHeat = heat;
     }
 }
