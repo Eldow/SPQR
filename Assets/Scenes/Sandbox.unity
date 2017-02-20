@@ -3120,6 +3120,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114216273277814148, guid: 455f8e4704053f44c85e3c72e01499ec,
+        type: 2}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 102530732}
     - target: {fileID: 198447616170232560, guid: 455f8e4704053f44c85e3c72e01499ec,
         type: 2}
       propertyPath: CollisionModule.plane0
@@ -3129,11 +3134,6 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114216273277814148, guid: 455f8e4704053f44c85e3c72e01499ec,
-        type: 2}
-      propertyPath: canvas
-      value: 
-      objectReference: {fileID: 102530732}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 455f8e4704053f44c85e3c72e01499ec, type: 2}
   m_IsPrefabParent: 0
