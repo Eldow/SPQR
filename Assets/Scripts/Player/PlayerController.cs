@@ -10,9 +10,9 @@ public class PlayerController : Photon.MonoBehaviour {
     public const string Opponent = "Opponent";
 
     [HideInInspector]
-    public HealthManager HealthManager = null;
+    public PlayerHealth PlayerHealth = null;
     [HideInInspector]
-    public PowerManager PowerManager = null;
+    public PlayerPower PlayerPower = null;
     [HideInInspector]
     public PlayerPhysics PlayerPhysics = null;
     [HideInInspector]
@@ -37,10 +37,9 @@ public class PlayerController : Photon.MonoBehaviour {
 		}
 	}
 
-    // On Opponent spawn
     void Start() {
-        this.HealthManager = GetComponent<HealthManager>();
-        this.PowerManager = GetComponent<PowerManager>();
+        this.PlayerHealth = GetComponent<PlayerHealth>();
+        this.PlayerPower = GetComponent<PlayerPower>();
         this.PlayerPhysics = GetComponent<PlayerPhysics>();
         this.Animator = GetComponent<Animator>();
         this.Canvas = GameObject.FindGameObjectWithTag("Canvas");
@@ -65,6 +64,8 @@ public class PlayerController : Photon.MonoBehaviour {
         TargetManager.instance.SetPlayer(gameObject);
         playerInfo = Canvas.transform.GetChild(1).gameObject;
         playerInfo.SetActive(true);
+        PhotonNetwork.player.SetHealth(PlayerHealth.MaxHealth);
+        PhotonNetwork.player.SetPower(PlayerPower.MaxPower);
     }
 
     public virtual void UpdateAnimations(string animationName) {
@@ -75,5 +76,8 @@ public class PlayerController : Photon.MonoBehaviour {
     [PunRPC]
     void SendAnimations(string animationName) {
         this.Animator.SetTrigger(animationName);
+    }
+
+    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
     }
 }

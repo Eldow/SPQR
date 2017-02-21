@@ -19,7 +19,7 @@ public class PlayerHealthView : MonoBehaviour
     }
     public void FixedUpdate()
     {
-        rotation = startRotation * (1.0f - (target.HealthManager.CurrentHealth / (float) HealthManager.MaxHealth));
+        rotation = startRotation * (1.0f - (PhotonNetwork.player.GetHealth() / (float)PlayerHealth.MaxHealth));
         rect.eulerAngles = Vector3.Lerp(rect.eulerAngles, new Vector3(rect.eulerAngles.x, rect.eulerAngles.y, rotation), Time.deltaTime * animationSpeed);
     }
 }

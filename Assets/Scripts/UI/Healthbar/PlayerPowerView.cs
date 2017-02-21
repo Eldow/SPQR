@@ -18,7 +18,7 @@ public class PlayerPowerView : MonoBehaviour
     }
     public void Update()
     {
-        position = startPosition * (1 - target.PowerManager.CurrentPower / (float) PowerManager.MaxPower);
+        position = startPosition * (1 - PhotonNetwork.player.GetPower() / (float) PlayerPower.MaxPower);
         rect.anchoredPosition = Vector3.Lerp(rect.anchoredPosition, new Vector3(rect.anchoredPosition.x, position), Time.deltaTime * animationSpeed);
     }
 }

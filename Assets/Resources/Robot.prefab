@@ -2870,8 +2870,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 287ef751eeb58ff4096d01ea57136dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentHealth: 0
-  OtherHealth: 0
 --- !u!114 &114205775653367400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2896,8 +2894,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87a2c13c89103441b9d2106650b91ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthManager: {fileID: 0}
-  PowerManager: {fileID: 0}
+  PlayerHealth: {fileID: 0}
+  PlayerPower: {fileID: 0}
   PlayerPhysics: {fileID: 0}
   Animator: {fileID: 0}
   playerInfo: {fileID: 0}
@@ -2926,9 +2924,6 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 4584077605139554}
-  - {fileID: 114153703453754764}
-  - {fileID: 114815532972526764}
-  - {fileID: 114782371043314960}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -2992,8 +2987,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393829e3b163b2c4aa9f5ddc88be1c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentPower: 0
-  OtherPower: 0
 --- !u!114 &114912904639959922
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -86,7 +86,7 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-        if (stream.isWriting) {
+        /*if (stream.isWriting) {
             stream.SendNext(_rigidBody.position);
             stream.SendNext(_rigidBody.velocity);
         } else {
@@ -99,6 +99,6 @@ public class PlayerPhysics : Photon.MonoBehaviour {
 
             _syncEndPosition = syncPosition + syncVelocity * _syncDelay;
             _syncStartPosition = _rigidBody.position;
-        }
+        }*/
     }
 }
