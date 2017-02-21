@@ -40,7 +40,8 @@ public class RobotRunState : RobotState {
     public override void Update(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return;
 
-        ((RobotStateMachine)stateMachine).PlayerController.RunMovement();
+        ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
+            .RunMovement();
     }
 
     public override void Enter(StateMachine stateMachine) {

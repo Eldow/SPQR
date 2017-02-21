@@ -310,7 +310,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -487536973
+  randomSeed: 1068936251
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3120,11 +3120,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114216273277814148, guid: 455f8e4704053f44c85e3c72e01499ec,
-        type: 2}
-      propertyPath: canvas
-      value: 
-      objectReference: {fileID: 102530732}
     - target: {fileID: 198447616170232560, guid: 455f8e4704053f44c85e3c72e01499ec,
         type: 2}
       propertyPath: CollisionModule.plane0

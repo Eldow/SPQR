@@ -19,7 +19,7 @@ public class OpponentHealthView : MonoBehaviour
     }
     public void Update()
     {
-        position = startPosition * (1 - target.currentHealth / (float)PlayerController.maxHealth);
+        position = startPosition * (1 - target.HealthManager.CurrentHealth / (float)HealthManager.MaxHealth);
         rect.anchoredPosition = Vector3.Lerp(rect.anchoredPosition, new Vector3(position, rect.anchoredPosition.y), Time.deltaTime * animationSpeed);
     }
 }

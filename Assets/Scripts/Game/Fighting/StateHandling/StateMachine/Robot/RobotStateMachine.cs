@@ -39,6 +39,7 @@ public class RobotStateMachine : StateMachine {
         }
 
         base.SwitchState();
-        this.PlayerController.UpdateAnimations(this.CurrentState.GetType().Name);
+        this.PlayerController.UpdateAnimations(
+            this.CurrentState.GetType().Name);
     }
 }

@@ -71,6 +71,9 @@ GameObject:
   - component: {fileID: 114912904639959922}
   - component: {fileID: 54684690784134410}
   - component: {fileID: 114278063271085554}
+  - component: {fileID: 114153703453754764}
+  - component: {fileID: 114815532972526764}
+  - component: {fileID: 114782371043314960}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Player
@@ -2856,6 +2859,19 @@ Light:
   m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114153703453754764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030093271883994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 287ef751eeb58ff4096d01ea57136dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentHealth: 0
+  OtherHealth: 0
 --- !u!114 &114205775653367400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2880,23 +2896,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87a2c13c89103441b9d2106650b91ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagName: LocalPlayer
-  cameraHolder: {fileID: 1119744968098582, guid: 2c64c8025846ca044be72463b8832733,
-    type: 2}
-  ball: {fileID: 1015347931685916}
-  lockedForwardSpeed: 0
-  lockedBackwardSpeed: 0
-  lockedSidewaySpeed: 0
-  unlockedForwardSpeed: 0
-  unlockedBackwardSpeed: 0
-  unlockedRotationSpeed: 0
-  ballRotationSpeed: 50
-  currentHealth: 100
-  currentHeat: 0
-  lockedMovement: 0
+  HealthManager: {fileID: 0}
+  PowerManager: {fileID: 0}
+  PlayerPhysics: {fileID: 0}
+  Animator: {fileID: 0}
   playerInfo: {fileID: 0}
   opponentInfo: {fileID: 0}
-  canvas: {fileID: 0}
+  Canvas: {fileID: 0}
+  PlayerColor: {r: 0, g: 0, b: 1, a: 1}
+  OpponentColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &114278063271085554
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2918,6 +2926,9 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 4584077605139554}
+  - {fileID: 114153703453754764}
+  - {fileID: 114815532972526764}
+  - {fileID: 114782371043314960}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -2948,6 +2959,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPointPrefab: {fileID: 1301498378091292, guid: bac40ec5e1f3a004aae61d7a9fd11096,
     type: 2}
+--- !u!114 &114782371043314960
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030093271883994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e33d4c03eff27d944a292d21d6bcbfae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraHolder: {fileID: 1119744968098582, guid: 2c64c8025846ca044be72463b8832733,
+    type: 2}
+  LockedForwardSpeed: 0
+  LockedBackwardSpeed: 0
+  LockedSidewaySpeed: 0
+  UnlockedForwardSpeed: 0
+  UnlockedBackwardSpeed: 0
+  UnlockedRotationSpeed: 0
+  BallRotationSpeed: 50
+  IsLockedMovement: 0
+  turnSpeed: 10
+--- !u!114 &114815532972526764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030093271883994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 393829e3b163b2c4aa9f5ddc88be1c03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentPower: 0
+  OtherPower: 0
 --- !u!114 &114912904639959922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2991,7 +3037,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1621624485160120}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
