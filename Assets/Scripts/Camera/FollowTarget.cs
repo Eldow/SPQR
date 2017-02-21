@@ -11,8 +11,9 @@ public abstract class FollowTarget : MonoBehaviour
     GameObject player, opponent;
     private GameObject healthBar;
 
-    virtual protected void Start()
-    {
+    virtual protected void Start() { 
+        if (TargetManager.instance == null) return;
+
         if (autoTargetPlayer)
         {
             FindTargetPlayer();
@@ -45,13 +46,12 @@ public abstract class FollowTarget : MonoBehaviour
     protected abstract void Follow(float deltaTime, bool lockCamera);
 
 
-    public void FindTargetPlayer()
-    {
+    public void FindTargetPlayer() {
         player = TargetManager.instance.player;
         if (player != null)
         {
             SetTarget(player.transform);
-            player.GetComponent<PlayerController>().lockedMovement = false;
+            player.GetComponent<PlayerController>().PlayerPhysics.IsLockedMovement = false;
         }
     }
 
@@ -62,7 +62,7 @@ public abstract class FollowTarget : MonoBehaviour
         {
             Quaternion neededRotation = Quaternion.LookRotation(opponent.transform.position - player.transform.position);
             player.transform.rotation = Quaternion.Slerp(player.transform.rotation, neededRotation, Time.deltaTime * 5f);
-            player.GetComponent<PlayerController>().lockedMovement = true;
+            player.GetComponent<PlayerController>().PlayerPhysics.IsLockedMovement = true;
         }
     }
 

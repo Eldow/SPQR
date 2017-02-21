@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerPowerView : MonoBehaviour
+public class OpponentPowerView : MonoBehaviour
 {
     private PlayerController target;
     private float startPosition = 0f;
@@ -13,12 +13,12 @@ public class PlayerPowerView : MonoBehaviour
     public void Start()
     {
         rect = GetComponent<RectTransform>();
-        target = TargetManager.instance.player.GetComponent<PlayerController>();
+        target = TargetManager.instance.GetNearestOpponent().GetComponent<PlayerController>();
         startPosition = rect.anchoredPosition.y;
     }
     public void Update()
     {
-        position = startPosition * (1 - target.currentHeat / (float) PlayerController.overheat);
+        position = startPosition * (1 - PhotonNetwork.playerList[0].GetPower() / (float)PlayerPower.MaxPower);
         rect.anchoredPosition = Vector3.Lerp(rect.anchoredPosition, new Vector3(rect.anchoredPosition.x, position), Time.deltaTime * animationSpeed);
     }
 }

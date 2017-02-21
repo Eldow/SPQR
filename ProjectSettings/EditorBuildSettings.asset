@@ -9,5 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Sandbox.unity
   - enabled: 0
     path: Assets/Scenes/CollidersTest.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
+  - enabled: 0
+    path: Assets/Scenes/Lobby.unity

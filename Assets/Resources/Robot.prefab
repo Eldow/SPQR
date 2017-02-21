@@ -66,13 +66,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4584077605139554}
   - component: {fileID: 95621285423728728}
-  - component: {fileID: 114520733844758984}
-  - component: {fileID: 114217376815515758}
   - component: {fileID: 114216273277814148}
   - component: {fileID: 114651877178914062}
-  - component: {fileID: 114419923747690078}
   - component: {fileID: 114912904639959922}
   - component: {fileID: 54684690784134410}
+  - component: {fileID: 114278063271085554}
+  - component: {fileID: 114153703453754764}
+  - component: {fileID: 114815532972526764}
+  - component: {fileID: 114782371043314960}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Player
@@ -454,7 +455,7 @@ GameObject:
   - component: {fileID: 4073732689319688}
   - component: {fileID: 33733806137964820}
   - component: {fileID: 23545113774995964}
-  - component: {fileID: 136355034326001572}
+  - component: {fileID: 135916599157293208}
   m_Layer: 0
   m_Name: Robot:Ball
   m_TagString: Untagged
@@ -2858,6 +2859,17 @@ Light:
   m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114153703453754764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030093271883994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 287ef751eeb58ff4096d01ea57136dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114205775653367400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2882,24 +2894,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87a2c13c89103441b9d2106650b91ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraHolder: {fileID: 1119744968098582, guid: 2c64c8025846ca044be72463b8832733,
-    type: 2}
-  ball: {fileID: 1522624969207744}
-  lockedForwardSpeed: 5
-  lockedBackwardSpeed: 5
-  lockedSidewaySpeed: 5
-  unlockedForwardSpeed: 5
-  unlockedBackwardSpeed: 5
-  unlockedRotationSpeed: 5
-  ballRotationSpeed: 50
-  currentHealth: 100
-  currentHeat: 0
-  lockedMovement: 0
-  playerInfo: {fileID: 1059415653837992, guid: 05b13813766746d459baefd7488ee9d0, type: 2}
-  opponentInfo: {fileID: 1077164756332756, guid: abd98ddbc4fe97f44a9526f20e20b0f1,
-    type: 2}
-  canvas: {fileID: 0}
---- !u!114 &114217376815515758
+  PlayerHealth: {fileID: 0}
+  PlayerPower: {fileID: 0}
+  PlayerPhysics: {fileID: 0}
+  Animator: {fileID: 0}
+  playerInfo: {fileID: 0}
+  opponentInfo: {fileID: 0}
+  Canvas: {fileID: 0}
+  PlayerColor: {r: 0, g: 0, b: 1, a: 1}
+  OpponentColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &114278063271085554
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2907,69 +2911,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1030093271883994}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
-  m_SendInterval: 0.05263158
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
---- !u!114 &114419923747690078
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1030093271883994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Animator: {fileID: 95621285423728728}
-  m_ParameterSendBits: 127
-  param0: 
-  param1: 
-  param2: 
-  param3: 
-  param4: 
-  param5: 
---- !u!114 &114520733844758984
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1030093271883994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 69
-    i1: 95
-    i2: 142
-    i3: 71
-    i4: 4
-    i5: 5
-    i6: 63
-    i7: 68
-    i8: 200
-    i9: 94
-    i10: 60
-    i11: 114
-    i12: 224
-    i13: 20
-    i14: 153
-    i15: 236
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 1
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 4584077605139554}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114651877178914062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2995,6 +2954,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPointPrefab: {fileID: 1301498378091292, guid: bac40ec5e1f3a004aae61d7a9fd11096,
     type: 2}
+--- !u!114 &114782371043314960
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030093271883994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e33d4c03eff27d944a292d21d6bcbfae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraHolder: {fileID: 1119744968098582, guid: 2c64c8025846ca044be72463b8832733,
+    type: 2}
+  LockedForwardSpeed: 0
+  LockedBackwardSpeed: 0
+  LockedSidewaySpeed: 0
+  UnlockedForwardSpeed: 0
+  UnlockedBackwardSpeed: 0
+  UnlockedRotationSpeed: 0
+  BallRotationSpeed: 50
+  IsLockedMovement: 0
+  turnSpeed: 10
+--- !u!114 &114815532972526764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030093271883994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 393829e3b163b2c4aa9f5ddc88be1c03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114912904639959922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3018,8 +3010,8 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.005487272
   m_Center: {x: -0.0000000037267043, y: 0.000016874179, z: 0.000070103844}
---- !u!136 &136355034326001572
-CapsuleCollider:
+--- !u!135 &135916599157293208
+SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -3027,10 +3019,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
+  serializedVersion: 2
   m_Radius: 0.010000005
-  m_Height: 0.020000003
-  m_Direction: 1
-  m_Center: {x: -0.000000007916242, y: -0.0000000018626451, z: -8.6736174e-19}
+  m_Center: {x: -0.000000007916242, y: -9.313225e-10, z: 0.0000000037252903}
 --- !u!198 &198447616170232560
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -3039,7 +3030,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1621624485160120}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

@@ -29,7 +29,8 @@ public class RobotAttack1State : RobotState {
     public override void Update(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return;
 
-        ((RobotStateMachine)stateMachine).PlayerController.Movement();
+        ((RobotStateMachine)stateMachine).PlayerController
+            .PlayerPhysics.Movement();
     }
 
     public override void Enter(StateMachine stateMachine) {

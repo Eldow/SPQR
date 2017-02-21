@@ -12,6 +12,8 @@ public class FollowOpponent : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
+	    if (TargetManager.instance.GetNearestOpponent() == null) return;
+
         Vector3 pos = TargetManager.instance.GetNearestOpponent().transform.position + offset;  // get the game object position
         Vector3 viewportPoint = Camera.main.WorldToViewportPoint(pos);  //convert game object position to VievportPoint
 
