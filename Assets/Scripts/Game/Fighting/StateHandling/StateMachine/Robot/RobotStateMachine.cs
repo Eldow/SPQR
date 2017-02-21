@@ -39,6 +39,6 @@ public class RobotStateMachine : StateMachine {
         }
 
         base.SwitchState();
-        this.NetworkAnimator.SetTrigger(this.CurrentState.GetType().Name);
+        //this.NetworkAnimator.SetTrigger(this.CurrentState.GetType().Name);
     }
 }

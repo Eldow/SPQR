@@ -6,6 +6,10 @@
 /Assets/AssetStoreTools*
 /Assets/Standard Assets.meta
 /Assets/Standard Assets/
+/Assets/Photon Unity Networking/
+/Assets/PhotonChatAPI/
+/Assets/Photon Unity Networking.meta
+/Assets/PhotonChatAPI.meta
 /SPQR_client_Data/
 *.DS_Store
 
