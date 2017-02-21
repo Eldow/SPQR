@@ -39,6 +39,8 @@ public class FreeCameraLook : Pivot
 
     // Update is called once per frame
     protected override void Update() {
+        if (GameManager.Instance == null) return;
+
         if (!GameManager.Instance.Running.IsRunning) return;
 
         base.Update();
