@@ -1,10 +1,26 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager
+public class InputManager : MonoBehaviour
 {
-	public static float moveX ()
+    private static bool _dPadXInUse = false;
+    private static bool _dPadYInUse = false;
+    private static float _timer = 0f;
+    private static float _previousTime = 0f;
+
+    void Update()
+    {
+        InputManager._timer += Time.realtimeSinceStartup - InputManager._previousTime;
+        InputManager._previousTime = Time.realtimeSinceStartup;
+
+        if (Mathf.Abs(InputManager._timer - Time.fixedDeltaTime) > .02f)
+        {
+            InputManager.resetDPadXis();
+            InputManager._timer = 0f;
+        }
+    }
+
+    public static float moveX ()
 	{
 		float r = 0f;
 		r += Input.GetAxis ("JoystickMove_Horizontal");
@@ -61,5 +77,55 @@ public class InputManager
 		return Input.GetButtonDown ("CameraButton");
 	}
 
+    public static bool nextFrame()
+    {
+        return InputManager.dPadRightDown() || Input.GetButtonDown("NextFrame");
+    }
 
+    public static bool frameByFrame()
+    {
+        return InputManager.dPadUpDown() || Input.GetButtonDown("FrameByFrame");
+    }
+
+    public static bool dPadRightDown()
+    {
+        if (InputManager._dPadXInUse) return false;
+
+        InputManager._dPadXInUse = Input.GetAxis("DPadX") > .5f;
+
+        return InputManager._dPadXInUse;
+    }
+
+    public static bool dPadLeftDown()
+    {
+        if (InputManager._dPadXInUse) return false;
+
+        InputManager._dPadXInUse = Input.GetAxis("DPadX") < .5f;
+
+        return InputManager._dPadXInUse;
+    }
+
+    public static bool dPadUpDown()
+    {
+        if (InputManager._dPadYInUse) return false;
+
+        InputManager._dPadYInUse = Input.GetAxis("DPadY") > .5f;
+
+        return InputManager._dPadYInUse;
+    }
+
+    public static bool dPadDownDown()
+    {
+        if (InputManager._dPadYInUse) return false;
+
+        InputManager._dPadYInUse = Input.GetAxis("DPadY") < .5f;
+
+        return InputManager._dPadYInUse;
+    }
+
+    private static void resetDPadXis()
+    {
+        InputManager._dPadXInUse = Mathf.Abs(Input.GetAxis("DPadX")) > .5f;
+        InputManager._dPadYInUse = Mathf.Abs(Input.GetAxis("DPadY")) > .5f;
+    }
 }

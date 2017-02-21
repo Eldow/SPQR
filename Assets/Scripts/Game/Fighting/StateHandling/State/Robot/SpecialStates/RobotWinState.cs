@@ -25,7 +25,8 @@ public class RobotWinState : RobotState {
         this._rigidbody.AddForce(new Vector3(0, RobotWinState.JumpForce, 0), 
             ForceMode.Impulse);
 
-        ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics.Movement();
+        ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
+            .Movement();
     }
 
     public override void Enter(StateMachine stateMachine) {
