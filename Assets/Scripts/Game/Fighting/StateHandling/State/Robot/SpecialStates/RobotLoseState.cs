@@ -38,11 +38,8 @@ public class RobotLoseState : RobotState {
         } catch (Exception exception) {
             Debug.LogError(exception.Message);
         }
-
-        Debug.Log("LOSE ENTER!");
     }
 
     public override void Exit(StateMachine stateMachine) {
-        Debug.Log("LOSE EXIT!");
     }
 }

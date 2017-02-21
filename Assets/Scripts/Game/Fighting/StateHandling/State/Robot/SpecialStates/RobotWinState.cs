@@ -25,13 +25,12 @@ public class RobotWinState : RobotState {
         this._rigidbody.AddForce(new Vector3(0, RobotWinState.JumpForce, 0), 
             ForceMode.Impulse);
 
+        /*  Too bugguy currently:
         ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
-            .Movement();
+            .Movement();*/
     }
 
     public override void Enter(StateMachine stateMachine) {
-        Debug.Log("WIN ENTER!");
-
         this._currentTime = RobotWinState.JumpTime - 0.1f;
 
         if (!(stateMachine is RobotStateMachine)) return;
@@ -50,8 +49,6 @@ public class RobotWinState : RobotState {
     }
 
     public override void Exit(StateMachine stateMachine) {
-        Debug.Log("WIN EXIT!");
-
         if (this._rigidbody == null) return;
 
         /* ... without forgetting of reverting it while Exiting the Win State.
