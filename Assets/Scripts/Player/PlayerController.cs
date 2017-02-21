@@ -22,6 +22,7 @@ public class PlayerController : Photon.MonoBehaviour
     private Vector3 movement;                                                           // Vector representing the current direction & speed of the robot
     public GameObject playerInfo, opponentInfo;
     public GameObject canvas;
+    private Animator animator = null;
 
     private Rigidbody body;
     
@@ -44,8 +45,9 @@ public class PlayerController : Photon.MonoBehaviour
 	}
 
     // On Opponent spawn
-    void Start()
-    {
+    void Start() {
+        this.animator = GetComponent<Animator>();
+
         if (!photonView.isMine)
         {
             canvas = GameObject.FindGameObjectWithTag("Canvas");
@@ -174,6 +176,16 @@ public class PlayerController : Photon.MonoBehaviour
             Debug.Log("Overheat!");
         }
         Debug.Log(currentHeat);
+    }
+
+    public virtual void UpdateAnimations(string animationName) {
+        this.animator.SetTrigger(animationName);
+        photonView.RPC("SendAnimations", PhotonTargets.Others, animationName);
+    }
+
+    [PunRPC]
+    void SendAnimations(string animationName) {
+        this.animator.SetTrigger(animationName);
     }
 
     void OnChangeHealth(int health)
