@@ -20,5 +20,18 @@ public class ReceiveHit : MonoBehaviour {
         if (!other.gameObject.CompareTag(PlayerController.Opponent)) return;
 
         PhotonNetwork.player.TakeDamage(10);
+        this.SendHitstun(other);
+    }
+
+    // need to be optimized...
+    protected virtual void SendHitstun(Collision other) {
+        GameObject player =
+            GameObject.FindGameObjectWithTag(PlayerController.Player);
+
+        Automaton automaton = player.GetComponent<Automaton>();
+
+        if (automaton == null) return;
+
+        automaton.StateMachine.SetState(new RobotHitstunState(10)); // to fix
     }
 }
