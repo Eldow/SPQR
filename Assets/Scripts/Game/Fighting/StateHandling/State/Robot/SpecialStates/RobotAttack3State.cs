@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 
-public class RobotAttack3State : RobotFramedState {
+public class RobotAttack3State : RobotAttackState {
     protected override void Initialize() {
         this.MaxFrame = 40;
         this.IASA = 34;
         this.MinActiveState = 3;
         this.MaxActiveState = 6;
+        this.Damage = 3;
+        this.Hitstun = 10;
     }
 
     public override State HandleInput(StateMachine stateMachine) {
