@@ -44,6 +44,8 @@ public class PlayerController : Photon.MonoBehaviour {
         this.Animator = GetComponent<Animator>();
         this.Canvas = GameObject.FindGameObjectWithTag("Canvas");
 
+        if (photonView == null) return;
+
         if (!photonView.isMine) {
             this.SetOpponent();
         } else {

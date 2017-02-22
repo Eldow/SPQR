@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class RobotLoseState : RobotState {
+public class RobotDefeatState : RobotState {
     public override State HandleInput(StateMachine stateMachine) {
         return null;
     }
@@ -27,9 +27,12 @@ public class RobotLoseState : RobotState {
 
         try {
             GameObject robotRemains =
-                GameObject.Instantiate(
-                        Resources.Load("Robot/RobotRemains", typeof(GameObject)))
-                    as GameObject;
+                PhotonNetwork.Instantiate("Robot/RobotRemains", robot.transform.position, robot.transform.rotation, 0);
+            /*GameObject.Instantiate(
+                    Resources.Load("Robot/RobotRemains", typeof(GameObject)))
+                as GameObject;*/
+
+            PhotonNetwork.Destroy(robot.gameObject);
 
             robotRemains.transform.parent = robotStateMachine.transform;
         } catch (ArgumentException argumentException) {

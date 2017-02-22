@@ -17,6 +17,7 @@ public class PlayerHealthView : MonoBehaviour
         startRotation = rect.eulerAngles.z;
         rect.eulerAngles = new Vector3(rect.eulerAngles.x, rect.eulerAngles.y, 0);
     }
+
     public void FixedUpdate()
     {
         rotation = startRotation * (1.0f - (PhotonNetwork.player.GetHealth() / (float)PlayerHealth.MaxHealth));

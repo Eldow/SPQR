@@ -9,9 +9,27 @@ public class RobotStateMachine : StateMachine {
     [HideInInspector] public FixedSizedQueue<string> StateHistory;
     public int MaxHistorySize = 12;
 
+    // UGLY UGLY CODE BEARK
+    private bool _isOver = false;
+
     // to be changed in a child class, if necessary
     public override string DefaultState {
         get { return "RobotIdleState"; }
+    }
+
+    void Update() {
+        this.HandleInput();
+
+        // TO BE FIXED, VERY UGLY
+        if (PhotonNetwork.player.GetHealth() <= 0 && !this._isOver) {
+            this.SetState(new RobotDefeatState());
+            this._isOver = true;
+        }
+
+        if (PhotonNetwork.playerList[0].GetHealth() <= 0 && !this._isOver) {
+            this.SetState(new RobotVictoryState());
+            this._isOver = true;
+        }
     }
 
     void Start() {
