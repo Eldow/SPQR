@@ -47,11 +47,9 @@ public class RobotBlockState : RobotState {
     }
 
     public override void Enter(StateMachine stateMachine) {
-        Debug.Log("BLOCK ENTER!");
     }
 
     public override void Exit(StateMachine stateMachine) {
-        Debug.Log("BLOCK EXIT!");
     }
 
     protected virtual bool CheckIfBlockHolding() {

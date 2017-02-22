@@ -371,12 +371,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4701134590996324}
   - component: {fileID: 95130016288177538}
-  - component: {fileID: 114332296628083482}
-  - component: {fileID: 114938507509483130}
-  - component: {fileID: 114249726909462370}
-  - component: {fileID: 33878259632206058}
   - component: {fileID: 23911644673712016}
   - component: {fileID: 114077741476609024}
+  - component: {fileID: 114568586288270504}
   m_Layer: 0
   m_Name: RobotRemains
   m_TagString: Player
@@ -1554,13 +1551,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1048490059061690}
   m_Mesh: {fileID: 4300036, guid: 59749ef33e5631c4d8ab335a698ce938, type: 3}
---- !u!33 &33878259632206058
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1839542986309542}
-  m_Mesh: {fileID: 4300008, guid: 59749ef33e5631c4d8ab335a698ce938, type: 3}
 --- !u!33 &33889332233471980
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -2205,7 +2195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeToLive: 30
---- !u!114 &114249726909462370
+--- !u!114 &114568586288270504
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2213,76 +2203,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1839542986309542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f87a2c13c89103441b9d2106650b91ba, type: 3}
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraHolder: {fileID: 1119744968098582, guid: 2c64c8025846ca044be72463b8832733,
-    type: 2}
-  ball: {fileID: 0}
-  lockedForwardSpeed: 5
-  lockedBackwardSpeed: 5
-  lockedSidewaySpeed: 5
-  unlockedForwardSpeed: 5
-  unlockedBackwardSpeed: 5
-  unlockedRotationSpeed: 5
-  ballRotationSpeed: 50
-  currentHealth: 100
-  currentHeat: 0
-  lockedMovement: 0
-  playerInfo: {fileID: 1059415653837992, guid: 05b13813766746d459baefd7488ee9d0, type: 2}
-  opponentInfo: {fileID: 1077164756332756, guid: abd98ddbc4fe97f44a9526f20e20b0f1,
-    type: 2}
-  canvas: {fileID: 0}
-  automaton: {fileID: 0}
---- !u!114 &114332296628083482
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1839542986309542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 82
-    i1: 173
-    i2: 231
-    i3: 78
-    i4: 91
-    i5: 92
-    i6: 106
-    i7: 20
-    i8: 105
-    i9: 229
-    i10: 80
-    i11: 156
-    i12: 173
-    i13: 163
-    i14: 30
-    i15: 173
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
---- !u!114 &114938507509483130
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1839542986309542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
-  m_SendInterval: 0.05263158
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 4701134590996324}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0

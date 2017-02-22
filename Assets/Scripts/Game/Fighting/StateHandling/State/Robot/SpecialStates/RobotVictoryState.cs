@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RobotWinState : RobotState {
+public class RobotVictoryState : RobotState {
     private const float JumpTime = 1.208f;
     private const float Mass = 5000000f;
     private const float JumpForce = 20000000f;
@@ -16,22 +16,22 @@ public class RobotWinState : RobotState {
         if (this._rigidbody == null) return;
 
         if ((this._currentTime += Time.fixedDeltaTime) <
-            RobotWinState.JumpTime) {
+            RobotVictoryState.JumpTime) {
             return;
         }
 
         this._currentTime = 0f;
 
-        this._rigidbody.AddForce(new Vector3(0, RobotWinState.JumpForce, 0), 
+        this._rigidbody.AddForce(new Vector3(0, RobotVictoryState.JumpForce, 0), 
             ForceMode.Impulse);
 
-        ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics.Movement();
+        /*  Too bugguy currently:
+        ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
+            .Movement();*/
     }
 
     public override void Enter(StateMachine stateMachine) {
-        Debug.Log("WIN ENTER!");
-
-        this._currentTime = RobotWinState.JumpTime - 0.1f;
+        this._currentTime = RobotVictoryState.JumpTime - 0.1f;
 
         if (!(stateMachine is RobotStateMachine)) return;
 
@@ -45,12 +45,10 @@ public class RobotWinState : RobotState {
          */
 
         this._oldMass = this._rigidbody.mass;
-        this._rigidbody.mass = RobotWinState.Mass;
+        this._rigidbody.mass = RobotVictoryState.Mass;
     }
 
     public override void Exit(StateMachine stateMachine) {
-        Debug.Log("WIN EXIT!");
-
         if (this._rigidbody == null) return;
 
         /* ... without forgetting of reverting it while Exiting the Win State.

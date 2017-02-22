@@ -45,7 +45,6 @@ public class RobotRunState : RobotState {
     }
 
     public override void Enter(StateMachine stateMachine) {
-        Debug.Log("RUN ENTER!");
         if (!(stateMachine is RobotStateMachine)) return;
 
         // necessary to keep track of history
@@ -53,8 +52,6 @@ public class RobotRunState : RobotState {
     }
 
     public override void Exit(StateMachine stateMachine) {
-        Debug.Log("RUN EXIT!");
-
         if (!(stateMachine is RobotStateMachine)) return;
 
         // the animation don't have to be frozen anymore

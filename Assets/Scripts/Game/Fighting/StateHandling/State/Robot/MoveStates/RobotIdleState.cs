@@ -34,7 +34,6 @@ public class RobotIdleState : RobotState {
     }
 
     public override void Enter(StateMachine stateMachine) {
-        Debug.Log("IDLE ENTER!");
         if (!(stateMachine is RobotStateMachine)) return;
 
         // necessary to keep track of history
@@ -42,7 +41,6 @@ public class RobotIdleState : RobotState {
     }
 
     public override void Exit(StateMachine stateMachine) {
-        Debug.Log("IDLE EXIT!");
 
         if (!(stateMachine is RobotStateMachine)) return;
 

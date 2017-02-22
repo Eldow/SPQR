@@ -29,10 +29,8 @@ public class RobotAttack3State : RobotState {
     }
 
     public override void Enter(StateMachine stateMachine) {
-        Debug.Log("ATTACK3 ENTER!");
     }
 
     public override void Exit(StateMachine stateMachine) {
-        Debug.Log("ATTACK3 EXIT!");
     }
 }

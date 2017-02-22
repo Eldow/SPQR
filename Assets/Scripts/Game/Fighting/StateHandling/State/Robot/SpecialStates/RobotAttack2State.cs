@@ -33,10 +33,8 @@ public class RobotAttack2State : RobotState {
     }
 
     public override void Enter(StateMachine stateMachine) {
-        Debug.Log("ATTACK2 ENTER!");
     }
 
     public override void Exit(StateMachine stateMachine) {
-        Debug.Log("ATTACK2 EXIT!");
     }
 }
