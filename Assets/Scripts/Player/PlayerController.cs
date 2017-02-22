@@ -77,7 +77,10 @@ public class PlayerController : Photon.MonoBehaviour {
 
     [PunRPC]
     void SendAnimations(string animationName) {
-        this.Animator.SetTrigger(animationName);
+        if (this.Animator != null)
+        {
+            this.Animator.SetTrigger(animationName);
+        }
     }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {

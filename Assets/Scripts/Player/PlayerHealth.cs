@@ -14,6 +14,7 @@ public static class PlayerHealthExtensions {
         health[PlayerHealth.HealthProp] = newHealth;
 
         player.SetCustomProperties(health);
+
     }
 
     public static void TakeDamage(this PhotonPlayer player, int amount) {
