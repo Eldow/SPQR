@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 
-public class RobotBlockState : RobotState {
+public class RobotBlockState : RobotFramedState {
     protected override void Initialize() {
-        this.IASA = .7f;
+        this.MaxFrame = 32;
+        this.IASA = 8;
+        this.MinActiveState = 6;
+        this.MaxActiveState = 23;
     }
 
     public override State HandleInput(StateMachine stateMachine) {
@@ -19,23 +22,19 @@ public class RobotBlockState : RobotState {
                 Mathf.Abs(robotStateMachine.Animator.speed) > .01f) {
                 this.FreezeAnimation(robotStateMachine);
             }
+
             return null;
         }
 
         this.ResumeAnimation(robotStateMachine);
 
-        if (this.IsInterruptible(robotStateMachine) && // can be interrupted!
-			(InputManager.moveX() > .02f || 
-				InputManager.moveY() > .02f)) {
-			if (InputManager.runButton()) {
-                return new RobotRunState();
-            }
+        if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
+            RobotState newState = this.CheckInterruptibleActions();
 
-            return new RobotWalkState();
+            if (newState != null) return newState;
         }
 
-        if (this.IsCurrentAnimationFinished(robotStateMachine)) {
-
+        if (this.IsStateFinished()) {
             return new RobotIdleState();
         }
 
@@ -43,17 +42,31 @@ public class RobotBlockState : RobotState {
     }
 
     public override void Update(StateMachine stateMachine) {
+        if (this.CheckIfBlockHolding()) return;
 
+        this.CurrentFrame++;
     }
 
     public override void Enter(StateMachine stateMachine) {
+        this.Initialize();
     }
 
     public override void Exit(StateMachine stateMachine) {
     }
 
     protected virtual bool CheckIfBlockHolding() {
-		// TODO bon retour mais ne peut pas bouger ?
-		return InputManager.blockButton();
+        return InputManager.blockButton();
+    }
+
+    public override RobotState CheckInterruptibleActions() {
+        if (InputManager.moveX() > .02f || InputManager.moveY() > .02f) {
+            if (InputManager.runButton()) {
+                return new RobotRunState();
+            }
+
+            return new RobotWalkState();
+        }
+
+        return null;
     }
 }

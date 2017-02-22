@@ -1,10 +1,4 @@
 ﻿public class RobotState : State {
-    public float IASA { get; protected set; }
-
-    protected override void Initialize() {
-        this.IASA = 1.0f;
-    }
-
     public override State HandleInput(StateMachine stateMachine) {
         return null;
     }
@@ -48,9 +42,5 @@
         string lastStateGuessed) {
         return stateMachine.StateHistory.Peek() == 
             lastStateGuessed;
-    }
-
-    public virtual bool IsInterruptible(RobotStateMachine stateMachine) {
-        return this.IsCurrentAnimationPlayedPast(stateMachine, this.IASA);
     }
 }

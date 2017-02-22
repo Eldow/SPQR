@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 
-public class RobotAttack3State : RobotState {
+public class RobotAttack3State : RobotFramedState {
+    protected override void Initialize() {
+        this.MaxFrame = 40;
+        this.IASA = 34;
+        this.MinActiveState = 3;
+        this.MaxActiveState = 6;
+    }
+
     public override State HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
 
@@ -10,7 +17,13 @@ public class RobotAttack3State : RobotState {
             return null;
         }
 
-        if (this.IsCurrentAnimationFinished(robotStateMachine)) {
+        if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!            
+            RobotState newState = this.CheckInterruptibleActions();
+
+            if (newState != null) return newState;
+        }
+
+        if (this.IsStateFinished()) {
             if (this.IsLastState(robotStateMachine, "RobotWalkState")) {
                 return new RobotWalkState();
             }
@@ -24,13 +37,28 @@ public class RobotAttack3State : RobotState {
     public override void Update(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return;
 
+        this.CurrentFrame++;
+
         ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
             .Movement();
     }
 
     public override void Enter(StateMachine stateMachine) {
+        this.Initialize();
     }
 
     public override void Exit(StateMachine stateMachine) {
+    }
+
+    public override RobotState CheckInterruptibleActions() {
+        if (InputManager.moveX() > .02f || InputManager.moveY() > .02f) {
+            if (InputManager.runButton()) {
+                return new RobotRunState();
+            }
+
+            return new RobotWalkState();
+        }
+
+        return null;
     }
 }
