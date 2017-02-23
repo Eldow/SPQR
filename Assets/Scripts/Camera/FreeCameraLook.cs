@@ -70,8 +70,12 @@ public class FreeCameraLook : Pivot {
 
     protected virtual void SwitchPivotSide() {
         this.UndoOffset();
-        this.PivotObject.localRotation =
-            Quaternion.Euler(this.PivotLockAngles.x, -this.PivotLockAngles.y, this.PivotLockAngles.z);
+
+        this.PivotObject.localRotation = Quaternion.Euler(
+            this.PivotLockAngles.x, 
+            -this.PivotLockAngles.y, 
+            this.PivotLockAngles.z
+        );
 
         this.PivotObject.transform.localPosition = new Vector3(
             -this.PivotObject.transform.localPosition.x,

@@ -101,11 +101,16 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     }
 
     public void LockedMovement(float speedFactor = 1.0f) {
-        //this.StopRobot();
+        this.GetCameraVectors();
+        this.GetTargetDirection();
+
+        this.MoveDirection = this.TargetDirection.normalized;
+        this.RigidBody.velocity = this.MoveDirection * this.LockedForwardSpeed;
         this.IsMoving = true;
     }
 
     public void UnlockedMovement(float speedFactor = 1) {
+        this.GetCameraVectors();
         this.GetTargetDirection();
 
         this.MoveDirection = Vector3.RotateTowards(
