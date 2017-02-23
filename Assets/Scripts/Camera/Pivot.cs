@@ -1,48 +1,43 @@
 ﻿using UnityEngine;
-using System.Collections;
-[ExecuteInEditMode]
-public class Pivot : FollowTarget
-{
 
-    protected Transform cam;
-    protected Transform pivot;
-    protected Vector3 lastTargetPosition;
+public class Pivot : FollowTarget {
+    protected Transform CameraObject;
+    protected Transform PivotObject;
+    protected Vector3 LastTargetPosition;
 
-    protected virtual void Awake()
-    {
-        cam = GetComponentInChildren<Camera>().transform;
-        pivot = cam.parent;
+    protected override void Initialize() {
+        base.Initialize();
+
+        this.CameraObject = GetComponentInChildren<Camera>().transform;
+        this.PivotObject = this.CameraObject.parent;
     }
 
-    // Use this for initialization
-    protected override void Start()
-    {
-
-        base.Start();
+    void Start() {
+        this.Initialize();
     }
 
-    // Update is called once per frame
-    virtual protected void Update()
-    {
+    protected virtual void UpdateCamera() {
+        if (this.Target != null) {
+            this.Follow(999, false);
 
-        if (!Application.isPlaying)
-        {
-            if (target != null)
-            {
-                Follow(999, false);
-                lastTargetPosition = target.position;
-            }
-
-            if (Mathf.Abs(cam.localPosition.x) > .5f || Mathf.Abs(cam.localPosition.y) > .5f)
-            {
-                cam.localPosition = Vector3.Scale(cam.localPosition, Vector3.forward);
-            }
-
-            cam.localPosition = Vector3.Scale(cam.localPosition, Vector3.forward);
+            this.LastTargetPosition = this.Target.position;
         }
-    }
-    protected override void Follow(float deltaTime, bool lockCamera)
-    {
 
+        if (Mathf.Abs(this.CameraObject.localPosition.x) > .5f ||
+            Mathf.Abs(this.CameraObject.localPosition.y) > .5f) {
+            this.CameraObject.localPosition = Vector3.Scale(
+                this.CameraObject.localPosition,
+                Vector3.forward
+            );
+        }
+
+        this.CameraObject.localPosition =
+            Vector3.Scale(this.CameraObject.localPosition, Vector3.forward);
+    }
+
+    protected override void Follow(float deltaTime, bool lockCamera) {
+        Debug.LogWarning(
+            this.GetType().Name + " warning: using Follow which is empty."
+        );
     }
 }
