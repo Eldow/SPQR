@@ -13,8 +13,22 @@ public class FreeCameraLook : Pivot {
     public float SmoothY = 0;
     public float SmoothXvelocity = 0;
     public float SmoothYvelocity = 0;
+    public Vector3 PivotOffset;
+
+    public Vector3 PivotLockLeftAngles;
+    protected Vector3 PivotLockRightAngles;
+    protected Vector3 PivotLockAngles;
 
     protected override void Initialize() {
+        this.PivotLockLeftAngles = new Vector3(
+            12, 20, 0);
+        this.PivotLockAngles = this.PivotLockLeftAngles;
+        this.PivotLockRightAngles = new Vector3(
+            this.PivotLockLeftAngles.x,
+            -this.PivotLockLeftAngles.y,
+            -this.PivotLockLeftAngles.z
+        );
+
         base.Initialize();
 
         Cursor.lockState = CursorLockMode.Confined;
@@ -25,21 +39,23 @@ public class FreeCameraLook : Pivot {
     }
 
     void Update() {
+        this.UpdateTarget();
+
         if (GameManager.Instance == null) return;
 
         if (!GameManager.Instance.Running.IsRunning) return;
 
         if (this.LockCamera) {
-            this.transform.rotation =
-                Quaternion.Lerp(
-                    this.transform.rotation,
-                    Quaternion.LookRotation(
-                        TargetManager.instance.player.transform.forward,
-                        Vector3.zero
-                    ),
-                    Time.deltaTime * 20
-                );
+            if (InputManager.switchCameraOffsetDown()) {
+                this.SwitchPivotSide();
+            }
+
+            this.RotateLockCamera();
         } else {
+            if (InputManager.switchCameraOffsetDown()) {
+                this.ApplyOffset();
+            }
+
             this.HandleRotationMovement();
         }
 
@@ -52,6 +68,34 @@ public class FreeCameraLook : Pivot {
         Cursor.lockState = CursorLockMode.None;
     }
 
+    protected virtual void SwitchPivotSide() {
+        this.UndoOffset();
+        this.PivotObject.localRotation =
+            Quaternion.Euler(this.PivotLockAngles.x, -this.PivotLockAngles.y, this.PivotLockAngles.z);
+
+        this.PivotObject.transform.localPosition = new Vector3(
+            -this.PivotObject.transform.localPosition.x,
+            this.PivotObject.transform.localPosition.y,
+            this.PivotObject.transform.localPosition.z
+        );
+
+        if (this.IsLeftPivot) {
+            this.PivotLockAngles = this.PivotLockRightAngles;
+            this.MainCameraOffset = this.MainCameraRightOffset;
+        } else {
+            this.PivotLockAngles = this.PivotLockLeftAngles;
+            this.MainCameraOffset = this.MainCameraLeftOffset;
+        }
+
+        this.ApplyOffset();
+
+        this.IsLeftPivot = !this.IsLeftPivot;
+    }
+
+    protected virtual void RotateLockCamera() {
+        this.transform.LookAt(this.OpponentController.transform);
+    }
+
     protected override void Follow(float deltaTime, bool lockCam) {
         this.LockCamera = lockCam;
         this.transform.position =
@@ -60,6 +104,10 @@ public class FreeCameraLook : Pivot {
                 this.Target.position,
                 deltaTime * this.MoveSpeed
             );
+    }
+
+    protected override void UndoOffset() {
+        base.ApplyOffset();
     }
 
     void HandleRotationMovement() {

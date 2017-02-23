@@ -4,6 +4,16 @@ public abstract class FollowTarget : MonoBehaviour {
     public bool AutoTarget = true;
     public bool LockCamera = false;
 
+    public Vector3 MainCameraLeftOffset;
+    public Vector3 MainCameraRightOffset;
+    public Vector3 MainCameraOffset;
+    public Vector3 MainCameraDefaultUnlockPosition;
+    public Vector3 MainCameraDefaultUnlockRotation;
+    public Vector3 MainCameraDefaultLockPosition;
+    public Vector3 MainCameraDefaultLockRotation;
+    protected bool IsLeftPivot = true;
+    protected bool OffsetApplied = false;
+
     public Transform Target { get; protected set; }
     public PlayerController PlayerController { get; protected set; }
     public PlayerController OpponentController { get; protected set; }
@@ -11,6 +21,21 @@ public abstract class FollowTarget : MonoBehaviour {
     public GameObject HealthBar { get; protected set; }
 
     protected virtual void Initialize() {
+        this.MainCameraLeftOffset = new Vector3(-1, -3, 3);
+        this.MainCameraOffset = this.MainCameraLeftOffset;
+        this.MainCameraRightOffset = new Vector3(
+            -this.MainCameraLeftOffset.x,
+            this.MainCameraLeftOffset.y,
+            this.MainCameraLeftOffset.z
+        );
+
+        this.MainCameraDefaultLockPosition = new Vector3(0, 2, -8);
+        this.MainCameraDefaultLockRotation = new Vector3(8, 0, 0);
+
+        this.MainCameraDefaultUnlockPosition = new Vector3(0, 0, -8.75f);
+        this.MainCameraDefaultUnlockRotation = new Vector3(0, 0, 0);
+
+
         this.TryToGetPlayerController();
 
         if (this.AutoTarget) {
@@ -22,8 +47,28 @@ public abstract class FollowTarget : MonoBehaviour {
         this.Initialize();
     }
 
-    void FixedUpdate() {
+    void Update() {
         this.UpdateTarget();
+    }
+
+    protected virtual void ApplyOffset() {
+        Camera.main.transform.localPosition = this.MainCameraDefaultLockPosition;
+        Camera.main.transform.localRotation = 
+            Quaternion.Euler(this.MainCameraDefaultLockRotation);
+
+        Camera.main.transform.localPosition = new Vector3(
+            Camera.main.transform.localPosition.x + this.MainCameraOffset.x,
+            Camera.main.transform.localPosition.y + this.MainCameraOffset.y,
+            Camera.main.transform.localPosition.z + this.MainCameraOffset.z
+        );
+
+        this.OffsetApplied = true;
+    }
+
+    protected virtual void UndoOffset() {
+        Camera.main.transform.localPosition = this.MainCameraDefaultLockPosition;
+        Camera.main.transform.localRotation =
+            Quaternion.Euler(this.MainCameraDefaultLockRotation);
     }
 
     protected virtual void UpdateTarget() {
@@ -93,7 +138,8 @@ public abstract class FollowTarget : MonoBehaviour {
             );
         } else {
             neededRotation = Quaternion.LookRotation(
-                this.PlayerController.gameObject.transform.forward
+                this.PlayerController.gameObject.transform.forward,
+                this.PlayerController.gameObject.transform.up
             );
         }
 
@@ -114,11 +160,23 @@ public abstract class FollowTarget : MonoBehaviour {
         this.OpponentController = opponent.GetComponent<PlayerController>();
     }
 
-    public void SwitchCameraMode() {
+    protected virtual void ResetCameraUnlockPosition() {
+        Camera.main.transform.localPosition = this.MainCameraDefaultUnlockPosition;
+        Camera.main.transform.localRotation =
+            Quaternion.Euler(this.MainCameraDefaultUnlockRotation);
+    }
+
+    public virtual void SwitchCameraMode() {
         this.LockCamera = !this.LockCamera;
 
-        if (!this.LockCamera) return;
+        if (!this.LockCamera) {
+            this.UndoOffset();
+            this.ResetCameraUnlockPosition();
 
+            return;
+        }
+
+        this.ApplyOffset();
         this.UpdateOpponent();
 
         if (this.OpponentController != null) {

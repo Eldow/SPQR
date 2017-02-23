@@ -20,7 +20,8 @@ public class ViewBodyVector : MonoBehaviour {
             = this.PlayerPhysics.gameObject.transform.position;
 
         this.DebugViewVector.EndObject.transform.position 
-            = this.PlayerPhysics.RigidBody.velocity;
+            = this.PlayerPhysics.gameObject.transform.position + 
+            this.PlayerPhysics.RigidBody.velocity;
 	}
 
     protected void TryToGetCameraVector() {

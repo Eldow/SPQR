@@ -4,12 +4,20 @@ public class Pivot : FollowTarget {
     protected Transform CameraObject;
     protected Transform PivotObject;
     protected Vector3 LastTargetPosition;
+    protected Vector3 PivotDefaultPosition;
+    protected Vector3 PivotDefaultRotation;
 
     protected override void Initialize() {
         base.Initialize();
 
         this.CameraObject = GetComponentInChildren<Camera>().transform;
         this.PivotObject = this.CameraObject.parent;
+
+        this.PivotDefaultPosition = new Vector3(0, 3.4f, 0);
+        this.PivotDefaultRotation = new Vector3(0, 0, 0);
+        this.PivotObject.transform.position = this.PivotDefaultPosition;
+        this.PivotObject.transform.rotation = 
+            Quaternion.Euler(this.PivotDefaultRotation);
     }
 
     void Start() {

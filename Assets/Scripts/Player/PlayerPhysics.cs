@@ -35,14 +35,14 @@ public class PlayerPhysics : Photon.MonoBehaviour {
         if (!this.IsMoving) {
             this.IsMoving = false;
 
+            this.StopRobot();
+
             return;
         }
-
-        this.StopRobot();
     }
 
     protected virtual void StopRobot() {
-        this.GetCameraVectors();        
+        this.GetCameraVectors();
         this.GetTargetDirection();
         
         this.MoveDirection = this.TargetDirection.normalized;
@@ -101,6 +101,7 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     }
 
     public void LockedMovement(float speedFactor = 1.0f) {
+        //this.StopRobot();
         this.IsMoving = true;
     }
 

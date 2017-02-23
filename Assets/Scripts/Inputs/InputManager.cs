@@ -37,15 +37,19 @@ public class InputManager : MonoBehaviour {
     public static float cameraX() {
         float r = 0f;
         r += Input.GetAxis("JoystickCamera_Horizontal");
-        r += Input.GetAxis("MouseCamera_Horizontal");
+        //r += Input.GetAxis("MouseCamera_Horizontal");
         return Mathf.Clamp(r, -1.0f, 1.0f);
     }
 
     public static float cameraY() {
         float r = 0f;
         r += Input.GetAxis("JoystickCamera_Vertical");
-        r += Input.GetAxis("MouseCamera_Vertical");
+        //r += Input.GetAxis("MouseCamera_Vertical");
         return Mathf.Clamp(r, -1.0f, 1.0f);
+    }
+
+    public static bool switchCameraOffsetDown() {
+        return Input.GetButtonDown("SwitchCameraOffset");
     }
 
     public static bool attackButton() {
