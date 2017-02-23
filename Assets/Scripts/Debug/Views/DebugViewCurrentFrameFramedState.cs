@@ -14,7 +14,7 @@ public class DebugViewCurrentFrameFramedState : DebugViewCurrentState {
         if (this.TextObject == null) return;
 
         if (this.StateMachine == null) {
-            this.tryToGetStateMachine();
+            this.TryToGetStateMachine();
         }
 
         if (this.StateMachine == null) return;

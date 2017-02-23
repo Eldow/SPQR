@@ -122,6 +122,8 @@ public class PlayerPhysics : Photon.MonoBehaviour {
 
         this.RigidBody.velocity = 
             this.MoveDirection * this.UnlockedForwardSpeed * speedFactor;
+
+        if (this.MoveDirection.sqrMagnitude <= 0.02f) return;
       
         this.gameObject.transform.rotation = 
             Quaternion.RotateTowards(
