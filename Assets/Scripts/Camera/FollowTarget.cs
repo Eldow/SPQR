@@ -78,7 +78,10 @@ public abstract class FollowTarget : MonoBehaviour {
 
         if (this.PlayerController == null) return;
 
-        if (InputManager.cameraButtonDown()) {
+        this.UpdateOpponent();
+
+        if (InputManager.cameraButtonDown() && 
+            this.OpponentController != null) {
             this.SwitchCameraMode();
         }
 
@@ -177,7 +180,6 @@ public abstract class FollowTarget : MonoBehaviour {
         }
 
         this.ApplyOffset();
-        this.UpdateOpponent();
 
         if (this.OpponentController != null) {
             HealthBar = this.OpponentController.opponentInfo;
