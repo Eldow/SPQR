@@ -52,10 +52,6 @@ public class FreeCameraLook : Pivot {
 
             this.RotateLockCamera();
         } else {
-            if (InputManager.switchCameraOffsetDown()) {
-                this.ApplyOffset();
-            }
-
             this.HandleRotationMovement();
         }
 
@@ -100,6 +96,22 @@ public class FreeCameraLook : Pivot {
         this.transform.LookAt(this.OpponentController.transform);
     }
 
+    protected override void UndoOffset() {
+        this.PivotObject.transform.localPosition = this.PivotDefaultPosition;
+        this.PivotObject.transform.localRotation =
+            Quaternion.Euler(this.PivotDefaultRotation);
+
+        base.UndoOffset();
+    }
+
+    protected override void ApplyOffset() {
+        this.PivotObject.transform.localPosition = this.PivotDefaultPosition;
+        this.PivotObject.transform.localRotation = 
+            Quaternion.Euler(this.PivotDefaultRotation);
+
+        base.ApplyOffset();
+    }
+
     protected override void Follow(float deltaTime, bool lockCam) {
         this.LockCamera = lockCam;
         this.transform.position =
@@ -108,10 +120,6 @@ public class FreeCameraLook : Pivot {
                 this.Target.position,
                 deltaTime * this.MoveSpeed
             );
-    }
-
-    protected override void UndoOffset() {
-        base.ApplyOffset();
     }
 
     void HandleRotationMovement() {
