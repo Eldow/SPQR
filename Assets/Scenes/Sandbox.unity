@@ -3757,6 +3757,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 640171029}
+  - {fileID: 1353122245}
   m_Father: {fileID: 1633821180}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3772,6 +3773,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FramePerSecond: 60
+--- !u!1001 &1129780749
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1060132389}
+    m_Modifications:
+    - target: {fileID: 4038132903377762, guid: b1174452908ea0f419f06c9c3076305c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038132903377762, guid: b1174452908ea0f419f06c9c3076305c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038132903377762, guid: b1174452908ea0f419f06c9c3076305c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038132903377762, guid: b1174452908ea0f419f06c9c3076305c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038132903377762, guid: b1174452908ea0f419f06c9c3076305c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038132903377762, guid: b1174452908ea0f419f06c9c3076305c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038132903377762, guid: b1174452908ea0f419f06c9c3076305c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038132903377762, guid: b1174452908ea0f419f06c9c3076305c, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252115337430582, guid: b1174452908ea0f419f06c9c3076305c, type: 2}
+      propertyPath: m_Name
+      value: DebugCamera
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b1174452908ea0f419f06c9c3076305c, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1228513848
 GameObject:
   m_ObjectHideFlags: 0
@@ -3902,6 +3949,29 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c64c8025846ca044be72463b8832733, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1353122244 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1252115337430582, guid: b1174452908ea0f419f06c9c3076305c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1129780749}
+--- !u!4 &1353122245 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4038132903377762, guid: b1174452908ea0f419f06c9c3076305c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1129780749}
+--- !u!114 &1353122246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1353122244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b4485a0e09f7664e869d8deed8b726e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerPhysics: {fileID: 0}
+  DebugViewVector: {fileID: 0}
 --- !u!1 &1381431980
 GameObject:
   m_ObjectHideFlags: 0

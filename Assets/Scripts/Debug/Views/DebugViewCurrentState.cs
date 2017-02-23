@@ -12,14 +12,14 @@ public class DebugViewCurrentState : DebugViewer {
     }
 
     void Start () {
-        this.tryToGetStateMachine();
+        this.TryToGetStateMachine();
     }
 
 	void Update () {
         if (this.TextObject == null) return;
 
 	    if (this.StateMachine == null) {
-	        this.tryToGetStateMachine();
+	        this.TryToGetStateMachine();
 	    }
 
 	    if (this.StateMachine == null) return;
@@ -27,7 +27,7 @@ public class DebugViewCurrentState : DebugViewer {
 	    this.TextObject.text = this.Label + this.StateMachine.CurrentState;
 	}
 
-    protected void tryToGetStateMachine() {
+    protected void TryToGetStateMachine() {
         GameObject player =
             GameObject.FindGameObjectWithTag(PlayerController.Player);
 

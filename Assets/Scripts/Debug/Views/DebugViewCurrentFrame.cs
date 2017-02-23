@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-
-public class DebugViewCurrentFrame : DebugViewer {
+﻿public class DebugViewCurrentFrame : DebugViewer {
     public FrameCounter FrameCounter = null;
 
     // to be overriden in child, if necessary

@@ -1,88 +1,189 @@
 ﻿using UnityEngine;
 
-public abstract class FollowTarget : MonoBehaviour
-{
+public abstract class FollowTarget : MonoBehaviour {    
+    public bool AutoTarget = true;
+    public bool LockCamera = false;
 
-    [SerializeField]
-    public Transform target;
-    [SerializeField]
-    private bool autoTargetPlayer = true;
-    public bool lockCamera = false;
-    GameObject player, opponent;
-    private GameObject healthBar;
+    public Vector3 MainCameraLeftOffset;
+    public Vector3 MainCameraRightOffset;
+    public Vector3 MainCameraOffset;
+    public Vector3 MainCameraDefaultUnlockPosition;
+    public Vector3 MainCameraDefaultUnlockRotation;
+    public Vector3 MainCameraDefaultLockPosition;
+    public Vector3 MainCameraDefaultLockRotation;
+    protected bool IsLeftPivot = true;
+    protected bool OffsetApplied = false;
 
-    virtual protected void Start() { 
-        if (TargetManager.instance == null) return;
+    public Transform Target { get; protected set; }
+    public PlayerController PlayerController { get; protected set; }
+    public PlayerController OpponentController { get; protected set; }
+    public GameObject Opponent { get; protected set; }
+    public GameObject HealthBar { get; protected set; }
 
-        if (autoTargetPlayer)
-        {
-            FindTargetPlayer();
+    protected virtual void Initialize() {
+        this.MainCameraLeftOffset = new Vector3(-1, -3, 3);
+        this.MainCameraOffset = this.MainCameraLeftOffset;
+        this.MainCameraRightOffset = new Vector3(
+            -this.MainCameraLeftOffset.x,
+            this.MainCameraLeftOffset.y,
+            this.MainCameraLeftOffset.z
+        );
+
+        this.MainCameraDefaultLockPosition = new Vector3(0, 2, -8);
+        this.MainCameraDefaultLockRotation = new Vector3(8, 0, 0);
+
+        this.MainCameraDefaultUnlockPosition = new Vector3(0, 0, -8.75f);
+        this.MainCameraDefaultUnlockRotation = new Vector3(0, 0, 0);
+
+
+        this.TryToGetPlayerController();
+
+        if (this.AutoTarget) {
+            this.FindTargetPlayer();
         }
     }
 
-    void FixedUpdate()
-    {
-        if (autoTargetPlayer && (target == null || !target.gameObject.activeSelf))
-        {
-            FindTargetPlayer();
+    void Start() {
+        this.Initialize();
+    }
+
+    void Update() {
+        this.UpdateTarget();
+    }
+
+    protected virtual void ApplyOffset() {
+        Camera.main.transform.localPosition = this.MainCameraDefaultLockPosition;
+        Camera.main.transform.localRotation = 
+            Quaternion.Euler(this.MainCameraDefaultLockRotation);
+
+        Camera.main.transform.localPosition = new Vector3(
+            Camera.main.transform.localPosition.x + this.MainCameraOffset.x,
+            Camera.main.transform.localPosition.y + this.MainCameraOffset.y,
+            Camera.main.transform.localPosition.z + this.MainCameraOffset.z
+        );
+
+        this.OffsetApplied = true;
+    }
+
+    protected virtual void UndoOffset() {
+        Camera.main.transform.localPosition = this.MainCameraDefaultLockPosition;
+        Camera.main.transform.localRotation =
+            Quaternion.Euler(this.MainCameraDefaultLockRotation);
+    }
+
+    protected virtual void UpdateTarget() {
+        if (this.CheckIfPlayerToFind()) {
+            this.FindTargetPlayer();
         }
-        if (target != null)
-        {
-            if (InputManager.cameraButtonDown())
-            {
-                SwitchCameraMode();
-            }
-            if (lockCamera)
-            {
-                LookAtOpponent();
-            } else
-            {
-                FindTargetPlayer();
-            }
-            Follow(Time.deltaTime, lockCamera);
+
+        if (this.PlayerController == null) return;
+
+        this.UpdateOpponent();
+
+        if (InputManager.cameraButtonDown() && 
+            this.OpponentController != null) {
+            this.SwitchCameraMode();
         }
+
+        if (this.LockCamera) {
+            this.LookAtOpponent();
+        } else {
+            this.FindTargetPlayer();
+        }
+
+        this.Follow(Time.deltaTime, LockCamera);
+    }
+
+    protected void TryToGetPlayerController() {
+        if (TargetManager.instance == null) return;
+
+        GameObject player = TargetManager.instance.player;
+
+        if (player == null) return;
+
+        this.PlayerController =
+            player.gameObject.GetComponent<PlayerController>();
+    }
+
+    protected bool CheckIfPlayerToFind() {
+        return this.AutoTarget &&
+               (this.Target == null || !this.Target.gameObject.activeSelf);
     }
 
     protected abstract void Follow(float deltaTime, bool lockCamera);
 
-
     public void FindTargetPlayer() {
-        player = TargetManager.instance.player;
-        if (player != null)
-        {
-            SetTarget(player.transform);
-            player.GetComponent<PlayerController>().PlayerPhysics.IsLockedMovement = false;
+        if (this.PlayerController == null) {
+            this.TryToGetPlayerController();
+
+            if (this.PlayerController == null) return;
         }
+
+        this.Target = this.PlayerController.gameObject.transform;
+        this.PlayerController.PlayerPhysics.IsLockedMovement = false;
     }
 
-    public void LookAtOpponent()
-    {
-        opponent = TargetManager.instance.GetNearestOpponent();
-        if (player != null && opponent != null)
-        {
-            Quaternion neededRotation = Quaternion.LookRotation(opponent.transform.position - player.transform.position);
-            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, neededRotation, Time.deltaTime * 5f);
-            player.GetComponent<PlayerController>().PlayerPhysics.IsLockedMovement = true;
+    public void LookAtOpponent() {
+        if (this.PlayerController == null) {
+            this.TryToGetPlayerController();
+
+            if (this.PlayerController == null) return;
         }
+
+        this.UpdateOpponent();
+
+        Quaternion neededRotation;
+
+        if (this.OpponentController != null) {
+            neededRotation = Quaternion.LookRotation(
+                this.OpponentController.transform.position - 
+                this.PlayerController.gameObject.transform.position
+            );
+        } else {
+            neededRotation = Quaternion.LookRotation(
+                this.PlayerController.gameObject.transform.forward,
+                this.PlayerController.gameObject.transform.up
+            );
+        }
+
+        this.PlayerController.gameObject.transform.rotation = Quaternion.Slerp(
+            this.PlayerController.gameObject.transform.rotation, 
+            neededRotation, 
+            Time.deltaTime * 5f
+        );
+
+        this.PlayerController.PlayerPhysics.IsLockedMovement = true;
     }
 
-    public void SwitchCameraMode()
-    {
-        lockCamera = !lockCamera;
-        opponent = TargetManager.instance.GetNearestOpponent();
-        if(opponent != null)
-        {
-            if (lockCamera)
-            {
-                healthBar = opponent.GetComponent<PlayerController>().opponentInfo;
-            }
-            healthBar.SetActive(lockCamera);
-        }
+    protected void UpdateOpponent() {
+        GameObject opponent = TargetManager.instance.GetNearestOpponent();
+
+        if (opponent == null) return;
+
+        this.OpponentController = opponent.GetComponent<PlayerController>();
     }
 
-    public virtual void SetTarget(Transform newTransform)
-    {
-        target = newTransform;
+    protected virtual void ResetCameraUnlockPosition() {
+        Camera.main.transform.localPosition = this.MainCameraDefaultUnlockPosition;
+        Camera.main.transform.localRotation =
+            Quaternion.Euler(this.MainCameraDefaultUnlockRotation);
     }
-    public Transform Target { get { return this.target; } }
+
+    public virtual void SwitchCameraMode() {
+        this.LockCamera = !this.LockCamera;
+
+        if (!this.LockCamera) {
+            this.UndoOffset();
+            this.ResetCameraUnlockPosition();
+
+            return;
+        }
+
+        this.ApplyOffset();
+
+        if (this.OpponentController != null) {
+            HealthBar = this.OpponentController.opponentInfo;
+            HealthBar.SetActive(LockCamera);
+        }
+    }
 }

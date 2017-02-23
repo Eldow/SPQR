@@ -1,97 +1,163 @@
 ﻿using UnityEngine;
-//using UnityEditor;
 
-public class FreeCameraLook : Pivot
-{
+public class FreeCameraLook : Pivot {
+    public float MoveSpeed = 5f;
+    public float TurnSpeed = 1.5f;
+    public float TurnSmoothing = .1f;
+    public float TiltMax = 75f;
+    public float TiltMin = 45f;
+    public bool LockCursor = false;
+    public float LookAngle;
+    public float TiltAngle;
+    public float SmoothX = 0;
+    public float SmoothY = 0;
+    public float SmoothXvelocity = 0;
+    public float SmoothYvelocity = 0;
+    public Vector3 PivotOffset;
 
-    [SerializeField]
-    private float moveSpeed = 5f;
-    [SerializeField]
-    private float turnSpeed = 1.5f;
-    [SerializeField]
-    private float turnsmoothing = .1f;
-    [SerializeField]
-    private float tiltMax = 75f;
-    [SerializeField]
-    private float tiltMin = 45f;
-    [SerializeField]
-    private bool lockCursor = false;
+    public Vector3 PivotLockLeftAngles;
+    protected Vector3 PivotLockRightAngles;
+    protected Vector3 PivotLockAngles;
 
-    private float lookAngle;
-    private float tiltAngle;
+    protected override void Initialize() {
+        this.PivotLockLeftAngles = new Vector3(
+            12, 20, 0);
+        this.PivotLockAngles = this.PivotLockLeftAngles;
+        this.PivotLockRightAngles = new Vector3(
+            this.PivotLockLeftAngles.x,
+            -this.PivotLockLeftAngles.y,
+            -this.PivotLockLeftAngles.z
+        );
 
-    private const float LookDistance = 100f;
-
-    private float smoothX = 0;
-    private float smoothY = 0;
-    private float smoothXvelocity = 0;
-    private float smoothYvelocity = 0;
-
-    protected override void Awake()
-    {
-        base.Awake();
+        base.Initialize();
 
         Cursor.lockState = CursorLockMode.Confined;
-
-        cam = GetComponentInChildren<Camera>().transform;
-        pivot = cam.parent;
     }
 
-    // Update is called once per frame
-    protected override void Update() {
+    void Start() {
+        this.Initialize();
+    }
+
+    void Update() {
+        this.UpdateTarget();
+
         if (GameManager.Instance == null) return;
 
         if (!GameManager.Instance.Running.IsRunning) return;
 
-        base.Update();
-        if (lockCamera)
-        {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, turnSpeed);
-        }
-		else
-        {
-            HandleRotationMovement();
+        if (this.LockCamera) {
+            if (InputManager.switchCameraOffsetDown()) {
+                this.SwitchPivotSide();
+            }
+
+            this.RotateLockCamera();
+        } else {
+            this.HandleRotationMovement();
         }
 
-        if (lockCursor && Input.GetMouseButtonUp(0))
-        {
+        if (this.LockCursor && Input.GetMouseButtonUp(0)) {
             Cursor.lockState = CursorLockMode.Confined;
         }
     }
 
-    void OnDisable()
-    {
+    void OnDisable() {
         Cursor.lockState = CursorLockMode.None;
     }
 
-    protected override void Follow(float deltaTime, bool lockCam)
-    {
-        lockCamera = lockCam;
-        transform.position = Vector3.Lerp(transform.position, target.position, deltaTime * moveSpeed);
+    protected virtual void SwitchPivotSide() {
+        this.UndoOffset();
+
+        this.PivotObject.localRotation = Quaternion.Euler(
+            this.PivotLockAngles.x, 
+            -this.PivotLockAngles.y, 
+            this.PivotLockAngles.z
+        );
+
+        this.PivotObject.transform.localPosition = new Vector3(
+            -this.PivotObject.transform.localPosition.x,
+            this.PivotObject.transform.localPosition.y,
+            this.PivotObject.transform.localPosition.z
+        );
+
+        if (this.IsLeftPivot) {
+            this.PivotLockAngles = this.PivotLockRightAngles;
+            this.MainCameraOffset = this.MainCameraRightOffset;
+        } else {
+            this.PivotLockAngles = this.PivotLockLeftAngles;
+            this.MainCameraOffset = this.MainCameraLeftOffset;
+        }
+
+        this.ApplyOffset();
+
+        this.IsLeftPivot = !this.IsLeftPivot;
     }
 
-    void HandleRotationMovement()
-    {
-		float x = InputManager.cameraX();
-		float y = InputManager.cameraY();
-
-        if (turnsmoothing > 0)
-        {
-            smoothX = Mathf.SmoothDamp(smoothX, x, ref smoothXvelocity, turnsmoothing);
-            smoothY = Mathf.SmoothDamp(smoothY, y, ref smoothYvelocity, turnsmoothing);
-        }
-        else
-        {
-            smoothX = x;
-            smoothY = y;
-        }
-        lookAngle += smoothX * turnSpeed;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0f, lookAngle, 0), turnSpeed);
-
-        tiltAngle -= smoothY * turnSpeed;
-        tiltAngle = Mathf.Clamp(tiltAngle, -tiltMin, tiltMax);
-
-        pivot.localRotation = Quaternion.Euler(tiltAngle, 0, 0);
+    protected virtual void RotateLockCamera() {
+        this.transform.LookAt(this.OpponentController.transform);
     }
 
+    protected override void UndoOffset() {
+        this.PivotObject.transform.localPosition = this.PivotDefaultPosition;
+        this.PivotObject.transform.localRotation =
+            Quaternion.Euler(this.PivotDefaultRotation);
+
+        base.UndoOffset();
+    }
+
+    protected override void ApplyOffset() {
+        this.PivotObject.transform.localPosition = this.PivotDefaultPosition;
+        this.PivotObject.transform.localRotation = 
+            Quaternion.Euler(this.PivotDefaultRotation);
+
+        base.ApplyOffset();
+    }
+
+    protected override void Follow(float deltaTime, bool lockCam) {
+        this.LockCamera = lockCam;
+        this.transform.position =
+            Vector3.Lerp(
+                this.transform.position,
+                this.Target.position,
+                deltaTime * this.MoveSpeed
+            );
+    }
+
+    void HandleRotationMovement() {
+        float cameraX = InputManager.cameraX();
+        float cameraY = InputManager.cameraY();
+
+        // prevent the camera from turning back when quitting the lock mode
+        if (Mathf.Abs(cameraX) <= 0.02f && Mathf.Abs(cameraY) <= 0.02f) {
+            return;
+        }
+
+        if (TurnSmoothing > 0) {
+            this.SmoothX = Mathf.SmoothDamp(
+                this.SmoothX, cameraX, ref this.SmoothXvelocity, 
+                this.TurnSmoothing
+            );
+
+            this.SmoothY = Mathf.SmoothDamp(
+                this.SmoothY, cameraY, ref this.SmoothYvelocity, 
+                this.TurnSmoothing
+            );
+        } else {
+            this.SmoothX = cameraX;
+            this.SmoothY = cameraY;
+        }
+
+        this.LookAngle += this.SmoothX * this.TurnSpeed;
+        this.transform.rotation = Quaternion.RotateTowards(
+            this.transform.rotation, 
+            Quaternion.Euler(0f, this.LookAngle, 0), 
+            this.TurnSpeed
+        );
+
+        this.TiltAngle -= this.SmoothY * this.TurnSpeed;
+        this.TiltAngle = Mathf.Clamp(
+            this.TiltAngle, -this.TiltMin, this.TiltMax);
+
+        this.PivotObject.localRotation = Quaternion.Euler(
+            this.TiltAngle, 0, 0);
+    }
 }
