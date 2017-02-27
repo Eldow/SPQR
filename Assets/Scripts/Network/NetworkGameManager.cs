@@ -1,18 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class NetworkGameManager : Photon.PunBehaviour
-{
+public class NetworkGameManager : Photon.PunBehaviour {
     public GameObject playerPrefab;
 
-    void Start()
-    {
-        if (PhotonNetwork.connected)
-        {
-            PhotonNetwork.Instantiate(playerPrefab.name, Vector3.left * (PhotonNetwork.room.PlayerCount * 2), Quaternion.identity, 0);
-        }
+    void Start() {
+        if (!PhotonNetwork.connected) return;
+
+        PhotonNetwork.Instantiate(playerPrefab.name, Vector3.left * (PhotonNetwork.room.PlayerCount * 2), Quaternion.identity, 0);
     }
 
     public override void OnLeftRoom()

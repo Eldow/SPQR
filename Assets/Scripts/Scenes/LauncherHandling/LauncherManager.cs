@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LauncherManager : Photon.PunBehaviour
 {
@@ -8,55 +7,47 @@ public class LauncherManager : Photon.PunBehaviour
     public PhotonLogLevel Loglevel = PhotonLogLevel.Informational;
     [Tooltip("The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created")]
     public byte MaxPlayersPerRoom = 2;
-    [Tooltip("The Ui Panel to let the user enter name, connect and play")]
-    public GameObject controlPanel;
-    [Tooltip("The UI Label to inform the user that the connection is in progress")]
-    public GameObject progressLabel;
+
+    public string LevelToLoad = "Sandbox";
 
     private string _gameVersion = "1";
-    private bool isConnecting;
+    private bool _isConnecting;
 
-    void Awake()
-    {
+    void Awake() {
         PhotonNetwork.logLevel = Loglevel;
         PhotonNetwork.autoJoinLobby = false;
         PhotonNetwork.automaticallySyncScene = true;
     }
 
-    void Start()
-    {
-        progressLabel.SetActive(false);
-        controlPanel.SetActive(true);
+    void Start() {
     }
 
-    public void Connect()
-    {
-        isConnecting = true;
-        progressLabel.SetActive(true);
-        controlPanel.SetActive(false);
-        if (PhotonNetwork.connected)
-        {
+    public virtual void Local() {
+        SceneManager.LoadScene(this.LevelToLoad);
+    }
+
+    public virtual void Connect() {
+        _isConnecting = true;
+
+        if (PhotonNetwork.connected) {
             PhotonNetwork.JoinRandomRoom();
+
+            return;
         }
-        else
-        {
-            PhotonNetwork.ConnectUsingSettings(_gameVersion);
-        }
+
+        PhotonNetwork.ConnectUsingSettings(_gameVersion);
     }
 
-    public override void OnConnectedToMaster()
-    {
+    public override void OnConnectedToMaster() {
         Debug.Log("Launcher: OnConnectedToMaster() was called by PUN");
-        if (isConnecting)
-        {
+
+        if (_isConnecting) {
             PhotonNetwork.JoinRandomRoom();
         }
     }
 
     public override void OnDisconnectedFromPhoton()
     {
-        progressLabel.SetActive(false);
-        controlPanel.SetActive(true);
         Debug.LogWarning("Launcher: OnDisconnectedFromPhoton() was called by PUN");
     }
 
@@ -70,7 +61,7 @@ public class LauncherManager : Photon.PunBehaviour
     {
         Debug.Log("Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
         Debug.Log("Player Name: " + PhotonNetwork.playerName.ToString());
-        PhotonNetwork.LoadLevel("Sandbox");
+        PhotonNetwork.LoadLevel(this.LevelToLoad);
     }
 
 }

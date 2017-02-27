@@ -17,7 +17,7 @@ public class ReceiveHit : MonoBehaviour {
     }
 
     protected virtual void HandleOpponent(Collision other) {
-        if (!other.gameObject.CompareTag(PlayerController.Opponent)) return;
+        if (!other.gameObject.CompareTag(NetPlayerController.Opponent)) return;
 
         PhotonNetwork.player.TakeDamage(1);
         this.SendHitstun(other);

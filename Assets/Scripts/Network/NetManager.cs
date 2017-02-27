@@ -1,63 +1,74 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.Networking.NetworkSystem;
+﻿using UnityEngine;
 
 // Unused - Will be useful to override the Unity's Built-in Network Manager
-public class NetManager : MonoBehaviour
-{
-    private const string roomName = "RoomName";
-    private RoomInfo[] roomsList;
-    public GameObject playerPrefab;
+public class NetManager : MonoBehaviour {
+    public string GameVersion = "0.1";
+    public GameObject PlayerPrefab;
+    public int PlayerMax = 10;
 
-    void Start()
-    {
-        PhotonNetwork.ConnectUsingSettings("0.1");
+    private const string _roomName = "RoomName";
+    private RoomInfo[] _roomList;
+
+    void Start() {
+        PhotonNetwork.ConnectUsingSettings(this.GameVersion);
     }
 
     void OnGUI()
     {
-        if (!PhotonNetwork.connected)
-        {
+        if (!PhotonNetwork.connected) {
             GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
+
+            return;
         }
-        else if (PhotonNetwork.room == null && PhotonNetwork.insideLobby)
-        {
-            // Create Room
-            if (GUI.Button(new Rect(100, 100, 250, 100), "Start Server"))
-            {
-                RoomOptions newRoomOptions = new RoomOptions();
-                newRoomOptions.IsVisible = true;
-                newRoomOptions.IsOpen = true;
-                newRoomOptions.MaxPlayers = 10;
-                newRoomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable();
-                newRoomOptions.CustomRoomProperties.Add("s", "for example level name");
-                newRoomOptions.CustomRoomPropertiesForLobby = new string[] { "s" }; // makes level name accessible in a room list in the lobby
-                PhotonNetwork.CreateRoom(roomName + System.Guid.NewGuid() , newRoomOptions, null);
-            }
 
+        if (PhotonNetwork.room != null || !PhotonNetwork.insideLobby) return;
 
-            // Join Room
-            if (roomsList != null)
-            {
-                for (int i = 0; i < roomsList.Length; i++)
-                {
-                    if (GUI.Button(new Rect(100, 250 + (110 * i), 250, 100), "Join " + roomsList[i].Name))
-                        PhotonNetwork.JoinRoom(roomsList[i].Name);
-                }
+        if (GUI.Button(new Rect(100, 100, 250, 100), "Start Server")) {
+            this.CreateRoom();
+        }
+
+        this.JoinRoom();
+
+    }
+
+    protected virtual void CreateRoom() {
+        RoomOptions newRoomOptions = new RoomOptions();
+
+        newRoomOptions.IsVisible = true;
+        newRoomOptions.IsOpen = true;
+        newRoomOptions.MaxPlayers = (byte) this.PlayerMax;
+        newRoomOptions.CustomRoomProperties = 
+            new ExitGames.Client.Photon.Hashtable();
+        newRoomOptions.CustomRoomProperties.Add("s", "for example level name");
+
+        // makes level name accessible in a room list in the lobby
+        newRoomOptions.CustomRoomPropertiesForLobby = 
+            new string[] { "s" };
+
+        PhotonNetwork.CreateRoom(
+            _roomName + "#" + System.Guid.NewGuid().ToString("N"), 
+            newRoomOptions, null
+        );
+    }
+
+    protected virtual void JoinRoom() {
+        if (this._roomList == null) return;
+
+        for (int i = 0; i < _roomList.Length; i++) {
+            if (GUI.Button(
+                new Rect(100, 250 + (110 * i), 250, 100), 
+                "Join " + _roomList[i].Name)) {
+                PhotonNetwork.JoinRoom(_roomList[i].Name);
             }
         }
     }
 
-    void OnReceivedRoomListUpdate()
-    {
-        roomsList = PhotonNetwork.GetRoomList();
+    void OnReceivedRoomListUpdate() {
+        _roomList = PhotonNetwork.GetRoomList();
     }
 
-    void OnJoinedRoom()
-    {
+    void OnJoinedRoom() {
         Debug.Log("Connected to Room");
-        PhotonNetwork.Instantiate(playerPrefab.name, Vector3.up * 5, Quaternion.identity, 0);
+        PhotonNetwork.Instantiate(PlayerPrefab.name, Vector3.up * 5, Quaternion.identity, 0);
     }
 }
