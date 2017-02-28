@@ -16,7 +16,7 @@ public class PlayerPowerView : MonoBehaviour {
     }
 
     void Update() {
-        this._position = this._startPosition *  (1.0f - 
+        this._position = this._startPosition * (1.0f - 
             this._target.PlayerPower.Power / (float) PlayerPower.MaxPower);
         this._rect.anchoredPosition = Vector3.Lerp(
             this._rect.anchoredPosition, 

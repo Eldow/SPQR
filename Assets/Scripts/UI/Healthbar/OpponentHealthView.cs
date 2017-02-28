@@ -22,7 +22,7 @@ public class OpponentHealthView : MonoBehaviour {
         this._rect.anchoredPosition = Vector3.Lerp(
             this._rect.anchoredPosition,
             new Vector3(
-                this._rect.anchoredPosition.x,
+                this._rect.anchoredPosition.y,
                 this._position
             ),
             Time.deltaTime * this.AnimationSpeed);
