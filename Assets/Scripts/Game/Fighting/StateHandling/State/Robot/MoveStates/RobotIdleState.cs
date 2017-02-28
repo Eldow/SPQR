@@ -29,6 +29,10 @@ public class RobotIdleState : RobotState {
         return new RobotWalkState();
     }
 
+    public RobotIdleState() {
+        this.Initialize();
+    }
+
     public override void Update(StateMachine stateMachine) {
 
     }

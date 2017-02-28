@@ -12,6 +12,10 @@ public class RobotVictoryState : RobotState {
         return null;
     }
 
+    public RobotVictoryState() {
+        this.Initialize();
+    }
+
     public override void Update(StateMachine stateMachine) {
         if (this._rigidbody == null) return;
 
@@ -27,7 +31,7 @@ public class RobotVictoryState : RobotState {
 
         /*  Too bugguy currently:
         ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
-            .Movement();*/
+            .Move();*/
     }
 
     public override void Enter(StateMachine stateMachine) {
@@ -43,7 +47,6 @@ public class RobotVictoryState : RobotState {
 
         /* Changing his mass to make the jump more cartoonistic...
          */
-
         this._oldMass = this._rigidbody.mass;
         this._rigidbody.mass = RobotVictoryState.Mass;
     }

@@ -92,6 +92,10 @@ public class PlayerPhysics : Photon.MonoBehaviour {
         this.Movement();
     }
 
+    public void Run() {
+        this.Movement(this.RunSpeed);
+    }
+
     public virtual void Movement(float speedFactor = 1.0f) {
         this.IsMoving = true;
 
@@ -102,10 +106,6 @@ public class PlayerPhysics : Photon.MonoBehaviour {
         } else {
             this.LockedMovement(speedFactor);
         }
-    }
-
-    public void RunMovement() {
-        this.Movement(this.RunSpeed);
     }
 
     public void LockedMovement(float speedFactor = 1.0f) {

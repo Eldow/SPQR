@@ -39,18 +39,17 @@
         return null;
     }
 
+    public RobotAttack2State() {
+        this.Initialize();
+    }
+
     public override void Update(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return;
 
         this.CurrentFrame++;
 
         ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
-            .Movement();
-    }
-
-    public override void Enter(StateMachine stateMachine) {
-        this.Initialize();
-        base.Enter(stateMachine);
+            .Move();
     }
 
     public override void Exit(StateMachine stateMachine) {

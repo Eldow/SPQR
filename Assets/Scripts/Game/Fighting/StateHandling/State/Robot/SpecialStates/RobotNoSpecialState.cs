@@ -1,12 +1,14 @@
-﻿using UnityEngine;
-
-public class RobotNoSpecialState : RobotState {
+﻿public class RobotNoSpecialState : RobotState {
     public override State HandleInput(StateMachine stateMachine) {
-		if (InputManager.attackButton()) {
+        if (InputManager.attackButton()) {
             return new RobotAttack1State();
         }
 
-		return InputManager.blockButton() ? new RobotBlockState() : null;
+        return InputManager.blockButton() ? new RobotBlockState() : null;
+    }
+
+    public RobotNoSpecialState() {
+        this.Initialize();
     }
 
     public override void Update(StateMachine stateMachine) {

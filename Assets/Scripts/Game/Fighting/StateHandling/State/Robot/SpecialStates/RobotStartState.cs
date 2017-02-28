@@ -1,9 +1,11 @@
-﻿using UnityEngine;
-
-public class RobotStartState : RobotState {
+﻿public class RobotStartState : RobotState {
 
     public override State HandleInput(StateMachine stateMachine) {
         return null;
+    }
+
+    public RobotStartState() {
+        this.Initialize();
     }
 
     public override void Update(StateMachine stateMachine) {

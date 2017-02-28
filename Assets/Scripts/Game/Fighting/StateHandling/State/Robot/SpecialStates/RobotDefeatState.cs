@@ -6,6 +6,10 @@ public class RobotDefeatState : RobotState {
         return null;
     }
 
+    public RobotDefeatState() {
+        this.Initialize();
+    }
+
     public override void Update(StateMachine stateMachine) {
 
     }

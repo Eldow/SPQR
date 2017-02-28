@@ -43,16 +43,17 @@ public class RobotRunState : RobotState {
         this.HeatCost = 3;
     }
 
+    public RobotRunState() {
+        this.Initialize();
+    }
+
     public override void Update(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return;
 
-        ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
-            .RunMovement();
+        ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics.Run();
     }
 
     public override void Enter(StateMachine stateMachine) {
-        this.Initialize();
-
         base.Enter(stateMachine);
 
         if (!(stateMachine is RobotStateMachine)) return;

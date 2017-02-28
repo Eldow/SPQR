@@ -35,11 +35,15 @@ public class RobotWalkState : RobotState {
         return null;
     }
 
+    public RobotWalkState() {
+        this.Initialize();
+    }
+
     public override void Update(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return;
 
         ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
-            .Movement();
+            .Move();
     }
 
     public override void Enter(StateMachine stateMachine) {

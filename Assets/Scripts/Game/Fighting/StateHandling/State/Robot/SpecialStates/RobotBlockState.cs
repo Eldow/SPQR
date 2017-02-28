@@ -42,15 +42,14 @@ public class RobotBlockState : RobotFramedState {
         return null;
     }
 
+    public RobotBlockState() {
+        this.Initialize();
+    }
+
     public override void Update(StateMachine stateMachine) {
         if (this.CheckIfBlockHolding()) return;
 
         this.CurrentFrame++;
-    }
-
-    public override void Enter(StateMachine stateMachine) {
-        this.Initialize();
-        base.Enter(stateMachine);
     }
 
     public override void Exit(StateMachine stateMachine) {

@@ -11,6 +11,10 @@ public class RobotHitstunState : RobotState {
         HitstunTime = Duration;
     }
 
+    public RobotHitstunState() {
+        this.Initialize();
+    }
+
     public override State HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
 
@@ -20,18 +24,11 @@ public class RobotHitstunState : RobotState {
             return null;
         }
 
-        /*if (this.IsCurrentAnimationFinished(robotStateMachine)) {
-            if (this.IsLastState(robotStateMachine, "RobotWalkState")) {
-                return new RobotWalkState();
-            }
-
-            return new RobotIdleState();
-        }*/
-
-        if (IsStunOver) {
+        if (this.IsStunOver) {
             return new RobotWalkState();
         }
-        else return null;
+
+        return null;
     }
 
     public override void Update(StateMachine stateMachine) {
