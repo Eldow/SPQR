@@ -1,6 +1,22 @@
 ﻿public class RobotState : State {
+    public int HeatCost { get; protected set; }
+
     public override State HandleInput(StateMachine stateMachine) {
         return null;
+    }
+
+    protected override void Initialize() {
+        base.Initialize();
+
+        this.HeatCost = 0;
+    }
+
+    public override void Enter(StateMachine stateMachine) {
+        if (!(stateMachine is RobotStateMachine)) return;
+
+        RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
+
+        robotStateMachine.PlayerController.PlayerPower.Power -= this.HeatCost;
     }
 
     public virtual bool IsAnimationPlaying(RobotStateMachine stateMachine,

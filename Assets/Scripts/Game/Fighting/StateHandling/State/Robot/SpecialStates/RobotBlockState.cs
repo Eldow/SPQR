@@ -6,6 +6,7 @@ public class RobotBlockState : RobotFramedState {
         this.IASA = 8;
         this.MinActiveState = 6;
         this.MaxActiveState = 23;
+        this.HeatCost = 3;
     }
 
     public override State HandleInput(StateMachine stateMachine) {
@@ -49,6 +50,7 @@ public class RobotBlockState : RobotFramedState {
 
     public override void Enter(StateMachine stateMachine) {
         this.Initialize();
+        base.Enter(stateMachine);
     }
 
     public override void Exit(StateMachine stateMachine) {

@@ -37,6 +37,12 @@ public class RobotRunState : RobotState {
         return null;
     }
 
+    protected override void Initialize() {
+        base.Initialize();
+
+        this.HeatCost = 3;
+    }
+
     public override void Update(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return;
 
@@ -45,6 +51,10 @@ public class RobotRunState : RobotState {
     }
 
     public override void Enter(StateMachine stateMachine) {
+        this.Initialize();
+
+        base.Enter(stateMachine);
+
         if (!(stateMachine is RobotStateMachine)) return;
 
         // necessary to keep track of history

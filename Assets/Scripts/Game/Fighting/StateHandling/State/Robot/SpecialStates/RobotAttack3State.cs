@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class RobotAttack3State : RobotAttackState {
+﻿public class RobotAttack3State : RobotAttackState {
     protected override void Initialize() {
         this.MaxFrame = 40;
         this.IASA = 34;
@@ -8,6 +6,7 @@ public class RobotAttack3State : RobotAttackState {
         this.MaxActiveState = 6;
         this.Damage = 3;
         this.Hitstun = 10;
+        this.HeatCost = 10;
     }
 
     public override State HandleInput(StateMachine stateMachine) {
@@ -19,7 +18,7 @@ public class RobotAttack3State : RobotAttackState {
             return null;
         }
 
-        if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!            
+        if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
             RobotState newState = this.CheckInterruptibleActions();
 
             if (newState != null) return newState;
@@ -47,6 +46,7 @@ public class RobotAttack3State : RobotAttackState {
 
     public override void Enter(StateMachine stateMachine) {
         this.Initialize();
+        base.Enter(stateMachine);
     }
 
     public override void Exit(StateMachine stateMachine) {

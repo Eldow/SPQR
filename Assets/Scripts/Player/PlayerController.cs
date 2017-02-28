@@ -64,8 +64,10 @@ public class PlayerController : Photon.MonoBehaviour {
         this.PlayerPower = new PlayerPower(this);
         RobotAutomaton robotAutomaton = this.GetComponent<RobotAutomaton>();
 
-        if (robotAutomaton != null && robotAutomaton.StateMachine is RobotStateMachine) {
-            this.RobotStateMachine = (RobotStateMachine)robotAutomaton.StateMachine;
+        if (robotAutomaton != null && 
+            robotAutomaton.StateMachine is RobotStateMachine) {
+            this.RobotStateMachine = 
+                (RobotStateMachine)robotAutomaton.StateMachine;
         }
 
         this.SetEntity();
