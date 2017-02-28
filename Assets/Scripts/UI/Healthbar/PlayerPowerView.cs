@@ -1,24 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerPowerView : MonoBehaviour
-{
-    private PlayerController target;
-    private float startPosition = 0f;
-    private float position;
-    public float animationSpeed = 5f;
-    private RectTransform rect;
+public class PlayerPowerView : MonoBehaviour {
+    public float AnimationSpeed = 5f;
 
-    public void Start()
-    {
-        rect = GetComponent<RectTransform>();
-        target = TargetManager.instance.player.GetComponent<PlayerController>();
-        startPosition = rect.anchoredPosition.y;
+    private PlayerController _target;
+    private float _startPosition = 0f;
+    private float _position;
+    private RectTransform _rect;
+
+    void Start() {
+        this._rect = GetComponent<RectTransform>();
+        this._target 
+            = TargetManager.instance.player.GetComponent<PlayerController>();
+        this._startPosition = this._rect.anchoredPosition.y;
     }
-    public void Update()
-    {
-        position = startPosition * (1 - PhotonNetwork.player.GetPower() / (float) PlayerPower.MaxPower);
-        rect.anchoredPosition = Vector3.Lerp(rect.anchoredPosition, new Vector3(rect.anchoredPosition.x, position), Time.deltaTime * animationSpeed);
+
+    void Update() {
+        this._position = this._startPosition * (1.0f - 
+            this._target.PlayerPower.Power / (float) PlayerPower.MaxPower);
+        this._rect.anchoredPosition = Vector3.Lerp(
+            this._rect.anchoredPosition, 
+            new Vector3(
+                this._rect.anchoredPosition.x,
+                this._position
+            ), 
+            Time.deltaTime * this.AnimationSpeed);
     }
 }

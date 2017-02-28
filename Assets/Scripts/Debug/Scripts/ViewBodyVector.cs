@@ -16,6 +16,8 @@ public class ViewBodyVector : MonoBehaviour {
 	        this.TryToGetCameraVector();
 	    }
 
+	    if (this.PlayerPhysics == null) return;
+
         this.DebugViewVector.StartObject.transform.position
             = this.PlayerPhysics.gameObject.transform.position;
 

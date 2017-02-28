@@ -182,7 +182,7 @@ public abstract class FollowTarget : MonoBehaviour {
         this.ApplyOffset();
 
         if (this.OpponentController != null) {
-            HealthBar = this.OpponentController.opponentInfo;
+            HealthBar = this.OpponentController.OpponentInfo;
             HealthBar.SetActive(LockCamera);
         }
     }

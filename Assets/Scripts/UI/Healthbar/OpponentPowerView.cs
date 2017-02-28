@@ -2,23 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpponentPowerView : MonoBehaviour
-{
-    private PlayerController target;
-    private float startPosition = 0f;
-    private float position;
-    public float animationSpeed = 5f;
-    private RectTransform rect;
+public class OpponentPowerView : MonoBehaviour {
+    public float AnimationSpeed = 5f;
 
-    public void Start()
-    {
-        rect = GetComponent<RectTransform>();
-        target = TargetManager.instance.GetNearestOpponent().GetComponent<PlayerController>();
-        startPosition = rect.anchoredPosition.y;
+    private PlayerController _target;
+    private float _startPosition = 0f;
+    private float _position;
+    private RectTransform _rect;
+
+    void Start() {
+        this._rect = GetComponent<RectTransform>();
+        this._startPosition = this._rect.anchoredPosition.y;
+
+        this.UpdateTarget();
     }
-    public void Update()
-    {
-        position = startPosition * (1 - PhotonNetwork.playerList[0].GetPower() / (float)PlayerPower.MaxPower);
-        rect.anchoredPosition = Vector3.Lerp(rect.anchoredPosition, new Vector3(rect.anchoredPosition.x, position), Time.deltaTime * animationSpeed);
+
+    void Update() {
+        this.UpdateTarget();
+
+        if (this._target == null) return;
+
+        this._position = this._startPosition*(1.0f -
+            this._target.PlayerPower.Power/(float) PlayerPower.MaxPower);
+
+        this._rect.anchoredPosition = Vector3.Lerp(
+            this._rect.anchoredPosition,
+            new Vector3(
+                this._rect.anchoredPosition.x,
+                this._position
+            ),
+            Time.deltaTime*this.AnimationSpeed);
+    }
+
+    protected virtual void UpdateTarget() {
+        GameObject opponent
+            = TargetManager.instance.GetNearestOpponent();
+
+        if (opponent == null) {
+            this._target = null;
+
+            return;
+        }
+
+        this._target = opponent.GetComponent<PlayerController>();
     }
 }
