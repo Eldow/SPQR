@@ -301,14 +301,12 @@ GameObject:
   - component: {fileID: 114432021629073712}
   - component: {fileID: 54601722743160752}
   - component: {fileID: 114685419613192464}
-  - component: {fileID: 114423672564550104}
-  - component: {fileID: 114438048771022824}
   - component: {fileID: 114194154180178772}
   - component: {fileID: 114469942789855958}
-  - component: {fileID: 114923487710558332}
-  - component: {fileID: 114847382742763702}
+  - component: {fileID: 114457985870282662}
+  - component: {fileID: 114566394521308902}
   m_Layer: 0
-  m_Name: NetRobot
+  m_Name: Robot
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2938,17 +2936,6 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
---- !u!114 &114423672564550104
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1326889472733694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 287ef751eeb58ff4096d01ea57136dcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114432021629073712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2960,7 +2947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6083cfc47953e5498aa7deec01f5f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114438048771022824
+--- !u!114 &114457985870282662
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2968,9 +2955,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1326889472733694}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393829e3b163b2c4aa9f5ddc88be1c03, type: 3}
+  m_Script: {fileID: 11500000, guid: f87a2c13c89103441b9d2106650b91ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerColor: {r: 0, g: 0, b: 1, a: 1}
+  OpponentColor: {r: 1, g: 0, b: 0, a: 1}
+  PlayerPhysics: {fileID: 0}
+  Animator: {fileID: 0}
+  PlayerInfo: {fileID: 0}
+  Canvas: {fileID: 0}
+  OpponentInfo: {fileID: 0}
 --- !u!114 &114469942789855958
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3031,6 +3025,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPointPrefab: {fileID: 1301498378091292, guid: bac40ec5e1f3a004aae61d7a9fd11096,
     type: 2}
+--- !u!114 &114566394521308902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326889472733694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e33d4c03eff27d944a292d21d6bcbfae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LockedForwardSpeed: 8
+  LockedBackwardSpeed: 0
+  UnlockedForwardSpeed: 8
+  RunSpeed: 3
+  TurnSpeed: 500
+  DecelerationTweak: 2
+  IsLockedMovement: 0
+  InputTolerance: 0.1
 --- !u!114 &114685419613192464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3071,45 +3084,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPointPrefab: {fileID: 1301498378091292, guid: bac40ec5e1f3a004aae61d7a9fd11096,
     type: 2}
---- !u!114 &114847382742763702
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1326889472733694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edc68bbed0d04b44cba092821c5ff276, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LockedForwardSpeed: 8
-  LockedBackwardSpeed: 0
-  UnlockedForwardSpeed: 8
-  RunSpeed: 3
-  TurnSpeed: 500
-  DecelerationTweak: 2
-  IsLockedMovement: 0
-  InputTolerance: 0.1
---- !u!114 &114923487710558332
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1326889472733694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec32ce1b8fa0275498c4f2d6fb50b5e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerColor: {r: 0, g: 0, b: 1, a: 1}
-  PlayerHealth: {fileID: 0}
-  PlayerPower: {fileID: 0}
-  PlayerPhysics: {fileID: 0}
-  Animator: {fileID: 0}
-  PlayerInfo: {fileID: 0}
-  Canvas: {fileID: 0}
-  OpponentColor: {r: 1, g: 0, b: 0, a: 1}
-  OpponentInfo: {fileID: 0}
 --- !u!135 &135441647110479512
 SphereCollider:
   m_ObjectHideFlags: 1

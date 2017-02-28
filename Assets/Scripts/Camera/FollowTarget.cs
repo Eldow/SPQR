@@ -16,7 +16,7 @@ public abstract class FollowTarget : MonoBehaviour {
 
     public Transform Target { get; protected set; }
     public PlayerController PlayerController { get; protected set; }
-    public NetPlayerController OpponentController { get; protected set; }
+    public PlayerController OpponentController { get; protected set; }
     public GameObject Opponent { get; protected set; }
     public GameObject HealthBar { get; protected set; }
 
@@ -160,7 +160,7 @@ public abstract class FollowTarget : MonoBehaviour {
 
         if (opponent == null) return;
 
-        this.OpponentController = opponent.GetComponent<NetPlayerController>();
+        this.OpponentController = opponent.GetComponent<PlayerController>();
     }
 
     protected virtual void ResetCameraUnlockPosition() {

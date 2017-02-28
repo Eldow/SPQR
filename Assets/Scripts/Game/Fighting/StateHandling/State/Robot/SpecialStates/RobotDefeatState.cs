@@ -39,7 +39,7 @@ public class RobotDefeatState : RobotState {
             robotRemains.transform.parent = robotStateMachine.transform;
         } catch (ArgumentException argumentException) {
             Debug.LogError(argumentException.Message);
-            Debug.LogError("Failed to load Robot/RobotRemains!");
+            Debug.LogError("Failed to load RobotRemains!");
         } catch (Exception exception) {
             Debug.LogError(exception.Message);
         }

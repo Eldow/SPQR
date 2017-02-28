@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerPhysics : MonoBehaviour {
+public class PlayerPhysics : Photon.MonoBehaviour {
     public Rigidbody RigidBody { get; protected set; }
     public Vector3 MoveDirection { get; protected set; }
     public Vector3 TargetDirection { get; protected set; }
@@ -30,7 +30,6 @@ public class PlayerPhysics : MonoBehaviour {
     }
 
     protected virtual void Initialize() {
-
         this.RigidBody = this.gameObject.GetComponent<Rigidbody>();
         this.RigidBody = this.gameObject.GetComponent<Rigidbody>();
         this._yAxisInput = this._xAxisInput = 0;
@@ -95,6 +94,8 @@ public class PlayerPhysics : MonoBehaviour {
 
     public virtual void Movement(float speedFactor = 1.0f) {
         this.IsMoving = true;
+
+        if (!photonView.isMine) return;
 
         if (!this.IsLockedMovement) {
             this.UnlockedMovement(speedFactor);

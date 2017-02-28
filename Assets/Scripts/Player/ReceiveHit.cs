@@ -1,8 +1,16 @@
 ﻿using UnityEngine;
 
-public class ReceiveHit : MonoBehaviour {
+public class ReceiveHit : Photon.MonoBehaviour {
+    protected PlayerController PlayerController = null;
+
+    void Start() {
+        this.PlayerController 
+            = this.gameObject.GetComponent<PlayerController>();
+    }
+
 	void OnCollisionEnter (Collision other) {
 	    if (!this.CheckIfValid(other)) return;
+
 	    this.HandleOpponent(other);
 	    this.HandlePlayer(other);
 	}
@@ -12,26 +20,54 @@ public class ReceiveHit : MonoBehaviour {
             other.transform.name.Equals("Robot:SwordLeft");
     }
 
-    protected virtual void HandlePlayer(Collision other) {
-        if (!other.gameObject.CompareTag(PlayerController.Player)) return;
-    }
-
     protected virtual void HandleOpponent(Collision other) {
-        if (!other.gameObject.CompareTag(NetPlayerController.Opponent)) return;
+        if (!other.gameObject.CompareTag(PlayerController.Player)) return;
 
-        PhotonNetwork.player.TakeDamage(1);
-        this.SendHitstun(other);
+        PhotonView photonView = PhotonView.Get(this);
+
+        if (!(this.PlayerController.RobotStateMachine.CurrentState is 
+            RobotAttackState)) {
+            return;
+        }
+
+        RobotAttackState robotAttackState = 
+            (RobotAttackState)this.PlayerController.RobotStateMachine
+            .CurrentState;
+
+        photonView.RPC("GetHit", PhotonTargets.Others, 
+            robotAttackState.Damage, robotAttackState.Hitstun,
+            this.PlayerController.ID);
     }
 
-    // need to be optimized...
-    protected virtual void SendHitstun(Collision other) {
-        GameObject player =
-            GameObject.FindGameObjectWithTag(PlayerController.Player);
+    protected virtual void HandlePlayer(Collision other) {
+        if (!other.gameObject.CompareTag(PlayerController.Opponent)) return;
+    }
 
-        Automaton automaton = player.GetComponent<Automaton>();
+    protected virtual void SendHitstun(int hitstun) {
+        this.PlayerController.RobotStateMachine.SetState(
+            new RobotHitstunState(hitstun));
+    }
 
-        if (automaton == null) return;
+    protected virtual int GetID(Collision other) {
+        PlayerController opponentController = 
+            other.transform.root.GetComponent<PlayerController>();
 
-        automaton.StateMachine.SetState(new RobotHitstunState(10)); // to fix
+        if (opponentController == null) {
+            return -1;
+        }
+
+        return opponentController.ID;
+    }
+
+    [PunRPC]
+    public void GetHit(int damage, int hitstun, int playerID) {
+        if (playerID != this.PlayerController.ID) return;
+
+        this.PlayerController.PlayerHealth.Health -= damage;
+        this.SendHitstun(hitstun);
+
+        if (this.PlayerController.PlayerHealth.Health > 0) return;
+
+        GameManager.Instance.UpdateDeadList(this.PlayerController.ID);
     }
 }
