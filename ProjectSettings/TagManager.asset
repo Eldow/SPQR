@@ -9,6 +9,7 @@ TagManager:
   - Canvas
   - Beam
   - Opponent
+  - CanvasBackground
   layers:
   - Default
   - TransparentFX
