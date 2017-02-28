@@ -37,7 +37,6 @@
 
             return new RobotIdleState();
         }
-
         return null;
     }
 

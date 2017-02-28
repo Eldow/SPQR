@@ -7,8 +7,10 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager Instance = null;
 
-    protected Dictionary<int, RobotStateMachine> PlayersList;
-    protected Dictionary<int, RobotStateMachine> AlivePlayersList;
+    public PlayerController MasterPlayer;
+
+    public Dictionary<int, PlayerController> PlayersList;
+    public Dictionary<int, PlayerController> AlivePlayersList;
 
     void Awake() {
         if (GameManager.Instance == null) {
@@ -34,12 +36,12 @@ public class GameManager : MonoBehaviour {
     }
 
     protected virtual void Initialize() {
-        this.AlivePlayersList = new Dictionary<int, RobotStateMachine>();
-        this.PlayersList = new Dictionary<int, RobotStateMachine>();
+        this.AlivePlayersList = new Dictionary<int, PlayerController>();
+        this.PlayersList = new Dictionary<int, PlayerController>();
     }
 
     public virtual void RemovePlayerToGame(int playerID) {
-        RobotStateMachine robotStateMachine = this.AlivePlayersList[playerID];
+        PlayerController robotStateMachine = this.AlivePlayersList[playerID];
 
         if (robotStateMachine != null) {
             this.AlivePlayersList.Remove(playerID);
@@ -55,30 +57,28 @@ public class GameManager : MonoBehaviour {
     public virtual void AddPlayerToGame(PlayerController playerAvatar) {
         this.AlivePlayersList.Add(
             playerAvatar.ID,
-            playerAvatar.RobotStateMachine
+            playerAvatar
         );
 
         this.PlayersList.Add(
             playerAvatar.ID,
-            playerAvatar.RobotStateMachine
+            playerAvatar
         );
     }
 
-    public virtual void UpdateDeadListToOthers(
-        PlayerController playerController) {
-        
-        this.UpdateDeadList(playerController.ID);
-
-        playerController.UpdateDeadToOthers();
+    public virtual void CheckIfGameOver()
+    {
+        if (!this.IsGameOver()) return;
+        this.AlivePlayersList.First().Value.RobotStateMachine.SetState(new RobotVictoryState());
+        MasterPlayer.SendStateToOthers(this.AlivePlayersList.First().Key, "RobotVictoryState");
     }
 
     public virtual void UpdateDeadList(int playerID) {
-        RobotStateMachine robotStateMachine =
+        PlayerController robotStateMachine =
             this.AlivePlayersList[playerID];
 
         if (robotStateMachine == null) return;
 
-        robotStateMachine.SetState(new RobotDefeatState());
         this.AlivePlayersList.Remove(playerID);
 
         if (!this.IsGameOver()) return;
@@ -87,8 +87,20 @@ public class GameManager : MonoBehaviour {
 
         if (robotStateMachine == null) return;
 
-        robotStateMachine.SetState(new RobotVictoryState());
     }
+
+    public virtual void UpdatePlayerHealth(int playerId, int health)
+    {
+        this.PlayersList[playerId].PlayerHealth.Health = health;
+        if (!PhotonNetwork.player.IsMasterClient) return;
+        if (health > 0) return;
+
+        if (!this.AlivePlayersList.Remove(playerId)) return;
+        this.MasterPlayer.SendStateToOthers(playerId, "RobotDefeatState");
+        this.PlayersList[playerId].RobotStateMachine.SetState(new RobotVictoryState());
+
+    }
+
     protected virtual bool IsGameOver() {
         return this.AlivePlayersList.Count <= 1;
     }

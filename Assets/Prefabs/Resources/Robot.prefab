@@ -302,7 +302,6 @@ GameObject:
   - component: {fileID: 54601722743160752}
   - component: {fileID: 114685419613192464}
   - component: {fileID: 114194154180178772}
-  - component: {fileID: 114469942789855958}
   - component: {fileID: 114457985870282662}
   - component: {fileID: 114566394521308902}
   m_Layer: 0
@@ -2965,53 +2964,6 @@ MonoBehaviour:
   PlayerInfo: {fileID: 0}
   Canvas: {fileID: 0}
   OpponentInfo: {fileID: 0}
---- !u!114 &114469942789855958
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1326889472733694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 9
-    SynchronizeType: 1
-    Name: RobotWalkState
-  - Type: 9
-    SynchronizeType: 1
-    Name: RobotAttack1State
-  - Type: 9
-    SynchronizeType: 1
-    Name: RobotAttack2State
-  - Type: 9
-    SynchronizeType: 1
-    Name: RobotAttack3State
-  - Type: 9
-    SynchronizeType: 1
-    Name: RobotBlockState
-  - Type: 9
-    SynchronizeType: 1
-    Name: RobotRunState
-  - Type: 9
-    SynchronizeType: 1
-    Name: RobotIdleState
-  - Type: 9
-    SynchronizeType: 1
-    Name: RobotHitstunState
-  - Type: 9
-    SynchronizeType: 1
-    Name: RobotVictoryState
-  - Type: 9
-    SynchronizeType: 1
-    Name: RobotDefeatState
-  m_SynchronizeLayers:
-  - SynchronizeType: 0
-    LayerIndex: 0
 --- !u!114 &114514304286713436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3064,9 +3016,7 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114457985870282662}
   - {fileID: 114194154180178772}
-  - {fileID: 114469942789855958}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -3117,7 +3067,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1454311615731766}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

@@ -1,4 +1,7 @@
-﻿public class State {
+﻿using System;
+
+public class State {
+
     protected virtual void Initialize() {
     }
 
@@ -17,4 +20,5 @@
 	  public virtual void Exit(StateMachine stateMachine) {
 
 	  }
+
 }

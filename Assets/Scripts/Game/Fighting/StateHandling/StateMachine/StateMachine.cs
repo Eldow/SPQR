@@ -62,4 +62,11 @@ public class StateMachine : MonoBehaviour {
         this.NextState = state;
         this.SwitchState();
     }
+
+    public virtual void SetState(string stateName)
+    {
+        if (!(this is RobotStateMachine)) return;
+        RobotStateMachine robotStateMachine = (RobotStateMachine)this;
+        robotStateMachine.PlayerController.SendStateToMaster(robotStateMachine.PlayerController.ID, stateName);
+    }
 }
