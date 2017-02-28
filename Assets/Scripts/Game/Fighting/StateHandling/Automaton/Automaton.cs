@@ -6,11 +6,4 @@
 public class Automaton : MonoBehaviour {
     [HideInInspector]
     public StateMachine StateMachine = null;
-
-    void Start() {
-        if ((this.StateMachine =
-                this.gameObject.GetComponent<StateMachine>()) != null) {
-            return;
-        }
-    }
 }

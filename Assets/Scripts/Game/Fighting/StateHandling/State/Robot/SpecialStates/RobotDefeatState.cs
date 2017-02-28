@@ -27,17 +27,19 @@ public class RobotDefeatState : RobotState {
 
         try {
             GameObject robotRemains =
-                PhotonNetwork.Instantiate("RobotRemains", robot.transform.position, robot.transform.rotation, 0);
-            /*GameObject.Instantiate(
-                    Resources.Load("Robot/RobotRemains", typeof(GameObject)))
-                as GameObject;*/
+                PhotonNetwork.Instantiate(
+                    "RobotRemains", 
+                    robot.transform.position, 
+                    robot.transform.rotation, 
+                    0
+                );
 
             PhotonNetwork.Destroy(robot.gameObject);
 
             robotRemains.transform.parent = robotStateMachine.transform;
         } catch (ArgumentException argumentException) {
             Debug.LogError(argumentException.Message);
-            Debug.LogError("Failed to load Robot/RobotRemains!");
+            Debug.LogError("Failed to load RobotRemains!");
         } catch (Exception exception) {
             Debug.LogError(exception.Message);
         }

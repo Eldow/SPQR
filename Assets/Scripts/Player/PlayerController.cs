@@ -1,51 +1,44 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
-/*
 
-    This class manages the player's behaviour
-
-*/
 public class PlayerController : Photon.MonoBehaviour {
-    public const string Player = "Player";
     public const string Opponent = "Opponent";
+    public const string Player = "Player";
+    public Color PlayerColor = Color.blue;
+    public Color OpponentColor = Color.red;
+    public int ID { get; protected set; }
 
     [HideInInspector]
-    public PlayerHealth PlayerHealth = null;
+    public PlayerHealth PlayerHealth;
     [HideInInspector]
-    public PlayerPower PlayerPower = null;
+    public PlayerPower PlayerPower;
     [HideInInspector]
     public PlayerPhysics PlayerPhysics = null;
     [HideInInspector]
     public Animator Animator = null;
     [HideInInspector]
-    public GameObject playerInfo;
-    [HideInInspector]
-    public GameObject opponentInfo;
+    public GameObject PlayerInfo;
     [HideInInspector]
     public GameObject Canvas;
 
-    public Color PlayerColor = Color.blue;
-    public Color OpponentColor = Color.red;
+    [HideInInspector]
+    public GameObject OpponentInfo;
 
-    private void SetTag(string tagName){
-		Transform[] temp;
-		transform.tag = tagName;
-		temp = GetComponentsInChildren<Transform>();
-
-		foreach (Transform t in temp) {
-			t.tag = tagName;
-		}
-	}
+    public RobotStateMachine RobotStateMachine { get; protected set; }
 
     void Start() {
-        this.PlayerHealth = GetComponent<PlayerHealth>();
-        this.PlayerPower = GetComponent<PlayerPower>();
-        this.PlayerPhysics = GetComponent<PlayerPhysics>();
-        this.Animator = GetComponent<Animator>();
-        this.Canvas = GameObject.FindGameObjectWithTag("Canvas");
+        this.Initialize();
+        this.AddPlayerToGame();
+    }
 
-        if (photonView == null) return;
+    protected virtual void AddPlayerToGame() {
+        GameManager.Instance.AddPlayerToGame(this);
+    }
 
+    void Update() {
+
+    }
+
+    protected virtual void SetEntity() {
         if (!photonView.isMine) {
             this.SetOpponent();
         } else {
@@ -53,36 +46,69 @@ public class PlayerController : Photon.MonoBehaviour {
         }
     }
 
-    protected virtual void SetOpponent() {
-        TargetManager.instance.AddOpponent(gameObject);
-        opponentInfo = Canvas.transform.GetChild(0).gameObject;
-        this.SetTag(Opponent);
+    protected virtual void SetTag(string tagName) {
+        transform.tag = tagName;
+        Transform[] temp = GetComponentsInChildren<Transform>();
+
+        foreach (Transform t in temp) {
+            t.tag = tagName;
+        }
+    }
+
+    protected virtual void Initialize() {
+        this.PlayerPhysics = GetComponent<PlayerPhysics>();
+        this.Animator = GetComponent<Animator>();
+        this.Canvas = GameObject.FindGameObjectWithTag("Canvas");
+        this.ID = this.photonView.viewID;
+        this.PlayerHealth = new PlayerHealth();
+        this.PlayerPower = new PlayerPower();
+        RobotAutomaton robotAutomaton = this.GetComponent<RobotAutomaton>();
+
+        if (robotAutomaton != null && robotAutomaton.StateMachine is RobotStateMachine) {
+            this.RobotStateMachine = (RobotStateMachine)robotAutomaton.StateMachine;
+        }
+
+        this.SetEntity();
     }
 
     protected virtual void SetPlayer() {
-        SetTag(Player);
+        this.SetTag(Player);
         GetComponent<RobotAutomaton>().enabled = true;
         GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
         TargetManager.instance.SetPlayer(gameObject);
-        playerInfo = Canvas.transform.GetChild(1).gameObject;
-        playerInfo.SetActive(true);
-        PhotonNetwork.player.SetHealth(PlayerHealth.MaxHealth);
-        PhotonNetwork.player.SetPower(PlayerPower.MaxPower);
+        PlayerInfo = Canvas.transform.GetChild(1).gameObject;
+        PlayerInfo.SetActive(true);
+    }
+
+    protected virtual void SetOpponent() {
+        TargetManager.instance.AddOpponent(gameObject);
+        OpponentInfo = Canvas.transform.GetChild(0).gameObject;
+        this.SetTag(Opponent);
     }
 
     public virtual void UpdateAnimations(string animationName) {
         this.Animator.SetTrigger(animationName);
-        photonView.RPC("SendAnimations", PhotonTargets.Others, animationName);
+        photonView.RPC(
+            "SendAnimations",
+            PhotonTargets.Others,
+            animationName
+        );
     }
 
     [PunRPC]
     void SendAnimations(string animationName) {
-        if (this.Animator != null)
-        {
-            this.Animator.SetTrigger(animationName);
-        }
+        if (this.Animator == null) return;
+
+        this.Animator.SetTrigger(animationName);
     }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        if (stream.isWriting) {
+            stream.SendNext(this.PlayerHealth.Health);
+            stream.SendNext(this.PlayerPower.Power);
+        } else {
+            this.PlayerHealth.Health = (int)stream.ReceiveNext();
+            this.PlayerPower.Power = (int)stream.ReceiveNext();
+        }
     }
 }

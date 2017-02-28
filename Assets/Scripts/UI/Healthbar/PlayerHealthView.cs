@@ -1,26 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerHealthView : MonoBehaviour
-{
-    private PlayerController target;
-    private float startRotation = 136f;
-    private float rotation;
-    public float animationSpeed = 5f;
-    private RectTransform rect;
+public class PlayerHealthView : MonoBehaviour {
+    public float AnimationSpeed = 5f;
 
-    public void Start()
-    {
-        rect = GetComponent<RectTransform>();
-        target = TargetManager.instance.player.GetComponent<PlayerController>();
-        startRotation = rect.eulerAngles.z;
-        rect.eulerAngles = new Vector3(rect.eulerAngles.x, rect.eulerAngles.y, 0);
+    private PlayerController _target;
+    private float _startRotation = 136f;
+    private float _rotation;
+    private RectTransform _rect;
+
+    void Start() {
+        this._rect = GetComponent<RectTransform>();
+        this._target = 
+            TargetManager.instance.player.GetComponent<PlayerController>();
+        this._startRotation = this._rect.eulerAngles.z;
+        this._rect.eulerAngles = 
+            new Vector3(this._rect.eulerAngles.x, this._rect.eulerAngles.y, 0);
     }
 
-    public void FixedUpdate()
-    {
-        rotation = startRotation * (1.0f - (PhotonNetwork.player.GetHealth() / (float)PlayerHealth.MaxHealth));
-        rect.eulerAngles = Vector3.Lerp(rect.eulerAngles, new Vector3(rect.eulerAngles.x, rect.eulerAngles.y, rotation), Time.deltaTime * animationSpeed);
+    void FixedUpdate() {
+        this._rotation = this._startRotation * (1.0f -
+            this._target.PlayerHealth.Health / (float)PlayerHealth.MaxHealth);
+
+        this._rect.eulerAngles = Vector3.Lerp(
+            this._rect.eulerAngles, 
+            new Vector3(
+                this._rect.eulerAngles.x, 
+                this._rect.eulerAngles.y, 
+                this._rotation
+            ), 
+            Time.deltaTime * this.AnimationSpeed
+        );
     }
 }
