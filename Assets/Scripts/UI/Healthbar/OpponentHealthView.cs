@@ -10,20 +10,24 @@ public class OpponentHealthView : MonoBehaviour {
 
     void Start() {
         this._rect = GetComponent<RectTransform>();
-        this._startPosition = this._rect.anchoredPosition.y;
+        this._startPosition = this._rect.anchoredPosition.x;
+
         this.UpdateTarget();
     }
 
     void Update() {
         this.UpdateTarget();
 
+        if (this._target == null) return;
+
         this._position = this._startPosition * (1.0f -
             this._target.PlayerHealth.Health / (float)PlayerHealth.MaxHealth);
+
         this._rect.anchoredPosition = Vector3.Lerp(
             this._rect.anchoredPosition,
             new Vector3(
-                this._rect.anchoredPosition.y,
-                this._position
+                this._position,
+                this._rect.anchoredPosition.y
             ),
             Time.deltaTime * this.AnimationSpeed);
     }
