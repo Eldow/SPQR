@@ -2,12 +2,12 @@
 using UnityEngine.SceneManagement;
 
 public class NetworkGameManager : Photon.PunBehaviour {
-    public GameObject playerPrefab;
+    public GameObject PlayerPrefab;
 
     void Start() {
         if (!PhotonNetwork.connected) return;
 
-        PhotonNetwork.Instantiate(playerPrefab.name, Vector3.left * (PhotonNetwork.room.PlayerCount * 2), Quaternion.identity, 0);
+        PhotonNetwork.Instantiate(PlayerPrefab.name, Vector3.left * (PhotonNetwork.room.PlayerCount * 2), Quaternion.identity, 0);
     }
 
     public override void OnLeftRoom()

@@ -10,7 +10,7 @@ public class LauncherManager : Photon.PunBehaviour
 
     public string LevelToLoad = "Sandbox";
 
-    private string _gameVersion = "1";
+    private string _gameVersion = "0.09";
     private bool _isConnecting;
 
     void Awake() {

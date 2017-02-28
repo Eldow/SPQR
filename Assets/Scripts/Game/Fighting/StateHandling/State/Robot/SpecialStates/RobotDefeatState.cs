@@ -27,10 +27,12 @@ public class RobotDefeatState : RobotState {
 
         try {
             GameObject robotRemains =
-                PhotonNetwork.Instantiate("RobotRemains", robot.transform.position, robot.transform.rotation, 0);
-            /*GameObject.Instantiate(
-                    Resources.Load("Robot/RobotRemains", typeof(GameObject)))
-                as GameObject;*/
+                PhotonNetwork.Instantiate(
+                    "RobotRemains", 
+                    robot.transform.position, 
+                    robot.transform.rotation, 
+                    0
+                );
 
             PhotonNetwork.Destroy(robot.gameObject);
 

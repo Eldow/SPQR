@@ -6,9 +6,9 @@ public class NetPlayerController : PlayerController {
     public Color OpponentColor = Color.red;
 
     [HideInInspector]
-    public PhotonView PhotonView;
-    [HideInInspector]
     public GameObject OpponentInfo;
+
+    private PhotonView _photonView;
 
     void Start () {
         this.Initialize();
@@ -24,11 +24,11 @@ public class NetPlayerController : PlayerController {
     }
 
     protected virtual void SetPhotonView() {
-        this.PhotonView = this.gameObject.GetComponent<PhotonView>();
+        this._photonView = this.gameObject.GetComponent<PhotonView>();
     }
 
     protected override void SetEntity() {
-        if (!this.PhotonView.isMine) {
+        if (!this._photonView.isMine) {
             this.SetOpponent();
         } else {
             this.SetPlayer();
@@ -43,7 +43,7 @@ public class NetPlayerController : PlayerController {
 
     public override void UpdateAnimations(string animationName) {
         base.UpdateAnimations(animationName);
-        this.PhotonView.RPC(
+        this._photonView.RPC(
             "SendAnimations", 
             PhotonTargets.Others, 
             animationName
