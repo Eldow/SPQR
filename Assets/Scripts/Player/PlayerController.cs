@@ -60,8 +60,8 @@ public class PlayerController : Photon.MonoBehaviour {
         this.Animator = GetComponent<Animator>();
         this.Canvas = GameObject.FindGameObjectWithTag("Canvas");
         this.ID = this.photonView.viewID;
-        this.PlayerHealth = new PlayerHealth();
-        this.PlayerPower = new PlayerPower();
+        this.PlayerHealth = new PlayerHealth(this);
+        this.PlayerPower = new PlayerPower(this);
         RobotAutomaton robotAutomaton = this.GetComponent<RobotAutomaton>();
 
         if (robotAutomaton != null && robotAutomaton.StateMachine is RobotStateMachine) {

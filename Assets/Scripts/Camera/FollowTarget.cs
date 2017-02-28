@@ -52,7 +52,8 @@ public abstract class FollowTarget : MonoBehaviour {
     }
 
     protected virtual void ApplyOffset() {
-        Camera.main.transform.localPosition = this.MainCameraDefaultLockPosition;
+        Camera.main.transform.localPosition = 
+            this.MainCameraDefaultLockPosition;
         Camera.main.transform.localRotation = 
             Quaternion.Euler(this.MainCameraDefaultLockRotation);
 
@@ -82,6 +83,10 @@ public abstract class FollowTarget : MonoBehaviour {
 
         if (InputManager.cameraButtonDown() && 
             this.OpponentController != null) {
+            this.SwitchCameraMode();
+        }
+
+        if (this.OpponentController == null && this.LockCamera) {
             this.SwitchCameraMode();
         }
 
@@ -173,6 +178,8 @@ public abstract class FollowTarget : MonoBehaviour {
         this.LockCamera = !this.LockCamera;
 
         if (!this.LockCamera) {
+            HealthBar = this.OpponentController.OpponentInfo;
+            HealthBar.SetActive(LockCamera);
             this.UndoOffset();
             this.ResetCameraUnlockPosition();
 

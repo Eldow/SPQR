@@ -2,6 +2,9 @@
 
 public class PlayerHealth {
     public const int MaxHealth = 100;
+
+    public PlayerController PlayerController { get; protected set; }
+
     private int _health;
 
     public int Health {
@@ -12,10 +15,15 @@ public class PlayerHealth {
         set {
             value = Mathf.Clamp(value, 0, PlayerHealth.MaxHealth);
             this._health = value;
+
+            if (this._health > 0) return;
+
+            GameManager.Instance.UpdateDeadList(this.PlayerController.ID);
         }
     }
 
-    public PlayerHealth() {
+    public PlayerHealth(PlayerController playerController) {
         this.Health = PlayerHealth.MaxHealth;
+        this.PlayerController = playerController;
     }
 }
