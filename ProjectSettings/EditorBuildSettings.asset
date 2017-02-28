@@ -15,5 +15,5 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
   - enabled: 0
     path: Assets/Scenes/Lobby.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LocalGame.unity

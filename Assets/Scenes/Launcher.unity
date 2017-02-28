@@ -1105,7 +1105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 109fca2fed253784e9f6c6e5749340d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalLevelToLoad: LocalGame
   ControlPanel: {fileID: 1175916605}
   ProgressLabel: {fileID: 2090621898}
 --- !u!1 &1717369782

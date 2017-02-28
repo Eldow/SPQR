@@ -5,8 +5,8 @@ public class LauncherManager : Photon.PunBehaviour {
 
     public PhotonLogLevel Loglevel = PhotonLogLevel.Informational;
     public byte MaxPlayersPerRoom = 2;
-
     public string LevelToLoad = "Sandbox";
+
     private bool _isConnecting;
 
     void Awake() {
@@ -15,14 +15,17 @@ public class LauncherManager : Photon.PunBehaviour {
         PhotonNetwork.automaticallySyncScene = true;
     }
 
-    void Start() {}
+    void Start() {
+        
+    }
 
     public virtual void Local() {
-        SceneManager.LoadScene(this.LevelToLoad);
+        PhotonNetwork.offlineMode = true;
+        PhotonNetwork.CreateRoom("OfflineRoom");
     }
 
     public virtual void Connect() {
-        _isConnecting = true;
+        this._isConnecting = true;
 
         if (PhotonNetwork.connected) {
             PhotonNetwork.JoinRandomRoom();
@@ -34,7 +37,7 @@ public class LauncherManager : Photon.PunBehaviour {
     }
 
     public override void OnConnectedToMaster() {
-        if (_isConnecting) {
+        if (this._isConnecting) {
             PhotonNetwork.JoinRandomRoom();
         }
     }

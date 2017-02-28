@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ReceiveHit : Photon.MonoBehaviour {
+public class HandleHit : Photon.MonoBehaviour {
     protected PlayerController PlayerController = null;
 
     void Start() {

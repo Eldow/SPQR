@@ -2,7 +2,6 @@
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour {
-    public string LocalLevelToLoad = "LocalGame";
     public GameObject ControlPanel;
     public GameObject ProgressLabel;
 
@@ -15,20 +14,20 @@ public class MenuManager : MonoBehaviour {
     }
 
     public virtual void StartGame(bool isLocal = false) {
+        LauncherManager launcherManager =
+            this.gameObject.AddComponent<LauncherManager>();
+
+        if (launcherManager == null) return;
+
+        this.SetNetworkingMenu();
+
         if (!isLocal) {
-            LauncherManager launcherManager = 
-                this.gameObject.AddComponent<LauncherManager>();
-
-            if (launcherManager == null) return;
-
-            this.SetNetworkingMenu();
-
             launcherManager.Connect();
 
             return;
         }
 
-        SceneManager.LoadScene(this.LocalLevelToLoad);
+        launcherManager.Local();
     }
 
     public virtual void SetMenu() {
