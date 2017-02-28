@@ -64,8 +64,17 @@ public class GameManager : MonoBehaviour {
         );
     }
 
+    public virtual void UpdateDeadListToOthers(
+        PlayerController playerController) {
+        
+        this.UpdateDeadList(playerController.ID);
+
+        playerController.UpdateDeadToOthers();
+    }
+
     public virtual void UpdateDeadList(int playerID) {
-        RobotStateMachine robotStateMachine = this.AlivePlayersList[playerID];
+        RobotStateMachine robotStateMachine =
+            this.AlivePlayersList[playerID];
 
         if (robotStateMachine == null) return;
 
@@ -74,13 +83,12 @@ public class GameManager : MonoBehaviour {
 
         if (!this.IsGameOver()) return;
 
-        robotStateMachine =  this.AlivePlayersList.First().Value;
+        robotStateMachine = this.AlivePlayersList.First().Value;
 
         if (robotStateMachine == null) return;
 
         robotStateMachine.SetState(new RobotVictoryState());
     }
-
     protected virtual bool IsGameOver() {
         return this.AlivePlayersList.Count <= 1;
     }

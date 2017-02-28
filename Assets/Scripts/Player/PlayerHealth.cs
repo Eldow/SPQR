@@ -18,7 +18,7 @@ public class PlayerHealth {
 
             if (this._health > 0) return;
 
-            GameManager.Instance.UpdateDeadList(this.PlayerController.ID);
+            GameManager.Instance.UpdateDeadListToOthers(this.PlayerController);
         }
     }
 

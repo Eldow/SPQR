@@ -95,8 +95,18 @@ public class PlayerController : Photon.MonoBehaviour {
         );
     }
 
+    public virtual void UpdateDeadToOthers() {
+        this.photonView.RPC("ReceiveDeadFromOthers", PhotonTargets.Others,
+            this.ID);
+    }
+
     [PunRPC]
-    void SendAnimations(string animationName) {
+    public virtual void ReceiveDeadFromOthers(int playerID) {
+        GameManager.Instance.UpdateDeadList(playerID);
+    }
+
+    [PunRPC]
+    public virtual void SendAnimations(string animationName) {
         if (this.Animator == null) return;
 
         this.Animator.SetTrigger(animationName);
