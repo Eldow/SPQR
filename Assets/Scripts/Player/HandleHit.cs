@@ -63,7 +63,7 @@ public class HandleHit : Photon.MonoBehaviour {
     public void GetHit(int damage, int hitstun, int playerID) {
         if (playerID != this.PlayerController.ID) return;
 
-        this.PlayerController.PlayerHealth.Health -= damage*10000;
+        this.PlayerController.PlayerHealth.Health -= damage;
         this.SendHitstun(hitstun);
     }
 }
