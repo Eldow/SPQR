@@ -31,10 +31,9 @@ public class RobotVictoryState : RobotState {
             RobotVictoryState.JumpForce, 
             0), 
             ForceMode.Impulse);
-
-        /*  Too bugguy currently:
+        
         ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
-            .Move();*/
+            .Move();
     }
 
     public override void Enter(StateMachine stateMachine) {
