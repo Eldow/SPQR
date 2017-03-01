@@ -66,11 +66,12 @@ public class GameManager : MonoBehaviour {
         );
     }
 
-    public virtual void CheckIfGameOver()
-    {
+    public virtual void CheckIfGameOver() {
         if (!this.IsGameOver()) return;
-        this.AlivePlayersList.First().Value.RobotStateMachine.SetState(new RobotVictoryState());
-        MasterPlayer.SendStateToOthers(this.AlivePlayersList.First().Key, "RobotVictoryState");
+        
+        MasterPlayer.SendStateToOthers(
+            this.AlivePlayersList.First().Key, 
+            "RobotVictoryState");
     }
 
     public virtual void UpdateDeadList(int playerID) {
@@ -92,13 +93,14 @@ public class GameManager : MonoBehaviour {
     public virtual void UpdatePlayerHealth(int playerId, int health)
     {
         this.PlayersList[playerId].PlayerHealth.Health = health;
+
         if (!PhotonNetwork.player.IsMasterClient) return;
+
         if (health > 0) return;
 
         if (!this.AlivePlayersList.Remove(playerId)) return;
-        this.MasterPlayer.SendStateToOthers(playerId, "RobotDefeatState");
-        this.PlayersList[playerId].RobotStateMachine.SetState(new RobotVictoryState());
 
+        this.MasterPlayer.SendStateToOthers(playerId, "RobotDefeatState");
     }
 
     protected virtual bool IsGameOver() {

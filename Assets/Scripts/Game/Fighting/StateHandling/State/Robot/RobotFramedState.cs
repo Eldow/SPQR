@@ -16,7 +16,7 @@
         this.CurrentFrame++;
     }
 
-    public override State HandleInput(StateMachine stateMachine) {
+    public override string HandleInput(StateMachine stateMachine) {
         return null;
     }
 
@@ -28,7 +28,7 @@
         return this.CurrentFrame >= this.MaxFrame;
     }
 
-    public virtual RobotState CheckInterruptibleActions() {
+    public virtual string CheckInterruptibleActions() {
         return null;
     }
 }

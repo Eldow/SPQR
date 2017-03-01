@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class RobotRunState : RobotState {
-    public override State HandleInput(StateMachine stateMachine) {
+    public override string HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
 
         // to be removed when the magic will be working all the time!
@@ -11,16 +11,16 @@ public class RobotRunState : RobotState {
         }
 
 		if (InputManager.blockButton()) {
-            return new RobotBlockState();
+            return typeof(RobotBlockState).Name;
         }
 
 		if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
 			Mathf.Abs(InputManager.moveY()) <= 0.2f) {
-            return new RobotIdleState();
+            return typeof(RobotIdleState).Name;
         }
 
 		if (!InputManager.runButton()) {
-            return new RobotWalkState();
+            return typeof(RobotWalkState).Name;
         }
 
         /* The animation can be decomposed in three states : startup, running

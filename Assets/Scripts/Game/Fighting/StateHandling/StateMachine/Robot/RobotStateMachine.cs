@@ -15,6 +15,8 @@ public class RobotStateMachine : StateMachine {
     }
 
     void Update() {
+        if (!this.photonView.isMine) return;
+
         this.HandleInput();
     }
 
@@ -35,15 +37,5 @@ public class RobotStateMachine : StateMachine {
 
         this.CurrentState = (RobotState) Activator.CreateInstance(stateType);
         this.StateHistory = new FixedSizedQueue<string>(this.MaxHistorySize);
-    }
-
-    protected override void SwitchState() {
-        if (!(this.NextState is RobotState)) {
-            return;
-        }
-
-        base.SwitchState();
-        /*this.PlayerController.UpdateAnimations(
-            this.CurrentState.GetType().Name);*/
     }
 }

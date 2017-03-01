@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class RobotDefeatState : RobotState {
-    public override State HandleInput(StateMachine stateMachine) {
+    public override string HandleInput(StateMachine stateMachine) {
         return null;
     }
 

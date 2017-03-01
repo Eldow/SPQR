@@ -1,23 +1,24 @@
 ﻿using UnityEngine;
 
 public class RobotWalkState : RobotState {
-    public override State HandleInput(StateMachine stateMachine) {
+    public override string HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
-		if (InputManager.attackButton()) {
-            return new RobotAttack1State();
+
+        if (InputManager.attackButton()) {
+            return typeof(RobotAttack1State).Name;
         }
 
-		if (InputManager.blockButton()) {
-            return new RobotBlockState();
+        if (InputManager.blockButton()) {
+            return typeof(RobotBlockState).Name;
         }
 
-		if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
-			Mathf.Abs(InputManager.moveY()) <= 0.2f) {
-            return new RobotIdleState();
+        if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
+            Mathf.Abs(InputManager.moveY()) <= 0.2f) {
+            return typeof(RobotIdleState).Name;
         }
 
-		if (InputManager.runButton()) {
-            return new RobotRunState();
+        if (InputManager.runButton()) {
+            return typeof(RobotRunState).Name;
         }
 
 

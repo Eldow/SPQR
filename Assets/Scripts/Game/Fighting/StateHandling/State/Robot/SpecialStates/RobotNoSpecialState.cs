@@ -1,10 +1,14 @@
 ﻿public class RobotNoSpecialState : RobotState {
-    public override State HandleInput(StateMachine stateMachine) {
+    public override string HandleInput(StateMachine stateMachine) {
         if (InputManager.attackButton()) {
-            return new RobotAttack1State();
+            return typeof(RobotAttack1State).ToString();
         }
 
-        return InputManager.blockButton() ? new RobotBlockState() : null;
+        if (InputManager.blockButton()) {
+            return typeof(RobotBlockState).Name;
+        }
+
+        return null;
     }
 
     public RobotNoSpecialState() {

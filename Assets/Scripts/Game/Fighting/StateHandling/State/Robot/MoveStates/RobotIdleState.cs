@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class RobotIdleState : RobotState {
-    public override State HandleInput(StateMachine stateMachine) {
+    public override string HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
 
         if (!this.IsAnimationPlaying((RobotStateMachine)stateMachine, 
@@ -9,24 +9,24 @@ public class RobotIdleState : RobotState {
             return null;
         }
 
-		if (InputManager.attackButton()) {
-            return new RobotAttack1State();
+        if (InputManager.attackButton()) {
+            return typeof(RobotAttack1State).Name;
         }
 
-		if (InputManager.blockButton()) {
-            return new RobotBlockState();
+        if (InputManager.blockButton()) {
+            return typeof(RobotBlockState).Name;
         }
 
-		if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
-			Mathf.Abs(InputManager.moveY()) <= 0.2f) {
+        if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
+            Mathf.Abs(InputManager.moveY()) <= 0.2f) {
             return null;
         }
 
-		if (InputManager.runButton()) {
-            return new RobotRunState();
+        if (InputManager.runButton()) {
+            return typeof(RobotRunState).Name;
         }
 
-        return new RobotWalkState();
+        return typeof(RobotWalkState).Name;
     }
 
     public RobotIdleState() {

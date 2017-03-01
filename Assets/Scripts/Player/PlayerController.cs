@@ -89,76 +89,88 @@ public class PlayerController : Photon.MonoBehaviour {
 
     protected virtual void SetOpponent() {
         TargetManager.instance.AddOpponent(gameObject);
-        OpponentInfo = Canvas.transform.GetChild(0).gameObject;
+        OpponentInfo = Canvas.transform.GetChild(1).gameObject;
         this.SetTag(Opponent);
     }
 
+    public virtual void UpdateAnimation(int playerId, string animationName) {
+        if (this.Animator == null) return;
+
+        GameManager.Instance.PlayersList[playerId]
+            .Animator.SetTrigger(animationName);
+    }
+
     public virtual void UpdateState(string stateName) {
-        //this.Animator.SetTrigger(stateName);
         this.SendStateToMaster(this.ID, stateName);
     }
 
-    public virtual void SendStateToMaster(int playerId, string stateName)
-    {
-        this.photonView.RPC("ReceiveStateFromOther", PhotonTargets.MasterClient, playerId, stateName);
-    }
-
-    [PunRPC]
-    public virtual void ReceiveStateFromOther(int playerId, string stateName)
-    {
-        this.photonView.RPC("ReceiveStateFromMaster", PhotonTargets.AllViaServer, playerId, stateName);
-    }
-
-    public virtual void UpdateDeadToOthers() {
-        if (!PhotonNetwork.player.IsMasterClient) return;
-        this.photonView.RPC("ReceiveDeadFromOthers", PhotonTargets.MasterClient,
-            this.ID);
-    }
-
-    [PunRPC]
-    public virtual void ReceiveHealthFromMaster(int playerId, int health)
-    {
-        GameManager.Instance.UpdatePlayerHealth(playerId, health);
-    }
-
-    public virtual void SendHealthToMaster()
-    {
+    /************************** CLIENT **************************/
+    public virtual void SendHealthToMaster() {
         if (!photonView.isMine) return;
-        this.photonView.RPC("ReceiveHealthFromOther", PhotonTargets.MasterClient,
-            this.ID, this.PlayerHealth.Health);
+
+        this.photonView.RPC(
+            "ReceiveHealthFromOther",
+            PhotonTargets.MasterClient,
+            this.ID,
+            this.PlayerHealth.Health);
     }
 
-    public virtual void ReceiveHealthFromOther(int playerId, int health)
-    {
-        GameManager.Instance.UpdatePlayerHealth(playerId, health);
-    }
-
-    [PunRPC]
-    public virtual void ReceiveDeadFromOthers(int playerID) {
-        GameManager.Instance.UpdateDeadList(playerID);
-
-    }
-
-    [PunRPC]
-    public virtual void SendAnimations(string animationName) {
-        if (this.Animator == null) return;
-
-        this.Animator.SetTrigger(animationName);
-    }
-
-    public virtual void SendStateToOthers(int playerId, string stateName)
-    {
-        this.photonView.RPC("ReceiveStateFromMaster", PhotonTargets.AllViaServer, playerId, stateName);
+    public virtual void SendStateToMaster(int playerID, string stateName) {
+        Debug.Log("CLIENT sends: " + playerID + " " + stateName);
+        this.photonView.RPC(
+            "ReceiveStateFromOther", 
+            PhotonTargets.MasterClient,
+            playerID, 
+            stateName);
     }
 
     [PunRPC]
-    public virtual void ReceiveStateFromMaster(int playerId, string stateName)
-    {
+    public virtual void ReceiveStateFromMaster(int playerID, 
+        string stateName) {
+        Debug.Log("CLIENT receives: " + playerID + " " + stateName);
         Type type = Type.GetType(stateName);
-        RobotState robotState = (RobotState)Activator.CreateInstance(type);
-        GameManager.Instance.PlayersList[playerId].RobotStateMachine.SetState(robotState);
+
+        if (type == null) return;
+
+        RobotState robotState = 
+            (RobotState)Activator.CreateInstance(type);
+
+        GameManager.Instance.PlayersList[playerID].RobotStateMachine
+            .SetState(robotState);
+
+        this.UpdateAnimation(playerID, stateName);
     }
 
-    void OnPhotonSerializeView() { }
+    [PunRPC]
+    public virtual void ReceiveHealthFromMaster(int playerID, int health) {
+        GameManager.Instance.UpdatePlayerHealth(playerID, health);
+    }
 
+    /************************** MASTER **************************/
+    public virtual void SendStateToOthers(int playerID, string stateName) {
+        Debug.Log("MASTER sends: " + playerID + " " + stateName);
+        this.photonView.RPC(
+            "ReceiveStateFromMaster", 
+            PhotonTargets.AllViaServer,
+            playerID, 
+            stateName);
+    }
+
+    public virtual void ReceiveHealthFromOther(int playerID, int health) {
+        GameManager.Instance.UpdatePlayerHealth(playerID, health);
+    }
+
+    [PunRPC]
+    public virtual void ReceiveStateFromOther(int playerID, string stateName) {
+        Debug.Log("MASTER receives: " + playerID + " " + stateName);
+        this.photonView.RPC(
+            "ReceiveStateFromMaster", 
+            PhotonTargets.AllViaServer,
+            playerID, 
+            stateName);
+    }
+
+    void OnPhotonSerializeView() {
+        
+    }
 }

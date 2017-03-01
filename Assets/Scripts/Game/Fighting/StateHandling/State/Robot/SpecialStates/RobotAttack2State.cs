@@ -9,7 +9,7 @@
         this.HeatCost = 3;
     }
 
-    public override State HandleInput(StateMachine stateMachine) {
+    public override string HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
 
         RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
@@ -19,21 +19,21 @@
         }
 
 		if (InputManager.attackButton()) {
-            return new RobotAttack3State();
+            return typeof(RobotAttack3State).Name;
         }
 
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
-            RobotState newState = this.CheckInterruptibleActions();
+            string newState = this.CheckInterruptibleActions();
 
             if (newState != null) return newState;
         }
 
         if (this.IsStateFinished()) {
             if (this.IsLastState(robotStateMachine, "RobotWalkState")) {
-                return new RobotWalkState();
+                return typeof(RobotWalkState).Name;
             }
 
-            return new RobotIdleState();
+            return typeof(RobotIdleState).Name;
         }
 
         return null;
@@ -55,13 +55,13 @@
     public override void Exit(StateMachine stateMachine) {
     }
 
-    public override RobotState CheckInterruptibleActions() {
+    public override string CheckInterruptibleActions() {
         if (InputManager.moveX() > .02f || InputManager.moveY() > .02f) {
             if (InputManager.runButton()) {
-                return new RobotRunState();
+                return typeof(RobotRunState).Name;
             }
 
-            return new RobotWalkState();
+            return typeof(RobotWalkState).Name;
         }
 
         return null;

@@ -8,7 +8,7 @@ public class RobotVictoryState : RobotState {
     private float _currentTime = 0f;
     private Rigidbody _rigidbody = null;
 
-    public override State HandleInput(StateMachine stateMachine) {
+    public override string HandleInput(StateMachine stateMachine) {
         return null;
     }
 

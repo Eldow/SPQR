@@ -1,12 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
-public class StateMachine : MonoBehaviour {
+public class StateMachine : Photon.MonoBehaviour {
     [HideInInspector]
     public State CurrentState { get; protected set; }
     [HideInInspector]
     public Automaton Automaton = null;
-    protected State NextState = null;
+    protected string NextState = null;
+    protected bool IsNewState = false;
 
     // to be changed in a child class, if necessary
     public virtual string DefaultState {
@@ -16,11 +17,17 @@ public class StateMachine : MonoBehaviour {
     }
 
     void Update() {
+        if (!this.photonView.isMine) return;
+
         this.HandleInput();
     }
 
     void FixedUpdate() {
-        this.SwitchState();
+        if (!this.photonView.isMine || this.IsNewState) return;
+
+        if (this.NextState != null) { 
+            this.SetState(this.NextState);
+        }
 
         this.CurrentState.Update(this);
     }
@@ -49,24 +56,37 @@ public class StateMachine : MonoBehaviour {
         this.NextState = this.CurrentState.HandleInput(this);
     }
 
-    protected virtual void SwitchState() {
-        if (this.NextState == null) return;
+    protected virtual void SwitchState(State state) {
+        if (state == null) return;
+        //Debug.Log("SWITCH STATE " + state.GetType().Name + " previous: " + this.CurrentState.GetType().Name);
+
+        Debug.Log("SWITCH STATE ");
+        Debug.Log(this.CurrentState);
+
+        Debug.Log(state);
 
         this.CurrentState.Exit(this);
-        this.CurrentState = this.NextState;
+        this.CurrentState = state;
         this.CurrentState.Enter(this);
         this.NextState = null;
+        this.IsNewState = false;
     }
 
     public virtual void SetState(State state) {
-        this.NextState = state;
-        this.SwitchState();
+        Debug.Log("SETSTATE AFTER: " + state.GetType().Name);
+        this.SwitchState(state);
+        Debug.Log("WTF????????????????????????????????????" + state.GetType().Name);
     }
 
-    public virtual void SetState(string stateName)
-    {
+    public virtual void SetState(string stateName) {
+        if (stateName == null) return;
+
+        this.IsNewState = true;
+
         if (!(this is RobotStateMachine)) return;
+        Debug.Log("SETSTATE with: " + stateName);
+
         RobotStateMachine robotStateMachine = (RobotStateMachine)this;
-        robotStateMachine.PlayerController.SendStateToMaster(robotStateMachine.PlayerController.ID, stateName);
+        robotStateMachine.PlayerController.UpdateState(stateName);
     }
 }

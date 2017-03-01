@@ -1,11 +1,10 @@
 ﻿using System;
 
 public class State {
-
     protected virtual void Initialize() {
     }
 
-    public virtual State HandleInput(StateMachine stateMachine) {
+    public virtual string HandleInput(StateMachine stateMachine) {
 	      return null;
 	  }
 

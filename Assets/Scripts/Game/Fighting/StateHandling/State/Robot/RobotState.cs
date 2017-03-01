@@ -1,7 +1,7 @@
 ﻿public class RobotState : State {
     public int HeatCost { get; protected set; }
 
-    public override State HandleInput(StateMachine stateMachine) {
+    public override string HandleInput(StateMachine stateMachine) {
         return null;
     }
 

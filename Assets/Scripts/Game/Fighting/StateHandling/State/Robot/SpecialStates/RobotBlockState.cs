@@ -9,7 +9,7 @@ public class RobotBlockState : RobotFramedState {
         this.HeatCost = 3;
     }
 
-    public override State HandleInput(StateMachine stateMachine) {
+    public override string HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
 
         RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
@@ -30,13 +30,13 @@ public class RobotBlockState : RobotFramedState {
         this.ResumeAnimation(robotStateMachine);
 
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
-            RobotState newState = this.CheckInterruptibleActions();
+            string newState = this.CheckInterruptibleActions();
 
             if (newState != null) return newState;
         }
 
         if (this.IsStateFinished()) {
-            return new RobotIdleState();
+            return typeof(RobotIdleState).Name;
         }
 
         return null;
@@ -59,13 +59,13 @@ public class RobotBlockState : RobotFramedState {
         return InputManager.blockButton();
     }
 
-    public override RobotState CheckInterruptibleActions() {
+    public override string CheckInterruptibleActions() {
         if (InputManager.moveX() > .02f || InputManager.moveY() > .02f) {
             if (InputManager.runButton()) {
-                return new RobotRunState();
+                return typeof(RobotRunState).Name;
             }
 
-            return new RobotWalkState();
+            return typeof(RobotWalkState).Name;
         }
 
         return null;

@@ -15,7 +15,7 @@ public class RobotHitstunState : RobotState {
         this.Initialize();
     }
 
-    public override State HandleInput(StateMachine stateMachine) {
+    public override string HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
 
         RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
@@ -25,7 +25,7 @@ public class RobotHitstunState : RobotState {
         }
 
         if (this.IsStunOver) {
-            return new RobotWalkState();
+            return typeof(RobotWalkState).Name;
         }
 
         return null;
