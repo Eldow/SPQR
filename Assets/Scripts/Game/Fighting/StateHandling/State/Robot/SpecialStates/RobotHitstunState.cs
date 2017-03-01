@@ -1,17 +1,15 @@
 ﻿using UnityEngine;
-
-public class RobotHitstunState : RobotState {
-
-    private float HitstunTime;
-    private float StunStartTime;
-    private bool IsStunOver;
-
-    public RobotHitstunState(float Duration) {
-        StunStartTime = Time.frameCount;
-        HitstunTime = Duration;
+public class RobotHitstunState : RobotFramedState {
+    protected override void Initialize() {
+        this.IASA = this.MaxFrame;
+        this.MinActiveState = 0;
+        this.MaxActiveState = this.MaxFrame;
+        this.HeatCost = 0;
     }
 
-    public RobotHitstunState() {
+    public RobotHitstunState(int duration) {
+        this.MaxFrame = duration;
+
         this.Initialize();
     }
 
@@ -24,15 +22,17 @@ public class RobotHitstunState : RobotState {
             return null;
         }
 
-        if (this.IsStunOver) {
+        if (!this.IsStateFinished()) return null;
+
+        if (this.IsLastState(robotStateMachine, "RobotWalkState")) {
             return new RobotWalkState();
         }
 
-        return null;
+        return new RobotIdleState();
     }
 
     public override void Update(StateMachine stateMachine) {
-        IsStunOver =  ((Time.frameCount - StunStartTime) >= HitstunTime);
+        this.CurrentFrame++;
     }
 
     public override void Enter(StateMachine stateMachine) {
