@@ -5,7 +5,7 @@
         this.MinActiveState = 7;
         this.MaxActiveState = 13;
         this.Damage = 1;
-        this.Hitstun = 5;
+        this.Hitstun = 10;
         this.HeatCost = 3;
     }
 
