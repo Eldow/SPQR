@@ -26,7 +26,10 @@ public class RobotVictoryState : RobotState {
 
         this._currentTime = 0f;
 
-        this._rigidbody.AddForce(new Vector3(0, RobotVictoryState.JumpForce, 0), 
+        this._rigidbody.AddForce(new Vector3(
+            0, 
+            RobotVictoryState.JumpForce, 
+            0), 
             ForceMode.Impulse);
 
         /*  Too bugguy currently:
@@ -45,17 +48,21 @@ public class RobotVictoryState : RobotState {
 
         if (this._rigidbody == null) return;
 
-        /* Changing his mass to make the jump more cartoonistic...
-         */
+        // changing his mass to make the jump more cartoonistic...
         this._oldMass = this._rigidbody.mass;
         this._rigidbody.mass = RobotVictoryState.Mass;
+
+        // allows jump
+        this._rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionY;
     }
 
     public override void Exit(StateMachine stateMachine) {
         if (this._rigidbody == null) return;
 
-        /* ... without forgetting of reverting it while Exiting the Win State.
-         */
+        // ... without forgetting of reverting it while Exiting the Win State.
         this._rigidbody.mass = this._oldMass;
+
+        // disallows jump
+        this._rigidbody.constraints &= RigidbodyConstraints.FreezePositionY;
     }
 }

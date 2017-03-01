@@ -18,6 +18,8 @@ public class PlayerHealth {
 
             if (this._health > 0) return;
 
+            if (!this.PlayerController.photonView.isMine) return;
+
             GameManager.Instance.UpdateDeadListToOthers(this.PlayerController);
         }
     }
