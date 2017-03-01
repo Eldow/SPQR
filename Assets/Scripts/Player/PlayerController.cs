@@ -31,7 +31,7 @@ public class PlayerController : Photon.MonoBehaviour {
     }
 
     protected virtual void SetEntity() {
-		if (!photonView.isMine || isDummy) {
+		if (!this.photonView.isMine || isDummy) {
             this.SetOpponent();
         } else {
             this.SetPlayer();
@@ -67,17 +67,22 @@ public class PlayerController : Photon.MonoBehaviour {
 
     protected virtual void SetPlayer() {
         this.SetTag(Player);
-        GetComponent<RobotAutomaton>().enabled = true;
-        GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
+
+        this.GetComponent<RobotAutomaton>().enabled = true;
+        this.GetComponentInChildren<MeshRenderer>().material.color = 
+            this.PlayerColor;
         TargetManager.instance.SetPlayer(gameObject);
-        PlayerInfo = Canvas.transform.GetChild(1).gameObject;
-        PlayerInfo.SetActive(true);
+        this.PlayerInfo = this.Canvas.transform.GetChild(1).gameObject;
+        this.PlayerInfo.SetActive(true);
     }
 
 	public virtual void SetOpponent() {
-        TargetManager.instance.AddOpponent(gameObject);
-        OpponentInfo = Canvas.transform.GetChild(0).gameObject;
         this.SetTag(Opponent);
+
+        TargetManager.instance.AddOpponent(gameObject);
+        this.GetComponentInChildren<MeshRenderer>().material.color =
+             this.OpponentColor;
+        this.OpponentInfo = this.Canvas.transform.GetChild(0).gameObject;
     }
 
     public virtual void UpdateAnimations(string animationName) {
