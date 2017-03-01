@@ -6,6 +6,7 @@ public class PlayerController : Photon.MonoBehaviour {
     public Color PlayerColor = Color.blue;
     public Color OpponentColor = Color.red;
     public int ID { get; protected set; }
+	public bool isDummy=false;
 
     [HideInInspector]
     public PlayerHealth PlayerHealth;
@@ -39,7 +40,7 @@ public class PlayerController : Photon.MonoBehaviour {
     }
 
     protected virtual void SetEntity() {
-        if (!photonView.isMine) {
+		if (!photonView.isMine || isDummy) {
             this.SetOpponent();
         } else {
             this.SetPlayer();
