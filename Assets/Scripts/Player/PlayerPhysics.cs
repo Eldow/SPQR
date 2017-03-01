@@ -9,6 +9,8 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     public bool IsMoving { get; protected set; }
     public Transform CameraTransform { get; protected set; }
 
+	public bool freezeMovement = false;
+
     public float LockedForwardSpeed = 12f;
     public float LockedBackwardSpeed;
     public float UnlockedForwardSpeed = 12f;
@@ -26,7 +28,9 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     }
 
     void Update() {
-        this.UpdatePhysics();
+		if (!freezeMovement) {
+			this.UpdatePhysics ();
+		}
     }
 
     protected virtual void Initialize() {
