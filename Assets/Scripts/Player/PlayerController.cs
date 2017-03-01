@@ -7,8 +7,9 @@ public class PlayerController : Photon.MonoBehaviour {
     public Color OpponentColor = Color.red;
 
     public int ID { get; protected set; }
-	public bool isDummy = false;
+	public bool isDummy=false;
     public RobotStateMachine RobotStateMachine { get; protected set; }
+
 
     [HideInInspector] public PlayerHealth PlayerHealth;
     [HideInInspector] public PlayerPower PlayerPower;
@@ -18,9 +19,12 @@ public class PlayerController : Photon.MonoBehaviour {
     [HideInInspector] public GameObject Canvas;
     [HideInInspector] public GameObject OpponentInfo;
 
-    void Awake() {
+    protected bool IsInitialized = false;
+
+    void Start() {
         this.Initialize();
         this.AddPlayerToGame();
+        this.IsInitialized = true;
     }
 
     protected virtual void AddPlayerToGame() {
@@ -32,7 +36,7 @@ public class PlayerController : Photon.MonoBehaviour {
 
     protected virtual void SetEntity() {
 		if (!photonView.isMine || isDummy) {
-            this.SetOpponent();
+			this.SetOpponent();
         } else {
             this.SetPlayer();
         }
@@ -74,7 +78,7 @@ public class PlayerController : Photon.MonoBehaviour {
         PlayerInfo.SetActive(true);
     }
 
-	public virtual void SetOpponent() {
+    protected virtual void SetOpponent() {
         TargetManager.instance.AddOpponent(gameObject);
         OpponentInfo = Canvas.transform.GetChild(0).gameObject;
         this.SetTag(Opponent);
@@ -104,6 +108,8 @@ public class PlayerController : Photon.MonoBehaviour {
     }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        if (!this.IsInitialized) return;
+
         if (stream.isWriting) {
             stream.SendNext(this.PlayerHealth.Health);
             stream.SendNext(this.PlayerPower.Power);

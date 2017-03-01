@@ -20,7 +20,7 @@ public class AddDummyPlayer : MonoBehaviour
 			                  Quaternion.identity, 0
 		                  );
 		temp.GetComponent<PlayerController> ().isDummy = true;
-		//Destroy (temp.GetComponent<PlayerPhysics> ());
+		temp.GetComponent<PlayerPhysics> ().freezeMovement = true;
 		temp.transform.name = "DummyRobot";
 
 	}
