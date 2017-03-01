@@ -79,16 +79,9 @@ public class PlayerController : Photon.MonoBehaviour {
         this.PlayerInfo = this.Canvas.transform.GetChild(1).gameObject;
         this.PlayerInfo.SetActive(true);
     }
-
-<<<<<<< HEAD
+		
     protected virtual void SetOpponent() {
-        TargetManager.instance.AddOpponent(gameObject);
-        OpponentInfo = Canvas.transform.GetChild(0).gameObject;
-=======
-	public virtual void SetOpponent() {
->>>>>>> 0aed2fbe031e08c9b650c0cb227702fd227dd6cf
         this.SetTag(Opponent);
-
         TargetManager.instance.AddOpponent(gameObject);
         this.GetComponentInChildren<MeshRenderer>().material.color =
              this.OpponentColor;
