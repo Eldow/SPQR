@@ -78,7 +78,7 @@ public class PlayerController : Photon.MonoBehaviour {
         PlayerInfo.SetActive(true);
     }
 
-    protected virtual void SetOpponent() {
+	public virtual void SetOpponent() {
         TargetManager.instance.AddOpponent(gameObject);
         OpponentInfo = Canvas.transform.GetChild(0).gameObject;
         this.SetTag(Opponent);

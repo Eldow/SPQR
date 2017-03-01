@@ -34,7 +34,7 @@ public class HandleHit : Photon.MonoBehaviour {
             (RobotAttackState)this.PlayerController.RobotStateMachine
             .CurrentState;
 
-        photonView.RPC("GetHit", PhotonTargets.Others, 
+        photonView.RPC("GetHit", PhotonTargets.All, 
             robotAttackState.Damage, robotAttackState.Hitstun,
             this.PlayerController.ID);
     }
