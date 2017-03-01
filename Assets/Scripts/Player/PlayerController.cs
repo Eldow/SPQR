@@ -5,30 +5,26 @@ public class PlayerController : Photon.MonoBehaviour {
     public const string Player = "Player";
     public Color PlayerColor = Color.blue;
     public Color OpponentColor = Color.red;
+
     public int ID { get; protected set; }
 	public bool isDummy=false;
-
-    [HideInInspector]
-    public PlayerHealth PlayerHealth;
-    [HideInInspector]
-    public PlayerPower PlayerPower;
-    [HideInInspector]
-    public PlayerPhysics PlayerPhysics = null;
-    [HideInInspector]
-    public Animator Animator = null;
-    [HideInInspector]
-    public GameObject PlayerInfo;
-    [HideInInspector]
-    public GameObject Canvas;
-
-    [HideInInspector]
-    public GameObject OpponentInfo;
-
     public RobotStateMachine RobotStateMachine { get; protected set; }
+
+
+    [HideInInspector] public PlayerHealth PlayerHealth;
+    [HideInInspector] public PlayerPower PlayerPower;
+    [HideInInspector] public PlayerPhysics PlayerPhysics = null;
+    [HideInInspector] public Animator Animator = null;
+    [HideInInspector] public GameObject PlayerInfo;
+    [HideInInspector] public GameObject Canvas;
+    [HideInInspector] public GameObject OpponentInfo;
+
+    protected bool IsInitialized = false;
 
     void Start() {
         this.Initialize();
         this.AddPlayerToGame();
+        this.IsInitialized = true;
     }
 
     protected virtual void AddPlayerToGame() {
@@ -36,7 +32,6 @@ public class PlayerController : Photon.MonoBehaviour {
     }
 
     void Update() {
-
     }
 
     protected virtual void SetEntity() {
@@ -90,12 +85,9 @@ public class PlayerController : Photon.MonoBehaviour {
     }
 
     public virtual void UpdateAnimations(string animationName) {
+        if (!this.photonView.isMine) return;
+
         this.Animator.SetTrigger(animationName);
-        photonView.RPC(
-            "SendAnimations",
-            PhotonTargets.Others,
-            animationName
-        );
     }
 
     public virtual void UpdateDeadToOthers() {
@@ -116,6 +108,8 @@ public class PlayerController : Photon.MonoBehaviour {
     }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        if (!this.IsInitialized) return;
+
         if (stream.isWriting) {
             stream.SendNext(this.PlayerHealth.Health);
             stream.SendNext(this.PlayerPower.Power);
