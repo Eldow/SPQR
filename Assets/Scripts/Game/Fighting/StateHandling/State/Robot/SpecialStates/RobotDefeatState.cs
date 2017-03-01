@@ -25,10 +25,6 @@ public class RobotDefeatState : RobotState {
          */
         Transform robot = robotStateMachine.PlayerController.transform;
 
-        foreach (Transform child in robot) {
-            GameObject.Destroy(child.gameObject);
-        }
-
         try {
             GameObject robotRemains =
                 PhotonNetwork.Instantiate(
@@ -37,6 +33,8 @@ public class RobotDefeatState : RobotState {
                     robot.transform.rotation, 
                     0
                 );
+
+            if (!robotStateMachine.PlayerController.photonView.isMine) return;
 
             PhotonNetwork.Destroy(robot.gameObject);
 
