@@ -7,18 +7,14 @@ public class ShowContact : MonoBehaviour
 
 	public GameObject hitPointPrefab;
 
-	/*void OnTriggerEnter (Collider test)
-	{
-		print ("OnTriggerEnter : " + test.name); 
-	}*/
 
 	void OnCollisionEnter (Collision other)
 	{
-		//print ("Points colliding: " + other.contacts.Length);
-		//print ("First point that collided: " + other.contacts [0].point);
-		GameObject go = Instantiate (hitPointPrefab, other.transform) as GameObject; 
-		go.transform.position = other.contacts [0].point;
-		Destroy (go, 5.0f);
+		if (other.transform.tag.Equals (PlayerController.Opponent)) {
+			GameObject go = Instantiate (hitPointPrefab, other.transform) as GameObject; 
+			go.transform.position = other.contacts [0].point;
+			Destroy (go, 5.0f);
+		}
 	}
 
 }
