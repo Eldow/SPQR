@@ -7,8 +7,12 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager Instance = null;
 
-    protected Dictionary<int, RobotStateMachine> PlayersList;
-    protected Dictionary<int, RobotStateMachine> AlivePlayersList;
+    public PlayerController LocalPlayer = null;
+
+    public Dictionary<int, RobotStateMachine> PlayerList 
+        { get; protected set; }
+    public Dictionary<int, RobotStateMachine> AlivePlayerList 
+        { get; protected set; }
 
     void Awake() {
         if (GameManager.Instance == null) {
@@ -34,31 +38,39 @@ public class GameManager : MonoBehaviour {
     }
 
     protected virtual void Initialize() {
-        this.AlivePlayersList = new Dictionary<int, RobotStateMachine>();
-        this.PlayersList = new Dictionary<int, RobotStateMachine>();
+        this.AlivePlayerList = new Dictionary<int, RobotStateMachine>();
+        this.PlayerList = new Dictionary<int, RobotStateMachine>();
     }
 
-    public virtual void RemovePlayerToGame(int playerID) {
-        RobotStateMachine robotStateMachine = this.AlivePlayersList[playerID];
+    public virtual void RemovePlayerFromGame(int playerID) {
+        RobotStateMachine robotStateMachine = null;
 
-        if (robotStateMachine != null) {
-            this.AlivePlayersList.Remove(playerID);
+        try {
+            robotStateMachine = this.AlivePlayerList[playerID];
+        } catch (KeyNotFoundException exception) {
+            Debug.LogWarning(
+                "RemovePlayerFromGame: key " + playerID + " was not found");
+            Debug.LogWarning(exception.Message);
         }
 
-        robotStateMachine = this.PlayersList[playerID];
+        if (robotStateMachine != null) {
+            this.AlivePlayerList.Remove(playerID);
+        }
+
+        robotStateMachine = this.PlayerList[playerID];
 
         if (robotStateMachine == null) return;
 
-        this.PlayersList.Remove(playerID);
+        this.PlayerList.Remove(playerID);
     }
 
     public virtual void AddPlayerToGame(PlayerController playerAvatar) {
-        this.AlivePlayersList.Add(
+        this.AlivePlayerList.Add(
             playerAvatar.ID,
             playerAvatar.RobotStateMachine
         );
 
-        this.PlayersList.Add(
+        this.PlayerList.Add(
             playerAvatar.ID,
             playerAvatar.RobotStateMachine
         );
@@ -66,30 +78,42 @@ public class GameManager : MonoBehaviour {
 
     public virtual void UpdateDeadListToOthers(
         PlayerController playerController) {
-        
         this.UpdateDeadList(playerController.ID);
 
         playerController.UpdateDeadToOthers();
-    }
 
-    public virtual void UpdateDeadList(int playerID) {
         RobotStateMachine robotStateMachine =
-            this.AlivePlayersList[playerID];
+             playerController.RobotStateMachine;
 
         if (robotStateMachine == null) return;
 
         robotStateMachine.SetState(new RobotDefeatState());
-        this.AlivePlayersList.Remove(playerID);
+    }
 
-        if (!this.IsGameOver()) return;
+    public virtual void UpdateDeadList(int playerID) {
+        try {
+            RobotStateMachine robotStateMachine = null;
 
-        robotStateMachine = this.AlivePlayersList.First().Value;
+            robotStateMachine = this.AlivePlayerList[playerID];
 
-        if (robotStateMachine == null) return;
+            if (robotStateMachine == null) return;
 
-        robotStateMachine.SetState(new RobotVictoryState());
+            this.AlivePlayerList.Remove(playerID);
+
+            if (!this.IsGameOver()) return;
+
+            robotStateMachine = this.AlivePlayerList.First().Value;
+
+            if (robotStateMachine == null) return;
+
+            robotStateMachine.SetState(new RobotVictoryState());
+        } catch (KeyNotFoundException exception) {
+            Debug.LogWarning(
+                "UpdateDeadList: key " + playerID + " was not found");
+            Debug.LogWarning(exception.Message);
+        }
     }
     protected virtual bool IsGameOver() {
-        return this.AlivePlayersList.Count <= 1;
+        return this.AlivePlayerList.Count <= 1;
     }
 }

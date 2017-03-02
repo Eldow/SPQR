@@ -298,7 +298,6 @@ GameObject:
   - component: {fileID: 4723817840208916}
   - component: {fileID: 95196309229997626}
   - component: {fileID: 114032294684035922}
-  - component: {fileID: 114432021629073712}
   - component: {fileID: 54601722743160752}
   - component: {fileID: 114685419613192464}
   - component: {fileID: 114194154180178772}
@@ -325,6 +324,8 @@ GameObject:
   - component: {fileID: 65729002091159002}
   - component: {fileID: 114514304286713436}
   - component: {fileID: 54938047205804208}
+  - component: {fileID: 114096958873154514}
+  - component: {fileID: 114474519775920392}
   m_Layer: 0
   m_Name: Robot:SwordRight
   m_TagString: Untagged
@@ -788,6 +789,8 @@ GameObject:
   - component: {fileID: 65477079657105006}
   - component: {fileID: 114798558033002000}
   - component: {fileID: 54514081973283910}
+  - component: {fileID: 114854232327306806}
+  - component: {fileID: 114072012524399666}
   m_Layer: 0
   m_Name: Robot:SwordLeft
   m_TagString: Untagged
@@ -2871,6 +2874,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StateMachine: {fileID: 0}
+--- !u!114 &114072012524399666
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1994622703767006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents: []
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
+--- !u!114 &114096958873154514
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1331847742629950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6083cfc47953e5498aa7deec01f5f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114194154180178772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2936,17 +2975,6 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
---- !u!114 &114432021629073712
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1326889472733694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6083cfc47953e5498aa7deec01f5f05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114457985870282662
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2960,6 +2988,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerColor: {r: 0, g: 0, b: 1, a: 1}
   OpponentColor: {r: 1, g: 0, b: 0, a: 1}
+  IsDummy: 0
   PlayerPhysics: {fileID: 0}
   Animator: {fileID: 0}
   PlayerInfo: {fileID: 0}
@@ -3012,6 +3041,31 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!114 &114474519775920392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1331847742629950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents: []
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114514304286713436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3036,6 +3090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e33d4c03eff27d944a292d21d6bcbfae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  freezeMovement: 0
   LockedForwardSpeed: 8
   LockedBackwardSpeed: 0
   UnlockedForwardSpeed: 8
@@ -3085,6 +3140,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPointPrefab: {fileID: 1301498378091292, guid: bac40ec5e1f3a004aae61d7a9fd11096,
     type: 2}
+--- !u!114 &114854232327306806
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1994622703767006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6083cfc47953e5498aa7deec01f5f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135441647110479512
 SphereCollider:
   m_ObjectHideFlags: 1

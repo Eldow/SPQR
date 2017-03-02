@@ -5,7 +5,7 @@ public class PlayerHealth {
 
     public PlayerController PlayerController { get; protected set; }
 
-    private int _health;
+    private int _health = PlayerHealth.MaxHealth;
 
     public int Health {
         get {
@@ -13,6 +13,10 @@ public class PlayerHealth {
         }
 
         set {
+            /* Prevent GameManager.Instance.UpdateDeadListToOthers from being
+             * called several times. */
+            if (this._health == 0) return;
+
             value = Mathf.Clamp(value, 0, PlayerHealth.MaxHealth);
             this._health = value;
 

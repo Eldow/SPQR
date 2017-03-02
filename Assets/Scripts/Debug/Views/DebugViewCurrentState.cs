@@ -27,7 +27,7 @@ public class DebugViewCurrentState : DebugViewer {
 	    this.TextObject.text = this.Label + this.StateMachine.CurrentState;
 	}
 
-    protected void TryToGetStateMachine() {
+    protected virtual void TryToGetStateMachine() {
         GameObject player =
             GameObject.FindGameObjectWithTag(PlayerController.Player);
 
