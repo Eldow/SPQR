@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour {
         this.PlayersList = new Dictionary<int, RobotStateMachine>();
     }
 
-    public virtual void RemovePlayerToGame(int playerID) {
+    public virtual void RemovePlayerFromGame(int playerID) {
         RobotStateMachine robotStateMachine = this.AlivePlayersList[playerID];
 
         if (robotStateMachine != null) {
