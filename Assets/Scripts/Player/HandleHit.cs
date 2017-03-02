@@ -34,9 +34,19 @@ public class HandleHit : Photon.MonoBehaviour {
             (RobotAttackState)this.PlayerController.RobotStateMachine
             .CurrentState;
 
+        if (!this.IsAttackActive(robotAttackState)) return;
+
         photonView.RPC("GetHit", PhotonTargets.All, 
             robotAttackState.Damage, robotAttackState.Hitstun,
             this.PlayerController.ID);
+    }
+
+    protected virtual bool IsAttackActive(
+        RobotAttackState robotAttackState) {
+        return robotAttackState.CurrentFrame >= 
+            robotAttackState.MinActiveState && 
+            robotAttackState.CurrentFrame <= 
+            robotAttackState.MaxActiveState;
     }
 
     protected virtual void HandlePlayer(Collision other) {
