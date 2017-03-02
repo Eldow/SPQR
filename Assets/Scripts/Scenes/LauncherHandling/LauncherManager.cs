@@ -1,6 +1,4 @@
-﻿using UnityEngine.SceneManagement;
-
-public class LauncherManager : Photon.PunBehaviour {
+﻿public class LauncherManager : Photon.PunBehaviour {
     public const string GameVersion = "0.09";
 
     public PhotonLogLevel Loglevel = PhotonLogLevel.Informational;
@@ -37,9 +35,16 @@ public class LauncherManager : Photon.PunBehaviour {
     }
 
     public override void OnConnectedToMaster() {
-        if (this._isConnecting) {
-            PhotonNetwork.JoinRandomRoom();
-        }
+        if (!this._isConnecting) return;
+
+        // BUG: MUST CHECK IF THERE IS A ROOM
+        if (PhotonNetwork.JoinRandomRoom()) return;
+
+        PhotonNetwork.CreateRoom(null);
+    }
+
+    void OnPhotonRandomJoinFailed() {
+        PhotonNetwork.CreateRoom(null);
     }
 
     public override void OnDisconnectedFromPhoton() {}
