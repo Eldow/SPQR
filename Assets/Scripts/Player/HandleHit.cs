@@ -8,7 +8,7 @@ public class HandleHit : Photon.MonoBehaviour {
             = this.transform.root.GetComponent<PlayerController>();
     }
 
-    void OnCollisionEnter (Collision other) {
+    void OnCollisionEnter(Collision other) {
         if (!this.CheckIfValid(other)) return;
 
         this.HandleOpponent(other);
@@ -75,7 +75,7 @@ public class HandleHit : Photon.MonoBehaviour {
 
     [PunRPC]
     public void GetHit(int damage, int hitstun, int playerID) {
-        /* used once per client, so we need to send the hit to the right 
+        /* Used once per client, so we need to send the hit to the right 
          * Robot! */
         PlayerController who = 
             GameManager.Instance.PlayerList[playerID].PlayerController;
