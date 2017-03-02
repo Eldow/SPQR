@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ViewBodyVector : MonoBehaviour {
+public class DebugViewPlayerVelocityVector : MonoBehaviour {
     [HideInInspector]
     public PlayerPhysics PlayerPhysics;
 

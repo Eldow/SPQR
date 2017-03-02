@@ -3797,6 +3797,14 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: -0.0005805564
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: a8beb95ed1ef84f47a2f53962eb3ba54, type: 3}
+      propertyPath: m_Name
+      value: ArenaBarrier
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: a8beb95ed1ef84f47a2f53962eb3ba54, type: 3}
+      propertyPath: m_Name
+      value: ArenaGround
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a8beb95ed1ef84f47a2f53962eb3ba54, type: 3}
   m_IsPrefabParent: 0
