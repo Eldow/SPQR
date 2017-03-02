@@ -3116,8 +3116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TextObject: {fileID: 0}
   StateMachine: {fileID: 0}
-  ColorActive: {r: 0, g: 0, b: 1, a: 1}
-  ColorHit: {r: 1, g: 0, b: 0, a: 1}
+  ColorActive: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &528706482
 GameObject:
   m_ObjectHideFlags: 0

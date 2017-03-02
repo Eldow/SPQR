@@ -17,16 +17,24 @@ public class DebugViewPlayerAttacks : DebugViewCurrentState {
     void Update () {
         this.TryToGetAttack();
 
-        if (this.RobotAttackState == null) return;
+        if (this.RobotAttackState == null) {
+            this.ColorMeshes(this.DefaultColor);
+
+            return;
+        }
 
         if (HandleHit.IsAttackActive(this.RobotAttackState)) {
             this.ColorMeshes(this.ColorActive);
-        } else {
-            this.ColorMeshes(this.DefaultColor);
+
+            return;
         }
+
+        this.ColorMeshes(this.DefaultColor);
     }
 
     protected virtual void TryToGetAttack() {
+        this.RobotAttackState = null;
+
         this.TryToGetStateMachine();
 
         if (this.StateMachine == null) return;
