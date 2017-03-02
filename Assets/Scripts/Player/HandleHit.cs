@@ -5,7 +5,7 @@ public class HandleHit : Photon.MonoBehaviour {
 
     void Start() {
         this.PlayerController 
-            = this.gameObject.GetComponent<PlayerController>();
+            = this.transform.root.GetComponent<PlayerController>();
     }
 
     void OnCollisionEnter (Collision other) {
@@ -16,19 +16,22 @@ public class HandleHit : Photon.MonoBehaviour {
     }
 
     protected virtual bool CheckIfValid(Collision other) {
-        return other.transform.name.Equals("Robot:SwordRight") || 
-            other.transform.name.Equals("Robot:SwordLeft");
+        return this.photonView.isMine && 
+            this.transform.root.CompareTag(PlayerController.Player);
     }
 
     protected virtual void HandleOpponent(Collision other) {
-        if (!other.gameObject.CompareTag(PlayerController.Player)) return;
-
-        PhotonView photonView = PhotonView.Get(this);
+        if (!other.transform.root.CompareTag(PlayerController.Opponent)) {
+            return;
+        }
 
         if (!(this.PlayerController.RobotStateMachine.CurrentState is 
             RobotAttackState)) {
             return;
         }
+
+        Debug.Log("OPPONENTFOUND: " + this.GetOpponentID(other));
+        Debug.Log("ME: " + this.PlayerController.ID);
 
         RobotAttackState robotAttackState = 
             (RobotAttackState)this.PlayerController.RobotStateMachine
@@ -36,9 +39,17 @@ public class HandleHit : Photon.MonoBehaviour {
 
         if (!HandleHit.IsAttackActive(robotAttackState)) return;
 
-        photonView.RPC("GetHit", PhotonTargets.All, 
+        int opponentID = -1;
+
+        if ((opponentID = this.GetOpponentID(other)) == -1) {
+            return;
+        }
+
+        Debug.Log("SENDING FROM " + this.PlayerController.ID + " TO " + opponentID);
+
+        this.photonView.RPC("GetHit", PhotonTargets.AllViaServer, 
             robotAttackState.Damage, robotAttackState.Hitstun,
-            this.PlayerController.ID);
+            opponentID);
     }
 
     public static bool IsAttackActive(RobotAttackState robotAttackState) {
@@ -49,15 +60,14 @@ public class HandleHit : Photon.MonoBehaviour {
     }
 
     protected virtual void HandlePlayer(Collision other) {
-        if (!other.gameObject.CompareTag(PlayerController.Opponent)) return;
+        if (!other.transform.root.CompareTag(PlayerController.Player)) return;
     }
 
-    protected virtual void SendHitstun(int hitstun) {
-        this.PlayerController.RobotStateMachine.SetState(
-            new RobotHitstunState(hitstun));
+    protected virtual void SendHitstun(PlayerController who, int hitstun) {
+        who.RobotStateMachine.SetState(new RobotHitstunState(hitstun));
     }
 
-    protected virtual int GetID(Collision other) {
+    protected virtual int GetOpponentID(Collision other) {
         PlayerController opponentController = 
             other.transform.root.GetComponent<PlayerController>();
 
@@ -70,9 +80,10 @@ public class HandleHit : Photon.MonoBehaviour {
 
     [PunRPC]
     public void GetHit(int damage, int hitstun, int playerID) {
-        if (playerID != this.PlayerController.ID) return;
+        PlayerController who = 
+            GameManager.Instance.PlayerList[playerID].PlayerController;
 
-        this.PlayerController.PlayerHealth.Health -= damage;
-        this.SendHitstun(hitstun);
+        who.PlayerHealth.Health -= damage;
+        this.SendHitstun(who, hitstun);
     }
 }

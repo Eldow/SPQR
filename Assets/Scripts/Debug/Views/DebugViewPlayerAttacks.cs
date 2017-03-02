@@ -17,6 +17,8 @@ public class DebugViewPlayerAttacks : DebugViewCurrentState {
     void Update () {
         this.TryToGetAttack();
 
+        if (this.StateMachine == null) return;
+
         if (this.RobotAttackState == null) {
             this.ColorMeshes(this.DefaultColor);
 

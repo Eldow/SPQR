@@ -7,8 +7,10 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager Instance = null;
 
-    protected Dictionary<int, RobotStateMachine> PlayersList;
-    protected Dictionary<int, RobotStateMachine> AlivePlayersList;
+    public Dictionary<int, RobotStateMachine> PlayerList 
+        { get; protected set; }
+    public Dictionary<int, RobotStateMachine> AlivePlayerList 
+        { get; protected set; }
 
     void Awake() {
         if (GameManager.Instance == null) {
@@ -34,31 +36,31 @@ public class GameManager : MonoBehaviour {
     }
 
     protected virtual void Initialize() {
-        this.AlivePlayersList = new Dictionary<int, RobotStateMachine>();
-        this.PlayersList = new Dictionary<int, RobotStateMachine>();
+        this.AlivePlayerList = new Dictionary<int, RobotStateMachine>();
+        this.PlayerList = new Dictionary<int, RobotStateMachine>();
     }
 
     public virtual void RemovePlayerFromGame(int playerID) {
-        RobotStateMachine robotStateMachine = this.AlivePlayersList[playerID];
+        RobotStateMachine robotStateMachine = this.AlivePlayerList[playerID];
 
         if (robotStateMachine != null) {
-            this.AlivePlayersList.Remove(playerID);
+            this.AlivePlayerList.Remove(playerID);
         }
 
-        robotStateMachine = this.PlayersList[playerID];
+        robotStateMachine = this.PlayerList[playerID];
 
         if (robotStateMachine == null) return;
 
-        this.PlayersList.Remove(playerID);
+        this.PlayerList.Remove(playerID);
     }
 
     public virtual void AddPlayerToGame(PlayerController playerAvatar) {
-        this.AlivePlayersList.Add(
+        this.AlivePlayerList.Add(
             playerAvatar.ID,
             playerAvatar.RobotStateMachine
         );
 
-        this.PlayersList.Add(
+        this.PlayerList.Add(
             playerAvatar.ID,
             playerAvatar.RobotStateMachine
         );
@@ -74,22 +76,22 @@ public class GameManager : MonoBehaviour {
 
     public virtual void UpdateDeadList(int playerID) {
         RobotStateMachine robotStateMachine =
-            this.AlivePlayersList[playerID];
+            this.AlivePlayerList[playerID];
 
         if (robotStateMachine == null) return;
 
         robotStateMachine.SetState(new RobotDefeatState());
-        this.AlivePlayersList.Remove(playerID);
+        this.AlivePlayerList.Remove(playerID);
 
         if (!this.IsGameOver()) return;
 
-        robotStateMachine = this.AlivePlayersList.First().Value;
+        robotStateMachine = this.AlivePlayerList.First().Value;
 
         if (robotStateMachine == null) return;
 
         robotStateMachine.SetState(new RobotVictoryState());
     }
     protected virtual bool IsGameOver() {
-        return this.AlivePlayersList.Count <= 1;
+        return this.AlivePlayerList.Count <= 1;
     }
 }
