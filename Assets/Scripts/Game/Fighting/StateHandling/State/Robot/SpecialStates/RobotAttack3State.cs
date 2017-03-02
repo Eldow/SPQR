@@ -2,8 +2,8 @@
     protected override void Initialize() {
         this.MaxFrame = 40;
         this.IASA = 34;
-        this.MinActiveState = 3;
-        this.MaxActiveState = 6;
+        this.MinActiveState = 8;
+        this.MaxActiveState = 40;
         this.Damage = 3;
         this.Hitstun = 30;
         this.HeatCost = 10;
