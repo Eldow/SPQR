@@ -8,12 +8,12 @@ public class HandleHit : Photon.MonoBehaviour {
             = this.gameObject.GetComponent<PlayerController>();
     }
 
-	void OnCollisionEnter (Collision other) {
-	    if (!this.CheckIfValid(other)) return;
+    void OnCollisionEnter (Collision other) {
+        if (!this.CheckIfValid(other)) return;
 
-	    this.HandleOpponent(other);
-	    this.HandlePlayer(other);
-	}
+        this.HandleOpponent(other);
+        this.HandlePlayer(other);
+    }
 
     protected virtual bool CheckIfValid(Collision other) {
         return other.transform.name.Equals("Robot:SwordRight") || 
@@ -34,15 +34,14 @@ public class HandleHit : Photon.MonoBehaviour {
             (RobotAttackState)this.PlayerController.RobotStateMachine
             .CurrentState;
 
-        if (!this.IsAttackActive(robotAttackState)) return;
+        if (!HandleHit.IsAttackActive(robotAttackState)) return;
 
         photonView.RPC("GetHit", PhotonTargets.All, 
             robotAttackState.Damage, robotAttackState.Hitstun,
             this.PlayerController.ID);
     }
 
-    protected virtual bool IsAttackActive(
-        RobotAttackState robotAttackState) {
+    public static bool IsAttackActive(RobotAttackState robotAttackState) {
         return robotAttackState.CurrentFrame >= 
             robotAttackState.MinActiveState && 
             robotAttackState.CurrentFrame <= 

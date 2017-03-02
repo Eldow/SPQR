@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class DebugViewCurrentFrameFramedState : DebugViewCurrentState {
+﻿public class DebugViewCurrentFrameFramedState : DebugViewCurrentState {
     public RobotFramedState RobotFramedState = null;
 
     // to be overriden in child, if necessary
