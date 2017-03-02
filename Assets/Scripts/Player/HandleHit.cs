@@ -30,9 +30,6 @@ public class HandleHit : Photon.MonoBehaviour {
             return;
         }
 
-        Debug.Log("OPPONENTFOUND: " + this.GetOpponentID(other));
-        Debug.Log("ME: " + this.PlayerController.ID);
-
         RobotAttackState robotAttackState = 
             (RobotAttackState)this.PlayerController.RobotStateMachine
             .CurrentState;
@@ -44,8 +41,6 @@ public class HandleHit : Photon.MonoBehaviour {
         if ((opponentID = this.GetOpponentID(other)) == -1) {
             return;
         }
-
-        Debug.Log("SENDING FROM " + this.PlayerController.ID + " TO " + opponentID);
 
         this.photonView.RPC("GetHit", PhotonTargets.AllViaServer, 
             robotAttackState.Damage, robotAttackState.Hitstun,
@@ -80,6 +75,8 @@ public class HandleHit : Photon.MonoBehaviour {
 
     [PunRPC]
     public void GetHit(int damage, int hitstun, int playerID) {
+        /* used once per client, so we need to send the hit to the right 
+         * Robot! */
         PlayerController who = 
             GameManager.Instance.PlayerList[playerID].PlayerController;
 
