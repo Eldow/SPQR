@@ -91,6 +91,48 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &53630393
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 53630394}
+  - component: {fileID: 53630395}
+  m_Layer: 0
+  m_Name: HitboxDrawer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &53630394
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 53630393}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1060132389}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &53630395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 53630393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efc50e8493c489443b3c0df071cbfd08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  GameObjectTag: Player
 --- !u!1 &102530732
 GameObject:
   m_ObjectHideFlags: 0
@@ -2947,8 +2989,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 808ecdd8fc730b04e82781f74d2928fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 1273475618314008, guid: aff61b6dc2873b9419af77463d5cdf70,
-    type: 2}
 --- !u!114 &219952117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3595,11 +3635,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 198025847723070078, guid: e3773d687eea24a4abfdc18697e3a380,
-        type: 2}
-      propertyPath: CollisionModule.plane0
-      value: 
-      objectReference: {fileID: 828790074}
     - target: {fileID: 114685419613192464, guid: e3773d687eea24a4abfdc18697e3a380,
         type: 2}
       propertyPath: viewIdField
@@ -3931,6 +3966,7 @@ Transform:
   m_Children:
   - {fileID: 640171029}
   - {fileID: 1353122245}
+  - {fileID: 53630394}
   m_Father: {fileID: 1633821180}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3987,7 +4023,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1252115337430582, guid: b1174452908ea0f419f06c9c3076305c, type: 2}
       propertyPath: m_Name
-      value: DebugCamera
+      value: DebugPlayerVelocity
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b1174452908ea0f419f06c9c3076305c, type: 2}
