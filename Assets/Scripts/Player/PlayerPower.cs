@@ -5,7 +5,7 @@ public class PlayerPower {
 
     public PlayerController PlayerController { get; protected set; }
 
-    private int _power;
+    private int _power = PlayerPower.MaxPower;
 
     public int Power {
         get {

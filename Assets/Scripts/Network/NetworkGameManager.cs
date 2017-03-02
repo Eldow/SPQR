@@ -9,20 +9,21 @@ public class NetworkGameManager : Photon.PunBehaviour {
     void Start() {
         if (!PhotonNetwork.connected) return;
 
-        PhotonNetwork.Instantiate(
+        GameObject localPlayer = PhotonNetwork.Instantiate(
             PlayerPrefab.name, 
             Vector3.left * (PhotonNetwork.room.PlayerCount * 2), 
             Quaternion.identity, 0
         );
+
+        GameManager.Instance.LocalPlayer 
+            = localPlayer.GetComponent<PlayerController>();
     }
 
-    public override void OnLeftRoom()
-    {
+    public override void OnLeftRoom() {
         SceneManager.LoadScene(0);
     }
 
-    public void LeaveRoom()
-    {
+    public void LeaveRoom() {
         PhotonNetwork.LeaveRoom();
     }
 

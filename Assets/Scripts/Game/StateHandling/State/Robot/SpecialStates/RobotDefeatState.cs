@@ -34,11 +34,9 @@ public class RobotDefeatState : RobotState {
                     0
                 );
 
-            if (!robotStateMachine.PlayerController.photonView.isMine) return;
-
             PhotonNetwork.Destroy(robot.gameObject);
 
-            robotRemains.transform.parent = robotStateMachine.transform;
+            robotRemains.transform.parent = robotStateMachine.transform.parent;
         } catch (ArgumentException argumentException) {
             Debug.LogError(argumentException.Message);
             Debug.LogError("Failed to load RobotRemains!");

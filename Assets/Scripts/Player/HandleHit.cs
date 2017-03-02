@@ -80,7 +80,7 @@ public class HandleHit : Photon.MonoBehaviour {
         PlayerController who = 
             GameManager.Instance.PlayerList[playerID].PlayerController;
 
-        who.PlayerHealth.Health -= damage;
+        who.PlayerHealth.Health -= damage*100;
         this.SendHitstun(who, hitstun);
     }
 }

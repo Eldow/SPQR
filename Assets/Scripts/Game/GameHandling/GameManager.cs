@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager Instance = null;
 
+    public PlayerController LocalPlayer = null;
+
     public Dictionary<int, RobotStateMachine> PlayerList 
         { get; protected set; }
     public Dictionary<int, RobotStateMachine> AlivePlayerList 
@@ -41,7 +43,15 @@ public class GameManager : MonoBehaviour {
     }
 
     public virtual void RemovePlayerFromGame(int playerID) {
-        RobotStateMachine robotStateMachine = this.AlivePlayerList[playerID];
+        RobotStateMachine robotStateMachine = null;
+
+        try {
+            robotStateMachine = this.AlivePlayerList[playerID];
+        } catch (KeyNotFoundException exception) {
+            Debug.LogWarning(
+                "RemovePlayerFromGame: key " + playerID + " was not found");
+            Debug.LogWarning(exception.Message);
+        }
 
         if (robotStateMachine != null) {
             this.AlivePlayerList.Remove(playerID);
@@ -68,28 +78,40 @@ public class GameManager : MonoBehaviour {
 
     public virtual void UpdateDeadListToOthers(
         PlayerController playerController) {
-        
         this.UpdateDeadList(playerController.ID);
 
         playerController.UpdateDeadToOthers();
-    }
 
-    public virtual void UpdateDeadList(int playerID) {
         RobotStateMachine robotStateMachine =
-            this.AlivePlayerList[playerID];
+             playerController.RobotStateMachine;
 
         if (robotStateMachine == null) return;
 
         robotStateMachine.SetState(new RobotDefeatState());
-        this.AlivePlayerList.Remove(playerID);
+    }
 
-        if (!this.IsGameOver()) return;
+    public virtual void UpdateDeadList(int playerID) {
+        try {
+            RobotStateMachine robotStateMachine = null;
 
-        robotStateMachine = this.AlivePlayerList.First().Value;
+            robotStateMachine = this.AlivePlayerList[playerID];
 
-        if (robotStateMachine == null) return;
+            if (robotStateMachine == null) return;
 
-        robotStateMachine.SetState(new RobotVictoryState());
+            this.AlivePlayerList.Remove(playerID);
+
+            if (!this.IsGameOver()) return;
+
+            robotStateMachine = this.AlivePlayerList.First().Value;
+
+            if (robotStateMachine == null) return;
+
+            robotStateMachine.SetState(new RobotVictoryState());
+        } catch (KeyNotFoundException exception) {
+            Debug.LogWarning(
+                "UpdateDeadList: key " + playerID + " was not found");
+            Debug.LogWarning(exception.Message);
+        }
     }
     protected virtual bool IsGameOver() {
         return this.AlivePlayerList.Count <= 1;
