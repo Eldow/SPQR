@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: e222162ddb8d34547a133b673221b195, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -312,7 +312,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 243724204
+  randomSeed: 1544924972
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3820,11 +3820,11 @@ Prefab:
     - target: {fileID: 2300002, guid: a8beb95ed1ef84f47a2f53962eb3ba54, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bff1159698d3ebf4face9e48c1f20b68, type: 2}
+      objectReference: {fileID: 2100000, guid: c499131c1b71e8c41acd69c5246c8785, type: 2}
     - target: {fileID: 2300000, guid: a8beb95ed1ef84f47a2f53962eb3ba54, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ca6ec679c37ed2b4cb43ae93f948d22b, type: 2}
+      objectReference: {fileID: 2100000, guid: c499131c1b71e8c41acd69c5246c8785, type: 2}
     - target: {fileID: 400004, guid: a8beb95ed1ef84f47a2f53962eb3ba54, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
@@ -3868,6 +3868,22 @@ Prefab:
     - target: {fileID: 100004, guid: a8beb95ed1ef84f47a2f53962eb3ba54, type: 3}
       propertyPath: m_Name
       value: ArenaGround
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300002, guid: a8beb95ed1ef84f47a2f53962eb3ba54, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300002, guid: a8beb95ed1ef84f47a2f53962eb3ba54, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300002, guid: a8beb95ed1ef84f47a2f53962eb3ba54, type: 3}
+      propertyPath: m_MotionVectors
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300002, guid: a8beb95ed1ef84f47a2f53962eb3ba54, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a8beb95ed1ef84f47a2f53962eb3ba54, type: 3}
