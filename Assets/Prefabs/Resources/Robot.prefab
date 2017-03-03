@@ -299,11 +299,11 @@ GameObject:
   - component: {fileID: 95196309229997626}
   - component: {fileID: 114032294684035922}
   - component: {fileID: 54601722743160752}
-  - component: {fileID: 114685419613192464}
-  - component: {fileID: 114194154180178772}
-  - component: {fileID: 114469942789855958}
   - component: {fileID: 114457985870282662}
   - component: {fileID: 114566394521308902}
+  - component: {fileID: 114194154180178772}
+  - component: {fileID: 114685419613192464}
+  - component: {fileID: 114469942789855958}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Player
@@ -2967,8 +2967,8 @@ MonoBehaviour:
     DrawErrorGizmo: 0
   m_RotationModel:
     SynchronizeEnabled: 1
-    InterpolateOption: 1
-    InterpolateRotateTowardsSpeed: 180
+    InterpolateOption: 2
+    InterpolateRotateTowardsSpeed: 1000
     InterpolateLerpSpeed: 5
   m_ScaleModel:
     SynchronizeEnabled: 0
@@ -2988,7 +2988,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerColor: {r: 0, g: 0, b: 1, a: 1}
   OpponentColor: {r: 1, g: 0, b: 0, a: 1}
-  IsDummy: 0
   PlayerPhysics: {fileID: 0}
   Animator: {fileID: 0}
   PlayerInfo: {fileID: 0}
@@ -3039,7 +3038,7 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: RobotDefeatState
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 1
     LayerIndex: 0
 --- !u!114 &114474519775920392
 MonoBehaviour:
