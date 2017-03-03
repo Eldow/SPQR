@@ -40,4 +40,5 @@ MonoBehaviour:
   - RequestForPickupItems
   - RequestForPickupTimes
   - SendAnimations
+  - ReceiveHit
   DisableAutoOpenWizard: 1

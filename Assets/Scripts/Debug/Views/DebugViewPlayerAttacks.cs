@@ -25,7 +25,7 @@ public class DebugViewPlayerAttacks : DebugViewCurrentState {
             return;
         }
 
-        if (HandleHit.IsAttackActive(this.RobotAttackState)) {
+        if (this.RobotAttackState.IsAttackActive()) {
             this.ColorMeshes(this.ColorActive);
 
             return;

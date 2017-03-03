@@ -34,24 +34,18 @@ public class HandleHit : Photon.MonoBehaviour {
             (RobotAttackState)this.PlayerController.RobotStateMachine
             .CurrentState;
 
-        if (!HandleHit.IsAttackActive(robotAttackState)) return;
+        robotAttackState.HandleAttack(this, other);
+    }
 
+    public virtual void SendHit(Collision other, int damage, int hitstun) {
         int opponentID = -1;
 
         if ((opponentID = this.GetOpponentID(other)) == -1) {
             return;
         }
 
-        this.photonView.RPC("GetHit", PhotonTargets.AllViaServer, 
-            robotAttackState.Damage, robotAttackState.Hitstun,
-            opponentID);
-    }
-
-    public static bool IsAttackActive(RobotAttackState robotAttackState) {
-        return robotAttackState.CurrentFrame >= 
-            robotAttackState.MinActiveState && 
-            robotAttackState.CurrentFrame <= 
-            robotAttackState.MaxActiveState;
+        this.photonView.RPC("ReceiveHit", PhotonTargets.AllViaServer, damage, 
+            hitstun, opponentID);
     }
 
     protected virtual void HandlePlayer(Collision other) {
@@ -74,7 +68,7 @@ public class HandleHit : Photon.MonoBehaviour {
     }
 
     [PunRPC]
-    public void GetHit(int damage, int hitstun, int playerID) {
+    public void ReceiveHit(int damage, int hitstun, int playerID) {
         /* Used once per client, so we need to send the hit to the right 
          * Robot! */
         PlayerController who = 
