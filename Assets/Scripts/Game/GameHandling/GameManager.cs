@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     public Running Running = null;
-
+	public bool isLocalGame = true;
     public static GameManager Instance = null;
 
     public PlayerController LocalPlayer = null;
@@ -65,6 +65,9 @@ public class GameManager : MonoBehaviour {
     }
 
     public virtual void AddPlayerToGame(PlayerController playerAvatar) {
+		if (!playerAvatar.photonView.isMine)
+			isLocalGame = false;
+
         this.AlivePlayerList.Add(
             playerAvatar.ID,
             playerAvatar.RobotStateMachine

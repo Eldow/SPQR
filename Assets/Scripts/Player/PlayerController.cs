@@ -5,7 +5,6 @@ public class PlayerController : Photon.MonoBehaviour {
     public const string Player = "Player";
     public Color PlayerColor = Color.blue;
     public Color OpponentColor = Color.red;
-    public bool IsDummy = false;
 
     public int ID { get; protected set; }
     public RobotStateMachine RobotStateMachine { get; protected set; }
@@ -32,7 +31,8 @@ public class PlayerController : Photon.MonoBehaviour {
     }
 
     protected virtual void SetEntity() {
-		if (!photonView.isMine || IsDummy) {
+		
+		if (GameManager.Instance.LocalPlayer != null  || !photonView.isMine) {
 			this.SetOpponent();
         } else {
             this.SetPlayer();

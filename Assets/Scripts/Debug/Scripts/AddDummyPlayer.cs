@@ -19,7 +19,6 @@ public class AddDummyPlayer : MonoBehaviour
 			                  Vector3.left * (PhotonNetwork.room.PlayerCount * 2), 
 			                  Quaternion.identity, 0
 		                  );
-		temp.GetComponent<PlayerController> ().IsDummy = true;
 		temp.GetComponent<PlayerPhysics> ().freezeMovement = true;
 		temp.transform.name = "DummyRobot";
 
