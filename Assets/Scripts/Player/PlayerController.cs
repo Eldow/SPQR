@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class PlayerController : Photon.MonoBehaviour {
     public const string Opponent = "Opponent";
     public const string Player = "Player";
     public Color PlayerColor = Color.blue;
     public Color OpponentColor = Color.red;
+	public int powerRecoverySpeed = 5;
+	public float timeBetweenPowerRecovery = 1.0f;
 
     public int ID { get; protected set; }
     public RobotStateMachine RobotStateMachine { get; protected set; }
-
 
     [HideInInspector] public PlayerHealth PlayerHealth;
     [HideInInspector] public PlayerPower PlayerPower;
@@ -75,7 +77,16 @@ public class PlayerController : Photon.MonoBehaviour {
         TargetManager.instance.SetPlayer(gameObject);
         this.PlayerInfo = this.Canvas.transform.GetChild(1).gameObject;
         this.PlayerInfo.SetActive(true);
+		StartCoroutine(recoverPower());
     }
+		
+	IEnumerator recoverPower()
+	{
+		while(PlayerHealth.Health>0) {
+			this.PlayerPower.Power += powerRecoverySpeed;
+			yield return new WaitForSeconds(timeBetweenPowerRecovery);
+		}
+	}   
 		
     protected virtual void SetOpponent() {
         this.SetTag(Opponent);
