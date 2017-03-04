@@ -17,6 +17,9 @@
         RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
 
         robotStateMachine.PlayerController.PlayerPower.Power -= this.HeatCost;
+
+		if(robotStateMachine.PlayerController.PlayerPower.Power<=0)
+			robotStateMachine.SetState(new RobotOverheatState());
     }
 
     public virtual bool IsAnimationPlaying(RobotStateMachine stateMachine,
