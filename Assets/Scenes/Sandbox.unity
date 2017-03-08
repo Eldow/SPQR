@@ -265,7 +265,7 @@ ParticleSystem:
   m_GameObject: {fileID: 131965643}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -3637,12 +3637,17 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114072012524399666, guid: e3773d687eea24a4abfdc18697e3a380,
+    - target: {fileID: 198832203136085266, guid: e3773d687eea24a4abfdc18697e3a380,
+        type: 2}
+      propertyPath: CollisionModule.plane0
+      value: 
+      objectReference: {fileID: 828790075}
+    - target: {fileID: 114685419613192464, guid: e3773d687eea24a4abfdc18697e3a380,
         type: 2}
       propertyPath: viewIdField
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114072012524399666, guid: e3773d687eea24a4abfdc18697e3a380,
+    - target: {fileID: 114685419613192464, guid: e3773d687eea24a4abfdc18697e3a380,
         type: 2}
       propertyPath: instantiationId
       value: 1
@@ -3657,19 +3662,15 @@ Prefab:
       propertyPath: instantiationId
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114685419613192464, guid: e3773d687eea24a4abfdc18697e3a380,
+    - target: {fileID: 114072012524399666, guid: e3773d687eea24a4abfdc18697e3a380,
         type: 2}
       propertyPath: viewIdField
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114685419613192464, guid: e3773d687eea24a4abfdc18697e3a380,
+    - target: {fileID: 114072012524399666, guid: e3773d687eea24a4abfdc18697e3a380,
         type: 2}
       propertyPath: instantiationId
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1326889472733694, guid: e3773d687eea24a4abfdc18697e3a380, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e3773d687eea24a4abfdc18697e3a380, type: 2}
@@ -3907,6 +3908,10 @@ BoxCollider:
 --- !u!4 &828790074 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400004, guid: a8beb95ed1ef84f47a2f53962eb3ba54, type: 3}
+  m_PrefabInternal: {fileID: 828790071}
+--- !u!4 &828790075 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400000, guid: a8beb95ed1ef84f47a2f53962eb3ba54, type: 3}
   m_PrefabInternal: {fileID: 828790071}
 --- !u!1 &1006913320
 GameObject:
