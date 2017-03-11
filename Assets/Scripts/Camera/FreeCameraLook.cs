@@ -94,8 +94,7 @@ public class FreeCameraLook : Pivot {
 
     protected virtual void RotateLockCamera() {
         if (this.OpponentController == null) {
-            this.SwitchCameraMode();
-
+            // this.SwitchCameraMode(); useless ?
             return;
         }
 

@@ -6,17 +6,20 @@ public class OpponentHealthView : MonoBehaviour {
     private PlayerController _target;
     private float _startPosition = 0f;
     private float _position;
+	private bool calledOnce = false;
     private RectTransform _rect;
 
-    void Start() {
-        this._rect = GetComponent<RectTransform>();
-        this._startPosition = this._rect.anchoredPosition.x;
-
-        this.UpdateTarget();
-    }
+	void OnEnable()
+	{
+		if (!calledOnce) {
+			this._rect = GetComponent<RectTransform> ();
+			this._startPosition = this._rect.anchoredPosition.x;
+			calledOnce = true;
+		}
+		this.UpdateTarget();
+	}
 
     void Update() {
-        this.UpdateTarget();
 
         if (this._target == null) return;
 
@@ -33,9 +36,8 @@ public class OpponentHealthView : MonoBehaviour {
     }
 
     protected virtual void UpdateTarget() {
-        GameObject opponent
-            = TargetManager.instance.GetNearestOpponent();
 
+		GameObject opponent = TargetManager.instance.currentTarget;
         if (opponent == null) {
             this._target = null;
 

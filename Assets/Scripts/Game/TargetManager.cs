@@ -12,7 +12,8 @@ public class TargetManager : MonoBehaviour {
 
     // Player references
     public List<GameObject> opponents;
-    public GameObject player;
+	public GameObject player;
+	public GameObject currentTarget = null;
 
     // Public static intance to the manager
     public static TargetManager instance = null;
@@ -46,14 +47,22 @@ public class TargetManager : MonoBehaviour {
     }
     
     // TODO : Multiple ennemy focus - Gets nearest opponent to focus
-    public GameObject GetNearestOpponent()
-    {
-        if(opponents.Count > 0)
-        {
-            return opponents[0];
-        } else
-        {
-            return null;
-        }
-    }
+	public void updateNearestOpponent()
+	{
+		if (opponents.Count > 0) {
+			
+			float minDistance = Mathf.Infinity;
+			int minIndex = 0;
+			for (int i = 0; i < opponents.Count; i++) {
+				float currentDist = Vector3.Distance (opponents [i].transform.position, player.transform.position);
+				if (currentDist < minDistance) {
+					minDistance = currentDist;
+					minIndex = i;
+				}
+			}
+			currentTarget = opponents [minIndex];
+		} else {
+			currentTarget = null;
+		}
+	}
 }

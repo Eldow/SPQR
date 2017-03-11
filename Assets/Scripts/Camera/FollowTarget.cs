@@ -79,14 +79,8 @@ public abstract class FollowTarget : MonoBehaviour {
 
         if (this.PlayerController == null) return;
 
-        this.UpdateOpponent();
 
-        if (InputManager.cameraButtonDown() && 
-            this.OpponentController != null) {
-            this.SwitchCameraMode();
-        }
-
-        if (this.OpponentController == null && this.LockCamera) {
+		if (InputManager.cameraButtonDown()) {
             this.SwitchCameraMode();
         }
 
@@ -134,8 +128,7 @@ public abstract class FollowTarget : MonoBehaviour {
 
             if (this.PlayerController == null) return;
         }
-
-        this.UpdateOpponent();
+			
 
         Quaternion neededRotation;
 
@@ -161,8 +154,8 @@ public abstract class FollowTarget : MonoBehaviour {
     }
 
     protected void UpdateOpponent() {
-        GameObject opponent = TargetManager.instance.GetNearestOpponent();
-
+		TargetManager.instance.updateNearestOpponent();
+		GameObject opponent = TargetManager.instance.currentTarget;
         if (opponent == null) return;
 
         this.OpponentController = opponent.GetComponent<PlayerController>();
@@ -174,23 +167,22 @@ public abstract class FollowTarget : MonoBehaviour {
             Quaternion.Euler(this.MainCameraDefaultUnlockRotation);
     }
 
-    public virtual void SwitchCameraMode() {
-        this.LockCamera = !this.LockCamera;
+   public virtual void SwitchCameraMode() {
+		this.LockCamera = !this.LockCamera;
 
-        if (!this.LockCamera) {
-            HealthBar = this.OpponentController.OpponentInfo;
-            HealthBar.SetActive(LockCamera);
-            this.UndoOffset();
-            this.ResetCameraUnlockPosition();
-
-            return;
-        }
-
-        this.ApplyOffset();
-
-        if (this.OpponentController != null) {
-            HealthBar = this.OpponentController.OpponentInfo;
-            HealthBar.SetActive(LockCamera);
-        }
-    }
+		if (!this.LockCamera) {
+			HealthBar.SetActive (LockCamera);
+			this.UndoOffset ();
+			this.ResetCameraUnlockPosition ();
+		} else {
+			this.UpdateOpponent ();
+			if (this.OpponentController != null) {
+				this.ApplyOffset ();
+				HealthBar = this.OpponentController.OpponentInfo;
+				HealthBar.SetActive (LockCamera);
+			} else {
+				this.LockCamera = false;
+			}
+		}
+	}
 }
