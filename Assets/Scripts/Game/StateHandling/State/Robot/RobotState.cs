@@ -20,6 +20,8 @@
 
 		if(robotStateMachine.PlayerController.PlayerPower.Power<=0)
 			robotStateMachine.SetState(new RobotOverheatState());
+
+        PlayAudioEffect(robotStateMachine.PlayerController.PlayerAudio);
     }
 
     public virtual bool IsAnimationPlaying(RobotStateMachine stateMachine,
@@ -62,4 +64,6 @@
         return stateMachine.StateHistory.Peek() == 
             lastStateGuessed;
     }
+
+    public virtual void PlayAudioEffect(PlayerAudio audio) { }
 }

@@ -321,6 +321,8 @@ GameObject:
   - component: {fileID: 114194154180178772}
   - component: {fileID: 114685419613192464}
   - component: {fileID: 114469942789855958}
+  - component: {fileID: 114888279927820460}
+  - component: {fileID: 82548571999831290}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Player
@@ -2432,6 +2434,87 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.027132286, y: 0.0021722608, z: 0.0006419755}
   m_Center: {x: -0.0649936, y: 0.016177725, z: -0.0022602913}
+--- !u!82 &82548571999831290
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326889472733694}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300001, guid: 0bb37ac7a2c50304cbd6f9eba5f0225e,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95196309229997626
 Animator:
   serializedVersion: 3
@@ -3250,6 +3333,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6083cfc47953e5498aa7deec01f5f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114888279927820460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326889472733694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17b360d5afcc94145b3a7e0ebf5c364c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackClips:
+  - {fileID: 8300000, guid: 8ced024204f5ab142829768bb4830b2f, type: 3}
+  - {fileID: 8300000, guid: fa860fdd896dae94d8e83c97f5a25be5, type: 3}
+  - {fileID: 8300000, guid: 86a960b9e8bd82b41976c647c1f66361, type: 3}
+  LightHitClips:
+  - {fileID: 8300000, guid: a5f08f38f52271243870e9aa47da8432, type: 3}
+  - {fileID: 8300000, guid: a157bb2fef548b94c9f536c63bb6bcc0, type: 3}
+  - {fileID: 8300000, guid: 7db242f59d1337043ada95b8b3c5429c, type: 3}
+  MediumHitClips:
+  - {fileID: 8300000, guid: a39567e8b9fac4845ba9d7282626c5c1, type: 3}
+  StrongHitClips:
+  - {fileID: 8300000, guid: cc051a2b3e1f0ef4bb3e6c4be2b22233, type: 3}
+  OverloadClips:
+  - {fileID: 8300000, guid: ec14636281bbd9d4a9f08ee8b224d551, type: 3}
+  - {fileID: 8300000, guid: e9cc544184780c745b11c734268c9852, type: 3}
+  - {fileID: 8300000, guid: 209ac661311b40d44962b147940fcc97, type: 3}
+  SpeedUpClips:
+  - {fileID: 8300000, guid: afda4e0684a72c843b212dc5bad55bfd, type: 3}
+  SlowDownClips:
+  - {fileID: 8300000, guid: 5693dc3398d953240bb15632e8b38099, type: 3}
+  BrakeClips:
+  - {fileID: 8300000, guid: b574ecc7cd3b9204fa8e71b5a919925b, type: 3}
+  BlockClips:
+  - {fileID: 8300000, guid: e57a679f842e0974e915086d1a525e28, type: 3}
+  - {fileID: 8300000, guid: 03d8c6d0f878dec4b9588167696156d9, type: 3}
+  - {fileID: 8300000, guid: 000b882a6c2980d4b8d6f524de5d2763, type: 3}
+  - {fileID: 8300000, guid: a461a74f62d3bc24196365bcc4c60ac2, type: 3}
+  StunClips: []
+  StunHitClips:
+  - {fileID: 8300000, guid: b2a091617e99e5d459160758127ba3c8, type: 3}
+  DestructionClips:
+  - {fileID: 8300000, guid: 333eb0ace55444d438237972b755079a, type: 3}
 --- !u!135 &135441647110479512
 SphereCollider:
   m_ObjectHideFlags: 1

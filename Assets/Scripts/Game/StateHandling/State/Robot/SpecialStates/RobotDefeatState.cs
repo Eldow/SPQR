@@ -37,6 +37,7 @@ public class RobotDefeatState : RobotState {
             PhotonNetwork.Destroy(robot.gameObject);
 
             robotRemains.transform.parent = robotStateMachine.transform.parent;
+            PlayAudioEffect(robotRemains.GetComponent<PlayerAudio>());
         } catch (ArgumentException argumentException) {
             Debug.LogError(argumentException.Message);
             Debug.LogError("Failed to load RobotRemains!");
@@ -46,5 +47,10 @@ public class RobotDefeatState : RobotState {
     }
 
     public override void Exit(StateMachine stateMachine) {
+    }
+
+    public override void PlayAudioEffect(PlayerAudio audio)
+    {
+        audio.Destruction();
     }
 }

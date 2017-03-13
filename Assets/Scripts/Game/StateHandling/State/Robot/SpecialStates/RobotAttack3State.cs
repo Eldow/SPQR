@@ -62,4 +62,9 @@
 
         return null;
     }
+
+    public override void PlayAudioEffect(PlayerAudio audio)
+    {
+        audio.Whirlwind();
+    }
 }

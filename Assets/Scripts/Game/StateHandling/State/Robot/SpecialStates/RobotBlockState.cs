@@ -70,4 +70,9 @@ public class RobotBlockState : RobotFramedState {
 
         return null;
     }
+
+    public override void PlayAudioEffect(PlayerAudio audio)
+    {
+        audio.Block();
+    }
 }

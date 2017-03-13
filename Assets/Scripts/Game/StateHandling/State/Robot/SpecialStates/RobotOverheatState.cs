@@ -52,6 +52,8 @@ public class RobotOverheatState : RobotFramedState {
 		RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
 
 		this.InitialSpeed = robotStateMachine.Animator.speed;
+
+        PlayAudioEffect(robotStateMachine.PlayerController.PlayerAudio);
 	}
 
 	public override void Exit(StateMachine stateMachine) {
@@ -71,4 +73,9 @@ public class RobotOverheatState : RobotFramedState {
 
 		this.IsSpeedSet = true;
 	}
+
+    public override void PlayAudioEffect(PlayerAudio audio)
+    {
+        audio.Overload();
+    }
 }
