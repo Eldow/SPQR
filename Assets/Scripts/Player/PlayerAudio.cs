@@ -39,14 +39,12 @@ public class PlayerAudio : Photon.MonoBehaviour {
         SendToOthers();
         if(array.Length == 1)
         {
-            _audioSource.clip = array[0];
-            _audioSource.Play();
+            _audioSource.PlayOneShot(array[0]);
         }
         else if (array.Length > 0)
         {
             _randomIndex = Random.Range(0, array.Length);
-            _audioSource.clip = array[_randomIndex];
-            _audioSource.Play();
+            _audioSource.PlayOneShot(array[_randomIndex]);
         }
     }
 
@@ -65,14 +63,11 @@ public class PlayerAudio : Photon.MonoBehaviour {
     IEnumerator WhirlwindAttack()
     {
         SendToOthers();
-        _audioSource.clip = AttackClips[0];
-        _audioSource.Play();
+        _audioSource.PlayOneShot(AttackClips[0]);
         yield return new WaitForSeconds(0.1f);
-        _audioSource.clip = AttackClips[1];
-        _audioSource.Play();
+        _audioSource.PlayOneShot(AttackClips[1]);
         yield return new WaitForSeconds(0.1f);
-        _audioSource.clip = AttackClips[2];
-        _audioSource.Play();
+        _audioSource.PlayOneShot(AttackClips[2]);
         yield return new WaitForSeconds(0.1f);
     }
 

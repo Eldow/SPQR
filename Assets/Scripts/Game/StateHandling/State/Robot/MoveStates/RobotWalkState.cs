@@ -11,12 +11,17 @@ public class RobotWalkState : RobotState {
             return new RobotBlockState();
         }
 
-		if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
+		/*if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
 			Mathf.Abs(InputManager.moveY()) <= 0.2f) {
+            return new RobotIdleState();
+        }*/
+
+        if (!((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics.IsWalking())
+        {
             return new RobotIdleState();
         }
 
-		if (InputManager.runButton()) {
+        if (InputManager.runButton()) {
             return new RobotRunState();
         }
 

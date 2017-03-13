@@ -3169,6 +3169,7 @@ MonoBehaviour:
   powerRecoverySpeed: 5
   timeBetweenPowerRecovery: 1
   PlayerPhysics: {fileID: 0}
+  PlayerAudio: {fileID: 0}
   Animator: {fileID: 0}
   PlayerInfo: {fileID: 0}
   Canvas: {fileID: 0}
@@ -3273,14 +3274,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freezeMovement: 0
-  LockedForwardSpeed: 8
+  LockedForwardSpeed: 12
   LockedBackwardSpeed: 0
-  UnlockedForwardSpeed: 8
-  RunSpeed: 3
+  UnlockedForwardSpeed: 12
+  RunSpeed: 50
   TurnSpeed: 500
   DecelerationTweak: 2
   IsLockedMovement: 0
   InputTolerance: 0.1
+  RunCap: 10
+  WalkCap: 1
+  MaximumSpeed: 300
 --- !u!114 &114685419613192464
 MonoBehaviour:
   m_ObjectHideFlags: 1

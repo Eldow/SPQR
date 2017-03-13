@@ -14,11 +14,14 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     public float LockedForwardSpeed = 12f;
     public float LockedBackwardSpeed;
     public float UnlockedForwardSpeed = 12f;
-    public float RunSpeed = 3f;
+    public float RunSpeed = 50f;
     public float TurnSpeed = 500f;
     public float DecelerationTweak = 2f;
     public bool IsLockedMovement = false;
     public float InputTolerance = 0.1f;
+    public float RunCap = 10f;
+    public float WalkCap = 1f;
+    public float MaximumSpeed = 300f;
 
     private float _yAxisInput = 0f;
     private float _xAxisInput = 0f;
@@ -31,6 +34,8 @@ public class PlayerPhysics : Photon.MonoBehaviour {
 		if (!freezeMovement) {
 			this.UpdatePhysics ();
 		}
+
+        Debug.Log(RigidBody.velocity.sqrMagnitude);
     }
 
     protected virtual void Initialize() {
@@ -117,7 +122,16 @@ public class PlayerPhysics : Photon.MonoBehaviour {
         this.GetTargetDirection();
 
         this.MoveDirection = this.TargetDirection.normalized;
-        this.RigidBody.velocity = this.MoveDirection * this.LockedForwardSpeed;
+        if (speedFactor == 1)
+        {
+            this.RigidBody.velocity =
+                this.MoveDirection * this.LockedForwardSpeed * speedFactor;
+        }
+        else if (this.RigidBody.velocity.sqrMagnitude < MaximumSpeed)
+        {
+            this.RigidBody.AddForce(
+                this.MoveDirection * this.LockedForwardSpeed * speedFactor, ForceMode.Acceleration);
+        }
         this.IsMoving = true;
     }
 
@@ -131,9 +145,17 @@ public class PlayerPhysics : Photon.MonoBehaviour {
         );
 
         this.MoveDirection = this.MoveDirection.normalized;
+        if(speedFactor == 1)
+        {
+            this.RigidBody.velocity =
+                this.MoveDirection * this.UnlockedForwardSpeed * speedFactor;
+        }
+        else if (this.RigidBody.velocity.sqrMagnitude < MaximumSpeed)
+        {
+            this.RigidBody.AddForce(
+                this.MoveDirection * this.UnlockedForwardSpeed * speedFactor, ForceMode.Acceleration);
+        }
 
-        this.RigidBody.velocity = 
-            this.MoveDirection * this.UnlockedForwardSpeed * speedFactor;
 
         if (this.MoveDirection.sqrMagnitude <= 0.02f) return;
       
@@ -143,5 +165,15 @@ public class PlayerPhysics : Photon.MonoBehaviour {
                 Quaternion.LookRotation(this.MoveDirection), 
                 Time.deltaTime * 500
             );
+    }
+
+    public virtual bool IsRunning()
+    {
+        return this.RigidBody.velocity.sqrMagnitude >= this.RunCap; 
+    }
+
+    public virtual bool IsWalking()
+    {
+        return this.RigidBody.velocity.sqrMagnitude >= this.WalkCap;
     }
 }

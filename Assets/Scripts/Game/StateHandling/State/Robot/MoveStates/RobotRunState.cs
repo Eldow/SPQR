@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 
 public class RobotRunState : RobotState {
+    private bool entered;
     public override State HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
-
+        RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
         // to be removed when the magic will be working all the time!
-		if (InputManager.attackButton()) {
+        if (InputManager.attackButton()) {
             Debug.Log("Can't attack while running!");
             return null;
         }
@@ -13,13 +14,18 @@ public class RobotRunState : RobotState {
 		if (InputManager.blockButton()) {
             return new RobotBlockState();
         }
-
+        /*
 		if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
 			Mathf.Abs(InputManager.moveY()) <= 0.2f) {
             return new RobotIdleState();
+        }*/
+
+        if (!robotStateMachine.PlayerController.PlayerPhysics.IsRunning())
+        {
+            return new RobotIdleState();
         }
 
-		if (!InputManager.runButton()) {
+        if (!InputManager.runButton()) {
             return new RobotWalkState();
         }
 
@@ -27,8 +33,7 @@ public class RobotRunState : RobotState {
          * and ending. We have to freeze it in the middle while the player is
          * running.
          */
-        RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
-
+     
         if (this.IsCurrentAnimationPlayedPast(robotStateMachine, .5f) &&
             Mathf.Abs(robotStateMachine.Animator.speed) > .01f) {
             this.FreezeAnimation(robotStateMachine);
@@ -60,6 +65,8 @@ public class RobotRunState : RobotState {
 
         // necessary to keep track of history
         this.SaveToHistory((RobotStateMachine) stateMachine);
+        entered = true;
+        PlayAudioEffect(((RobotStateMachine)stateMachine).PlayerController.PlayerAudio);
     }
 
     public override void Exit(StateMachine stateMachine) {
@@ -67,5 +74,20 @@ public class RobotRunState : RobotState {
 
         // the animation don't have to be frozen anymore
         this.ResumeAnimation((RobotStateMachine) stateMachine);
+        entered = false;
+        PlayAudioEffect(((RobotStateMachine)stateMachine).PlayerController.PlayerAudio);
+    }
+
+    public override void PlayAudioEffect(PlayerAudio audio)
+    {
+        Debug.Log("PLEIN DE SPEEDUP");
+        if (entered)
+        {
+            audio.SpeedUp();
+        } else
+        {
+            //audio.SlowDown();
+        }
+
     }
 }
