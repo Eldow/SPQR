@@ -52,5 +52,6 @@ public class RobotDefeatState : RobotState {
     public override void PlayAudioEffect(PlayerAudio audio)
     {
         audio.Destruction();
+        audio.Lose();
     }
 }

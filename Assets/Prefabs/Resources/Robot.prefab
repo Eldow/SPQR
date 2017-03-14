@@ -3380,6 +3380,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b2a091617e99e5d459160758127ba3c8, type: 3}
   DestructionClips:
   - {fileID: 8300000, guid: 333eb0ace55444d438237972b755079a, type: 3}
+  WinClip: {fileID: 8300000, guid: 9b3ca5d2b420a8748a3ab40d7c0c47b4, type: 3}
+  LoseClip: {fileID: 8300000, guid: 32dc71ef83a1ea944a1d5021aff40ea6, type: 3}
 --- !u!135 &135441647110479512
 SphereCollider:
   m_ObjectHideFlags: 1

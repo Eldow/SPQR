@@ -21,6 +21,8 @@ public class PlayerAudio : Photon.MonoBehaviour {
     public AudioClip[] StunClips;
     public AudioClip[] StunHitClips;
     public AudioClip[] DestructionClips;
+    public AudioClip WinClip;
+    public AudioClip LoseClip;
 
     void Awake()
     {
@@ -134,6 +136,28 @@ public class PlayerAudio : Photon.MonoBehaviour {
     {
         _methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
         PlayRandomClipInArray(DestructionClips);
+    }
+
+    public void Win()
+    {
+        StartCoroutine(PlayWin());
+    }
+
+    IEnumerator PlayWin()
+    {
+        yield return new WaitForSeconds(1f);
+        _audioSource.PlayOneShot(WinClip);
+    }
+
+    public void Lose()
+    {
+        StartCoroutine(PlayLose());
+    }
+
+    IEnumerator PlayLose()
+    {
+        yield return new WaitForSeconds(1f);
+        _audioSource.PlayOneShot(LoseClip);
     }
 
 }
