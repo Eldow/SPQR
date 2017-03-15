@@ -10,6 +10,7 @@ TagManager:
   - Beam
   - Opponent
   - CanvasBackground
+  - Lightnings
   layers:
   - Default
   - TransparentFX

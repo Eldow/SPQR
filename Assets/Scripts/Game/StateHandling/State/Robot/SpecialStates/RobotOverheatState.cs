@@ -1,74 +1,84 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RobotOverheatState : RobotFramedState {
+    protected float InitialSpeed = 0;
+    protected bool IsSpeedSet = false;
+    protected int Duration = 100;
+    protected GameObject Lightnings = null;
 
-	protected float InitialSpeed = 0;
-	protected bool IsSpeedSet = false;
-	private int duration = 100;
+    protected override void Initialize() {
+        this.IASA = this.MaxFrame;
+        this.MinActiveState = 0;
+        this.MaxActiveState = this.MaxFrame;
+        this.HeatCost = 0;
 
-	protected override void Initialize() {
-		this.IASA = this.MaxFrame;
-		this.MinActiveState = 0;
-		this.MaxActiveState = this.MaxFrame;
-		this.HeatCost = 0;
-	}
+        GameObject player = GameObject.FindGameObjectWithTag(
+            PlayerController.Player);
+        Transform playerTransform = player.GetComponent<Transform>();
 
-	public RobotOverheatState() {
-		this.MaxFrame = this.duration;
+        if (playerTransform == null) return;
 
-		this.Initialize();
-	}
+        foreach (Transform child in playerTransform) {
+            if (child.CompareTag("Lightnings")) {
+                this.Lightnings = child.gameObject;
+            }
+        }
+    }
 
-	public override State HandleInput(StateMachine stateMachine) {
-		if (!(stateMachine is RobotStateMachine)) return null;
+    public RobotOverheatState() {
+        this.MaxFrame = this.Duration;
 
-		RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
+        this.Initialize();
+    }
 
-		Debug.Log ("Uncomment these lines when RobotOverheatState animation is added");
-		/*if (!this.IsAnimationPlaying(robotStateMachine, "RobotOverheatState")) {
-			return null;
-		}*/
+    public override State HandleInput(StateMachine stateMachine) {
+        if (!(stateMachine is RobotStateMachine)) return null;
 
-		if (!this.IsSpeedSet) this.SetSpeed(robotStateMachine);
+        RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
 
-		if (!this.IsStateFinished()) return null;
+        if (!this.IsAnimationPlaying(
+            robotStateMachine, "RobotOverheat")) {
+            return null;
+        }
 
-		if (this.IsLastState(robotStateMachine, "RobotWalkState")) {
-			return new RobotWalkState();
-		}
+        if (!this.IsSpeedSet) this.SetSpeed(robotStateMachine);
 
-		return new RobotIdleState();
-	}
+        if (!this.IsStateFinished()) return null;
 
-	public override void Update(StateMachine stateMachine) {
-		this.CurrentFrame++;
-	}
+        if (this.IsLastState(robotStateMachine, "RobotWalkState")) {
+            return new RobotWalkState();
+        }
 
-	public override void Enter(StateMachine stateMachine) {
-		if (!(stateMachine is RobotStateMachine)) return;
+        return new RobotIdleState();
+    }
 
-		RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
+    public override void Update(StateMachine stateMachine) {
+        this.CurrentFrame++;
+    }
 
-		this.InitialSpeed = robotStateMachine.Animator.speed;
-	}
+    public override void Enter(StateMachine stateMachine) {
+        if (!(stateMachine is RobotStateMachine)) return;
 
-	public override void Exit(StateMachine stateMachine) {
-		if (!(stateMachine is RobotStateMachine)) return;
+        RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
 
-		RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
+        this.InitialSpeed = robotStateMachine.Animator.speed;
 
-		robotStateMachine.Animator.speed = this.InitialSpeed;
-	}
+        if (this.Lightnings != null) this.Lightnings.SetActive(true);
+    }
 
-	protected virtual void SetSpeed(RobotStateMachine robotStateMachine) {
-		float desiredAnimationTime = this.MaxFrame / (1 / Time.fixedDeltaTime);
+    public override void Exit(StateMachine stateMachine) {
+        if (!(stateMachine is RobotStateMachine)) return;
 
-		robotStateMachine.Animator.speed = 
-			(robotStateMachine.Animator.GetCurrentAnimatorStateInfo(0).length *
-				robotStateMachine.Animator.speed) / desiredAnimationTime;
+        RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
 
-		this.IsSpeedSet = true;
-	}
+        robotStateMachine.Animator.speed = this.InitialSpeed;
+
+        if (this.Lightnings != null) this.Lightnings.SetActive(false);
+    }
+
+    protected virtual void SetSpeed(RobotStateMachine robotStateMachine) {
+        robotStateMachine.Animator.speed = 2.5f;
+
+        this.IsSpeedSet = true;
+    }
 }

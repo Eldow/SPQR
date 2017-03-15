@@ -157,11 +157,11 @@ GameObject:
   - component: {fileID: 199637884944485348}
   m_Layer: 0
   m_Name: Lightnings
-  m_TagString: Untagged
+  m_TagString: Lightnings
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1208057025050836
 GameObject:
   m_ObjectHideFlags: 1
@@ -3282,7 +3282,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1454311615731766}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -3329,7 +3329,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1940595222
+  randomSeed: 2095811530
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5847,7 +5847,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1196846318962446}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -5894,7 +5894,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1635097959
+  randomSeed: 1288223185
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -8421,7 +8421,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 2100000, guid: a3ba7a2250451194cbdc3096ede57676, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

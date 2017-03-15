@@ -265,7 +265,7 @@ ParticleSystem:
   m_GameObject: {fileID: 131965643}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -3061,6 +3061,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   opponents: []
   player: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!4 &363723141
 Transform:
   m_ObjectHideFlags: 0
@@ -3667,6 +3668,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 199637884944485348, guid: e3773d687eea24a4abfdc18697e3a380,
+        type: 2}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a3ba7a2250451194cbdc3096ede57676, type: 2}
     - target: {fileID: 114685419613192464, guid: e3773d687eea24a4abfdc18697e3a380,
         type: 2}
       propertyPath: viewIdField
