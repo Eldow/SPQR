@@ -15,6 +15,8 @@ public class RobotAttackState : RobotFramedState {
         if (!this.IsAttackActive()) return;
 
         handleHit.SendHit(other, this.Damage, this.Hitstun);
+        PlayerController opponent = (PlayerController)other.gameObject.GetComponent<PlayerController>();
+        if(opponent != null) SendAudioHit(opponent.PlayerAudio);
     }
 
     public virtual bool IsAttackActive() {
@@ -22,5 +24,16 @@ public class RobotAttackState : RobotFramedState {
             this.MinActiveState &&
             this.CurrentFrame <=
             this.MaxActiveState;
+    }
+
+    public override void PlayAudioEffect(PlayerAudio audio)
+    {
+        audio.Attack();
+    }
+
+    protected virtual void SendAudioHit(PlayerAudio audio)
+    {
+        if (audio == null) return;
+        audio.Hit();
     }
 }

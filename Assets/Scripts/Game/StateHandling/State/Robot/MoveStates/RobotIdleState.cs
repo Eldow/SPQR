@@ -17,12 +17,19 @@ public class RobotIdleState : RobotState {
             return new RobotBlockState();
         }
 
-		if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
+		/*if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
 			Mathf.Abs(InputManager.moveY()) <= 0.2f) {
+            return null;
+        }*/
+
+        if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
+            Mathf.Abs(InputManager.moveY()) <= 0.2f)
+        {
             return null;
         }
 
-		if (InputManager.runButton()) {
+        if ((Mathf.Abs(InputManager.moveX()) <= 0.2f &&
+            Mathf.Abs(InputManager.moveY()) <= 0.2f) && InputManager.runButton()) {
             return new RobotRunState();
         }
 

@@ -56,12 +56,15 @@ public class RobotOverheatState : RobotFramedState {
         this.CurrentFrame++;
     }
 
+
     public override void Enter(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return;
 
         RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
 
         this.InitialSpeed = robotStateMachine.Animator.speed;
+		
+		PlayAudioEffect(robotStateMachine.PlayerController.PlayerAudio);
 
         if (this.Lightnings != null) this.Lightnings.SetActive(true);
     }
@@ -80,5 +83,10 @@ public class RobotOverheatState : RobotFramedState {
         robotStateMachine.Animator.speed = 2.5f;
 
         this.IsSpeedSet = true;
+	}
+
+    public override void PlayAudioEffect(PlayerAudio audio)
+    {
+        audio.Overload();
     }
 }

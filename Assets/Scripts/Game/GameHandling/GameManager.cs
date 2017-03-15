@@ -105,6 +105,8 @@ public class GameManager : MonoBehaviour {
 
             if (!this.IsGameOver()) return;
 
+            if (this.AlivePlayerList.Count <= 0) return;
+
             robotStateMachine = this.AlivePlayerList.First().Value;
 
             if (robotStateMachine == null) return;

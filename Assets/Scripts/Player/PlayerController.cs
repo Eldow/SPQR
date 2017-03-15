@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Reflection;
+using System;
 
 public class PlayerController : Photon.MonoBehaviour {
     public const string Opponent = "Opponent";
@@ -15,6 +17,7 @@ public class PlayerController : Photon.MonoBehaviour {
     [HideInInspector] public PlayerHealth PlayerHealth;
     [HideInInspector] public PlayerPower PlayerPower;
     [HideInInspector] public PlayerPhysics PlayerPhysics = null;
+    [HideInInspector] public PlayerAudio PlayerAudio;
     [HideInInspector] public Animator Animator = null;
     [HideInInspector] public GameObject PlayerInfo;
     [HideInInspector] public GameObject Canvas;
@@ -52,6 +55,7 @@ public class PlayerController : Photon.MonoBehaviour {
 
     protected virtual void Initialize() {
         this.PlayerPhysics = GetComponent<PlayerPhysics>();
+        this.PlayerAudio = GetComponent<PlayerAudio>();
         this.Animator = GetComponent<Animator>();
         this.Canvas = GameObject.FindGameObjectWithTag("Canvas");
         this.ID = this.photonView.viewID;
@@ -107,6 +111,11 @@ public class PlayerController : Photon.MonoBehaviour {
             this.ID);
     }
 
+    public virtual void UpdateAudioToOthers(string audioName)
+    {
+        this.photonView.RPC("ReceiveAudioFromOthers", PhotonTargets.Others, this.ID, audioName);
+    }
+
     [PunRPC]
     public virtual void ReceiveDeadFromOthers(int playerID) {
         GameManager.Instance.UpdateDeadList(playerID);
@@ -117,6 +126,15 @@ public class PlayerController : Photon.MonoBehaviour {
         if (this.Animator == null) return;
 
         this.Animator.SetTrigger(animationName);
+    }
+
+    [PunRPC]
+    public virtual void ReceiveAudioFromOthers(int playerID, string audioName)
+    {
+        PlayerAudio audio = GameManager.Instance.PlayerList[playerID].PlayerController.PlayerAudio;
+        Type audioType = audio.GetType();
+        MethodInfo theMethod = audioType.GetMethod(audioName);
+        theMethod.Invoke(audio, null);
     }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
