@@ -3485,7 +3485,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e9cc544184780c745b11c734268c9852, type: 3}
   - {fileID: 8300000, guid: 209ac661311b40d44962b147940fcc97, type: 3}
   SpeedUpClips:
-  - {fileID: 8300000, guid: afda4e0684a72c843b212dc5bad55bfd, type: 3}
+  - {fileID: 8300000, guid: ffd6f619c56239f41ad0abfb83020ba9, type: 3}
   SlowDownClips:
   - {fileID: 8300000, guid: 5693dc3398d953240bb15632e8b38099, type: 3}
   BrakeClips:
