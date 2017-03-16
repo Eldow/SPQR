@@ -1465,7 +1465,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1326889472733694}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 8.199441, y: -1.4903244, z: 4.1852264}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 26, y: 26, z: 26}
   m_Children:
   - {fileID: 4427810409626798}
@@ -3189,8 +3189,8 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents: []
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114096958873154514
@@ -3364,8 +3364,8 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents: []
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 2
-  instantiationId: 2
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114514304286713436
@@ -3429,8 +3429,8 @@ MonoBehaviour:
   - {fileID: 114194154180178772}
   - {fileID: 114469942789855958}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 3
-  instantiationId: 3
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114798558033002000
@@ -3534,7 +3534,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1454311615731766}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -6099,7 +6099,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1196846318962446}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
