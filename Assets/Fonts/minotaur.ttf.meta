@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: d7a1d7d561564418199f501eced9f94c
+timeCreated: 1489664141
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Minotaur
+  fontNames:
+  - Minotaur
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
