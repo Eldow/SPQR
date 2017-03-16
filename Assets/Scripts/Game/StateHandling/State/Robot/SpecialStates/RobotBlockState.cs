@@ -3,7 +3,7 @@
 public class RobotBlockState : RobotFramedState {
 
 	protected GameObject Shield = null;
-	private int currentActiveShield = 0;
+	private bool isHolding = true;
 
     protected override void Initialize() {
         this.MaxFrame = 32;
@@ -58,30 +58,32 @@ public class RobotBlockState : RobotFramedState {
     public RobotBlockState() {
         this.Initialize();
     }
-
+		
     public override void Update(StateMachine stateMachine) {
 		
-		if(this.currentActiveShield==this.MinActiveState && this.Shield != null)
+		if(this.CurrentFrame==this.MinActiveState && this.Shield != null)
 			this.Shield.SetActive(true);
-		this.currentActiveShield++;
 
-
-        if (this.CheckIfBlockHolding()) return;
 		this.CurrentFrame++;
+		if (this.CheckIfBlockHolding ()) {
+			if (this.CurrentFrame >= MaxActiveState)
+				this.CurrentFrame --;
+		}
 
-
-		if(this.currentActiveShield>=MaxActiveState)
-			if (this.Shield != null) this.Shield.SetActive(false);
+		if(this.CurrentFrame>=MaxActiveState)
+		if (this.Shield != null) this.Shield.SetActive(false);
 
     }
 
     public override void Exit(StateMachine stateMachine) {
-		
+		if (this.Shield != null) this.Shield.SetActive(false);
     }
 
 
     protected virtual bool CheckIfBlockHolding() {
-        return InputManager.blockButton();
+		if (isHolding) //If holding is released, you can't get back in
+			isHolding =	InputManager.blockButton ();
+		return isHolding;
     }
 
     public override RobotState CheckInterruptibleActions() {
