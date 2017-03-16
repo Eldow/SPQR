@@ -33,7 +33,7 @@ public class RobotDefeatState : RobotState {
                     robot.transform.rotation, 
                     0
                 );
-
+			TargetManager.instance.RemoveOpponent(robotStateMachine.PlayerController.gameObject);
             PhotonNetwork.Destroy(robot.gameObject);
 
             robotRemains.transform.parent = robotStateMachine.transform.parent;

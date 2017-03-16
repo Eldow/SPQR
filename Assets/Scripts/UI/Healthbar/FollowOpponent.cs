@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowOpponent : MonoBehaviour {
+	
     public Vector3 offset;
     private RectTransform rect;
 	private Transform opponent;
@@ -16,6 +17,10 @@ public class FollowOpponent : MonoBehaviour {
 
 	void Update()
 	{
+		if (opponent == null) {
+			this.gameObject.SetActive(false);
+			return;
+		}
 		Vector3 pos = opponent.position + offset;  // get the game object position
 		Vector3 viewportPoint = Camera.main.WorldToViewportPoint(pos);  //convert game object position to VievportPoint
 

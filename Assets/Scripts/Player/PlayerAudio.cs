@@ -32,7 +32,7 @@ public class PlayerAudio : Photon.MonoBehaviour {
 
     private void SendToOthers()
     {
-        if (_playerController.ID != GameManager.Instance.LocalPlayer.ID) return;
+		if (_playerController== null || _playerController.ID != GameManager.Instance.LocalPlayer.ID) return;
         _playerController.UpdateAudioToOthers(_methodName);
     }
 

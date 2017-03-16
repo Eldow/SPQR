@@ -34,11 +34,17 @@ public class TargetManager : MonoBehaviour {
         opponents = new List<GameObject>();
     }
 
-    // Adds an opponent to the array Opponents
-    public void AddOpponent(GameObject opponent)
-    {
-        opponents.Add(opponent);
-    }
+	// Adds an opponent to the array Opponents
+	public void AddOpponent(GameObject opponent)
+	{
+		opponents.Add(opponent);
+	}
+
+	// Removes an opponent to the array Opponents
+	public void RemoveOpponent(GameObject opponent)
+	{
+		opponents.Remove(opponent);
+	}
 
     // Sets the local player
     public void SetPlayer(GameObject localPlayer)
