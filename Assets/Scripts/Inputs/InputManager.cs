@@ -58,6 +58,11 @@ public class InputManager : MonoBehaviour {
         return Input.GetButtonDown("AttackButton");
     }
 
+    public static bool dashButton()
+    {
+        return Input.GetButtonDown("DashButton");
+    }
+
     public static bool runButton() {
         return Input.GetButton("RunButton") || 
             Mathf.Abs(Input.GetAxis("RunJoystick")) > 0.3f;

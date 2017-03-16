@@ -114,6 +114,12 @@ public class PlayerAudio : Photon.MonoBehaviour {
         PlayRandomClipInArray(SlowDownClips);
     }
 
+    public void Dash()
+    {
+        _methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+        PlayRandomClipInArray(SpeedUpClips);
+    }
+
     public void Brake()
     {
         _methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;

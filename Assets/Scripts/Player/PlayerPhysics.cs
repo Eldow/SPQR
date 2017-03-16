@@ -11,10 +11,11 @@ public class PlayerPhysics : Photon.MonoBehaviour {
 
 	public bool freezeMovement = false;
 
-    public float LockedForwardSpeed = 12f;
+    public float LockedForwardSpeed = 8f;
     public float LockedBackwardSpeed;
-    public float UnlockedForwardSpeed = 12f;
-    public float RunSpeed = 50f;
+    public float UnlockedForwardSpeed = 8f;
+    public float RunSpeed = 1.5f;
+    public float DashSpeed = 15f;
     public float TurnSpeed = 500f;
     public float DecelerationTweak = 2f;
     public bool IsLockedMovement = false;
@@ -105,6 +106,11 @@ public class PlayerPhysics : Photon.MonoBehaviour {
         this.Movement(this.RunSpeed);
     }
 
+    public void Dash()
+    {
+        this.RigidBody.AddForce(this.MoveDirection * this.UnlockedForwardSpeed * DashSpeed,ForceMode.Acceleration);
+    }
+
     public virtual void Movement(float speedFactor = 1.0f) {
         this.IsMoving = true;
 
@@ -122,16 +128,10 @@ public class PlayerPhysics : Photon.MonoBehaviour {
         this.GetTargetDirection();
 
         this.MoveDirection = this.TargetDirection.normalized;
-        if (speedFactor == 1)
-        {
-            this.RigidBody.velocity =
-                this.MoveDirection * this.LockedForwardSpeed * speedFactor;
-        }
-        else if (this.RigidBody.velocity.sqrMagnitude < MaximumSpeed)
-        {
-            this.RigidBody.AddForce(
-                this.MoveDirection * this.LockedForwardSpeed * speedFactor, ForceMode.Acceleration);
-        }
+
+        this.RigidBody.velocity =
+            this.MoveDirection * this.UnlockedForwardSpeed * speedFactor;
+
         this.IsMoving = true;
     }
 
@@ -145,17 +145,9 @@ public class PlayerPhysics : Photon.MonoBehaviour {
         );
 
         this.MoveDirection = this.MoveDirection.normalized;
-        if(speedFactor == 1)
-        {
-            this.RigidBody.velocity =
-                this.MoveDirection * this.UnlockedForwardSpeed * speedFactor;
-        }
-        else if (this.RigidBody.velocity.sqrMagnitude < MaximumSpeed)
-        {
-            this.RigidBody.AddForce(
-                this.MoveDirection * this.UnlockedForwardSpeed * speedFactor, ForceMode.Acceleration);
-        }
 
+        this.RigidBody.velocity =
+            this.MoveDirection * this.UnlockedForwardSpeed * speedFactor;
 
         if (this.MoveDirection.sqrMagnitude <= 0.02f) return;
       

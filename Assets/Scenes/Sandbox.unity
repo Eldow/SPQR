@@ -3668,11 +3668,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 199637884944485348, guid: e3773d687eea24a4abfdc18697e3a380,
-        type: 2}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: a3ba7a2250451194cbdc3096ede57676, type: 2}
     - target: {fileID: 114685419613192464, guid: e3773d687eea24a4abfdc18697e3a380,
         type: 2}
       propertyPath: viewIdField
@@ -3704,10 +3699,6 @@ Prefab:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1326889472733694, guid: e3773d687eea24a4abfdc18697e3a380, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1196846318962446, guid: e3773d687eea24a4abfdc18697e3a380, type: 2}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

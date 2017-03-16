@@ -17,6 +17,11 @@ public class RobotIdleState : RobotState {
             return new RobotBlockState();
         }
 
+        if (InputManager.dashButton())
+        {
+            return new RobotDashState();
+        }
+
 		/*if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
 			Mathf.Abs(InputManager.moveY()) <= 0.2f) {
             return null;

@@ -3221,6 +3221,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 0
     Name: RobotOverheatState
+  - Type: 9
+    SynchronizeType: 0
+    Name: RobotDashState
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
@@ -3274,10 +3277,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freezeMovement: 0
-  LockedForwardSpeed: 12
+  LockedForwardSpeed: 8
   LockedBackwardSpeed: 0
-  UnlockedForwardSpeed: 12
-  RunSpeed: 50
+  UnlockedForwardSpeed: 8
+  RunSpeed: 1.5
+  DashSpeed: 15
   TurnSpeed: 500
   DecelerationTweak: 2
   IsLockedMovement: 0
@@ -6026,7 +6030,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1288223185
+  randomSeed: 587149121
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -8553,7 +8557,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 2100000, guid: 89ff19d667a6a5d4bb76df1fcb718402, type: 2}
+  - {fileID: 2100000, guid: c50d77affeb31e14c9c062c282f13fc8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
