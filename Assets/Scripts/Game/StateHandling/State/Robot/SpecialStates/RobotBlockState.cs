@@ -1,12 +1,25 @@
 ﻿using UnityEngine;
 
 public class RobotBlockState : RobotFramedState {
+
+	protected GameObject Shield = null;
+	private int currentActiveShield = 0;
+
     protected override void Initialize() {
         this.MaxFrame = 32;
         this.IASA = 8;
         this.MinActiveState = 6;
         this.MaxActiveState = 23;
         this.HeatCost = 3;
+
+		Transform playerTransform = GameObject.FindGameObjectWithTag(
+			PlayerController.Player).transform;
+
+		foreach (Transform child in playerTransform) {
+			if (child.CompareTag("Shield")) {
+				this.Shield = child.gameObject;
+			}
+		}
     }
 
     public override State HandleInput(StateMachine stateMachine) {
@@ -47,13 +60,25 @@ public class RobotBlockState : RobotFramedState {
     }
 
     public override void Update(StateMachine stateMachine) {
-        if (this.CheckIfBlockHolding()) return;
+		
+		if(this.currentActiveShield==this.MinActiveState && this.Shield != null)
+			this.Shield.SetActive(true);
+		this.currentActiveShield++;
 
-        this.CurrentFrame++;
+
+        if (this.CheckIfBlockHolding()) return;
+		this.CurrentFrame++;
+
+
+		if(this.currentActiveShield>=MaxActiveState)
+			if (this.Shield != null) this.Shield.SetActive(false);
+
     }
 
     public override void Exit(StateMachine stateMachine) {
+		
     }
+
 
     protected virtual bool CheckIfBlockHolding() {
         return InputManager.blockButton();
