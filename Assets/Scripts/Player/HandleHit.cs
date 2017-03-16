@@ -53,6 +53,7 @@ public class HandleHit : Photon.MonoBehaviour {
     }
 
     protected virtual void SendHitstun(PlayerController who, int hitstun) {
+		if(who!=null)
         who.RobotStateMachine.SetState(new RobotHitstunState(hitstun));
     }
 

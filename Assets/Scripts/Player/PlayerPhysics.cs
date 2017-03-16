@@ -35,7 +35,7 @@ public class PlayerPhysics : Photon.MonoBehaviour {
 			this.UpdatePhysics ();
 		}
 
-        Debug.Log(RigidBody.velocity.sqrMagnitude);
+      //  Debug.Log(RigidBody.velocity.sqrMagnitude);
     }
 
     protected virtual void Initialize() {
