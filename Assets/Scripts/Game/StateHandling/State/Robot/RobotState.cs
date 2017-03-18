@@ -18,8 +18,8 @@
 
         robotStateMachine.PlayerController.PlayerPower.Power -= this.HeatCost;
 
-		if(robotStateMachine.PlayerController.PlayerPower.Power<=0)
-			robotStateMachine.SetState(new RobotOverheatState());
+        if (robotStateMachine.PlayerController.PlayerPower.Power <= 0)
+            robotStateMachine.SetState(new RobotOverheatState());
 
         PlayAudioEffect(robotStateMachine.PlayerController.PlayerAudio);
     }
@@ -59,11 +59,13 @@
         stateMachine.StateHistory.Enqueue(this.GetType().Name);
     }
 
-    public virtual bool IsLastState(RobotStateMachine stateMachine, 
+    public virtual bool IsLastState(RobotStateMachine stateMachine,
         string lastStateGuessed) {
-        return stateMachine.StateHistory.Peek() == 
-            lastStateGuessed;
+        return stateMachine.StateHistory.Peek() ==
+               lastStateGuessed;
     }
 
-    public virtual void PlayAudioEffect(PlayerAudio audio) { }
+    public virtual void PlayAudioEffect(PlayerAudio audio) {}
+
+    protected virtual void SetSpeed(RobotStateMachine robotStateMachine) {}
 }

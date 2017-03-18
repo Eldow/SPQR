@@ -3,25 +3,24 @@
 public class RobotWalkState : RobotState {
     public override State HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
-		if (InputManager.attackButton()) {
+        if (InputManager.attackButton()) {
             return new RobotAttack1State();
         }
 
-		if (InputManager.blockButton()) {
+        if (InputManager.blockButton()) {
             return new RobotBlockState();
         }
 
-        if (InputManager.dashButton())
-        {
+        if (InputManager.dashButton()) {
             return new RobotDashState();
         }
-        /*if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
-			Mathf.Abs(InputManager.moveY()) <= 0.2f) {
-            return new RobotIdleState();
-        }*/
 
-        if (!((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics.IsWalking())
-        {
+        if (InputManager.powerAttackButton()) {
+            return new RobotPowerAttackState();
+        }
+
+        if (!((RobotStateMachine) stateMachine).PlayerController.PlayerPhysics
+            .IsWalking()) {
             return new RobotIdleState();
         }
 
@@ -34,7 +33,7 @@ public class RobotWalkState : RobotState {
          * and ending. We have to freeze it in the middle while the player is
          * walking.
          */
-        RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
+        RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
 
         if (this.IsCurrentAnimationPlayedPast(robotStateMachine, .5f) &&
             Mathf.Abs(robotStateMachine.Animator.speed) > .01f) {
@@ -51,7 +50,7 @@ public class RobotWalkState : RobotState {
     public override void Update(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return;
 
-        ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
+        ((RobotStateMachine) stateMachine).PlayerController.PlayerPhysics
             .Move();
     }
 
@@ -59,13 +58,13 @@ public class RobotWalkState : RobotState {
         if (!(stateMachine is RobotStateMachine)) return;
 
         // necessary to keep track of history
-        this.SaveToHistory((RobotStateMachine)stateMachine);
+        this.SaveToHistory((RobotStateMachine) stateMachine);
     }
 
     public override void Exit(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return;
 
         // the animation don't have to be frozen anymore
-        this.ResumeAnimation((RobotStateMachine)stateMachine);
+        this.ResumeAnimation((RobotStateMachine) stateMachine);
     }
 }
