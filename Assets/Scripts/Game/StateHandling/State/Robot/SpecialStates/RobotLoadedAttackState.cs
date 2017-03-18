@@ -15,11 +15,13 @@ public class RobotLoadedAttackState : RobotAttackState {
         return this.CurrentLoadingFrame >= this.MaxLoadingFrame;
     }
 
-    protected virtual void UpdateCurrentLoadingFrame() {
+    protected virtual void UpdateCurrentLoadingFrame(
+        RobotStateMachine robotStateMachine) {
         this.CurrentLoadingFrame++;
 
         if (this.CurrentLoadingFrame % this.RefreshRate != 0) return;;
 
         this.Damage = Mathf.CeilToInt(this.Damage * this.DamageMultiplier);
+        robotStateMachine.PlayerController.PlayerPower.Power -= this.HeatCost;
     }
 }

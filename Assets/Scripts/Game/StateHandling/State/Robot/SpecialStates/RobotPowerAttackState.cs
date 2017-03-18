@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class RobotPowerAttackState : RobotLoadedAttackState {
-    protected float LoadingSpeed = .02f;
+    protected float LoadingSpeed = .5f;
 
     protected override void Initialize() {
         this.MaxFrame = 30;
@@ -36,6 +36,7 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
         }
 
         this.IsLoading = false;
+        this.SetLightings(false);
         this.ResumeNormalAnimation(robotStateMachine);
 
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
@@ -64,9 +65,9 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
 
         if (!this.IsLoading) this.CurrentFrame++;
 
-        if (this.IsLoading) this.UpdateCurrentLoadingFrame();
-
-        Debug.Log(this.Damage);
+        if (this.IsLoading) {
+            this.UpdateCurrentLoadingFrame((RobotStateMachine)stateMachine);
+        }
 
         ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
             .Move();
@@ -76,7 +77,7 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
         return InputManager.powerAttackButton();
     }
 
-    protected virtual void Enter(StateMachine stateMachine) {
+    public override void Enter(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return;
 
         RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
@@ -84,6 +85,7 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
         base.Enter(stateMachine);
 
         this.SetAnimationSpeed(robotStateMachine, this.LoadingSpeed);
+        this.SetLightings(true);
     }
 
     public override RobotState CheckInterruptibleActions() {

@@ -4,30 +4,16 @@ public class RobotOverheatState : RobotFramedState {
     protected float InitialSpeed = 0;
     protected bool IsSpeedSet = false;
     protected int Duration = 100;
-    protected GameObject Lightnings = null;
 
     protected override void Initialize() {
+        this.MaxFrame = this.Duration;
         this.IASA = this.MaxFrame;
         this.MinActiveState = 0;
         this.MaxActiveState = this.MaxFrame;
         this.HeatCost = 0;
-
-        GameObject player = GameObject.FindGameObjectWithTag(
-            PlayerController.Player);
-        Transform playerTransform = player.GetComponent<Transform>();
-
-        if (playerTransform == null) return;
-
-        foreach (Transform child in playerTransform) {
-            if (child.CompareTag("Lightnings")) {
-                this.Lightnings = child.gameObject;
-            }
-        }
     }
 
     public RobotOverheatState() {
-        this.MaxFrame = this.Duration;
-
         this.Initialize();
     }
 
@@ -66,7 +52,7 @@ public class RobotOverheatState : RobotFramedState {
 		
 		PlayAudioEffect(robotStateMachine.PlayerController.PlayerAudio);
 
-        if (this.Lightnings != null) this.Lightnings.SetActive(true);
+        this.SetLightings(true);
     }
 
     public override void Exit(StateMachine stateMachine) {
@@ -76,7 +62,7 @@ public class RobotOverheatState : RobotFramedState {
 
         robotStateMachine.Animator.speed = this.InitialSpeed;
 
-        if (this.Lightnings != null) this.Lightnings.SetActive(false);
+        this.SetLightings(false);
     }
 
     protected virtual void SetSpeed(RobotStateMachine robotStateMachine) {

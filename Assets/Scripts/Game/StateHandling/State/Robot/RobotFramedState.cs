@@ -51,6 +51,8 @@ public class RobotFramedState : RobotState {
 
         RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
 
+        base.Enter(stateMachine);
+
         this.InitialSpeed = robotStateMachine.Animator.speed;
     }
 

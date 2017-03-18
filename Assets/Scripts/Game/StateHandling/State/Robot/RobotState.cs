@@ -1,5 +1,9 @@
-﻿public class RobotState : State {
+﻿using UnityEngine;
+
+public class RobotState : State {
     public int HeatCost { get; protected set; }
+
+    protected GameObject Lightnings = null;
 
     public override State HandleInput(StateMachine stateMachine) {
         return null;
@@ -9,6 +13,28 @@
         base.Initialize();
 
         this.HeatCost = 0;
+    }
+
+    public RobotState() {
+        this.GetLightning();
+    }
+
+    protected virtual void GetLightning() {
+        GameObject player = GameObject.FindGameObjectWithTag(
+            PlayerController.Player);
+        Transform playerTransform = player.GetComponent<Transform>();
+
+        if (playerTransform == null) return;
+
+        foreach (Transform child in playerTransform) {
+            if (child.CompareTag("Lightnings")) {
+                this.Lightnings = child.gameObject;
+            }
+        }
+    }
+
+    protected virtual void SetLightings(bool isActive) {
+        if (this.Lightnings != null) this.Lightnings.SetActive(isActive);
     }
 
     public override void Enter(StateMachine stateMachine) {
