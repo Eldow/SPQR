@@ -46,7 +46,7 @@
         this.SetAnimationSpeed(stateMachine, 0);
     }
 
-    public virtual void ResumeAnimation(RobotStateMachine stateMachine) {
+    public virtual void ResumeNormalAnimation(RobotStateMachine stateMachine) {
         this.SetAnimationSpeed(stateMachine, 1);
     }
 

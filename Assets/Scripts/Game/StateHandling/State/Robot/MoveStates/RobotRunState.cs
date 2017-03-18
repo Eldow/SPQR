@@ -72,7 +72,7 @@ public class RobotRunState : RobotState {
         if (!(stateMachine is RobotStateMachine)) return;
 
         // the animation don't have to be frozen anymore
-        this.ResumeAnimation((RobotStateMachine) stateMachine);
+        this.ResumeNormalAnimation((RobotStateMachine) stateMachine);
         entered = false;
         PlayAudioEffect(((RobotStateMachine) stateMachine).PlayerController.PlayerAudio);
     }

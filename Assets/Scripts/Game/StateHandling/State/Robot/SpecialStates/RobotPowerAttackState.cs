@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
 public class RobotPowerAttackState : RobotLoadedAttackState {
+    protected float LoadingSpeed = .02f;
+
     protected override void Initialize() {
         this.MaxFrame = 30;
         this.IASA = 28;
@@ -9,9 +11,10 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
         this.Damage = 2;
         this.Hitstun = 10;
         this.HeatCost = 3;
-        this.MaxLoadingFrame = 60;
+        this.MaxLoadingFrame = 30;
         this.IsLoading = true;
-        this.DamageMultiplier = 1.5f;
+        this.DamageMultiplier = 1.02f;
+        this.RefreshRate = 5;
     }
 
     public override State HandleInput(StateMachine stateMachine) {
@@ -23,7 +26,7 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
             return null;
         }
 
-        if (this.CheckIfPowerAttackHolding() && !this.IsAttachFullyLoaded()) {
+        if (this.CheckIfPowerAttackHolding() && !this.IsAttackFullyLoaded()) {
             if (this.IsCurrentAnimationPlayedPast(robotStateMachine, .5f) &&
                 Mathf.Abs(robotStateMachine.Animator.speed) > .01f) {
                 this.FreezeAnimation(robotStateMachine);
@@ -33,7 +36,7 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
         }
 
         this.IsLoading = false;
-        this.ResumeAnimation(robotStateMachine);
+        this.ResumeNormalAnimation(robotStateMachine);
 
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
             RobotState newState = this.CheckInterruptibleActions();
@@ -59,16 +62,28 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
     public override void Update(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return;
 
-        this.CurrentFrame++;
+        if (!this.IsLoading) this.CurrentFrame++;
 
         if (this.IsLoading) this.UpdateCurrentLoadingFrame();
+
+        Debug.Log(this.Damage);
 
         ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
             .Move();
     }
 
     protected virtual bool CheckIfPowerAttackHolding() {
-        return InputManager.attackButton();
+        return InputManager.powerAttackButton();
+    }
+
+    protected virtual void Enter(StateMachine stateMachine) {
+        if (!(stateMachine is RobotStateMachine)) return;
+
+        RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
+
+        base.Enter(stateMachine);
+
+        this.SetAnimationSpeed(robotStateMachine, this.LoadingSpeed);
     }
 
     public override RobotState CheckInterruptibleActions() {

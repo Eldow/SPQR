@@ -12,7 +12,7 @@
 
         RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
 
-        this.ResumeAnimation(robotStateMachine);
+        this.ResumeNormalAnimation(robotStateMachine);
 
         if (this.IsStateFinished()) {
             if (this.IsLastState(robotStateMachine, "RobotWalkState")) {

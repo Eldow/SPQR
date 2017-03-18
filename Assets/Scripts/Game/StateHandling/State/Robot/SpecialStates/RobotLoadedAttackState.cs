@@ -1,20 +1,25 @@
-﻿public class RobotLoadedAttackState : RobotAttackState {
+﻿using UnityEngine;
+
+public class RobotLoadedAttackState : RobotAttackState {
     protected int MaxLoadingFrame = 0;
     protected int CurrentLoadingFrame = 0;
     protected bool IsLoading = false;
     protected float DamageMultiplier = 1f;
+    protected int RefreshRate = 0;
 
     public RobotLoadedAttackState() {
         this.Initialize();
     }
 
-    protected virtual bool IsAttachFullyLoaded() {
+    protected virtual bool IsAttackFullyLoaded() {
         return this.CurrentLoadingFrame >= this.MaxLoadingFrame;
     }
 
     protected virtual void UpdateCurrentLoadingFrame() {
         this.CurrentLoadingFrame++;
 
-        this.Damage = (int) (this.Damage * this.DamageMultiplier);
+        if (this.CurrentLoadingFrame % this.RefreshRate != 0) return;;
+
+        this.Damage = Mathf.CeilToInt(this.Damage * this.DamageMultiplier);
     }
 }

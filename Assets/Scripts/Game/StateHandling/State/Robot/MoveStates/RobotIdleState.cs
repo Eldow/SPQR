@@ -17,7 +17,7 @@ public class RobotIdleState : RobotState {
             return new RobotBlockState();
         }
 
-        if (InputManager.powerAttackButton()) {
+        if (InputManager.powerAttackButtonDown()) {
             return new RobotPowerAttackState();
         }
 
@@ -60,6 +60,6 @@ public class RobotIdleState : RobotState {
         if (!(stateMachine is RobotStateMachine)) return;
 
         // the animation don't have to be frozen anymore
-        this.ResumeAnimation((RobotStateMachine) stateMachine);
+        this.ResumeNormalAnimation((RobotStateMachine) stateMachine);
     }
 }
