@@ -6,14 +6,14 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
     protected override void Initialize() {
         this.MaxFrame = 30;
         this.IASA = 28;
-        this.MinActiveState = 7;
-        this.MaxActiveState = 13;
+        this.MinActiveState = 11;
+        this.MaxActiveState = 23;
         this.Damage = 2;
         this.Hitstun = 10;
         this.HeatCost = 3;
         this.MaxLoadingFrame = 30;
         this.IsLoading = true;
-        this.DamageMultiplier = 1.02f;
+        this.DamageMultiplier = 1.5f;
         this.RefreshRate = 5;
     }
 
