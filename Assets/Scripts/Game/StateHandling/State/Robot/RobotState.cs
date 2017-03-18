@@ -1,5 +1,9 @@
-﻿public class RobotState : State {
+﻿using UnityEngine;
+
+public class RobotState : State {
     public int HeatCost { get; protected set; }
+
+    protected GameObject Lightnings = null;
 
     public override State HandleInput(StateMachine stateMachine) {
         return null;
@@ -11,6 +15,28 @@
         this.HeatCost = 0;
     }
 
+    public RobotState() {
+        this.GetLightning();
+    }
+
+    protected virtual void GetLightning() {
+        GameObject player = GameObject.FindGameObjectWithTag(
+            PlayerController.Player);
+        Transform playerTransform = player.GetComponent<Transform>();
+
+        if (playerTransform == null) return;
+
+        foreach (Transform child in playerTransform) {
+            if (child.CompareTag("Lightnings")) {
+                this.Lightnings = child.gameObject;
+            }
+        }
+    }
+
+    protected virtual void SetLightings(bool isActive) {
+        if (this.Lightnings != null) this.Lightnings.SetActive(isActive);
+    }
+
     public override void Enter(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return;
 
@@ -18,8 +44,8 @@
 
         robotStateMachine.PlayerController.PlayerPower.Power -= this.HeatCost;
 
-		if(robotStateMachine.PlayerController.PlayerPower.Power<=0)
-			robotStateMachine.SetState(new RobotOverheatState());
+        if (robotStateMachine.PlayerController.PlayerPower.Power <= 0)
+            robotStateMachine.SetState(new RobotOverheatState());
 
         PlayAudioEffect(robotStateMachine.PlayerController.PlayerAudio);
     }
@@ -46,7 +72,7 @@
         this.SetAnimationSpeed(stateMachine, 0);
     }
 
-    public virtual void ResumeAnimation(RobotStateMachine stateMachine) {
+    public virtual void ResumeNormalAnimation(RobotStateMachine stateMachine) {
         this.SetAnimationSpeed(stateMachine, 1);
     }
 
@@ -59,11 +85,13 @@
         stateMachine.StateHistory.Enqueue(this.GetType().Name);
     }
 
-    public virtual bool IsLastState(RobotStateMachine stateMachine, 
+    public virtual bool IsLastState(RobotStateMachine stateMachine,
         string lastStateGuessed) {
-        return stateMachine.StateHistory.Peek() == 
-            lastStateGuessed;
+        return stateMachine.StateHistory.Peek() ==
+               lastStateGuessed;
     }
 
-    public virtual void PlayAudioEffect(PlayerAudio audio) { }
+    public virtual void PlayAudioEffect(PlayerAudio audio) {}
+
+    protected virtual void SetSpeed(RobotStateMachine robotStateMachine) {}
 }

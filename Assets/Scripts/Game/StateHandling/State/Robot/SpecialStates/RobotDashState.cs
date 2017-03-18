@@ -1,9 +1,5 @@
-﻿using UnityEngine;
-
-public class RobotDashState : RobotFramedState
-{
-    protected override void Initialize()
-    {
+﻿public class RobotDashState : RobotFramedState {
+    protected override void Initialize() {
         this.MaxFrame = 16;
         this.IASA = 8;
         this.MinActiveState = 6;
@@ -11,30 +7,25 @@ public class RobotDashState : RobotFramedState
         this.HeatCost = 18;
     }
 
-    public override State HandleInput(StateMachine stateMachine)
-    {
+    public override State HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
 
-        RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
+        RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
 
-        this.ResumeAnimation(robotStateMachine);
+        this.ResumeNormalAnimation(robotStateMachine);
 
-        if (this.IsStateFinished())
-        {
-            if (this.IsLastState(robotStateMachine, "RobotWalkState"))
-            {
+        if (this.IsStateFinished()) {
+            if (this.IsLastState(robotStateMachine, "RobotWalkState")) {
                 return new RobotWalkState();
             }
-            if (this.IsLastState(robotStateMachine, "RobotRunState"))
-            {
+            if (this.IsLastState(robotStateMachine, "RobotRunState")) {
                 return new RobotRunState();
             }
 
             return new RobotIdleState();
         }
 
-        if (InputManager.attackButton())
-        {
+        if (InputManager.attackButton()) {
             return new RobotAttack1State();
         }
 
@@ -49,29 +40,22 @@ public class RobotDashState : RobotFramedState
         return null;
     }
 
-    public RobotDashState()
-    {
+    public RobotDashState() {
         this.Initialize();
     }
 
-    public override void Update(StateMachine stateMachine)
-    {
+    public override void Update(StateMachine stateMachine) {
         this.CurrentFrame++;
         if (!(stateMachine is RobotStateMachine)) return;
-        RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
+        RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
         robotStateMachine.PlayerController.PlayerPhysics.Dash();
     }
 
-    public override void Exit(StateMachine stateMachine)
-    {
-    }
+    public override void Exit(StateMachine stateMachine) {}
 
-    public override RobotState CheckInterruptibleActions()
-    {
-        if (InputManager.moveX() > .02f || InputManager.moveY() > .02f)
-        {
-            if (InputManager.runButton())
-            {
+    public override RobotState CheckInterruptibleActions() {
+        if (InputManager.moveX() > .02f || InputManager.moveY() > .02f) {
+            if (InputManager.runButton()) {
                 return new RobotRunState();
             }
 
@@ -81,8 +65,7 @@ public class RobotDashState : RobotFramedState
         return null;
     }
 
-    public override void PlayAudioEffect(PlayerAudio audio)
-    {
+    public override void PlayAudioEffect(PlayerAudio audio) {
         audio.Dash();
     }
 }
