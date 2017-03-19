@@ -3,6 +3,7 @@
 public class RobotBlockState : RobotFramedState {
 
 	protected GameObject Shield = null;
+	public float shieldAngle = 40.0f;
 	private bool isHolding = true;
 
     protected override void Initialize() {

@@ -265,7 +265,7 @@ ParticleSystem:
   m_GameObject: {fileID: 131965643}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -3866,6 +3866,7 @@ GameObject:
   - component: {fileID: 1060132389}
   - component: {fileID: 1060132388}
   - component: {fileID: 1060132390}
+  - component: {fileID: 1060132391}
   m_Layer: 0
   m_Name: DebuggerContainer
   m_TagString: Untagged
@@ -3913,6 +3914,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FramePerSecond: 60
+--- !u!114 &1060132391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1060132387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43b64bd80fab2c649b37809f9deb741e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPointPrefab: {fileID: 1301498378091292, guid: bac40ec5e1f3a004aae61d7a9fd11096,
+    type: 2}
 --- !u!1001 &1129780749
 Prefab:
   m_ObjectHideFlags: 0

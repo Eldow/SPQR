@@ -33,7 +33,7 @@ public class HandleHit : Photon.MonoBehaviour {
         RobotAttackState robotAttackState = 
             (RobotAttackState)this.PlayerController.RobotStateMachine
             .CurrentState;
-
+			
         robotAttackState.HandleAttack(this, other);
     }
 

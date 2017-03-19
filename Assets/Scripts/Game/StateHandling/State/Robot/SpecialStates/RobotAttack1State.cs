@@ -1,5 +1,6 @@
 ﻿public class RobotAttack1State : RobotAttackState {
     protected override void Initialize() {
+		this.alreadyHitByAttack = false;
         this.MaxFrame = 30;
         this.IASA = 21;
         this.MinActiveState = 7;
