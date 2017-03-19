@@ -318,11 +318,11 @@ GameObject:
   - component: {fileID: 54601722743160752}
   - component: {fileID: 114457985870282662}
   - component: {fileID: 114566394521308902}
+  - component: {fileID: 114888279927820460}
+  - component: {fileID: 82548571999831290}
   - component: {fileID: 114194154180178772}
   - component: {fileID: 114685419613192464}
   - component: {fileID: 114469942789855958}
-  - component: {fileID: 114888279927820460}
-  - component: {fileID: 82548571999831290}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Player
@@ -3323,6 +3323,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 0
     Name: RobotDashState
+  - Type: 9
+    SynchronizeType: 0
+    Name: RobotPowerAttackState
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
