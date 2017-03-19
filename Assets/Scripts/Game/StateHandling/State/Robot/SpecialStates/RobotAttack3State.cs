@@ -4,7 +4,7 @@
         this.IASA = 34;
         this.MinActiveState = 8;
         this.MaxActiveState = 40;
-        this.Damage = 3;
+        this.Damage = 5;
         this.Hitstun = 30;
         this.HeatCost = 10;
     }
@@ -43,7 +43,7 @@
         if (!(stateMachine is RobotStateMachine)) return;
 
         this.CurrentFrame++;
-
+		alreadyHitByAttack = false;
         ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
             .Move();
     }
