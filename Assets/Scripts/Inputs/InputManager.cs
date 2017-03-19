@@ -58,6 +58,14 @@ public class InputManager : MonoBehaviour {
         return Input.GetButtonDown("AttackButton");
     }
 
+    public static bool powerAttackButtonDown() {
+        return Input.GetButtonDown("PowerAttackButton");
+    }
+
+    public static bool powerAttackButton() {
+        return Input.GetButton("PowerAttackButton");
+    }
+
     public static bool dashButton()
     {
         return Input.GetButtonDown("DashButton");
