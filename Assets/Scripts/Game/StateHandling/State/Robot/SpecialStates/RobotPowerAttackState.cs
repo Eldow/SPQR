@@ -8,7 +8,7 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
         this.IASA = 28;
         this.MinActiveState = 11;
         this.MaxActiveState = 23;
-        this.Damage = 2;
+        this.Damage = 15;
         this.Hitstun = 10;
         this.HeatCost = 3;
         this.MaxLoadingFrame = 30;
