@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33268415897245106}
   - component: {fileID: 23915699355064370}
   - component: {fileID: 135860832357170070}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:TorsoTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4357008603039990}
   - component: {fileID: 33063328400619540}
   - component: {fileID: 23216131712800838}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:Hips
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4553644081914020}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JTipRotationLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 4762276974839310}
   - component: {fileID: 33261435341073124}
   - component: {fileID: 23662498262541574}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4540066028288008}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JLegsBottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 4653776571947814}
   - component: {fileID: 33428434097786604}
   - component: {fileID: 23726078390075684}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:ElbowRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 4468167889534432}
   - component: {fileID: 33169710696018236}
   - component: {fileID: 23594138364555352}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:ShoulderRight1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 33528161991772240}
   - component: {fileID: 23201812411424298}
   - component: {fileID: 65650881023847064}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:ArmLeft 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 4731061032770760}
   - component: {fileID: 198832203136085266}
   - component: {fileID: 199637884944485348}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lightnings
   m_TagString: Lightnings
   m_Icon: {fileID: 0}
@@ -170,7 +170,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4276971504856122}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:ForearmRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4729229059200672}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JSternum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 4790349383066720}
   - component: {fileID: 33337852352739874}
   - component: {fileID: 23122750372007490}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:ElbowLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4236271468036286}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JElbowLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4452894262835462}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:Torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 4623269727190584}
   - component: {fileID: 33642413785533356}
   - component: {fileID: 23090567738284864}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:HeadInside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 4942363208759684}
   - component: {fileID: 33516054591354810}
   - component: {fileID: 23886190967925528}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:Legs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4116102510251998}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:ArmRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 4685455872361706}
   - component: {fileID: 33069765589200856}
   - component: {fileID: 23403413803625938}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:Mudguard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 114194154180178772}
   - component: {fileID: 114685419613192464}
   - component: {fileID: 114469942789855958}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 54938047205804208}
   - component: {fileID: 114096958873154514}
   - component: {fileID: 114474519775920392}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:SwordRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4586078090563930}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JTipLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4730602995308570}
   - component: {fileID: 96016126079883218}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TrailRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,7 +390,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4198175752835128}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JTipRotationRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,7 +405,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4413718840042534}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JBall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -424,7 +424,7 @@ GameObject:
   - component: {fileID: 23785393134821808}
   - component: {fileID: 64238528598499698}
   - component: {fileID: 54395011063765286}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shield
   m_TagString: Shield
   m_Icon: {fileID: 0}
@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 4711956526720962}
   - component: {fileID: 198025847723070078}
   - component: {fileID: 199608697081302008}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -456,7 +456,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4400863950043362}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:ForearmLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,7 +473,7 @@ GameObject:
   - component: {fileID: 4943601327088406}
   - component: {fileID: 33977201651005402}
   - component: {fileID: 23876095634837488}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:ForearmRight 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -489,7 +489,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4479786428877698}
   - component: {fileID: 96099933730534002}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TrailRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -504,7 +504,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4317559251152084}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JShoulderRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -521,7 +521,7 @@ GameObject:
   - component: {fileID: 4110844520386944}
   - component: {fileID: 33960983176223802}
   - component: {fileID: 23143943573363124}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:ForearmLeft 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -537,7 +537,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4068801371408756}
   - component: {fileID: 108110668626300510}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,7 +552,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4427810409626798}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -567,7 +567,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4367374957190866}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JElbowRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -582,7 +582,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4059486465608330}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:ArmLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -599,7 +599,7 @@ GameObject:
   - component: {fileID: 4007828729321510}
   - component: {fileID: 33183208431301700}
   - component: {fileID: 23152213396586316}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:ShoulderRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -617,7 +617,7 @@ GameObject:
   - component: {fileID: 33024982732094536}
   - component: {fileID: 23468015963133980}
   - component: {fileID: 135441647110479512}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -632,7 +632,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4949530441457890}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JTipRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -649,7 +649,7 @@ GameObject:
   - component: {fileID: 4613861617531108}
   - component: {fileID: 33286059234556550}
   - component: {fileID: 23999909293337692}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:TorsoMiddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -665,7 +665,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4044476365197366}
   - component: {fileID: 108346316485840894}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Light template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -680,7 +680,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4170005197282302}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -695,7 +695,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4247402664197502}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JLegsTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -711,7 +711,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4958625055989880}
   - component: {fileID: 96920967964880742}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TrailRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -726,7 +726,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4315358435211730}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JPelvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -741,7 +741,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4305055020276898}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -758,7 +758,7 @@ GameObject:
   - component: {fileID: 4319264569368884}
   - component: {fileID: 33033984881836290}
   - component: {fileID: 23520836948381490}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:TorsoSpine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -773,7 +773,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4548492881928800}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JShoulderLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -788,7 +788,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4229632512638472}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:JTorso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -806,7 +806,7 @@ GameObject:
   - component: {fileID: 33199798422093882}
   - component: {fileID: 23989206671802744}
   - component: {fileID: 65654348464413412}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -822,7 +822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4331204449935078}
   - component: {fileID: 96525331809549680}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TrailRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -843,7 +843,7 @@ GameObject:
   - component: {fileID: 54514081973283910}
   - component: {fileID: 114854232327306806}
   - component: {fileID: 114072012524399666}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:SwordLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -861,7 +861,7 @@ GameObject:
   - component: {fileID: 33258906125265252}
   - component: {fileID: 23306294033695488}
   - component: {fileID: 65120130278467292}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot:ArmRight 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

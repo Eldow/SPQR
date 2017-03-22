@@ -3927,6 +3927,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPointPrefab: {fileID: 1301498378091292, guid: bac40ec5e1f3a004aae61d7a9fd11096,
     type: 2}
+  timeToDestroy: 5
 --- !u!1001 &1129780749
 Prefab:
   m_ObjectHideFlags: 0
@@ -4168,39 +4169,31 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 20771773854244016, guid: 2c64c8025846ca044be72463b8832733,
-        type: 2}
-      propertyPath: m_CullingMask.m_Bits
-      value: 4294967039
-      objectReference: {fileID: 0}
-    - target: {fileID: 20771773854244016, guid: 2c64c8025846ca044be72463b8832733,
-        type: 2}
-      propertyPath: m_ClearFlags
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 20771773854244016, guid: 2c64c8025846ca044be72463b8832733,
-        type: 2}
-      propertyPath: m_BackGroundColor.r
-      value: 0.89705884
-      objectReference: {fileID: 0}
-    - target: {fileID: 20771773854244016, guid: 2c64c8025846ca044be72463b8832733,
-        type: 2}
-      propertyPath: m_BackGroundColor.g
-      value: 0.89705884
-      objectReference: {fileID: 0}
-    - target: {fileID: 20771773854244016, guid: 2c64c8025846ca044be72463b8832733,
-        type: 2}
-      propertyPath: m_BackGroundColor.b
-      value: 0.89705884
-      objectReference: {fileID: 0}
-    - target: {fileID: 20771773854244016, guid: 2c64c8025846ca044be72463b8832733,
-        type: 2}
-      propertyPath: orthographic
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c64c8025846ca044be72463b8832733, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1322234819 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1255576974900768, guid: 2c64c8025846ca044be72463b8832733,
+    type: 2}
+  m_PrefabInternal: {fileID: 1322234818}
+--- !u!114 &1322234820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1322234819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 150caa64d2978d14fbd8182ceed624ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clipMoveTime: 0.05
+  returnTime: 0.4
+  sphereCastRadius: 0.1
+  visualiseInEditor: 0
+  closestDistance: 0.5
+  dontClipTag: Player
 --- !u!1001 &1331480994
 Prefab:
   m_ObjectHideFlags: 0

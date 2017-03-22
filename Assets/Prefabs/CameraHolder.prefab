@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 92343956493996062}
   - component: {fileID: 124787125211154560}
   - component: {fileID: 81572948435334850}
+  - component: {fileID: 114140354543481452}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -111,14 +112,14 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.89705884, g: 0.89705884, b: 0.89705884, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-  near clip plane: 1
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -126,7 +127,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967039
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -150,6 +151,25 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1255576974900768}
   m_Enabled: 1
+--- !u!114 &114140354543481452
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1255576974900768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 150caa64d2978d14fbd8182ceed624ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clipMoveTime: 0.03
+  returnTime: 0.5
+  sphereCastRadius: 0.4
+  visualiseInEditor: 0
+  closestDistance: 0.5
+  clippingLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &114454963144953122
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -161,14 +181,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500b4d55f3682eb499eb82a3e568f2b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  autoTargetPlayer: 1
-  moveSpeed: 5
-  turnSpeed: 1.5
-  turnsmoothing: 0.1
-  tiltMax: 75
-  tiltMin: 45
-  lockCursor: 0
+  AutoTarget: 1
+  LockCamera: 0
+  MainCameraLeftOffset: {x: 0, y: 0, z: 0}
+  MainCameraRightOffset: {x: 0, y: 0, z: 0}
+  MainCameraOffset: {x: 0, y: 0, z: 0}
+  MainCameraDefaultUnlockPosition: {x: 0, y: 0, z: 0}
+  MainCameraDefaultUnlockRotation: {x: 0, y: 0, z: 0}
+  MainCameraDefaultLockPosition: {x: 0, y: 0, z: 0}
+  MainCameraDefaultLockRotation: {x: 0, y: 0, z: 0}
+  MoveSpeed: 5
+  TurnSpeed: 1.5
+  TurnSmoothing: 0.1
+  TiltMax: 75
+  TiltMin: 45
+  LockCursor: 0
+  LookAngle: 0
+  TiltAngle: 0
+  SmoothX: 0
+  SmoothY: 0
+  SmoothXvelocity: 0
+  SmoothYvelocity: 0
+  PivotOffset: {x: 0, y: 0, z: 0}
+  PivotLockLeftAngles: {x: 0, y: 0, z: 0}
 --- !u!124 &124787125211154560
 Behaviour:
   m_ObjectHideFlags: 1
