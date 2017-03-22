@@ -169,7 +169,7 @@ MonoBehaviour:
   closestDistance: 0.5
   clippingLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294966527
 --- !u!114 &114454963144953122
 MonoBehaviour:
   m_ObjectHideFlags: 1
