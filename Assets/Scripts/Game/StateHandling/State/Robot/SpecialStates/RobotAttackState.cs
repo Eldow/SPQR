@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class RobotAttackState : RobotFramedState {
     public int Damage { get; protected set; }
     public int Hitstun { get; protected set; }
-	protected bool alreadyHitByAttack;
+	protected bool AlreadyHitByAttack;
 	
 
     protected override void Initialize() {	
@@ -14,7 +14,7 @@ public class RobotAttackState : RobotFramedState {
     }
 
     public virtual void HandleAttack(HandleHit handleHit, Collision other) {
-		if (this.alreadyHitByAttack || !this.IsAttackActive ())
+		if (this.AlreadyHitByAttack || !this.IsAttackActive ())
 			return;
 
 		PlayerController opponent = (PlayerController)other.gameObject.GetComponent<PlayerController> ();
@@ -38,7 +38,7 @@ public class RobotAttackState : RobotFramedState {
 			//Debug.Log (angleBetweenRobots);
 
 		}
-		this.alreadyHitByAttack = true;
+		this.AlreadyHitByAttack = true;
 	}
 
     public virtual bool IsAttackActive() {

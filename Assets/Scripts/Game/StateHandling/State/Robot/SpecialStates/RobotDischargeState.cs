@@ -1,4 +1,9 @@
-﻿public class RobotAttack1State : RobotAttackState {
+﻿using UnityEngine;
+
+public class RobotDischargeState : RobotAttackState {
+    protected float Radius = 10f;
+    protected GameObject[] Enemies = null;
+
     protected override void Initialize() {
         this.AlreadyHitByAttack = false;
         this.MaxFrame = 30;
@@ -20,10 +25,9 @@
         }
 
         if (InputManager.attackButton()) {
-                return new RobotAttack2State();
+            return new RobotAttack2State();
         }
-
-
+        
 
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
             RobotState newState = this.CheckInterruptibleActions();
@@ -42,7 +46,7 @@
         return null;
     }
 
-    public RobotAttack1State() {
+    public RobotDischargeState() {
         this.Initialize();
     }
 
@@ -55,7 +59,41 @@
             .Move();
     }
 
-    public override void Exit(StateMachine stateMachine) {
+    public override void Enter(StateMachine stateMachine) {
+        if (!(stateMachine is RobotStateMachine)) return;
+
+        RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
+
+        base.Enter(stateMachine);
+
+        this.Enemies = GameObject.FindGameObjectsWithTag(
+            PlayerController.Opponent);
+
+        foreach (GameObject enemy in this.Enemies) {
+            if (!this.CheckDistanceWithGameObject(robotStateMachine, enemy)) {
+                continue;
+            }
+
+            this.MakeHimSuffer(robotStateMachine, enemy);
+        }
+    }
+
+    public virtual bool CheckDistanceWithGameObject(
+        RobotStateMachine robotStateMachine, GameObject gameObject) {
+        return this.Radius >= 
+            Vector3.Distance(
+                robotStateMachine.transform.position, 
+                gameObject.transform.position);
+    }
+
+    public virtual void MakeHimSuffer(
+        RobotStateMachine robotStateMachine, GameObject enemy) {
+        PlayerPhysics enemyPhysics = enemy.GetComponent<PlayerPhysics>();
+
+        if (enemyPhysics == null) return;
+
+        enemyPhysics.ApplyPoke(
+            enemy.transform.position - robotStateMachine.transform.position);
     }
 
     public override RobotState CheckInterruptibleActions() {

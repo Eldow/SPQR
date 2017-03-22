@@ -43,7 +43,7 @@
         if (!(stateMachine is RobotStateMachine)) return;
 
         this.CurrentFrame++;
-		alreadyHitByAttack = false;
+		AlreadyHitByAttack = false;
         ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
             .Move();
     }
