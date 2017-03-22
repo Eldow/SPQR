@@ -2931,10 +2931,10 @@ RectTransform:
   m_Father: {fileID: 102530736}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 494.9}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -92.6}
+  m_SizeDelta: {x: 180, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &219952116
 MonoBehaviour:
@@ -4838,12 +4838,12 @@ Prefab:
     - target: {fileID: 224779199486585792, guid: 5d9aa31c0e1aea648babeedf229228cc,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 160
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 224779199486585792, guid: 5d9aa31c0e1aea648babeedf229228cc,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 224779199486585792, guid: 5d9aa31c0e1aea648babeedf229228cc,
         type: 2}
@@ -4880,11 +4880,6 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1409329837}
-    - target: {fileID: 114527914849881982, guid: 5d9aa31c0e1aea648babeedf229228cc,
-        type: 2}
-      propertyPath: m_FontData.m_RichText
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5d9aa31c0e1aea648babeedf229228cc, type: 2}
   m_IsPrefabParent: 0
