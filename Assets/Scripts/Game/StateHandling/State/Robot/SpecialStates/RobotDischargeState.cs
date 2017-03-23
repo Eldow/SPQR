@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 
 public class RobotDischargeState : RobotAttackState {
-    protected float Radius = 10f;
+    protected float Radius = 1000f;
     protected GameObject[] Enemies = null;
+    protected SphereCollider AreaCollider = null;
+    protected float RadiusGrowthRate = .2f;
 
     protected override void Initialize() {
         this.AlreadyHitByAttack = false;
@@ -15,19 +17,24 @@ public class RobotDischargeState : RobotAttackState {
         this.HeatCost = 3;
     }
 
+    public override void HandleAttackTrigger(
+        HandleHit handleHit, Collider other) {
+        base.HandleAttackTrigger(handleHit, other);
+
+        this.MakeHimSuffer(handleHit, other);
+    }
+
     public override State HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
 
         RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
 
-        if (!this.IsAnimationPlaying(robotStateMachine, "RobotAttack1")) {
+        if (!this.IsAnimationPlaying(robotStateMachine, "RobotDischarge")) {
             return null;
         }
 
-        if (InputManager.attackButton()) {
-            return new RobotAttack2State();
-        }
-        
+        if (!this.IsSpeedSet) this.SetSpeed(robotStateMachine);
+
 
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
             RobotState newState = this.CheckInterruptibleActions();
@@ -36,10 +43,6 @@ public class RobotDischargeState : RobotAttackState {
         }
 
         if (this.IsStateFinished()) {
-            if (this.IsLastState(robotStateMachine, "RobotWalkState")) {
-                return new RobotWalkState();
-            }
-
             return new RobotIdleState();
         }
 
@@ -55,8 +58,19 @@ public class RobotDischargeState : RobotAttackState {
 
         this.CurrentFrame++;
 
-        ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
-            .Move();
+        /* ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
+            .Move(); */
+
+        if (this.AreaCollider == null) return;
+
+        if (this.AreaCollider.radius >= this.Radius) {
+            GameObject.Destroy(this.AreaCollider);
+            this.AreaCollider = null;
+
+            return;
+        }
+
+        this.AreaCollider.radius += this.RadiusGrowthRate;
     }
 
     public override void Enter(StateMachine stateMachine) {
@@ -66,16 +80,21 @@ public class RobotDischargeState : RobotAttackState {
 
         base.Enter(stateMachine);
 
-        this.Enemies = GameObject.FindGameObjectsWithTag(
-            PlayerController.Opponent);
+        this.SetLightings(true);
+        this.AreaCollider 
+            = robotStateMachine.gameObject.AddComponent<SphereCollider>();
+        this.AreaCollider.isTrigger = true;
+    }
 
-        foreach (GameObject enemy in this.Enemies) {
-            if (!this.CheckDistanceWithGameObject(robotStateMachine, enemy)) {
-                continue;
-            }
+    public override void Exit(StateMachine stateMachine) {
+        if (!(stateMachine is RobotStateMachine)) return;
 
-            this.MakeHimSuffer(robotStateMachine, enemy);
-        }
+        RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
+
+        base.Exit(stateMachine);
+
+        this.SetLightings(false);
+        robotStateMachine.PlayerController.PlayerPhysics.IsDischarged = true;
     }
 
     public virtual bool CheckDistanceWithGameObject(
@@ -87,24 +106,25 @@ public class RobotDischargeState : RobotAttackState {
     }
 
     public virtual void MakeHimSuffer(
-        RobotStateMachine robotStateMachine, GameObject enemy) {
-        PlayerPhysics enemyPhysics = enemy.GetComponent<PlayerPhysics>();
+        HandleHit player, Collider enemy) {
+        PlayerPhysics enemyPhysics 
+            = enemy.gameObject.GetComponent<PlayerPhysics>();
 
         if (enemyPhysics == null) return;
 
-        enemyPhysics.ApplyPoke(
-            enemy.transform.position - robotStateMachine.transform.position);
+        player.SendPoke(enemy.gameObject, 
+            enemy.transform.position - player.transform.position);
     }
 
     public override RobotState CheckInterruptibleActions() {
-        if (InputManager.moveX() > .02f || InputManager.moveY() > .02f) {
-            if (InputManager.runButton()) {
-                return new RobotRunState();
-            }
-
-            return new RobotWalkState();
+        if (!(InputManager.moveX() > .02f) && !(InputManager.moveY() > .02f)) {
+            return null;
         }
 
-        return null;
+        if (InputManager.runButton()) {
+            return new RobotRunState();
+        }
+
+        return new RobotWalkState();
     }
 }

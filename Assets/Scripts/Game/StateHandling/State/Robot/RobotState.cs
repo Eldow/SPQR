@@ -50,6 +50,11 @@ public class RobotState : State {
         PlayAudioEffect(robotStateMachine.PlayerController.PlayerAudio);
     }
 
+    protected virtual bool IsDischarge(RobotStateMachine robotStateMachine) {
+        return !robotStateMachine.PlayerController.PlayerPhysics
+                   .IsDischarged && InputManager.dischargeButton();
+    }
+
     public virtual bool IsAnimationPlaying(RobotStateMachine stateMachine,
         string animationName) {
         return stateMachine.Animator.GetCurrentAnimatorStateInfo(0)

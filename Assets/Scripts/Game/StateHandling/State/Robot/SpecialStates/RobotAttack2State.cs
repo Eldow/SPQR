@@ -23,6 +23,10 @@
             return new RobotAttack3State();
         }
 
+        if (this.IsDischarge(robotStateMachine)) {
+            return new RobotDischargeState();
+        }
+
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
             RobotState newState = this.CheckInterruptibleActions();
 

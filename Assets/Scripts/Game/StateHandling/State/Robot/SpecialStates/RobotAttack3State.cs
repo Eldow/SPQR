@@ -18,6 +18,10 @@
             return null;
         }
 
+        if (this.IsDischarge(robotStateMachine)) {
+            return new RobotDischargeState();
+        }
+
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
             RobotState newState = this.CheckInterruptibleActions();
 

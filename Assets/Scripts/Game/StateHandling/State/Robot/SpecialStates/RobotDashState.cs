@@ -25,6 +25,10 @@
             return new RobotIdleState();
         }
 
+        if (this.IsDischarge(robotStateMachine)) {
+            return new RobotDischargeState();
+        }
+
         if (InputManager.attackButton()) {
             return new RobotAttack1State();
         }

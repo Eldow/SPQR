@@ -24,7 +24,7 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     public float WalkCap = 1f;
     public float MaximumSpeed = 300f;
     public bool IsDischarged = false;
-    public float PokeMagnitude = 20f;
+    public float PokeMagnitude = 2f;
 
     private float _yAxisInput = 0f;
     private float _xAxisInput = 0f;
