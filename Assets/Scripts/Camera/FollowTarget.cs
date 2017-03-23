@@ -174,6 +174,7 @@ public abstract class FollowTarget : MonoBehaviour {
 			HealthBar.SetActive (LockCamera);
 			this.UndoOffset ();
 			this.ResetCameraUnlockPosition ();
+
 		} else {
 			this.UpdateOpponent ();
 			if (this.OpponentController != null) {

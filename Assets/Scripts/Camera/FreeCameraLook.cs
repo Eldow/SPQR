@@ -7,7 +7,6 @@ public class FreeCameraLook : Pivot {
     public float TiltMax = 75f;
     public float TiltMin = 45f;
     public bool LockCursor = false;
-    public float LookAngle;
     public float TiltAngle;
     public float SmoothX = 0;
     public float SmoothY = 0;
@@ -66,6 +65,7 @@ public class FreeCameraLook : Pivot {
 
     protected virtual void SwitchPivotSide() {
         this.UndoOffset();
+		Debug.Log ("YOLO");
 
         this.PivotObject.localRotation = Quaternion.Euler(
             this.PivotLockAngles.x, 
@@ -94,7 +94,7 @@ public class FreeCameraLook : Pivot {
 
     protected virtual void RotateLockCamera() {
         if (this.OpponentController == null) {
-            // this.SwitchCameraMode(); useless ?
+            //this.SwitchCameraMode(); useless ?
             return;
         }
 
@@ -102,11 +102,19 @@ public class FreeCameraLook : Pivot {
     }
 
     protected override void UndoOffset() {
+
+		this.TiltAngle = 0;
+
         this.PivotObject.transform.localPosition = this.PivotDefaultPosition;
         this.PivotObject.transform.localRotation =
             Quaternion.Euler(this.PivotDefaultRotation);
 
         base.UndoOffset();
+
+		Quaternion temp = this.transform.rotation;
+		temp.x = 0;
+		temp.z = 0;
+			this.transform.rotation = temp;
     }
 
     protected override void ApplyOffset() {
@@ -150,13 +158,8 @@ public class FreeCameraLook : Pivot {
             this.SmoothX = cameraX;
             this.SmoothY = cameraY;
         }
-
-        this.LookAngle += this.SmoothX * this.TurnSpeed;
-        this.transform.rotation = Quaternion.RotateTowards(
-            this.transform.rotation, 
-            Quaternion.Euler(0f, this.LookAngle, 0), 
-            this.TurnSpeed
-        );
+			
+		this.transform.Rotate (Vector3.up * this.SmoothX * this.TurnSpeed, Space.World);
 
         this.TiltAngle -= this.SmoothY * this.TurnSpeed;
         this.TiltAngle = Mathf.Clamp(
