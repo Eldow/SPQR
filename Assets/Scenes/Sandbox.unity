@@ -2931,9 +2931,9 @@ RectTransform:
   m_Father: {fileID: 102530736}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -92.6}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 97, y: -97}
   m_SizeDelta: {x: 180, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &219952116
@@ -2996,7 +2996,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &219952118
@@ -3738,7 +3738,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -501.9995, y: -130}
+  m_AnchoredPosition: {x: -378, y: -130}
   m_SizeDelta: {x: 1000, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &800126876
@@ -4828,12 +4828,12 @@ Prefab:
     - target: {fileID: 224779199486585792, guid: 5d9aa31c0e1aea648babeedf229228cc,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 97
       objectReference: {fileID: 0}
     - target: {fileID: 224779199486585792, guid: 5d9aa31c0e1aea648babeedf229228cc,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 224779199486585792, guid: 5d9aa31c0e1aea648babeedf229228cc,
         type: 2}
@@ -4848,7 +4848,7 @@ Prefab:
     - target: {fileID: 224779199486585792, guid: 5d9aa31c0e1aea648babeedf229228cc,
         type: 2}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224779199486585792, guid: 5d9aa31c0e1aea648babeedf229228cc,
         type: 2}
@@ -4858,7 +4858,7 @@ Prefab:
     - target: {fileID: 224779199486585792, guid: 5d9aa31c0e1aea648babeedf229228cc,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224779199486585792, guid: 5d9aa31c0e1aea648babeedf229228cc,
         type: 2}
