@@ -314,8 +314,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4723817840208916}
   - component: {fileID: 95196309229997626}
-  - component: {fileID: 114032294684035922}
   - component: {fileID: 54601722743160752}
+  - component: {fileID: 114032294684035922}
+  - component: {fileID: 114970027354652158}
   - component: {fileID: 114457985870282662}
   - component: {fileID: 114566394521308902}
   - component: {fileID: 114888279927820460}
@@ -3318,13 +3319,13 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: RobotDefeatState
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: RobotOverheatState
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: RobotDashState
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: RobotPowerAttackState
   m_SynchronizeLayers:
   - SynchronizeType: 1
@@ -3463,6 +3464,21 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 333eb0ace55444d438237972b755079a, type: 3}
   WinClip: {fileID: 8300000, guid: 9b3ca5d2b420a8748a3ab40d7c0c47b4, type: 3}
   LoseClip: {fileID: 8300000, guid: 32dc71ef83a1ea944a1d5021aff40ea6, type: 3}
+--- !u!114 &114970027354652158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326889472733694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7b1b9d9fb3cf8243aecb215e1538ba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Automaton: {fileID: 0}
+  Animator: {fileID: 95196309229997626}
+  PlayerController: {fileID: 114457985870282662}
+  MaxHistorySize: 12
 --- !u!135 &135441647110479512
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -5,7 +5,6 @@ using UnityEngine.Networking;
 public class RobotStateMachine : StateMachine {
     public Animator Animator = null;
     public PlayerController PlayerController = null;
-    public NetworkAnimator NetworkAnimator = null;
     [HideInInspector] public FixedSizedQueue<string> StateHistory;
     public int MaxHistorySize = 12;
 
@@ -27,7 +26,6 @@ public class RobotStateMachine : StateMachine {
 
         this.Animator = this.GetComponent<Animator>();
         this.PlayerController = this.GetComponent<PlayerController>();
-        this.NetworkAnimator = this.GetComponent<NetworkAnimator>();
 
         Type stateType = this.CheckStartingState(startingState);
 

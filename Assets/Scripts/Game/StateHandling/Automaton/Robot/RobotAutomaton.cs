@@ -7,6 +7,5 @@ public class RobotAutomaton : Automaton {
             return;
         }
 
-        this.StateMachine = this.gameObject.AddComponent<RobotStateMachine>();
     }
 }
