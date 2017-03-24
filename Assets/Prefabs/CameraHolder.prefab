@@ -165,8 +165,9 @@ MonoBehaviour:
   clipMoveTime: 0.03
   returnTime: 0.5
   sphereCastRadius: 0.4
-  visualiseInEditor: 0
   closestDistance: 0.5
+  pivot: {fileID: 4029783374095190}
+  visualiseInEditor: 0
   clippingLayers:
     serializedVersion: 2
     m_Bits: 4294966527
@@ -196,7 +197,6 @@ MonoBehaviour:
   TiltMax: 75
   TiltMin: 45
   LockCursor: 0
-  LookAngle: 0
   TiltAngle: 0
   SmoothX: 0
   SmoothY: 0

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 public class FreeCameraLook : Pivot {
+	
     public float MoveSpeed = 5f;
     public float TurnSpeed = 1.5f;
     public float TurnSmoothing = .1f;
@@ -19,6 +20,7 @@ public class FreeCameraLook : Pivot {
     protected Vector3 PivotLockAngles;
 
     protected override void Initialize() {
+		
         this.PivotLockLeftAngles = new Vector3(
             12, 20, 0);
         this.PivotLockAngles = this.PivotLockLeftAngles;
@@ -46,7 +48,7 @@ public class FreeCameraLook : Pivot {
 
         if (this.LockCamera) {
             if (InputManager.switchCameraOffsetDown()) {
-                this.SwitchPivotSide();
+				ApplyOffset ();
             }
 
             this.RotateLockCamera();
@@ -65,13 +67,8 @@ public class FreeCameraLook : Pivot {
 
     protected virtual void SwitchPivotSide() {
         this.UndoOffset();
-		Debug.Log ("YOLO");
 
-        this.PivotObject.localRotation = Quaternion.Euler(
-            this.PivotLockAngles.x, 
-            -this.PivotLockAngles.y, 
-            this.PivotLockAngles.z
-        );
+		this.PivotObject.localRotation = Quaternion.Euler(this.MainCameraDefaultLockRotation);
 
         this.PivotObject.transform.localPosition = new Vector3(
             -this.PivotObject.transform.localPosition.x,
@@ -87,7 +84,7 @@ public class FreeCameraLook : Pivot {
             this.MainCameraOffset = this.MainCameraLeftOffset;
         }
 
-        this.ApplyOffset();
+   
 
         this.IsLeftPivot = !this.IsLeftPivot;
     }
@@ -118,6 +115,7 @@ public class FreeCameraLook : Pivot {
     }
 
     protected override void ApplyOffset() {
+		SwitchPivotSide ();
         this.PivotObject.transform.localPosition = this.PivotDefaultPosition;
         this.PivotObject.transform.localRotation = 
             Quaternion.Euler(this.PivotDefaultRotation);

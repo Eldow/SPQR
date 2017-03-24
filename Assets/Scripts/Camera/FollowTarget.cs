@@ -3,6 +3,7 @@
 public abstract class FollowTarget : MonoBehaviour {    
     public bool AutoTarget = true;
     public bool LockCamera = false;
+	private ProtectCameraFromWallClip wallClipScript;
 
     public Vector3 MainCameraLeftOffset;
     public Vector3 MainCameraRightOffset;
@@ -21,7 +22,8 @@ public abstract class FollowTarget : MonoBehaviour {
     public GameObject HealthBar { get; protected set; }
 
     protected virtual void Initialize() {
-        this.MainCameraLeftOffset = new Vector3(-1, -3, 3);
+		this.wallClipScript = Camera.main.GetComponent<ProtectCameraFromWallClip> ();
+        this.MainCameraLeftOffset = new Vector3(-1, -1, 0);
         this.MainCameraOffset = this.MainCameraLeftOffset;
         this.MainCameraRightOffset = new Vector3(
             -this.MainCameraLeftOffset.x,
@@ -29,10 +31,10 @@ public abstract class FollowTarget : MonoBehaviour {
             this.MainCameraLeftOffset.z
         );
 
-        this.MainCameraDefaultLockPosition = new Vector3(0, 2, -8);
-        this.MainCameraDefaultLockRotation = new Vector3(8, 0, 0);
+        this.MainCameraDefaultLockPosition = new Vector3(0, 2, -5);
+        this.MainCameraDefaultLockRotation = new Vector3(15, 0, 0);
 
-        this.MainCameraDefaultUnlockPosition = new Vector3(0, 0, -8.75f);
+        this.MainCameraDefaultUnlockPosition = new Vector3(0, 0, -8.5f);
         this.MainCameraDefaultUnlockRotation = new Vector3(0, 0, 0);
 
 
@@ -52,10 +54,13 @@ public abstract class FollowTarget : MonoBehaviour {
     }
 
     protected virtual void ApplyOffset() {
+
+		if (wallClipScript != null)
+			wallClipScript.setCameraMaxDistance (this.MainCameraDefaultLockPosition.z);
+		
         Camera.main.transform.localPosition = 
             this.MainCameraDefaultLockPosition;
-        Camera.main.transform.localRotation = 
-            Quaternion.Euler(this.MainCameraDefaultLockRotation);
+
 
         Camera.main.transform.localPosition = new Vector3(
             Camera.main.transform.localPosition.x + this.MainCameraOffset.x,
@@ -67,6 +72,9 @@ public abstract class FollowTarget : MonoBehaviour {
     }
 
     protected virtual void UndoOffset() {
+		if (wallClipScript != null)
+			wallClipScript.setCameraMaxDistance (this.MainCameraDefaultUnlockPosition.z);
+		
         Camera.main.transform.localPosition = this.MainCameraDefaultLockPosition;
         Camera.main.transform.localRotation =
             Quaternion.Euler(this.MainCameraDefaultLockRotation);
@@ -174,16 +182,18 @@ public abstract class FollowTarget : MonoBehaviour {
 			HealthBar.SetActive (LockCamera);
 			this.UndoOffset ();
 			this.ResetCameraUnlockPosition ();
-
 		} else {
 			this.UpdateOpponent ();
 			if (this.OpponentController != null) {
+				this.IsLeftPivot = true;
 				this.ApplyOffset ();
+
 				HealthBar = this.OpponentController.OpponentInfo;
 				HealthBar.SetActive (LockCamera);
 			} else {
 				this.LockCamera = false;
 			}
 		}
+
 	}
 }
