@@ -1,27 +1,21 @@
 ﻿using UnityEngine;
 
 public class RobotDischargeState : RobotAttackState {
-    protected float Radius = 1000f;
+    protected float Radius = .10f;
     protected GameObject[] Enemies = null;
     protected SphereCollider AreaCollider = null;
-    protected float RadiusGrowthRate = .2f;
+    protected float RadiusGrowthRate = 0f;
 
     protected override void Initialize() {
         this.AlreadyHitByAttack = false;
-        this.MaxFrame = 30;
-        this.IASA = 21;
-        this.MinActiveState = 7;
-        this.MaxActiveState = 13;
+        this.MaxFrame = 20;
+        this.IASA = 18;
+        this.MinActiveState = 0;
+        this.MaxActiveState = this.MaxFrame;
         this.Damage = 5;
         this.Hitstun = 10;
-        this.HeatCost = 3;
-    }
-
-    public override void HandleAttackTrigger(
-        HandleHit handleHit, Collider other) {
-        base.HandleAttackTrigger(handleHit, other);
-
-        this.MakeHimSuffer(handleHit, other);
+        this.HeatCost = 10;
+        this.ComputeRadiusGrowthRate();
     }
 
     public override State HandleInput(StateMachine stateMachine) {
@@ -58,9 +52,6 @@ public class RobotDischargeState : RobotAttackState {
 
         this.CurrentFrame++;
 
-        /* ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
-            .Move(); */
-
         if (this.AreaCollider == null) return;
 
         if (this.AreaCollider.radius >= this.Radius) {
@@ -84,6 +75,7 @@ public class RobotDischargeState : RobotAttackState {
         this.AreaCollider 
             = robotStateMachine.gameObject.AddComponent<SphereCollider>();
         this.AreaCollider.isTrigger = true;
+        this.AreaCollider.radius = this.Radius;
     }
 
     public override void Exit(StateMachine stateMachine) {
@@ -94,7 +86,11 @@ public class RobotDischargeState : RobotAttackState {
         base.Exit(stateMachine);
 
         this.SetLightings(false);
-        robotStateMachine.PlayerController.PlayerPhysics.IsDischarged = true;
+        //robotStateMachine.PlayerController.PlayerPhysics.IsDischarged = true;
+
+        if (this.AreaCollider == null) return;
+
+        GameObject.Destroy(this.AreaCollider);
     }
 
     public virtual bool CheckDistanceWithGameObject(
@@ -113,7 +109,11 @@ public class RobotDischargeState : RobotAttackState {
         if (enemyPhysics == null) return;
 
         player.SendPoke(enemy.gameObject, 
-            enemy.transform.position - player.transform.position);
+            (enemy.transform.position - player.transform.position).normalized);
+    }
+
+    public virtual void ComputeRadiusGrowthRate() {
+        this.RadiusGrowthRate = this.Radius / this.MaxFrame;
     }
 
     public override RobotState CheckInterruptibleActions() {
@@ -126,5 +126,22 @@ public class RobotDischargeState : RobotAttackState {
         }
 
         return new RobotWalkState();
+    }
+
+    public override void HandleAttackTrigger(HandleHit handleHit, Collider other) {
+        if (this.AlreadyHitByAttack || !this.IsAttackActive())
+            return;
+
+        this.AlreadyHitByAttack = true;
+
+        PlayerController opponent = 
+            (PlayerController) other.gameObject
+            .GetComponent<PlayerController>();
+
+        if (opponent == null) return;
+
+        this.SendAudioHit(opponent.PlayerAudio);
+        handleHit.SendHit(other.gameObject, this.Damage, this.Hitstun);
+        this.MakeHimSuffer(handleHit, other);
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class HandleHit : Photon.MonoBehaviour {
     protected PlayerController PlayerController = null;
@@ -33,11 +34,12 @@ public class HandleHit : Photon.MonoBehaviour {
         RobotAttackState robotAttackState = 
             (RobotAttackState)this.PlayerController.RobotStateMachine
             .CurrentState;
-			
+
         robotAttackState.HandleAttack(this, other);
     }
 
-    void OnTriggerStay(Collider other) {
+    void OnTriggerEnter(Collider other) {
+        Debug.Log("OTS " + DateTime.Now.ToShortTimeString());
         if (!this.CheckIfValid()) return;
 
         this.HandleOpponentTrigger(other);
@@ -49,18 +51,27 @@ public class HandleHit : Photon.MonoBehaviour {
     }
 
     protected virtual void HandleOpponentTrigger(Collider other) {
+        Debug.Log("HANDLETRIGGER1 " + DateTime.Now.ToShortTimeString());
+
         if (!other.transform.root.CompareTag(PlayerController.Opponent)) {
+            Debug.Log(other.gameObject.tag);
             return;
         }
+
+        Debug.Log("HANDLETRIGGER2 " + DateTime.Now.ToShortTimeString());
 
         if (!(this.PlayerController.RobotStateMachine.CurrentState is
             RobotAttackState)) {
             return;
         }
 
+        Debug.Log("HANDLETRIGGER3 " + DateTime.Now.ToShortTimeString());
+
         RobotAttackState robotAttackState =
             (RobotAttackState)this.PlayerController.RobotStateMachine
             .CurrentState;
+
+        Debug.Log("HANDLETRIGGER4 " + DateTime.Now.ToShortTimeString());
 
         robotAttackState.HandleAttackTrigger(this, other);
     }
@@ -83,7 +94,9 @@ public class HandleHit : Photon.MonoBehaviour {
             return;
         }
 
-        this.photonView.RPC("ReceivePoke", PhotonTargets.AllViaServer, 
+        Debug.Log("SENDPOKE " + opponentID + " " + DateTime.Now.ToShortTimeString());
+
+        this.photonView.RPC("ReceivePoke", PhotonTargets.Others, 
             direction, opponentID);
     }
 
@@ -122,8 +135,12 @@ public class HandleHit : Photon.MonoBehaviour {
     public void ReceivePoke(Vector3 direction, int playerID) {
         /* Used once per client, so we need to send the hit to the right 
          * Robot! */
+
         PlayerController who =
             GameManager.Instance.PlayerList[playerID].PlayerController;
+
+        Debug.Log("RECEIVEDPOKE " + playerID + " " + DateTime.Now.ToShortTimeString());
+
         who.PlayerPhysics.ApplyPoke(direction);
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class RobotAttackState : RobotFramedState {
     public int Damage { get; protected set; }
@@ -48,6 +49,7 @@ public class RobotAttackState : RobotFramedState {
 
 
         if (opponent != null) {
+            Debug.Log("HANDLEATTACKTRIGGERFUCNTION " + opponent.ID + " " + DateTime.Now.ToShortTimeString());
 
             float angleBetweenRobots = Vector3.Angle(opponent.transform.forward, handleHit.transform.root.position - opponent.transform.position);
             
