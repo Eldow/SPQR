@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 
 public class NetworkGameManager : Photon.PunBehaviour {
+	public GameObject AIPrefab;
     public GameObject PlayerPrefab;
     protected GameObject PlayerAvatar;
     protected PhotonView PhotonView;
