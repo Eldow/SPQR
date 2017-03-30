@@ -42,21 +42,21 @@ public struct Gene
 
 public class Genome : MonoBehaviour {
 
-	private Gene[] dna;
+	public Gene[] dna;
 	
-	public void Start() {
+	public Genome() {
 		dna = new Gene[4];
 		//idle
 		dna[0].SetBorderLow(0);
 		dna[0].SetBorderUp(25);
 		//walk
-		dna[0].SetBorderLow(0);
-		dna[0].SetBorderUp(25);
+		dna[1].SetBorderLow(0);
+		dna[1].SetBorderUp(25);
 		//attack
-		dna[0].SetBorderLow(0);
-		dna[0].SetBorderUp(25);
+		dna[2].SetBorderLow(0);
+		dna[2].SetBorderUp(25);
 		//block
-		dna[0].SetBorderLow(0);
-		dna[0].SetBorderUp(25);
+		dna[3].SetBorderLow(0);
+		dna[3].SetBorderUp(25);
 	}
 }
