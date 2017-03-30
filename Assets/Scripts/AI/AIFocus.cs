@@ -6,7 +6,7 @@ public class AIFocus : MonoBehaviour {
 
 	void FindPlayer() {
 		if (TargetManager.instance == null) return;
-        GameObject player = TargetManager.instance.player;
+        player = TargetManager.instance.player;
 	}
 	
 	void Start() {
@@ -16,7 +16,6 @@ public class AIFocus : MonoBehaviour {
 	void Update() {	
 
         Quaternion neededRotation;
-
         if (player != null) {
             neededRotation = Quaternion.LookRotation(
                 player.transform.position - 

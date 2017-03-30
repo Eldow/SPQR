@@ -10,6 +10,7 @@ public struct Gene
 	private float[] recordTable;
 	//local recorder
 	private int r;
+	private float min,max;
 
 	//Getters & setters
 	public float GetBorderLow() {return borderLow;}
@@ -26,10 +27,20 @@ public struct Gene
 			recordTable[(int) recordTable[4]] = set_;
 			recordTable[4] = (float) ( ((int)(recordTable[4]+1f))%5 );
 		}
+		min = 0;
+		max = 25;
+		for(r=0 ; r<4 ; r++){
+			if (recordTable[r] < min){
+				min = recordTable[r];
+			}
+			if(recordTable[r] > max){
+				max = recordTable[r];
+			}
+		}
 	}
 }
 
-public class Genetic : MonoBehaviour {
+public class Genome : MonoBehaviour {
 
 	private Gene[] dna;
 	
