@@ -12,9 +12,9 @@ public class RobotDischargeState : RobotAttackState {
         this.IASA = 18;
         this.MinActiveState = 0;
         this.MaxActiveState = this.MaxFrame;
-        this.Damage = 5;
+        this.Damage = 0;
         this.Hitstun = 10;
-        this.HeatCost = 10;
+        this.HeatCost = 0;
         this.ComputeRadiusGrowthRate();
     }
 
@@ -75,7 +75,7 @@ public class RobotDischargeState : RobotAttackState {
         this.AreaCollider 
             = robotStateMachine.gameObject.AddComponent<SphereCollider>();
         this.AreaCollider.isTrigger = true;
-        this.AreaCollider.radius = this.Radius;
+        this.AreaCollider.radius = 0f;
     }
 
     public override void Exit(StateMachine stateMachine) {

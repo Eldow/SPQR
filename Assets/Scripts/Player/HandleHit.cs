@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HandleHit : Photon.MonoBehaviour {
     protected PlayerController PlayerController = null;
@@ -38,8 +37,7 @@ public class HandleHit : Photon.MonoBehaviour {
         robotAttackState.HandleAttack(this, other);
     }
 
-    void OnTriggerEnter(Collider other) {
-        Debug.Log("OTS " + DateTime.Now.ToShortTimeString());
+    void OnTriggerStay(Collider other) {
         if (!this.CheckIfValid()) return;
 
         this.HandleOpponentTrigger(other);
@@ -51,27 +49,18 @@ public class HandleHit : Photon.MonoBehaviour {
     }
 
     protected virtual void HandleOpponentTrigger(Collider other) {
-        Debug.Log("HANDLETRIGGER1 " + DateTime.Now.ToShortTimeString());
-
         if (!other.transform.root.CompareTag(PlayerController.Opponent)) {
-            Debug.Log(other.gameObject.tag);
             return;
         }
-
-        Debug.Log("HANDLETRIGGER2 " + DateTime.Now.ToShortTimeString());
 
         if (!(this.PlayerController.RobotStateMachine.CurrentState is
             RobotAttackState)) {
             return;
         }
 
-        Debug.Log("HANDLETRIGGER3 " + DateTime.Now.ToShortTimeString());
-
         RobotAttackState robotAttackState =
             (RobotAttackState)this.PlayerController.RobotStateMachine
             .CurrentState;
-
-        Debug.Log("HANDLETRIGGER4 " + DateTime.Now.ToShortTimeString());
 
         robotAttackState.HandleAttackTrigger(this, other);
     }
@@ -93,8 +82,6 @@ public class HandleHit : Photon.MonoBehaviour {
         if ((opponentID = this.GetOpponentID(other)) == -1) {
             return;
         }
-
-        Debug.Log("SENDPOKE " + opponentID + " " + DateTime.Now.ToShortTimeString());
 
         this.photonView.RPC("ReceivePoke", PhotonTargets.Others, 
             direction, opponentID);
@@ -138,8 +125,6 @@ public class HandleHit : Photon.MonoBehaviour {
 
         PlayerController who =
             GameManager.Instance.PlayerList[playerID].PlayerController;
-
-        Debug.Log("RECEIVEDPOKE " + playerID + " " + DateTime.Now.ToShortTimeString());
 
         who.PlayerPhysics.ApplyPoke(direction);
     }

@@ -3927,6 +3927,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPointPrefab: {fileID: 1301498378091292, guid: bac40ec5e1f3a004aae61d7a9fd11096,
     type: 2}
+  timeToDestroy: 5
 --- !u!1001 &1129780749
 Prefab:
   m_ObjectHideFlags: 0
@@ -4291,7 +4292,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1331480997}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8eb214a117ab29741b68ecfedab500a3, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
