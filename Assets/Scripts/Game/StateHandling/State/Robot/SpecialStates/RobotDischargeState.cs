@@ -86,7 +86,7 @@ public class RobotDischargeState : RobotAttackState {
         base.Exit(stateMachine);
 
         this.SetLightings(false);
-        //robotStateMachine.PlayerController.PlayerPhysics.IsDischarged = true;
+        robotStateMachine.PlayerController.PlayerPhysics.IsDischarged = true;
 
         if (this.AreaCollider == null) return;
 
