@@ -10,7 +10,7 @@ public class AI : MonoBehaviour {
 	private Genome genome;
 	
 	//local registers
-	private int r,i;
+	private int r,i,frame;
 	private float f,rand;
 
 	void FindPlayer() {
@@ -23,6 +23,7 @@ public class AI : MonoBehaviour {
 		FindPlayer();
 		health = gameObject.GetComponent<PlayerController>().PlayerHealth.Health;
 		genome = new Genome();
+		frame = 0;
 	}
 	
 	void Learn () {
@@ -36,6 +37,7 @@ public class AI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		frame++;
 		if (player != null) {
             //updating environment
 			distanceToOpponent = Vector3.Distance(gameObject.transform.position,player.transform.position);
@@ -51,19 +53,24 @@ public class AI : MonoBehaviour {
 					f = SetActionForce(distanceToOpponent);
 					rand = Random.Range(0f,1f);
 					if (rand > f){
-						Debug.Log("Attack");
-						gameObject.GetComponent<PlayerController>().RobotStateMachine.SetState(new RobotAttackState());
-						break;
+						if(frame == 60){
+							Debug.Log("Attack");
+							gameObject.GetComponent<PlayerController>().RobotStateMachine.SetState(new RobotAttack1State());
+							break;
+						}
 					}
 					else{
 						//2nd action priority : block
 						if(distanceToOpponent > genome.dna[3].GetBorderLow() && distanceToOpponent < genome.dna[3].GetBorderUp()){
+							
 							f = SetActionForce(distanceToOpponent);
 							rand = Random.Range(0f,1f);
 							if (rand > f){
-								Debug.Log("block");
-								gameObject.GetComponent<PlayerController>().RobotStateMachine.SetState(new RobotBlockState());
-								break;
+								if(frame == 60){
+									Debug.Log("block");
+									gameObject.GetComponent<PlayerController>().RobotStateMachine.SetState(new RobotBlockState());
+									break;
+								}
 							}
 							else{
 								//3rd action priority : walk
@@ -95,5 +102,6 @@ public class AI : MonoBehaviour {
 		else {
 			FindPlayer();
         }
+		if(frame == 60){frame = 0;}
 	}
 }

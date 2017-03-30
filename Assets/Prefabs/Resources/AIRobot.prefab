@@ -642,8 +642,8 @@ GameObject:
   - component: {fileID: 114933221315091176}
   - component: {fileID: 114162090326630216}
   - component: {fileID: 114638386154547090}
-  - component: {fileID: 114877855007435238}
   - component: {fileID: 114999507820983386}
+  - component: {fileID: 114272918738513984}
   m_Layer: 0
   m_Name: AIRobot
   m_TagString: Player
@@ -3297,6 +3297,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6083cfc47953e5498aa7deec01f5f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114272918738513984
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1790823910210588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7856f5d1c36dd344943fcf6f6cb6926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114280123105899552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3418,7 +3429,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1790823910210588}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a63695a652c89054a8dcaff599b200d7, type: 3}
   m_Name: 
@@ -3449,17 +3460,6 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!114 &114877855007435238
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1790823910210588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b999c9810744d94c8c8e0af7e7f524b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114933221315091176
 MonoBehaviour:
   m_ObjectHideFlags: 1
