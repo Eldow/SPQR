@@ -100,6 +100,9 @@ public class PlayerController : Photon.MonoBehaviour {
         this.GetComponentInChildren<MeshRenderer>().material.color =
              this.OpponentColor;
         this.OpponentInfo = this.Canvas.transform.GetChild(0).gameObject;
+		if (gameObject.GetComponent<AI> () != null) {
+			StartCoroutine(recoverPower());
+		}
     }
 
     public virtual void UpdateAnimations(string animationName) {
