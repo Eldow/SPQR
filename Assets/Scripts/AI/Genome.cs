@@ -40,7 +40,7 @@ public struct Gene
 	}
 }
 
-public class Genome : MonoBehaviour {
+public class Genome {
 
 	public Gene[] dna;
 	

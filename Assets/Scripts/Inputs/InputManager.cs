@@ -5,7 +5,12 @@ public class InputManager : MonoBehaviour {
     private bool _dPadYInUse = false;
     private float _timer = 0f;
     private float _previousTime = 0f;
+	private bool isAI = false;
 
+	void Start() {
+		if(gameObject.GetComponent<AI>()){isAI = true;}
+	}
+	
     void Update() {
         this._timer += 
             Time.realtimeSinceStartup - this._previousTime;
@@ -29,9 +34,12 @@ public class InputManager : MonoBehaviour {
 
     public float moveY() {
         float r = 0f;
-        r += Input.GetAxis("JoystickMove_Vertical");
-        r += Input.GetAxis("KeyboardMove_Vertical");
-        return Mathf.Clamp(r, -1.0f, 1.0f);
+		if(!isAI){
+			r += Input.GetAxis("JoystickMove_Vertical");
+			r += Input.GetAxis("KeyboardMove_Vertical");
+			return Mathf.Clamp(r, -1.0f, 1.0f);
+		}
+		return 0.7f;
     }
 
     public  float cameraX() {
@@ -55,7 +63,9 @@ public class InputManager : MonoBehaviour {
     }
 
     public  bool attackButton() {
-        return Input.GetButtonDown("AttackButton");
+		if(!isAI)
+			return Input.GetButtonDown("AttackButton");
+		return true;
     }
 
     public  bool powerAttackButtonDown() {
@@ -77,7 +87,9 @@ public class InputManager : MonoBehaviour {
     }
 
     public  bool blockButton() {
-        return Input.GetButton("BlockButton");
+		if(!isAI)
+			return Input.GetButton("BlockButton");
+		return true;
     }
 
     public  bool cameraButton() {

@@ -13,7 +13,7 @@ public class AI : MonoBehaviour {
 	private InputManager inputManager;
 	
 	//local registers
-	private int r,i,frameAttack,frameAttackReg;
+	private int r,i,frameAttack,frameAttackReg, frameAttackThreshold;
 	private float f,rand;
 
 	void FindPlayer() {
@@ -28,6 +28,7 @@ public class AI : MonoBehaviour {
 		genome = new Genome();
 		stateMachine = gameObject.GetComponent<PlayerController>().RobotStateMachine;
 		robotHealth = gameObject.GetComponent<PlayerController>().PlayerHealth;
+		frameAttackThreshold = 10000;
 		frameAttack = 30;
 		frameAttackReg = 0;
 		inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
@@ -59,7 +60,7 @@ public class AI : MonoBehaviour {
 					f = SetActionForce(distanceToOpponent);
 					rand = Random.Range(0f,1f);
 					if (rand > f){
-						if(frameAttackReg == 60){
+						if(frameAttackReg == frameAttackThreshold){
 							Debug.Log("Attack");
 							frameAttackReg = 0;
 							inputManager.attackButton();
@@ -73,9 +74,9 @@ public class AI : MonoBehaviour {
 							f = SetActionForce(distanceToOpponent);
 							rand = Random.Range(0f,1f);
 							if (rand > f){
-								if(frameAttackReg == 60){
+								if(frameAttackReg == frameAttackThreshold){
 									Debug.Log("block");
-									stateMachine.SetState(new RobotBlockState());
+									inputManager.blockButton();
 									break;
 								}
 							}
@@ -86,7 +87,7 @@ public class AI : MonoBehaviour {
 									rand = Random.Range(0f,1f);
 									if (rand < f){
 										Debug.Log("walk");
-										stateMachine.SetState(new RobotWalkState());
+										inputManager.moveY();
 										break;
 									}
 									else{
@@ -109,7 +110,7 @@ public class AI : MonoBehaviour {
 		else {
 			FindPlayer();
         }
-		if(frameAttackReg == 60){frameAttackReg = 0;}
+		if(frameAttackReg == frameAttackThreshold){frameAttackReg = 0;}
 		frameAttackReg++;
 	}
 }
