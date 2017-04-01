@@ -3,40 +3,42 @@
 public class RobotIdleState : RobotState {
     public override State HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
-
+		
+		InputManager inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
+		
         if (!this.IsAnimationPlaying((RobotStateMachine) stateMachine,
             "RobotIdle")) {
             return null;
         }
 
-        if (InputManager.attackButton()) {
+        if (inputManager.attackButton()) {
             return new RobotAttack1State();
         }
 
-        if (InputManager.blockButton()) {
+        if (inputManager.blockButton()) {
             return new RobotBlockState();
         }
 
-        if (InputManager.powerAttackButtonDown()) {
+        if (inputManager.powerAttackButtonDown()) {
             return new RobotPowerAttackState();
         }
 
-        if (InputManager.dashButton()) {
+        if (inputManager.dashButton()) {
             return new RobotDashState();
         }
 
-        /*if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
-            Mathf.Abs(InputManager.moveY()) <= 0.2f) {
+        /*if (Mathf.Abs(inputManager.moveX()) <= 0.2f &&
+            Mathf.Abs(inputManager.moveY()) <= 0.2f) {
             return null;
         }*/
 
-        if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
-            Mathf.Abs(InputManager.moveY()) <= 0.2f) {
+        if (Mathf.Abs(inputManager.moveX()) <= 0.2f &&
+            Mathf.Abs(inputManager.moveY()) <= 0.2f) {
             return null;
         }
 
-        if ((Mathf.Abs(InputManager.moveX()) <= 0.2f &&
-             Mathf.Abs(InputManager.moveY()) <= 0.2f) && InputManager.runButton()) {
+        if ((Mathf.Abs(inputManager.moveX()) <= 0.2f &&
+             Mathf.Abs(inputManager.moveY()) <= 0.2f) && inputManager.runButton()) {
             return new RobotRunState();
         }
 

@@ -22,6 +22,7 @@ public class PlayerController : Photon.MonoBehaviour {
     [HideInInspector] public GameObject PlayerInfo;
     [HideInInspector] public GameObject Canvas;
     [HideInInspector] public GameObject OpponentInfo;
+	[HideInInspector] public InputManager inputManager;
 
     void Awake() {
         this.Initialize();
@@ -61,6 +62,7 @@ public class PlayerController : Photon.MonoBehaviour {
         this.ID = this.photonView.viewID;
         this.PlayerHealth = new PlayerHealth(this);
         this.PlayerPower = new PlayerPower(this);
+		this.inputManager = gameObject.GetComponent<InputManager>();
         RobotAutomaton robotAutomaton = this.GetComponent<RobotAutomaton>();
 
         if (robotAutomaton != null && 

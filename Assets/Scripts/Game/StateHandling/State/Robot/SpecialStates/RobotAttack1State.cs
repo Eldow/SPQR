@@ -12,21 +12,23 @@
 
     public override State HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
-
+		
         RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
 
+		InputManager inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
+		
         if (!this.IsAnimationPlaying(robotStateMachine, "RobotAttack1")) {
             return null;
         }
 
-        if (InputManager.attackButton()) {
+        if (inputManager.attackButton()) {
                 return new RobotAttack2State();
         }
 
 
 
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
-            RobotState newState = this.CheckInterruptibleActions();
+            RobotState newState = this.CheckInterruptibleActions(stateMachine);
 
             if (newState != null) return newState;
         }
@@ -58,9 +60,10 @@
     public override void Exit(StateMachine stateMachine) {
     }
 
-    public override RobotState CheckInterruptibleActions() {
-        if (InputManager.moveX() > .02f || InputManager.moveY() > .02f) {
-            if (InputManager.runButton()) {
+    public override RobotState CheckInterruptibleActions(StateMachine stateMachine) {
+		InputManager inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
+        if (inputManager.moveX() > .02f || inputManager.moveY() > .02f) {
+            if (inputManager.runButton()) {
                 return new RobotRunState();
             }
 

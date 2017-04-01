@@ -8,9 +8,12 @@ public class AI : MonoBehaviour {
 	private GameObject player;
 	private int health;
 	private Genome genome;
+	private RobotStateMachine stateMachine;
+	private PlayerHealth robotHealth;
+	private InputManager inputManager;
 	
 	//local registers
-	private int r,i,frame;
+	private int r,i,frameAttack,frameAttackReg;
 	private float f,rand;
 
 	void FindPlayer() {
@@ -23,7 +26,11 @@ public class AI : MonoBehaviour {
 		FindPlayer();
 		health = gameObject.GetComponent<PlayerController>().PlayerHealth.Health;
 		genome = new Genome();
-		frame = 0;
+		stateMachine = gameObject.GetComponent<PlayerController>().RobotStateMachine;
+		robotHealth = gameObject.GetComponent<PlayerController>().PlayerHealth;
+		frameAttack = 30;
+		frameAttackReg = 0;
+		inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
 	}
 	
 	void Learn () {
@@ -37,11 +44,10 @@ public class AI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		frame++;
 		if (player != null) {
             //updating environment
 			distanceToOpponent = Vector3.Distance(gameObject.transform.position,player.transform.position);
-			r = gameObject.GetComponent<PlayerController>().PlayerHealth.Health;
+			r = robotHealth.Health;
 			if(health != r){
 				Learn();
 				health = r;
@@ -53,9 +59,10 @@ public class AI : MonoBehaviour {
 					f = SetActionForce(distanceToOpponent);
 					rand = Random.Range(0f,1f);
 					if (rand > f){
-						if(frame == 60){
+						if(frameAttackReg == 60){
 							Debug.Log("Attack");
-							gameObject.GetComponent<PlayerController>().RobotStateMachine.SetState(new RobotAttack1State());
+							frameAttackReg = 0;
+							inputManager.attackButton();
 							break;
 						}
 					}
@@ -66,9 +73,9 @@ public class AI : MonoBehaviour {
 							f = SetActionForce(distanceToOpponent);
 							rand = Random.Range(0f,1f);
 							if (rand > f){
-								if(frame == 60){
+								if(frameAttackReg == 60){
 									Debug.Log("block");
-									gameObject.GetComponent<PlayerController>().RobotStateMachine.SetState(new RobotBlockState());
+									stateMachine.SetState(new RobotBlockState());
 									break;
 								}
 							}
@@ -79,7 +86,7 @@ public class AI : MonoBehaviour {
 									rand = Random.Range(0f,1f);
 									if (rand < f){
 										Debug.Log("walk");
-										gameObject.GetComponent<PlayerController>().RobotStateMachine.SetState(new RobotWalkState());
+										stateMachine.SetState(new RobotWalkState());
 										break;
 									}
 									else{
@@ -102,6 +109,7 @@ public class AI : MonoBehaviour {
 		else {
 			FindPlayer();
         }
-		if(frame == 60){frame = 0;}
+		if(frameAttackReg == 60){frameAttackReg = 0;}
+		frameAttackReg++;
 	}
 }

@@ -1,40 +1,40 @@
 ﻿using UnityEngine;
 
 public class InputManager : MonoBehaviour {
-    private static bool _dPadXInUse = false;
-    private static bool _dPadYInUse = false;
-    private static float _timer = 0f;
-    private static float _previousTime = 0f;
+    private bool _dPadXInUse = false;
+    private bool _dPadYInUse = false;
+    private float _timer = 0f;
+    private float _previousTime = 0f;
 
     void Update() {
-        InputManager._timer += 
-            Time.realtimeSinceStartup - InputManager._previousTime;
-        InputManager._previousTime = Time.realtimeSinceStartup;
+        this._timer += 
+            Time.realtimeSinceStartup - this._previousTime;
+        this._previousTime = Time.realtimeSinceStartup;
 
-        if (!(InputManager._timer - Time.fixedDeltaTime > 0f) ||
-            !InputManager.checkDPadAxis()) {
+        if (!(this._timer - Time.fixedDeltaTime > 0f) ||
+            !this.checkDPadAxis()) {
             return;
         }
 
-        InputManager.resetDPadAxis();
-        InputManager._timer = 0f;
+        this.resetDPadAxis();
+        this._timer = 0f;
     }
 
-    public static float moveX() {
+    public float moveX() {
         float r = 0f;
         r += Input.GetAxis("JoystickMove_Horizontal");
         r += Input.GetAxis("KeyboardMove_Horizontal");
         return Mathf.Clamp(r, -1.0f, 1.0f);
     }
 
-    public static float moveY() {
+    public float moveY() {
         float r = 0f;
         r += Input.GetAxis("JoystickMove_Vertical");
         r += Input.GetAxis("KeyboardMove_Vertical");
         return Mathf.Clamp(r, -1.0f, 1.0f);
     }
 
-    public static float cameraX() {
+    public  float cameraX() {
         float r = 0f;
         r += Input.GetAxis("JoystickCamera_Horizontal");
         r += Input.GetAxis("MouseCamera_Horizontal");
@@ -42,7 +42,7 @@ public class InputManager : MonoBehaviour {
         return Mathf.Clamp(r, -1.0f, 1.0f);
     }
 
-    public static float cameraY() {
+    public  float cameraY() {
         float r = 0f;
         r += Input.GetAxis("JoystickCamera_Vertical");
         r += Input.GetAxis("MouseCamera_Vertical");
@@ -50,92 +50,92 @@ public class InputManager : MonoBehaviour {
         return Mathf.Clamp(r, -1.0f, 1.0f);
     }
 
-    public static bool switchCameraOffsetDown() {
+    public  bool switchCameraOffsetDown() {
         return Input.GetButtonDown("SwitchCameraOffset");
     }
 
-    public static bool attackButton() {
+    public  bool attackButton() {
         return Input.GetButtonDown("AttackButton");
     }
 
-    public static bool powerAttackButtonDown() {
+    public  bool powerAttackButtonDown() {
         return Input.GetButtonDown("PowerAttackButton");
     }
 
-    public static bool powerAttackButton() {
+    public  bool powerAttackButton() {
         return Input.GetButton("PowerAttackButton");
     }
 
-    public static bool dashButton()
+    public  bool dashButton()
     {
         return Input.GetButtonDown("DashButton");
     }
 
-    public static bool runButton() {
+    public  bool runButton() {
         return Input.GetButton("RunButton") || 
             Mathf.Abs(Input.GetAxis("RunJoystick")) > 0.3f;
     }
 
-    public static bool blockButton() {
+    public  bool blockButton() {
         return Input.GetButton("BlockButton");
     }
 
-    public static bool cameraButton() {
+    public  bool cameraButton() {
         return Input.GetButton("CameraButton");
     }
 
-    public static bool cameraButtonDown() {
+    public  bool cameraButtonDown() {
         return Input.GetButtonDown("CameraButton");
     }
 
-    public static bool nextFrame() {
-        return InputManager.dPadRightDown() || 
+    public  bool nextFrame() {
+        return this.dPadRightDown() || 
             Input.GetButtonDown("NextFrame");
     }
 
-    public static bool frameByFrame() {
-        return InputManager.dPadUpDown() || 
+    public  bool frameByFrame() {
+        return this.dPadUpDown() || 
             Input.GetButtonDown("FrameByFrame");
     }
 
-    public static bool dPadRightDown() {
-        if (InputManager._dPadXInUse) return false;
+    public  bool dPadRightDown() {
+        if (this._dPadXInUse) return false;
 
-        InputManager._dPadXInUse = Input.GetAxis("DPadX") > 0f;
+        this._dPadXInUse = Input.GetAxis("DPadX") > 0f;
 
-        return InputManager._dPadXInUse;
+        return this._dPadXInUse;
     }
 
-    public static bool dPadLeftDown() {
-        if (InputManager._dPadXInUse) return false;
+    public  bool dPadLeftDown() {
+        if (this._dPadXInUse) return false;
 
-        InputManager._dPadXInUse = Input.GetAxis("DPadX") < 0f;
+        this._dPadXInUse = Input.GetAxis("DPadX") < 0f;
 
-        return InputManager._dPadXInUse;
+        return this._dPadXInUse;
     }
 
-    public static bool dPadUpDown() {
-        if (InputManager._dPadYInUse) return false;
+    public  bool dPadUpDown() {
+        if (this._dPadYInUse) return false;
 
-        InputManager._dPadYInUse = Input.GetAxis("DPadY") > 0f;
+        this._dPadYInUse = Input.GetAxis("DPadY") > 0f;
 
-        return InputManager._dPadYInUse;
+        return this._dPadYInUse;
     }
 
-    public static bool dPadDownDown() {
-        if (InputManager._dPadYInUse) return false;
+    public  bool dPadDownDown() {
+        if (this._dPadYInUse) return false;
 
-        InputManager._dPadYInUse = Input.GetAxis("DPadY") < 0f;
+        this._dPadYInUse = Input.GetAxis("DPadY") < 0f;
 
-        return InputManager._dPadYInUse;
+        return this._dPadYInUse;
     }
 
-    private static bool checkDPadAxis() {
+    private  bool checkDPadAxis() {
         return _dPadXInUse || _dPadYInUse;
     }
 
-    private static void resetDPadAxis() {
-        InputManager._dPadXInUse = Mathf.Abs(Input.GetAxis("DPadX")) > 0f;
-        InputManager._dPadYInUse = Mathf.Abs(Input.GetAxis("DPadY")) > 0f;
+    private  void resetDPadAxis() {
+        this._dPadXInUse = Mathf.Abs(Input.GetAxis("DPadX")) > 0f;
+        this._dPadYInUse = Mathf.Abs(Input.GetAxis("DPadY")) > 0f;
     }
 }

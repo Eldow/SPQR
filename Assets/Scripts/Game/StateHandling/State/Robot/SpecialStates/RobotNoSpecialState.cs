@@ -1,10 +1,11 @@
 ﻿public class RobotNoSpecialState : RobotState {
     public override State HandleInput(StateMachine stateMachine) {
-        if (InputManager.attackButton()) {
+		InputManager inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
+        if (inputManager.attackButton()) {
             return new RobotAttack1State();
         }
 
-        return InputManager.blockButton() ? new RobotBlockState() : null;
+        return inputManager.blockButton() ? new RobotBlockState() : null;
     }
 
     public RobotNoSpecialState() {

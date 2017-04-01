@@ -18,6 +18,8 @@ public class FreeCameraLook : Pivot {
     public Vector3 PivotLockLeftAngles;
     protected Vector3 PivotLockRightAngles;
     protected Vector3 PivotLockAngles;
+	
+	private InputManager inputManager;
 
     protected override void Initialize() {
 		
@@ -33,6 +35,8 @@ public class FreeCameraLook : Pivot {
         base.Initialize();
 
         Cursor.lockState = CursorLockMode.Confined;
+		
+		inputManager = Target.gameObject.GetComponent<RobotStateMachine>().PlayerController.inputManager;
     }
 
     void Start() {
@@ -47,7 +51,7 @@ public class FreeCameraLook : Pivot {
         if (!GameManager.Instance.Running.IsRunning) return;
 
         if (this.LockCamera) {
-            if (InputManager.switchCameraOffsetDown()) {
+            if (inputManager.switchCameraOffsetDown()) {
 				ApplyOffset ();
             }
 
@@ -134,8 +138,8 @@ public class FreeCameraLook : Pivot {
     }
 
     void HandleRotationMovement() {
-        float cameraX = InputManager.cameraX();
-        float cameraY = InputManager.cameraY();
+        float cameraX = inputManager.cameraX();
+        float cameraY = inputManager.cameraY();
 
         // prevent the camera from turning back when quitting the lock mode
         if (Mathf.Abs(cameraX) <= 0.02f && Mathf.Abs(cameraY) <= 0.02f) {

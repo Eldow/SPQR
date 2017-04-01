@@ -32,7 +32,7 @@ public class RobotFramedState : RobotState {
         return this.CurrentFrame >= this.MaxFrame;
     }
 
-    public virtual RobotState CheckInterruptibleActions() {
+    public virtual RobotState CheckInterruptibleActions(StateMachine stateMachine) {
         return null;
     }
 

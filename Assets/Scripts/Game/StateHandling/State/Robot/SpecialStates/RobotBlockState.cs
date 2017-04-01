@@ -32,7 +32,7 @@ public class RobotBlockState : RobotFramedState {
             return null;
         }
 
-        if (this.CheckIfBlockHolding()) {
+        if (this.CheckIfBlockHolding(stateMachine)) {
             if (this.IsCurrentAnimationPlayedPast(robotStateMachine, .5f) && 
                 Mathf.Abs(robotStateMachine.Animator.speed) > .01f) {
                 this.FreezeAnimation(robotStateMachine);
@@ -44,7 +44,7 @@ public class RobotBlockState : RobotFramedState {
         this.ResumeNormalAnimation(robotStateMachine);
 
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
-            RobotState newState = this.CheckInterruptibleActions();
+            RobotState newState = this.CheckInterruptibleActions(stateMachine);
 
             if (newState != null) return newState;
         }
@@ -66,7 +66,7 @@ public class RobotBlockState : RobotFramedState {
 			this.Shield.SetActive(true);
 
 		this.CurrentFrame++;
-		if (this.CheckIfBlockHolding ()) {
+		if (this.CheckIfBlockHolding (stateMachine)) {
 			if (this.CurrentFrame >= MaxActiveState)
 				this.CurrentFrame --;
 		}
@@ -81,15 +81,17 @@ public class RobotBlockState : RobotFramedState {
     }
 
 
-    protected virtual bool CheckIfBlockHolding() {
+    protected virtual bool CheckIfBlockHolding(StateMachine stateMachine) {
+		InputManager inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
 		if (isHolding) //If holding is released, you can't get back in
-			isHolding =	InputManager.blockButton ();
+			isHolding =	inputManager.blockButton ();
 		return isHolding;
     }
 
-    public override RobotState CheckInterruptibleActions() {
-        if (InputManager.moveX() > .02f || InputManager.moveY() > .02f) {
-            if (InputManager.runButton()) {
+    public override RobotState CheckInterruptibleActions(StateMachine stateMachine) {
+		InputManager inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
+        if (inputManager.moveX() > .02f || inputManager.moveY() > .02f) {
+            if (inputManager.runButton()) {
                 return new RobotRunState();
             }
 

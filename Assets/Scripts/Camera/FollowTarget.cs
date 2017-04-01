@@ -4,6 +4,7 @@ public abstract class FollowTarget : MonoBehaviour {
     public bool AutoTarget = true;
     public bool LockCamera = false;
 	private ProtectCameraFromWallClip wallClipScript;
+	private InputManager inputManager;
 
     public Vector3 MainCameraLeftOffset;
     public Vector3 MainCameraRightOffset;
@@ -43,6 +44,7 @@ public abstract class FollowTarget : MonoBehaviour {
         if (this.AutoTarget) {
             this.FindTargetPlayer();
         }
+		inputManager = Target.gameObject.GetComponent<RobotStateMachine>().PlayerController.inputManager;
     }
 
     void Start() {
@@ -88,7 +90,7 @@ public abstract class FollowTarget : MonoBehaviour {
         if (this.PlayerController == null) return;
 
 
-		if (InputManager.cameraButtonDown()) {
+		if (inputManager.cameraButtonDown()) {
             this.SwitchCameraMode();
         }
 
@@ -127,6 +129,7 @@ public abstract class FollowTarget : MonoBehaviour {
         }
 
         this.Target = this.PlayerController.gameObject.transform;
+		//inputManager inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
         this.PlayerController.PlayerPhysics.IsLockedMovement = false;
     }
 

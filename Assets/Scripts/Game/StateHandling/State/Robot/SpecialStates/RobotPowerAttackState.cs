@@ -26,7 +26,7 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
             return null;
         }
 
-        if (this.CheckIfPowerAttackHolding() && !this.IsAttackFullyLoaded()) {
+        if (this.CheckIfPowerAttackHolding(stateMachine) && !this.IsAttackFullyLoaded()) {
             if (this.IsCurrentAnimationPlayedPast(robotStateMachine, .5f) &&
                 Mathf.Abs(robotStateMachine.Animator.speed) > .01f) {
                 this.FreezeAnimation(robotStateMachine);
@@ -40,7 +40,7 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
         this.ResumeNormalAnimation(robotStateMachine);
 
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
-            RobotState newState = this.CheckInterruptibleActions();
+            RobotState newState = this.CheckInterruptibleActions(stateMachine);
 
             if (newState != null) return newState;
         }
@@ -73,8 +73,9 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
             .Move();
     }
 
-    protected virtual bool CheckIfPowerAttackHolding() {
-        return InputManager.powerAttackButton();
+    protected virtual bool CheckIfPowerAttackHolding(StateMachine stateMachine) {
+		InputManager inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
+        return inputManager.powerAttackButton();
     }
 
     public override void Enter(StateMachine stateMachine) {
@@ -88,9 +89,10 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
         this.SetLightings(true);
     }
 
-    public override RobotState CheckInterruptibleActions() {
-        if (InputManager.moveX() > .02f || InputManager.moveY() > .02f) {
-            if (InputManager.runButton()) {
+    public override RobotState CheckInterruptibleActions(StateMachine stateMachine) {
+		InputManager inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
+        if (inputManager.moveX() > .02f || inputManager.moveY() > .02f) {
+            if (inputManager.runButton()) {
                 return new RobotRunState();
             }
 

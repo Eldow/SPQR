@@ -7,6 +7,7 @@ public class RobotStateMachine : StateMachine {
     public PlayerController PlayerController = null;
     [HideInInspector] public FixedSizedQueue<string> StateHistory;
     public int MaxHistorySize = 12;
+	[HideInInspector] public InputManager inputManager;
 
     // to be changed in a child class, if necessary
     public override string DefaultState {
@@ -33,6 +34,8 @@ public class RobotStateMachine : StateMachine {
 
         this.CurrentState = (RobotState) Activator.CreateInstance(stateType);
         this.StateHistory = new FixedSizedQueue<string>(this.MaxHistorySize);
+		
+		inputManager = PlayerController.inputManager;
     }
 
     protected override void SwitchState() {
