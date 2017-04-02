@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerPhysics : Photon.MonoBehaviour {
     public Rigidbody RigidBody { get; protected set; }

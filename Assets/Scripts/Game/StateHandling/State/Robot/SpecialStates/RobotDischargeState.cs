@@ -13,7 +13,7 @@ public class RobotDischargeState : RobotAttackState {
         this.MinActiveState = 0;
         this.MaxActiveState = this.MaxFrame;
         this.Damage = 0;
-        this.Hitstun = 10;
+        this.Hitstun = 60;
         this.HeatCost = 0;
         this.ComputeRadiusGrowthRate();
     }
@@ -86,7 +86,7 @@ public class RobotDischargeState : RobotAttackState {
         base.Exit(stateMachine);
 
         this.SetLightings(false);
-        //robotStateMachine.PlayerController.PlayerPhysics.IsDischarged = true;
+        robotStateMachine.PlayerController.PlayerPhysics.IsDischarged = true;
 
         if (this.AreaCollider == null) return;
 
