@@ -117,10 +117,6 @@ public class PlayerPhysics : Photon.MonoBehaviour {
         this.RigidBody.AddForce(
             transform.position + direction * this.PokeMagnitude,
             ForceMode.Impulse);
-
-        //this.RigidBody.MovePosition(transform.position + direction * this.PokeMagnitude);
-
-        Debug.Log("DEBUG TA MÈRE " + direction * this.PokeMagnitude + " " + DateTime.Now);
     }
 
     public virtual void Movement(float speedFactor = 1.0f) {
