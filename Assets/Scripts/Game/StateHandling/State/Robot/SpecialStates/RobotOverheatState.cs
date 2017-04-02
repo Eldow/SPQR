@@ -1,8 +1,4 @@
-﻿using UnityEngine;
-
-public class RobotOverheatState : RobotFramedState {
-    protected float InitialSpeed = 0;
-    protected bool IsSpeedSet = false;
+﻿public class RobotOverheatState : RobotFramedState {
     protected int Duration = 100;
 
     protected override void Initialize() {
@@ -11,6 +7,8 @@ public class RobotOverheatState : RobotFramedState {
         this.MinActiveState = 0;
         this.MaxActiveState = this.MaxFrame;
         this.HeatCost = 0;
+        this.InitialSpeed = 0;
+        this.IsSpeedSet = false;
     }
 
     public RobotOverheatState() {
@@ -49,8 +47,8 @@ public class RobotOverheatState : RobotFramedState {
         RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
 
         this.InitialSpeed = robotStateMachine.Animator.speed;
-		
-		PlayAudioEffect(robotStateMachine.PlayerController.PlayerAudio);
+
+        PlayAudioEffect(robotStateMachine.PlayerController.PlayerAudio);
 
         this.SetLightings(true);
     }
@@ -65,14 +63,13 @@ public class RobotOverheatState : RobotFramedState {
         this.SetLightings(false);
     }
 
-    protected virtual void SetSpeed(RobotStateMachine robotStateMachine) {
+    protected override void SetSpeed(RobotStateMachine robotStateMachine) {
         robotStateMachine.Animator.speed = 2.5f;
 
         this.IsSpeedSet = true;
-	}
+    }
 
-    public override void PlayAudioEffect(PlayerAudio audio)
-    {
+    public override void PlayAudioEffect(PlayerAudio audio) {
         audio.Overload();
     }
 }

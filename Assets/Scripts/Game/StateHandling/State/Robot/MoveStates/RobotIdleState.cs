@@ -25,10 +25,9 @@ public class RobotIdleState : RobotState {
             return new RobotDashState();
         }
 
-        /*if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
-            Mathf.Abs(InputManager.moveY()) <= 0.2f) {
-            return null;
-        }*/
+        if (this.IsDischarge((RobotStateMachine)stateMachine)) {
+            return new RobotDischargeState();
+        }
 
         if (Mathf.Abs(InputManager.moveX()) <= 0.2f &&
             Mathf.Abs(InputManager.moveY()) <= 0.2f) {

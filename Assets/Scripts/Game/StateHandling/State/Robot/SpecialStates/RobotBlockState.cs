@@ -41,6 +41,10 @@ public class RobotBlockState : RobotFramedState {
             return null;
         }
 
+        if (this.IsDischarge(robotStateMachine)) {
+            return new RobotDischargeState();
+        }
+
         this.ResumeNormalAnimation(robotStateMachine);
 
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!

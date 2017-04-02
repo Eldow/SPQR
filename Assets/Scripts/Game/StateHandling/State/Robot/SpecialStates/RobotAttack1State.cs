@@ -1,6 +1,6 @@
 ﻿public class RobotAttack1State : RobotAttackState {
     protected override void Initialize() {
-		this.alreadyHitByAttack = false;
+        this.AlreadyHitByAttack = false;
         this.MaxFrame = 30;
         this.IASA = 21;
         this.MinActiveState = 7;
@@ -23,7 +23,9 @@
                 return new RobotAttack2State();
         }
 
-
+        if (this.IsDischarge(robotStateMachine)) {
+            return new RobotDischargeState();
+        }
 
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
             RobotState newState = this.CheckInterruptibleActions();

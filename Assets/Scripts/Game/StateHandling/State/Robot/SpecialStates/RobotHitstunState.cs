@@ -21,6 +21,10 @@
             return null;
         }
 
+        if (this.IsDischarge(robotStateMachine)) {
+            return new RobotDischargeState();
+        }
+
         if (!this.IsSpeedSet) this.SetSpeed(robotStateMachine);
 
         if (!this.IsStateFinished()) return null;

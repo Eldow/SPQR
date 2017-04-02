@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerPhysics : Photon.MonoBehaviour {
     public Rigidbody RigidBody { get; protected set; }
@@ -9,7 +10,7 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     public bool IsMoving { get; protected set; }
     public Transform CameraTransform { get; protected set; }
 
-	public bool freezeMovement = false;
+    public bool freezeMovement = false;
 
     public float LockedForwardSpeed = 8f;
     public float LockedBackwardSpeed;
@@ -23,20 +24,20 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     public float RunCap = 10f;
     public float WalkCap = 1f;
     public float MaximumSpeed = 300f;
+    public bool IsDischarged = false;
+    public float PokeMagnitude = 10f;
 
     private float _yAxisInput = 0f;
     private float _xAxisInput = 0f;
 
-    void Start () {
+    void Start() {
         this.Initialize();
     }
 
     void Update() {
-		if (!freezeMovement) {
-			this.UpdatePhysics ();
-		}
-
-      //  Debug.Log(RigidBody.velocity.sqrMagnitude);
+        if (!freezeMovement) {
+            this.UpdatePhysics();
+        }
     }
 
     protected virtual void Initialize() {
@@ -62,9 +63,9 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     protected virtual void StopRobot() {
         this.GetCameraVectors();
         this.GetTargetDirection();
-        
+
         this.MoveDirection = this.TargetDirection.normalized;
-        this.RigidBody.velocity = this.MoveDirection * this.DecelerationTweak;
+        this.RigidBody.velocity = this.MoveDirection*this.DecelerationTweak;
         this.IsMoving = false;
     }
 
@@ -74,7 +75,7 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     }
 
     protected virtual void GetCameraVectors() {
-        this.CameraForwardDirection = 
+        this.CameraForwardDirection =
             this.CameraTransform.TransformDirection(Vector3.forward);
 
         this.CameraForwardDirection = new Vector3(
@@ -86,15 +87,15 @@ public class PlayerPhysics : Photon.MonoBehaviour {
         this.CameraForwardDirection = this.CameraForwardDirection.normalized;
 
         this.CameraRightDirection = new Vector3(
-            this.CameraForwardDirection.z, 
-            0, 
+            this.CameraForwardDirection.z,
+            0,
             -this.CameraForwardDirection.x
         );
     }
 
     protected virtual void GetTargetDirection() {
         this.TargetDirection =
-            this._xAxisInput * this.CameraRightDirection + this._yAxisInput * 
+            this._xAxisInput*this.CameraRightDirection + this._yAxisInput*
             this.CameraForwardDirection;
     }
 
@@ -106,9 +107,18 @@ public class PlayerPhysics : Photon.MonoBehaviour {
         this.Movement(this.RunSpeed);
     }
 
-    public void Dash()
-    {
-        this.RigidBody.AddForce(this.MoveDirection * this.UnlockedForwardSpeed * DashSpeed,ForceMode.Acceleration);
+    public void Dash() {
+        this.RigidBody.AddForce(
+            this.MoveDirection * this.UnlockedForwardSpeed * this.DashSpeed, 
+            ForceMode.Acceleration);
+    }
+
+    public void ApplyPoke(Vector3 direction) {
+        this.RigidBody.AddForce(
+            direction * this.PokeMagnitude,
+            ForceMode.Impulse);
+
+        Debug.Log("DEBUG TA MÈRE " + DateTime.Now);
     }
 
     public virtual void Movement(float speedFactor = 1.0f) {
@@ -130,7 +140,7 @@ public class PlayerPhysics : Photon.MonoBehaviour {
         this.MoveDirection = this.TargetDirection.normalized;
 
         this.RigidBody.velocity =
-            this.MoveDirection * this.UnlockedForwardSpeed * speedFactor;
+            this.MoveDirection*this.UnlockedForwardSpeed*speedFactor;
 
         this.IsMoving = true;
     }
@@ -140,32 +150,30 @@ public class PlayerPhysics : Photon.MonoBehaviour {
         this.GetTargetDirection();
 
         this.MoveDirection = Vector3.RotateTowards(
-            this.MoveDirection, this.TargetDirection, 
-            this.TurnSpeed * Mathf.Deg2Rad * Time.deltaTime, 1000
+            this.MoveDirection, this.TargetDirection,
+            this.TurnSpeed*Mathf.Deg2Rad*Time.deltaTime, 1000
         );
 
         this.MoveDirection = this.MoveDirection.normalized;
 
         this.RigidBody.velocity =
-            this.MoveDirection * this.UnlockedForwardSpeed * speedFactor;
+            this.MoveDirection*this.UnlockedForwardSpeed*speedFactor;
 
         if (this.MoveDirection.sqrMagnitude <= 0.02f) return;
-      
-        this.gameObject.transform.rotation = 
+
+        this.gameObject.transform.rotation =
             Quaternion.RotateTowards(
-                transform.rotation, 
-                Quaternion.LookRotation(this.MoveDirection), 
-                Time.deltaTime * 500
+                transform.rotation,
+                Quaternion.LookRotation(this.MoveDirection),
+                Time.deltaTime*500
             );
     }
 
-    public virtual bool IsRunning()
-    {
-        return this.RigidBody.velocity.sqrMagnitude >= this.RunCap; 
+    public virtual bool IsRunning() {
+        return this.RigidBody.velocity.sqrMagnitude >= this.RunCap;
     }
 
-    public virtual bool IsWalking()
-    {
+    public virtual bool IsWalking() {
         return this.RigidBody.velocity.sqrMagnitude >= this.WalkCap;
     }
 }

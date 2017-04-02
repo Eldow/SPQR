@@ -66,6 +66,10 @@ public class InputManager : MonoBehaviour {
         return Input.GetButton("PowerAttackButton");
     }
 
+    public static bool dischargeButton() {
+        return Input.GetButtonDown("DischargeButton");
+    }
+
     public static bool dashButton()
     {
         return Input.GetButtonDown("DashButton");

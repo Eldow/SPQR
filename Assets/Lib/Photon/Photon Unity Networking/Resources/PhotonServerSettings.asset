@@ -42,4 +42,5 @@ MonoBehaviour:
   - SendAnimations
   - ReceiveHit
   - ReceiveAudioFromOthers
+  - ReceivePoke
   DisableAutoOpenWizard: 1

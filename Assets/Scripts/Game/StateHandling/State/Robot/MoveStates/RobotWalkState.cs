@@ -19,6 +19,10 @@ public class RobotWalkState : RobotState {
             return new RobotPowerAttackState();
         }
 
+        if (this.IsDischarge((RobotStateMachine) stateMachine)) {
+            return new RobotDischargeState();
+        }
+
         if (!((RobotStateMachine) stateMachine).PlayerController.PlayerPhysics
             .IsWalking()) {
             return new RobotIdleState();

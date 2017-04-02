@@ -28,6 +28,10 @@ public class RobotRunState : RobotState {
             return new RobotWalkState();
         }
 
+        if (this.IsDischarge(robotStateMachine)) {
+            return new RobotDischargeState();
+        }
+
         /* The animation can be decomposed in three states : startup, running
          * and ending. We have to freeze it in the middle while the player is
          * running.
