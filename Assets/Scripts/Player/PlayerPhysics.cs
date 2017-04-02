@@ -18,14 +18,14 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     public float RunSpeed = 1.5f;
     public float DashSpeed = 15f;
     public float TurnSpeed = 500f;
-    public float DecelerationTweak = 2f;
+    public float DecelerationTweak = 5f;
     public bool IsLockedMovement = false;
     public float InputTolerance = 0.1f;
     public float RunCap = 10f;
     public float WalkCap = 1f;
     public float MaximumSpeed = 300f;
     public bool IsDischarged = false;
-    public float PokeMagnitude = 10f;
+    public float PokeMagnitude = 100f;
 
     private float _yAxisInput = 0f;
     private float _xAxisInput = 0f;
@@ -115,10 +115,12 @@ public class PlayerPhysics : Photon.MonoBehaviour {
 
     public void ApplyPoke(Vector3 direction) {
         this.RigidBody.AddForce(
-            direction * this.PokeMagnitude,
+            transform.position + direction * this.PokeMagnitude,
             ForceMode.Impulse);
 
-        Debug.Log("DEBUG TA MÈRE " + DateTime.Now);
+        //this.RigidBody.MovePosition(transform.position + direction * this.PokeMagnitude);
+
+        Debug.Log("DEBUG TA MÈRE " + direction * this.PokeMagnitude + " " + DateTime.Now);
     }
 
     public virtual void Movement(float speedFactor = 1.0f) {

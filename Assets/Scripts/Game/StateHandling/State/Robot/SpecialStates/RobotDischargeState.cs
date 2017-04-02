@@ -86,7 +86,7 @@ public class RobotDischargeState : RobotAttackState {
         base.Exit(stateMachine);
 
         this.SetLightings(false);
-        robotStateMachine.PlayerController.PlayerPhysics.IsDischarged = true;
+        //robotStateMachine.PlayerController.PlayerPhysics.IsDischarged = true;
 
         if (this.AreaCollider == null) return;
 
@@ -108,8 +108,12 @@ public class RobotDischargeState : RobotAttackState {
 
         if (enemyPhysics == null) return;
 
-        player.SendPoke(enemy.gameObject, 
-            (enemy.transform.position - player.transform.position).normalized);
+        Vector3 direction = 
+            (enemy.transform.position - player.transform.position).normalized;
+
+        direction = Vector3.Project(direction, new Vector3(1, 0, 1));
+
+        player.SendPoke(enemy.gameObject, direction);
     }
 
     public virtual void ComputeRadiusGrowthRate() {
