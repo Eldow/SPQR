@@ -15,7 +15,8 @@ public class AI : MonoBehaviour {
 	private InputManager inputManager;
 	
 	//local registers
-	private int r, r1,i, frameAttackReg, frameAttackThreshold;
+	private bool allowAction = true;
+	private int r, r1,i;
 	private float f,f1,rand;
 
 	void FindPlayer() {
@@ -34,8 +35,6 @@ public class AI : MonoBehaviour {
 		r = health;
 		ennemyHealth_ = ennemyHealth.Health;
 		r1 = ennemyHealth_;
-		frameAttackThreshold = 60;
-		frameAttackReg = 0;
 		inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
 	}
 	
@@ -62,13 +61,22 @@ public class AI : MonoBehaviour {
 	//might be more interesting if unique for each state
 	float SetActionForce (int action,float a) {
 		f1 = genome.dna[action].GetClosest(a);
-		return ( 1f - (f/(genome.dna[action].GetBorderUp()-genome.dna[action].GetBorderLow())) );
+		return ( 1f - (f1/(genome.dna[action].GetBorderUp()-genome.dna[action].GetBorderLow())) );
 	}
 	
 	void StopButtonAttack(){
 		inputManager.attackButtonAI = false;
 	}
 	
+	void StopButtonBlock() {
+		inputManager.blockButtonAI = false;
+	}
+	
+	void SetLatency(){
+		allowAction = true;
+	}
+	
+	private int count = 0;
 	// Update is called once per frame
 	void Update () {
 		if (player != null) {
@@ -88,14 +96,17 @@ public class AI : MonoBehaviour {
 			for(i=0 ; i<1 ;i++){
 				//1st action priority : attack
 				if(distanceToOpponent > genome.dna[2].GetBorderLow() && distanceToOpponent < genome.dna[2].GetBorderUp()){
+					
 					f = SetActionForce(2,distanceToOpponent);
 					//rand = Random.Range(0f,1f);
 					if (f > 0.9f){
-						if(frameAttackReg == frameAttackThreshold){
-							Debug.Log("Attack");
-							frameAttackReg = 0;
+						if(allowAction){
+							Debug.Log(count);
+							count++;
 							inputManager.attackButtonAI = true;
 							Invoke("StopButtonAttack",0.1f);
+							allowAction = false;
+							Invoke("SetLatency",0.2f);
 							break;
 						}
 					}
@@ -105,18 +116,14 @@ public class AI : MonoBehaviour {
 							f = SetActionForce(3,distanceToOpponent);
 							//rand = Random.Range(0f,1f);
 							if (f > 0.9f){
-								if(frameAttackReg == frameAttackThreshold){
+								if(allowAction){
 									if(!inputManager.blockButtonAI){
-										Debug.Log("block");
 										inputManager.blockButtonAI = true;
+										Invoke("StopButtonBlock",1f);
+										allowAction = false;
+										Invoke("SetLatency",0.2f);
 										break;
 									}
-								}
-							}
-							else{
-								if(inputManager.blockButtonAI){
-									Debug.Log("stopBlock");
-									inputManager.blockButtonAI = false;
 								}
 							}
 						}
@@ -127,7 +134,6 @@ public class AI : MonoBehaviour {
 					f = SetActionForce(1,distanceToOpponent);
 					rand = Random.Range(0f,1f);
 					if (rand < f){
-						Debug.Log("walk");
 						inputManager.moveY();
 						break;
 					}
@@ -147,7 +153,5 @@ public class AI : MonoBehaviour {
 		else {
 			FindPlayer();
         }
-		if(frameAttackReg == frameAttackThreshold){frameAttackReg = 0;}
-		frameAttackReg++;
 	}
 }
