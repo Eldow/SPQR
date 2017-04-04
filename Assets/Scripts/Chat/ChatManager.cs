@@ -304,6 +304,18 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     public void OnStatusUpdate(string user, int status, bool gotMessage, object message)
     {
         Debug.Log("Status Update" + user + " : " + status);
+        FriendListManager friendListManager = GameObject.Find("FriendPanel").GetComponent<FriendListManager>();
+        switch (status)
+        {
+            case 2:
+                friendListManager.SetFriendOnline(user);
+                SubscribeToNewChannel(GetChannelName(new string[] { user, PhotonNetwork.playerName }));
+                break;
+            default:
+                friendListManager.SetFriendOffline(user);
+                UnsubscribeFromChannel(GetChannelName(new string[] { user, PhotonNetwork.playerName }));
+                break;
+        }
     }
 
     /*
@@ -332,13 +344,15 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     private void SubscribeToAllFriends()
     {
         List<string> results = new List<string>();
+        List<string> friends = new List<string>();
         if (PhotonNetwork.Friends == null) return;
         foreach(FriendInfo friend in PhotonNetwork.Friends)
         {
+            friends.Add(friend.Name);
             results.Add(GetChannelName(new string[] { friend.Name, PhotonNetwork.playerName }));
         }
-        ClientChat.Subscribe(results.ToArray(), MaxHistoryLength);
-        ClientChat.AddFriends(results.ToArray());
+        ClientChat.AddFriends(friends.ToArray());
+        //ClientChat.Subscribe(results.ToArray(), MaxHistoryLength);
     }
 
     public void SubscribeToNewFriend(string friendName)

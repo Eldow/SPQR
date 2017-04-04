@@ -9,6 +9,8 @@ public class FriendListManager : MonoBehaviour {
     public GameObject FriendPrefab;
     private static string _friendListKey = "FriendList";
 
+    private Dictionary<string, GameObject> _friendList = new Dictionary<string, GameObject>();
+
     // Use this for initialization
     void Start () {
         InitFriendList();
@@ -55,6 +57,8 @@ public class FriendListManager : MonoBehaviour {
                 GameObject Name = newFriend.transform.Find("Name").gameObject;
                 Name.GetComponent<Text>().text = friend.Name;
                 newFriend.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                newFriend.SetActive(false);
+                _friendList.Add(friend.Name, newFriend);
             }
         }
     }
@@ -63,12 +67,26 @@ public class FriendListManager : MonoBehaviour {
     public void AddFriend()
     {
         string name = transform.Find("InputField/Text").GetComponent<Text>().text;
+        AddFriendByName(name);
+        
+    }
+
+    public void RemoveFriend()
+    {
+        GameObject button = EventSystem.current.currentSelectedGameObject;
+        string name = button.transform.parent.transform.Find("Name").GetComponent<Text>().text;
+        RemoveFriendByName(name);
+    }
+
+    public void AddFriendByName(string name)
+    {
         string friends = PlayerPrefs.GetString(_friendListKey);
 
         // Avoid duplicates or owner name
         if (name == PhotonNetwork.playerName) return;
-        foreach(string playerName in friends.Split("*".ToCharArray())){
-            if(playerName == name)
+        foreach (string playerName in friends.Split("*".ToCharArray()))
+        {
+            if (playerName == name)
             {
                 return;
             }
@@ -81,13 +99,10 @@ public class FriendListManager : MonoBehaviour {
         PlayerPrefs.SetString(_friendListKey, friends);
         InitFriendList();
         GameObject.Find("ChatManager").GetComponent<ChatManager>().SubscribeToNewFriend(name);
-        
     }
 
-    public void RemoveFriend()
+    public void RemoveFriendByName(string name)
     {
-        GameObject button = EventSystem.current.currentSelectedGameObject;
-        string name = button.transform.parent.transform.Find("Name").GetComponent<Text>().text;
         string friends = "";
         foreach (string playerName in PlayerPrefs.GetString(_friendListKey).Split("*".ToCharArray()))
         {
@@ -133,5 +148,19 @@ public class FriendListManager : MonoBehaviour {
     {
         GameObject button = EventSystem.current.currentSelectedGameObject;
         Destroy(button.transform.parent.gameObject);
+    }
+
+    public void SetFriendOnline(string name)
+    {
+        GameObject friend;
+        _friendList.TryGetValue(name, out friend);
+        friend.SetActive(true);
+    }
+
+    public void SetFriendOffline(string name)
+    {
+        GameObject friend;
+        _friendList.TryGetValue(name, out friend);
+        friend.SetActive(false);
     }
 }
