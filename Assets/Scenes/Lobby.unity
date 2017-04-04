@@ -1863,9 +1863,9 @@ RectTransform:
   m_Father: {fileID: 780412339}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 657, y: -34.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 175, y: -757}
   m_SizeDelta: {x: 435, y: 156}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &314805058
@@ -3671,7 +3671,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2004408037}
   m_HandleRect: {fileID: 2004408036}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5418,8 +5418,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -47.5, y: -44.2}
-  m_SizeDelta: {x: 93.2, y: 88.3}
+  m_AnchoredPosition: {x: -36, y: -34}
+  m_SizeDelta: {x: 71, y: 67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &880440844
 MonoBehaviour:
@@ -6714,6 +6714,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FriendPrefab: {fileID: 1117905743414888, guid: 1554b9ccf6b111542bc3f58e6a64aa41,
     type: 2}
+  OnlineColor: {r: 0, g: 1, b: 1, a: 1}
+  OfflineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!114 &1032239570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10332,9 +10334,9 @@ RectTransform:
   m_Father: {fileID: 780412339}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 537, y: 300.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -287.5, y: -718}
   m_SizeDelta: {x: 195, y: 78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1683682073

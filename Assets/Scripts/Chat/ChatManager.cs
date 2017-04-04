@@ -412,6 +412,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         }
         GameObject newPlayer = Instantiate(PlayerEntry, MatchmakingPanel.transform.FindChild("PlayerList"));
         newPlayer.transform.FindChild("Text").GetComponent<Text>().text = playerName;
+        newPlayer.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         PlayerList.Add(playerName, newPlayer);
     }
 
