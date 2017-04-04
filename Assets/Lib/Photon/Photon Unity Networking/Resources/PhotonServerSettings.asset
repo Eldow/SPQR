@@ -42,4 +42,10 @@ MonoBehaviour:
   - SendAnimations
   - ReceiveHit
   - ReceiveAudioFromOthers
+  - ColorRpc
+  - DoJump
+  - Flash
+  - Marco
+  - Polo
+  - TaggedPlayer
   DisableAutoOpenWizard: 1
