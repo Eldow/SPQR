@@ -345,11 +345,11 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     {
         List<string> results = new List<string>();
         List<string> friends = new List<string>();
-        if (PhotonNetwork.Friends == null) return;
-        foreach(FriendInfo friend in PhotonNetwork.Friends)
+        FriendListManager friendListManager = GameObject.Find("FriendPanel").GetComponent<FriendListManager>();
+        foreach(string friend in friendListManager.FriendList.Keys)
         {
-            friends.Add(friend.Name);
-            results.Add(GetChannelName(new string[] { friend.Name, PhotonNetwork.playerName }));
+            friends.Add(friend);
+            results.Add(GetChannelName(new string[] { friend, PhotonNetwork.playerName }));
         }
         ClientChat.AddFriends(friends.ToArray());
         //ClientChat.Subscribe(results.ToArray(), MaxHistoryLength);

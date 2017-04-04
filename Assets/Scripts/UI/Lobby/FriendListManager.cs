@@ -9,7 +9,10 @@ public class FriendListManager : MonoBehaviour {
     public GameObject FriendPrefab;
     private static string _friendListKey = "FriendList";
 
-    private Dictionary<string, GameObject> _friendList = new Dictionary<string, GameObject>();
+    public Color OnlineColor = Color.cyan;
+    public Color OfflineColor = Color.gray;
+
+    public Dictionary<string, GameObject> FriendList = new Dictionary<string, GameObject>();
 
     // Use this for initialization
     void Start () {
@@ -31,38 +34,35 @@ public class FriendListManager : MonoBehaviour {
     // Stores the friendlist in PhotonNetwork.Friends
     public void LoadFriendList()
     {
-        Debug.Log(PlayerPrefs.GetString(_friendListKey));
-        PhotonNetwork.FindFriends(PlayerPrefs.GetString(_friendListKey).Split("*".ToCharArray()));
+
+        string[] storedFriends = PlayerPrefs.GetString(_friendListKey).Split("*".ToCharArray());
+        foreach (string friend in storedFriends)
+        {
+            InstantiateOfflineFriend(friend);
+        }
     }
 
-    public void OnUpdatedFriendList()
-    {
-        ShowFriendList();
-    }
-
-    // Display friends
-    public void ShowFriendList()
+    public void InstantiateOfflineFriend(string friend)
     {
         Transform results = transform.Find("ResultList/ScrollablePanel");
-        foreach (Transform child in results)
+        if (friend != "" && !FriendList.ContainsKey(friend))
         {
-            GameObject.Destroy(child.gameObject);
-        }
-        if (PhotonNetwork.Friends == null) return;
-        foreach(FriendInfo friend in PhotonNetwork.Friends)
-        {
-            if(friend.Name != "")
-            {
-                GameObject newFriend = Instantiate(FriendPrefab, results);
-                GameObject Name = newFriend.transform.Find("Name").gameObject;
-                Name.GetComponent<Text>().text = friend.Name;
-                newFriend.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                newFriend.SetActive(false);
-                _friendList.Add(friend.Name, newFriend);
-            }
+            GameObject newFriend = Instantiate(FriendPrefab, results);
+            GameObject Name = newFriend.transform.Find("Name").gameObject;
+            Name.GetComponent<Text>().text = friend;
+            newFriend.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            newFriend.GetComponent<Image>().color = OfflineColor;
+            FriendList.Add(friend, newFriend);
         }
     }
 
+    public void DestroyFriend(string friend)
+    {
+        GameObject friendObject;
+        FriendList.TryGetValue(friend, out friendObject);
+        Destroy(friendObject);
+        FriendList.Remove(friend);
+    }
     // Add a friend to PlayerPrefs
     public void AddFriend()
     {
@@ -97,8 +97,8 @@ public class FriendListManager : MonoBehaviour {
         else
             friends += name;
         PlayerPrefs.SetString(_friendListKey, friends);
-        InitFriendList();
         GameObject.Find("ChatManager").GetComponent<ChatManager>().SubscribeToNewFriend(name);
+        InstantiateOfflineFriend(name);
     }
 
     public void RemoveFriendByName(string name)
@@ -119,8 +119,8 @@ public class FriendListManager : MonoBehaviour {
             }
         }
         PlayerPrefs.SetString(_friendListKey, friends);
-        InitFriendList();
         GameObject.Find("ChatManager").GetComponent<ChatManager>().UnsubscribeFromFriend(name);
+        DestroyFriend(name);
     }
 
     public void OpenChatPanel()
@@ -153,14 +153,14 @@ public class FriendListManager : MonoBehaviour {
     public void SetFriendOnline(string name)
     {
         GameObject friend;
-        _friendList.TryGetValue(name, out friend);
-        friend.SetActive(true);
+        FriendList.TryGetValue(name, out friend);
+        friend.GetComponent<Image>().color = OnlineColor;
     }
 
     public void SetFriendOffline(string name)
     {
         GameObject friend;
-        _friendList.TryGetValue(name, out friend);
-        friend.SetActive(false);
+        FriendList.TryGetValue(name, out friend);
+        friend.GetComponent<Image>().color = OfflineColor;
     }
 }

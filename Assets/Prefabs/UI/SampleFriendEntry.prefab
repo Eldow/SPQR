@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 222306747964140668}
   - component: {fileID: 114136972939809412}
   - component: {fileID: 114757829234946626}
+  - component: {fileID: 114384974998208274}
   m_Layer: 5
   m_Name: SampleFriendEntry
   m_TagString: Untagged
@@ -162,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: cadb15769e28fee4eb4665fd10da2ff2, type: 2}
   m_Color: {r: 0, g: 0.5862069, b: 1, a: 0.353}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -244,6 +245,17 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: +
+--- !u!114 &114384974998208274
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1117905743414888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 645322554bf02504e8492e9c48deba7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114403041359222622
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -343,9 +355,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114178204481485750, guid: 567cf66e84d1bd6459621d345b9855b2,
-          type: 2}
-        m_MethodName: InviteToRoom
+      - m_Target: {fileID: 114384974998208274}
+        m_MethodName: Invite
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -431,9 +442,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114178204481485750, guid: 567cf66e84d1bd6459621d345b9855b2,
-          type: 2}
-        m_MethodName: RemoveFriend
+      - m_Target: {fileID: 114384974998208274}
+        m_MethodName: Delete
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -484,9 +494,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114178204481485750, guid: 567cf66e84d1bd6459621d345b9855b2,
-          type: 2}
-        m_MethodName: OpenChatPanel
+      - m_Target: {fileID: 114384974998208274}
+        m_MethodName: Chat
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
