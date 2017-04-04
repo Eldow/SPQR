@@ -10,6 +10,7 @@ public class StateHandler : MonoBehaviour {
 	}
 	
 	public void Test() {
+		Debug.Log("caca");
 		gameObject.GetComponent<PlayerController>().RobotStateMachine.SetState(new RobotAttackState());
 	}
 
