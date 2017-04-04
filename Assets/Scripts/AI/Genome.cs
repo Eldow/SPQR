@@ -37,6 +37,22 @@ public struct Gene
 				max = recordTable[r];
 			}
 		}
+		borderLow = min;
+		borderUp = max;
+	}
+	
+	public float GetClosest(float f) {
+		if(recordTable == null){
+			recordTable = new float[5];
+			for(r=0 ; r<5 ; r++){recordTable[r] = 0;}
+		}
+		min = 25f;
+		for(r = 0;r<4;r++){
+			if(Mathf.Abs(f-recordTable[r]) < min){
+				min = Mathf.Abs(f-recordTable[r]);
+			}
+		}
+		return min;
 	}
 }
 
@@ -54,9 +70,9 @@ public class Genome {
 		dna[1].SetBorderUp(25);
 		//attack
 		dna[2].SetBorderLow(0);
-		dna[2].SetBorderUp(25);
+		dna[2].SetBorderUp(4);
 		//block
 		dna[3].SetBorderLow(0);
-		dna[3].SetBorderUp(25);
+		dna[3].SetBorderUp(8);
 	}
 }
