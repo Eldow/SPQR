@@ -19,7 +19,6 @@ public class AddAIPlayer : MonoBehaviour
 			                  Vector3.left * (PhotonNetwork.room.PlayerCount * 2), 
 			                  Quaternion.identity, 0
 		                  );
-		temp.GetComponent<PlayerPhysics> ().freezeMovement = true;
 		temp.transform.name = "AIRobot";
 
 	}
