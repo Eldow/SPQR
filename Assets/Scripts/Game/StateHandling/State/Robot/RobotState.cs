@@ -3,8 +3,6 @@
 public class RobotState : State {
     public int HeatCost { get; protected set; }
 
-    protected GameObject Lightnings = null;
-
     public override State HandleInput(StateMachine stateMachine) {
         return null;
     }
@@ -16,25 +14,12 @@ public class RobotState : State {
     }
 
     public RobotState() {
-        this.GetLightning();
     }
 
-    protected virtual void GetLightning() {
-        GameObject player = GameObject.FindGameObjectWithTag(
-            PlayerController.Player);
-        Transform playerTransform = player.GetComponent<Transform>();
+	protected virtual void SetLightings(StateMachine stateMachine, bool isActive) {
+		GameObject Lightnings = ((RobotStateMachine)stateMachine).PlayerController.Lightnings;
 
-        if (playerTransform == null) return;
-
-        foreach (Transform child in playerTransform) {
-            if (child.CompareTag("Lightnings")) {
-                this.Lightnings = child.gameObject;
-            }
-        }
-    }
-
-    protected virtual void SetLightings(bool isActive) {
-        if (this.Lightnings != null) this.Lightnings.SetActive(isActive);
+		if (Lightnings != null) Lightnings.SetActive(isActive);
     }
 
     public override void Enter(StateMachine stateMachine) {

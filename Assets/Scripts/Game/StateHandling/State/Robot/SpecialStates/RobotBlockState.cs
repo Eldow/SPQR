@@ -12,16 +12,9 @@ public class RobotBlockState : RobotFramedState {
         this.MinActiveState = 6;
         this.MaxActiveState = 23;
         this.HeatCost = 3;
-
-		Transform playerTransform = GameObject.FindGameObjectWithTag(
-			PlayerController.Player).transform;
-
-		foreach (Transform child in playerTransform) {
-			if (child.CompareTag("Shield")) {
-				this.Shield = child.gameObject;
-			}
-		}
     }
+		
+
 
     public override State HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
@@ -61,7 +54,10 @@ public class RobotBlockState : RobotFramedState {
     }
 		
     public override void Update(StateMachine stateMachine) {
-		
+
+		if (Shield == null)
+			Shield = ((RobotStateMachine)stateMachine).PlayerController.Shield;
+			
 		if(this.CurrentFrame==this.MinActiveState && this.Shield != null)
 			this.Shield.SetActive(true);
 

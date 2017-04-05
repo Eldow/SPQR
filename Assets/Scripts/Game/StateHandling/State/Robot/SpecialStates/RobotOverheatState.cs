@@ -52,7 +52,7 @@ public class RobotOverheatState : RobotFramedState {
 		
 		PlayAudioEffect(robotStateMachine.PlayerController.PlayerAudio);
 
-        this.SetLightings(true);
+		this.SetLightings(stateMachine,true);
     }
 
     public override void Exit(StateMachine stateMachine) {
@@ -62,7 +62,7 @@ public class RobotOverheatState : RobotFramedState {
 
         robotStateMachine.Animator.speed = this.InitialSpeed;
 
-        this.SetLightings(false);
+		this.SetLightings(stateMachine,false);
     }
 
     protected virtual void SetSpeed(RobotStateMachine robotStateMachine) {

@@ -36,7 +36,7 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
         }
 
         this.IsLoading = false;
-        this.SetLightings(false);
+		this.SetLightings(stateMachine,false);
         this.ResumeNormalAnimation(robotStateMachine);
 
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
@@ -86,7 +86,7 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
         base.Enter(stateMachine);
 
         this.SetAnimationSpeed(robotStateMachine, this.LoadingSpeed);
-        this.SetLightings(true);
+		this.SetLightings(stateMachine,true);
     }
 
     public override RobotState CheckInterruptibleActions(StateMachine stateMachine) {

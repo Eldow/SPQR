@@ -21,8 +21,10 @@ public class PlayerController : Photon.MonoBehaviour {
     [HideInInspector] public Animator Animator = null;
     [HideInInspector] public GameObject PlayerInfo;
     [HideInInspector] public GameObject Canvas;
-    [HideInInspector] public GameObject OpponentInfo;
+	[HideInInspector] public GameObject OpponentInfo;
 	[HideInInspector] public InputManager inputManager;
+	[HideInInspector] public GameObject Shield;
+	[HideInInspector] public GameObject Lightnings;
 
     void Awake() {
         this.Initialize();
@@ -63,6 +65,8 @@ public class PlayerController : Photon.MonoBehaviour {
         this.PlayerHealth = new PlayerHealth(this);
         this.PlayerPower = new PlayerPower(this);
 		this.inputManager = gameObject.GetComponent<InputManager>();
+		this.Lightnings = transform.FindChild ("Lightnings").gameObject;
+		this.Shield = transform.FindChild ("Shield").gameObject;
         RobotAutomaton robotAutomaton = this.GetComponent<RobotAutomaton>();
 
         if (robotAutomaton != null && 
