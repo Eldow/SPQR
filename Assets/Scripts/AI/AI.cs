@@ -76,6 +76,10 @@ public class AI : MonoBehaviour {
 		allowAction = true;
 	}
 	
+	void StopMove(){
+		inputManager.moveForwardSpeedAI = 0f;
+	}
+	
 	private int count = 0;
 	// Update is called once per frame
 	void Update () {
@@ -134,7 +138,8 @@ public class AI : MonoBehaviour {
 					f = SetActionForce(1,distanceToOpponent);
 					rand = Random.Range(0f,1f);
 					if (rand < f){
-						inputManager.moveY();
+						inputManager.moveForwardSpeedAI = 0.7f;
+						Invoke("StopMove",0.5f);
 						break;
 					}
 					else{

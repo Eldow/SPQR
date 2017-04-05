@@ -10,7 +10,7 @@ public class InputManager : MonoBehaviour {
 	//input simulator
 	[HideInInspector] public bool attackButtonAI = false;
 	[HideInInspector] public bool blockButtonAI = false;
-	[HideInInspector] public bool moveForwardButtonAI = false;
+	[HideInInspector] public float moveForwardSpeedAI = 0f;
 
 	void Start() {
 		if(gameObject.GetComponent<AI>()){isAI = true;}
@@ -44,9 +44,7 @@ public class InputManager : MonoBehaviour {
 			r += Input.GetAxis("KeyboardMove_Vertical");
 			return Mathf.Clamp(r, -1.0f, 1.0f);
 		}
-		if(moveForwardButtonAI)
-			return 0.7f;
-		return 0f;
+		return moveForwardSpeedAI;
     }
 
     public  float cameraX() {
