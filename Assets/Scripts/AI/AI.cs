@@ -7,7 +7,7 @@ public class AI : MonoBehaviour {
 	private float distanceToOpponent;
 	private GameObject player;
 	private int health;
-	private int power;
+	private float power;
 	private int ennemyHealth_;
 	private Genome genome;
 	private RobotStateMachine stateMachine;
@@ -32,6 +32,7 @@ public class AI : MonoBehaviour {
 		genome = new Genome();
 		stateMachine = gameObject.GetComponent<PlayerController>().RobotStateMachine;
 		robotHealth = gameObject.GetComponent<PlayerController>().PlayerHealth;
+		robotPower = gameObject.GetComponent<PlayerController>().PlayerPower;
 		ennemyHealth = player.GetComponent<PlayerController>().PlayerHealth;
 		health = robotHealth.Health;
 		power = robotHealth.Health;
@@ -64,9 +65,12 @@ public class AI : MonoBehaviour {
 	//might be more interesting if unique for each state
 	float SetActionForce (int action,float a) {
 		f1 = genome.dna[action].GetClosest(a);
-		if(action == 2)
-			return ( 1f - (f1/(genome.dna[action].GetBorderUp()-genome.dna[action].GetBorderLow())) - ((100f-((float)power))/1000f) );
-		return ( 1f - (f1/(genome.dna[action].GetBorderUp()-genome.dna[action].GetBorderLow())) );
+		if(action == 2 || action == 3){
+			return ( 1f - (f1/(genome.dna[action].GetBorderUp()-genome.dna[action].GetBorderLow())) - Mathf.Sqrt((100f-power)/100f) );
+		}
+		else{
+			return ( 1f - (f1/(genome.dna[action].GetBorderUp()-genome.dna[action].GetBorderLow())) );
+		}
 	}
 	
 	void StopButtonAttack(){
@@ -91,6 +95,7 @@ public class AI : MonoBehaviour {
 		if (player != null) {
             //updating environment
 			r = robotHealth.Health;
+			power = robotPower.Power;
 			r1 = ennemyHealth.Health;
 			if(health != r){
 				Learn(true);
@@ -107,6 +112,7 @@ public class AI : MonoBehaviour {
 				if(distanceToOpponent > genome.dna[2].GetBorderLow() && distanceToOpponent < genome.dna[2].GetBorderUp()){
 					
 					f = SetActionForce(2,distanceToOpponent);
+					Debug.Log(f);
 					rand = Random.Range(0f,1f);
 					if (f > rand){
 						if(allowAction){
@@ -141,8 +147,8 @@ public class AI : MonoBehaviour {
 					f = SetActionForce(1,distanceToOpponent);
 					rand = Random.Range(0f,1f);
 					if (rand < f){
-						inputManager.moveForwardSpeedAI = -0.9f;
-						Invoke("StopMove",0.9f);
+						inputManager.moveForwardSpeedAI = -1.5f + (3*Mathf.Sqrt((100f-power)/100f));
+						Invoke("StopMove",1.2f);
 						break;
 					}
 					else{

@@ -54,6 +54,9 @@ public class RobotBlockState : RobotFramedState {
     }
 		
     public override void Update(StateMachine stateMachine) {
+		
+		if(isHolding)
+			((RobotStateMachine)stateMachine).PlayerController.PlayerPower.Power -= 0.25f;
 
 		if (Shield == null)
 			Shield = ((RobotStateMachine)stateMachine).PlayerController.Shield;
