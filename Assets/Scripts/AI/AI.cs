@@ -7,10 +7,12 @@ public class AI : MonoBehaviour {
 	private float distanceToOpponent;
 	private GameObject player;
 	private int health;
+	private int power;
 	private int ennemyHealth_;
 	private Genome genome;
 	private RobotStateMachine stateMachine;
 	private PlayerHealth robotHealth;
+	private PlayerPower robotPower;
 	private PlayerHealth ennemyHealth;
 	private InputManager inputManager;
 	
@@ -32,6 +34,7 @@ public class AI : MonoBehaviour {
 		robotHealth = gameObject.GetComponent<PlayerController>().PlayerHealth;
 		ennemyHealth = player.GetComponent<PlayerController>().PlayerHealth;
 		health = robotHealth.Health;
+		power = robotHealth.Health;
 		r = health;
 		ennemyHealth_ = ennemyHealth.Health;
 		r1 = ennemyHealth_;
@@ -61,6 +64,8 @@ public class AI : MonoBehaviour {
 	//might be more interesting if unique for each state
 	float SetActionForce (int action,float a) {
 		f1 = genome.dna[action].GetClosest(a);
+		if(action == 2)
+			return ( 1f - (f1/(genome.dna[action].GetBorderUp()-genome.dna[action].GetBorderLow())) - ((100f-((float)power))/1000f) );
 		return ( 1f - (f1/(genome.dna[action].GetBorderUp()-genome.dna[action].GetBorderLow())) );
 	}
 	
@@ -102,11 +107,9 @@ public class AI : MonoBehaviour {
 				if(distanceToOpponent > genome.dna[2].GetBorderLow() && distanceToOpponent < genome.dna[2].GetBorderUp()){
 					
 					f = SetActionForce(2,distanceToOpponent);
-					//rand = Random.Range(0f,1f);
-					if (f > 0.9f){
+					rand = Random.Range(0f,1f);
+					if (f > rand){
 						if(allowAction){
-							Debug.Log(count);
-							count++;
 							inputManager.attackButtonAI = true;
 							Invoke("StopButtonAttack",0.1f);
 							allowAction = false;
@@ -118,8 +121,8 @@ public class AI : MonoBehaviour {
 						//2nd action priority : block
 						if(distanceToOpponent > genome.dna[3].GetBorderLow() && distanceToOpponent < genome.dna[3].GetBorderUp()){
 							f = SetActionForce(3,distanceToOpponent);
-							//rand = Random.Range(0f,1f);
-							if (f > 0.9f){
+							rand = Random.Range(0f,1f);
+							if (f > rand){
 								if(allowAction){
 									if(!inputManager.blockButtonAI){
 										inputManager.blockButtonAI = true;
@@ -138,8 +141,8 @@ public class AI : MonoBehaviour {
 					f = SetActionForce(1,distanceToOpponent);
 					rand = Random.Range(0f,1f);
 					if (rand < f){
-						inputManager.moveForwardSpeedAI = 0.7f;
-						Invoke("StopMove",0.5f);
+						inputManager.moveForwardSpeedAI = -0.9f;
+						Invoke("StopMove",0.9f);
 						break;
 					}
 					else{

@@ -32,9 +32,12 @@ public class InputManager : MonoBehaviour {
 
     public float moveX() {
         float r = 0f;
-        r += Input.GetAxis("JoystickMove_Horizontal");
-        r += Input.GetAxis("KeyboardMove_Horizontal");
-        return Mathf.Clamp(r, -1.0f, 1.0f);
+		if(!isAI){
+			r += Input.GetAxis("JoystickMove_Horizontal");
+			r += Input.GetAxis("KeyboardMove_Horizontal");
+			return Mathf.Clamp(r, -1.0f, 1.0f);
+		}
+		return 0f;
     }
 
     public float moveY() {
