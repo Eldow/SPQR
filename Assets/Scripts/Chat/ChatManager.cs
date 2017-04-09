@@ -25,6 +25,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     public int MaxHistoryLength = 20;
     public ChatClient ClientChat;
     public Dictionary<string, GameObject> PlayerList = new Dictionary<string, GameObject>();
+    public Dictionary<string, int> PlayerTeams = new Dictionary<string, int>();
 
     // Use this for initialization
     void Start()
@@ -154,6 +155,12 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
                     PhotonNetwork.LoadLevel("Sandbox");
                 }
             }
+            // Notify others team changed
+            else if (message.ToString().Contains(":Team") && sender != PhotonNetwork.playerName)
+            {
+                string[] tokens = message.ToString().Split(':');
+                SetPlayerTeam(tokens[0], Int32.Parse(tokens[2]), isMaster);
+            }
             // Friend chat
             else if(!message.ToString().Contains(":Friends") && !message.ToString().Contains(":Players") &&
                 !message.ToString().Contains(":Ready") && !message.ToString().Contains(":Room")
@@ -186,6 +193,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
             PlayerList.TryGetValue(key, out panel);
             Destroy(panel);
         }
+        PlayerTeams.Clear();
         PlayerList.Clear();
         _playerReadyCount = 0;
         EnterChatRoom(_chatRoomName);
@@ -414,6 +422,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         newPlayer.transform.FindChild("Text").GetComponent<Text>().text = playerName;
         newPlayer.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         PlayerList.Add(playerName, newPlayer);
+        PlayerTeams.Add(playerName, 1);
     }
 
     public void RemovePlayerEntry(string playerName, bool verbose)
@@ -429,6 +438,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         PlayerList.TryGetValue(playerName, out player);
         Destroy(player);
         PlayerList.Remove(playerName);
+        PlayerTeams.Remove(playerName);
     }
 
     public void UpdatePlayerList(string players)
@@ -439,6 +449,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
             PlayerList.TryGetValue(key, out panel);
             Destroy(panel);
         }
+        PlayerTeams.Clear();
         PlayerList = new Dictionary<string, GameObject>();
         foreach (string player in players.Split('*'))
         {
@@ -460,6 +471,26 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
             }
         }
         ClientChat.PublishMessage(channelName, playerList + ":Players");
+    }
+
+    /* 
+        Teams
+    */
+    public void SendModifyTeam(int team)
+    {
+        ClientChat.PublishMessage(_chatRoomName, PhotonNetwork.playerName + ":Team:" + team.ToString());
+    }
+
+    // Modify color and update list
+    public void SetPlayerTeam(string playerName, int colorIndex, bool isMaster)
+    {
+        GameObject playerEntry;
+        PlayerList.TryGetValue(playerName, out playerEntry);
+        playerEntry.transform.FindChild("Image").GetComponent<PlayerColorSwitch>().SetPlayerColor(colorIndex);
+        if (isMaster)
+        {
+            PlayerTeams[playerName] = colorIndex;
+        }
     }
 
     // Safe exit
