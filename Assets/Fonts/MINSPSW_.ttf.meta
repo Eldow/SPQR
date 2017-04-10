@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: ffd8f2ce6d1b8a3479fba9ffb47b23ae
+timeCreated: 1490122378
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: MinstrelPosterWHG
+  fontNames:
+  - MinstrelPosterWHG
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
