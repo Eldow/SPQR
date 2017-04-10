@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     public Running Running = null;
-	public bool isLocalGame = true;
+	  public bool isLocalGame = true;
     public static GameManager Instance = null;
 
     public PlayerController LocalPlayer = null;
 
-    public Dictionary<int, RobotStateMachine> PlayerList 
+    public RoundTimer Timer = null;
+    public ScoreManager ScoreModule = null;
+
+    public Dictionary<int, RobotStateMachine> PlayerList
         { get; protected set; }
-    public Dictionary<int, RobotStateMachine> AlivePlayerList 
+    public Dictionary<int, RobotStateMachine> AlivePlayerList
         { get; protected set; }
+
+    void Start() {
+        GameObject TaggedTimer = GameObject.FindGameObjectWithTag("Timer");
+
+        if (TaggedTimer == null) {
+            Debug.LogError(this.GetType().Name + ": No Tagged Timer script found!");
+        }
+        else {
+          this.Timer = TaggedTimer.GetComponent<RoundTimer>();
+          if (this.Timer == null) Debug.Log("Merde");
+          else Debug.Log("Yeah");
+        }
+    }
 
     void Awake() {
         if (GameManager.Instance == null) {
@@ -34,12 +50,36 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update() {
-        
+
+        while (!IsGameOver()) {
+            if (Timer.remainingTime == 0) {
+               endRoundWithTimer();
+            }
+        }
+    }
+
+    protected void endRoundWithTimer(){
+
+        RobotStateMachine Winner = null;
+        Winner = searchForMalHealthPlayers();
+    }
+
+    protected RobotStateMachine searchForMalHealthPlayers() {
+       int MaxHP = 0;
+       RobotStateMachine Winner = null;
+       foreach(KeyValuePair<int,RobotStateMachine> alivePlayer in this.AlivePlayerList)
+       {
+          if (alivePlayer.Value.PlayerController.PlayerHealth.Health >= MaxHP) {
+              Winner = alivePlayer.Value;
+          }
+       }
+       return Winner;
     }
 
     protected virtual void Initialize() {
         this.AlivePlayerList = new Dictionary<int, RobotStateMachine>();
         this.PlayerList = new Dictionary<int, RobotStateMachine>();
+        this.ScoreModule = this.gameObject.AddComponent<ScoreManager>();
     }
 
     public virtual void RemovePlayerFromGame(int playerID) {
@@ -116,6 +156,7 @@ public class GameManager : MonoBehaviour {
             Debug.LogWarning(exception.Message);
         }
     }
+
     protected virtual bool IsGameOver() {
         return this.AlivePlayerList.Count <= 1;
     }

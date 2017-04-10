@@ -10,6 +10,8 @@ TagManager:
   - Beam
   - Opponent
   - CanvasBackground
+  - Timer
+  - Score
   layers:
   - Default
   - TransparentFX

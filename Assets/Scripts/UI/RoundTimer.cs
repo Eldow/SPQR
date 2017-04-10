@@ -26,6 +26,8 @@ public class RoundTimer : MonoBehaviour
 {
     public int SecondsPerRound;                     // time per round/turn (set in inspector)
     public double StartTime;                        // this should could also be a private. i just like to see this in inspector
+    [HideInInspector] public float elapsedTime;
+    [HideInInspector] public float remainingTime;
 
     private bool startRoundWhenTimeIsSynced;        // used in an edge-case when we wanted to set a start time but don't know it yet.
     private const string StartTimeKey = "st";       // the name of our "start time" custom property.
@@ -60,7 +62,7 @@ public class RoundTimer : MonoBehaviour
     {
         if (PhotonNetwork.isMasterClient)
         {
-            this.StartRoundNow();
+            //this.StartRoundNow();
         }
         else
         {
@@ -100,21 +102,19 @@ public class RoundTimer : MonoBehaviour
         {
             this.StartRoundNow();   // the "time is known" check is done inside the method.
         }
+        elapsedTime = (float)(PhotonNetwork.time - StartTime);
+        remainingTime = Mathf.Max(Mathf.Ceil(SecondsPerRound - elapsedTime), 0);
+        Debug.Log(remainingTime);
     }
 
     public void OnGUI()
     {
-        // alternatively to doing this calculation here:
-        // calculate these values in Update() and make them publicly available to all other scripts
-        float elapsedTime = (float)(PhotonNetwork.time - StartTime);
-        float remainingTime = SecondsPerRound - elapsedTime;
-
         // simple gui for output
         if (GUILayout.Button("new round"))
         {
             this.StartRoundNow();
         }
 
-        UITimerText.text = string.Format("{0:0}", Mathf.Max(Mathf.Ceil(remainingTime),0));
+        UITimerText.text = string.Format("{0:0}", remainingTime);
     }
 }

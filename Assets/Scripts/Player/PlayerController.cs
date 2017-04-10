@@ -6,8 +6,8 @@ public class PlayerController : Photon.MonoBehaviour {
     public const string Player = "Player";
     public Color PlayerColor = Color.blue;
     public Color OpponentColor = Color.red;
-	public int powerRecoverySpeed = 5;
-	public float timeBetweenPowerRecovery = 1.0f;
+	  public int powerRecoverySpeed = 5;
+	  public float timeBetweenPowerRecovery = 1.0f;
 
     public int ID { get; protected set; }
     public RobotStateMachine RobotStateMachine { get; protected set; }
@@ -33,7 +33,7 @@ public class PlayerController : Photon.MonoBehaviour {
     }
 
     protected virtual void SetEntity() {
-		
+
 		if (GameManager.Instance.LocalPlayer != null  || !photonView.isMine) {
 			this.SetOpponent();
         } else {
@@ -59,9 +59,9 @@ public class PlayerController : Photon.MonoBehaviour {
         this.PlayerPower = new PlayerPower(this);
         RobotAutomaton robotAutomaton = this.GetComponent<RobotAutomaton>();
 
-        if (robotAutomaton != null && 
+        if (robotAutomaton != null &&
             robotAutomaton.StateMachine is RobotStateMachine) {
-            this.RobotStateMachine = 
+            this.RobotStateMachine =
                 (RobotStateMachine)robotAutomaton.StateMachine;
         }
 
@@ -72,22 +72,22 @@ public class PlayerController : Photon.MonoBehaviour {
         this.SetTag(Player);
 
         this.GetComponent<RobotAutomaton>().enabled = true;
-        this.GetComponentInChildren<MeshRenderer>().material.color = 
+        this.GetComponentInChildren<MeshRenderer>().material.color =
             this.PlayerColor;
         TargetManager.instance.SetPlayer(gameObject);
         this.PlayerInfo = this.Canvas.transform.GetChild(1).gameObject;
         this.PlayerInfo.SetActive(true);
 		StartCoroutine(recoverPower());
     }
-		
+
 	IEnumerator recoverPower()
 	{
 		while(PlayerHealth.Health>0) {
 			this.PlayerPower.Power += powerRecoverySpeed;
 			yield return new WaitForSeconds(timeBetweenPowerRecovery);
 		}
-	}   
-		
+	}
+
     protected virtual void SetOpponent() {
         this.SetTag(Opponent);
         TargetManager.instance.AddOpponent(gameObject);
