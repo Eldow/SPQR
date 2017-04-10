@@ -265,7 +265,7 @@ ParticleSystem:
   m_GameObject: {fileID: 131965643}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -3668,32 +3668,32 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114685419613192464, guid: e3773d687eea24a4abfdc18697e3a380,
+    - target: {fileID: 114072012524399666, guid: e3773d687eea24a4abfdc18697e3a380,
         type: 2}
       propertyPath: viewIdField
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114685419613192464, guid: e3773d687eea24a4abfdc18697e3a380,
-        type: 2}
-      propertyPath: instantiationId
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114474519775920392, guid: e3773d687eea24a4abfdc18697e3a380,
-        type: 2}
-      propertyPath: viewIdField
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114474519775920392, guid: e3773d687eea24a4abfdc18697e3a380,
-        type: 2}
-      propertyPath: instantiationId
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114072012524399666, guid: e3773d687eea24a4abfdc18697e3a380,
+        type: 2}
+      propertyPath: instantiationId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114474519775920392, guid: e3773d687eea24a4abfdc18697e3a380,
+        type: 2}
+      propertyPath: viewIdField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114474519775920392, guid: e3773d687eea24a4abfdc18697e3a380,
+        type: 2}
+      propertyPath: instantiationId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114685419613192464, guid: e3773d687eea24a4abfdc18697e3a380,
         type: 2}
       propertyPath: viewIdField
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114072012524399666, guid: e3773d687eea24a4abfdc18697e3a380,
+    - target: {fileID: 114685419613192464, guid: e3773d687eea24a4abfdc18697e3a380,
         type: 2}
       propertyPath: instantiationId
       value: 3
