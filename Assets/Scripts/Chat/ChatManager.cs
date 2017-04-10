@@ -156,10 +156,13 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
                 }
             }
             // Notify others team changed
-            else if (message.ToString().Contains(":Team") && sender != PhotonNetwork.playerName)
+            else if (message.ToString().Contains(":Team"))
             {
                 string[] tokens = message.ToString().Split(':');
-                SetPlayerTeam(tokens[0], Int32.Parse(tokens[2]), isMaster);
+                if (isMaster)
+                    PlayerTeams[tokens[0]] = Int32.Parse(tokens[2]);
+                if(sender != PhotonNetwork.playerName)
+                    SetPlayerTeam(tokens[0], Int32.Parse(tokens[2]));
             }
             // Friend chat
             else if(!message.ToString().Contains(":Friends") && !message.ToString().Contains(":Players") &&
@@ -266,7 +269,8 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         friendName = button.transform.parent.FindChild("Name").GetComponent<Text>().text;
 
         string channelName = GetChannelName(new string[] { friendName, PhotonNetwork.playerName });
-        ClientChat.PublishMessage(channelName, PhotonNetwork.playerName + ":Room");
+        if(_friendChannels.ContainsKey(channelName))
+            ClientChat.PublishMessage(channelName, PhotonNetwork.playerName + ":Room");
     }
 
     public void ClosePanel()
@@ -278,14 +282,14 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     public void ShowPanelFromFriendList()
     {
         GameObject button = EventSystem.current.currentSelectedGameObject;
-        ShowPanel(button.transform.parent.FindChild("Name").GetComponent<Text>().text);
+        string sender = button.transform.parent.FindChild("Name").GetComponent<Text>().text;
+        ShowPanel(sender);
     }
 
     public GameObject ShowPanel(string sender)
     {
         GameObject panel;
         string channelName = GetChannelName(new string[] { sender, PhotonNetwork.playerName });
-
         // Channel has already been instanciated
         if (_friendChannels.ContainsKey(channelName))
         {
@@ -360,7 +364,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
             results.Add(GetChannelName(new string[] { friend, PhotonNetwork.playerName }));
         }
         ClientChat.AddFriends(friends.ToArray());
-        //ClientChat.Subscribe(results.ToArray(), MaxHistoryLength);
+        ClientChat.Subscribe(results.ToArray(), MaxHistoryLength);
     }
 
     public void SubscribeToNewFriend(string friendName)
@@ -482,15 +486,11 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     }
 
     // Modify color and update list
-    public void SetPlayerTeam(string playerName, int colorIndex, bool isMaster)
+    public void SetPlayerTeam(string playerName, int colorIndex)
     {
         GameObject playerEntry;
         PlayerList.TryGetValue(playerName, out playerEntry);
         playerEntry.transform.FindChild("Image").GetComponent<PlayerColorSwitch>().SetPlayerColor(colorIndex);
-        if (isMaster)
-        {
-            PlayerTeams[playerName] = colorIndex;
-        }
     }
 
     // Safe exit

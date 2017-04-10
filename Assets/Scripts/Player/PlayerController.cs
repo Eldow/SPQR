@@ -76,8 +76,8 @@ public class PlayerController : Photon.MonoBehaviour {
         this.SetTag(Player);
 
         this.GetComponent<RobotAutomaton>().enabled = true;
-        this.GetComponentInChildren<MeshRenderer>().material.color = 
-            this.PlayerColor;
+        /*this.GetComponentInChildren<MeshRenderer>().material.color = 
+            this.PlayerColor;*/
         TargetManager.instance.SetPlayer(gameObject);
         this.PlayerInfo = this.Canvas.transform.GetChild(1).gameObject;
         this.PlayerInfo.SetActive(true);
@@ -95,8 +95,8 @@ public class PlayerController : Photon.MonoBehaviour {
     protected virtual void SetOpponent() {
         this.SetTag(Opponent);
         TargetManager.instance.AddOpponent(gameObject);
-        this.GetComponentInChildren<MeshRenderer>().material.color =
-             this.OpponentColor;
+        /*this.GetComponentInChildren<MeshRenderer>().material.color =
+             this.OpponentColor;*/
         this.OpponentInfo = this.Canvas.transform.GetChild(0).gameObject;
     }
 

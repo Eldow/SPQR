@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LobbyManager : Photon.PunBehaviour
 {
-    private byte _roomSize = 2;
     private string _mapLabel = "Sandbox";
     private string _gameMode = "BO3";
     private bool _visibility = true;
@@ -23,10 +22,11 @@ public class LobbyManager : Photon.PunBehaviour
     // Create a room and switch the list panel to the detail panel
     public void CreateRoom()
     {
+        /*
         PhotonNetwork.CreateRoom(null,
             new RoomOptions() { MaxPlayers = _roomSize,  IsVisible = _visibility },
             null
-        );
+        );*/
     }
 
 
@@ -44,7 +44,10 @@ public class LobbyManager : Photon.PunBehaviour
 
     public void StartGame()
     {
-        PhotonNetwork.CreateRoom(PhotonNetwork.playerName + "Room", new RoomOptions() { MaxPlayers = _roomSize }, null);
+        ChatManager chat = GameObject.Find("ChatManager").GetComponent<ChatManager>();
+        ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
+        h.Add("Teams", chat.PlayerTeams);
+        PhotonNetwork.CreateRoom(PhotonNetwork.playerName + "Room", new RoomOptions() { CustomRoomProperties = h, MaxPlayers = System.Convert.ToByte(chat.PlayerTeams.Count) }, null);
         //Debug.Log(_roomSize + _mapLabel + _gameMode + _visibility);
         //PhotonNetwork.LoadLevel(_mapLabel);
         //PhotonNetwork.LoadLevel("Sandbox");

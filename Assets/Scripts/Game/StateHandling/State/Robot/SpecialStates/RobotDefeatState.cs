@@ -26,9 +26,10 @@ public class RobotDefeatState : RobotState {
         Transform robot = robotStateMachine.PlayerController.transform;
 
         try {
+            string color = GameObject.Find("GameManager").GetComponent<NetworkGameManager>().Color.ToString();
             GameObject robotRemains =
                 PhotonNetwork.Instantiate(
-                    "RobotRemains", 
+                    color+"Remains", 
                     robot.transform.position, 
                     robot.transform.rotation, 
                     0
