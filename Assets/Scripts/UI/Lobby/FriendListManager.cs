@@ -12,6 +12,8 @@ public class FriendListManager : MonoBehaviour {
     public Color OnlineColor = Color.cyan;
     public Color OfflineColor = Color.gray;
 
+    public Text NewFriend = null;
+
     public Dictionary<string, GameObject> FriendList = new Dictionary<string, GameObject>();
 
     // Use this for initialization
@@ -66,7 +68,7 @@ public class FriendListManager : MonoBehaviour {
     // Add a friend to PlayerPrefs
     public void AddFriend()
     {
-        string name = transform.Find("InputField/Text").GetComponent<Text>().text;
+        string name = this.NewFriend.text;
         AddFriendByName(name);
         
     }
