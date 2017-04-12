@@ -13,35 +13,27 @@ public class TargetManager : MonoBehaviour {
     // Player references
     public List<GameObject> opponents;
 	public GameObject currentTarget = null;
+	public string ownTeam;
 
 
-    // Stores a static instance of this target manager to access it from anywhere at anytime
-    void Awake ()
-    {
-        DontDestroyOnLoad(this);
-    }
-
-    // Initializes members
-    public void Start()
-    {
-        opponents = new List<GameObject>();
-    }
-
-	// Adds an opponent to the array Opponents
-	public void AddOpponent(GameObject opponent)
+	private void updateOpponents()
 	{
-		opponents.Add(opponent);
-	}
+		ownTeam = gameObject.GetComponent<PlayerController> ().Team;
 
-	// Removes an opponent to the array Opponents
-	public void RemoveOpponent(GameObject opponent)
-	{
-		opponents.Remove(opponent);
+		foreach(KeyValuePair<int,RobotStateMachine> pair in GameManager.Instance.AlivePlayerList)
+		{
+			if (pair.Value.PlayerController.Team != ownTeam) {
+				opponents.Add (pair.Value.gameObject);
+			}
+		}
+
 	}
 
     // TODO : Multiple ennemy focus - Gets nearest opponent to focus
 	public GameObject updateNearestOpponent()
 	{
+		updateOpponents ();
+
 		if (opponents.Count > 0) {
 			
 			float minDistance = Mathf.Infinity;

@@ -4,6 +4,8 @@ using System.Reflection;
 using System;
 
 public class PlayerController : Photon.MonoBehaviour {
+
+	public bool isAI = false;
     public const string Opponent = "Opponent";
     public const string Player = "Player";
     public Color PlayerColor = Color.blue;
@@ -11,6 +13,7 @@ public class PlayerController : Photon.MonoBehaviour {
 	public int powerRecoverySpeed = 5;
 	public float timeBetweenPowerRecovery = 1.0f;
 
+	public string Team;
     public int ID { get; protected set; }
     public RobotStateMachine RobotStateMachine { get; protected set; }
 
@@ -29,6 +32,7 @@ public class PlayerController : Photon.MonoBehaviour {
 
 
     void Awake() {
+		isAI = NetworkGameManager.instantiateAI;
         this.Initialize();
         this.AddPlayerToGame();
     }
@@ -42,7 +46,7 @@ public class PlayerController : Photon.MonoBehaviour {
 
     protected virtual void SetEntity() {
 		
-		if (GameManager.Instance.LocalPlayer != null  || !photonView.isMine) {
+		if (GameManager.Instance.LocalPlayer != null  || isAI || !photonView.isMine) {
 			this.SetOpponent();
         } else {
             this.SetPlayer();
@@ -108,7 +112,7 @@ public class PlayerController : Photon.MonoBehaviour {
         /*this.GetComponentInChildren<MeshRenderer>().material.color =
              this.OpponentColor;*/
         this.OpponentInfo = this.Canvas.transform.GetChild(0).gameObject;
-		if (gameObject.GetComponent<AI> () != null) {
+		if (isAI && PhotonNetwork.isMasterClient) {
 			StartCoroutine(recoverPower());
 		}
     }

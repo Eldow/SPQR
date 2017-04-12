@@ -94,48 +94,47 @@ public class AI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (targetManager.currentTarget != null) {
-            //updating environment
+			//updating environment
 			r = robotHealth.Health;
 			power = robotPower.Power;
 			r1 = ennemyHealth.Health;
-			if(health != r){
-				Learn(true);
+			if (health != r) {
+				Learn (true);
 				health = r;
 			}
-			if(ennemyHealth_ != r1){
-				Learn(false);
+			if (ennemyHealth_ != r1) {
+				Learn (false);
 				ennemyHealth_ = r1;
 			}
-			distanceToOpponent = Vector3.Distance(gameObject.transform.position,targetManager.currentTarget.transform.position);
+			distanceToOpponent = Vector3.Distance (gameObject.transform.position, targetManager.currentTarget.transform.position);
 			//chose action
-			for(i=0 ; i<1 ;i++){
+			for (i = 0; i < 1; i++) {
 				//1st action priority : attack
-				if(distanceToOpponent > genome.dna[2].GetBorderLow() && distanceToOpponent < genome.dna[2].GetBorderUp()){
+				if (distanceToOpponent > genome.dna [2].GetBorderLow () && distanceToOpponent < genome.dna [2].GetBorderUp ()) {
 					
-					f = SetActionForce(2,distanceToOpponent);
-					Debug.Log(f);
-					rand = Random.Range(0f,1f);
-					if (f > rand){
-						if(allowAction){
+					f = SetActionForce (2, distanceToOpponent);
+					Debug.Log (f);
+					rand = Random.Range (0f, 1f);
+					if (f > rand) {
+						if (allowAction) {
 							inputManager.attackButtonAI = true;
-							Invoke("StopButtonAttack",0.1f);
+							Invoke ("StopButtonAttack", 0.1f);
 							allowAction = false;
-							Invoke("SetLatency",0.2f);
+							Invoke ("SetLatency", 0.2f);
 							break;
 						}
-					}
-					else{
+					} else {
 						//2nd action priority : block
-						if(distanceToOpponent > genome.dna[3].GetBorderLow() && distanceToOpponent < genome.dna[3].GetBorderUp()){
-							f = SetActionForce(3,distanceToOpponent);
-							rand = Random.Range(0f,1f);
-							if (f > rand){
-								if(allowAction){
-									if(!inputManager.blockButtonAI){
+						if (distanceToOpponent > genome.dna [3].GetBorderLow () && distanceToOpponent < genome.dna [3].GetBorderUp ()) {
+							f = SetActionForce (3, distanceToOpponent);
+							rand = Random.Range (0f, 1f);
+							if (f > rand) {
+								if (allowAction) {
+									if (!inputManager.blockButtonAI) {
 										inputManager.blockButtonAI = true;
-										Invoke("StopButtonBlock",1f);
+										Invoke ("StopButtonBlock", 1f);
 										allowAction = false;
-										Invoke("SetLatency",0.2f);
+										Invoke ("SetLatency", 0.2f);
 										break;
 									}
 								}
@@ -144,27 +143,28 @@ public class AI : MonoBehaviour {
 					}
 				}
 				//3rd action priority : walk
-				if(distanceToOpponent > genome.dna[1].GetBorderLow() && distanceToOpponent < genome.dna[1].GetBorderUp()){
-					f = SetActionForce(1,distanceToOpponent);
-					rand = Random.Range(0f,1f);
-					if (rand < f){
-						inputManager.moveForwardSpeedAI = -1.5f + (3*Mathf.Sqrt((100f-power)/100f));
-						Invoke("StopMove",1.2f);
+				if (distanceToOpponent > genome.dna [1].GetBorderLow () && distanceToOpponent < genome.dna [1].GetBorderUp ()) {
+					f = SetActionForce (1, distanceToOpponent);
+					rand = Random.Range (0f, 1f);
+					if (rand < f) {
+						inputManager.moveForwardSpeedAI = -1.5f + (3 * Mathf.Sqrt ((100f - power) / 100f));
+						Invoke ("StopMove", 1.2f);
 						break;
-					}
-					else{
+					} else {
 						// 4th action priority : idle
 						// if(distanceToOpponent > genome.dna[0].GetBorderLow() && distanceToOpponent < genome.dna[0].GetBorderUp()){
-							// f = SetActionForce(distanceToOpponent);
-							// rand = Random.Range(0f,1f);
-							// if (rand < f){
-								// pc.RobotStateMachine.SetState(new RobotIdleState());
-							// }
+						// f = SetActionForce(distanceToOpponent);
+						// rand = Random.Range(0f,1f);
+						// if (rand < f){
+						// pc.RobotStateMachine.SetState(new RobotIdleState());
+						// }
 						// }
 					}
 				}
 			}
-        }
+		} else {
+			targetManager.updateNearestOpponent ();
+		}
 	
 	}
 }

@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public class NetworkGameManager : Photon.PunBehaviour {
-
+	public static bool instantiateAI = false;
 	public GameObject AIPrefab;
     public GameObject PlayerPrefab;
     protected GameObject PlayerAvatar;
@@ -24,7 +24,9 @@ public class NetworkGameManager : Photon.PunBehaviour {
 			Color = (PlayerColors)Team;
 			robotPrefabName = Color.ToString () + "Robot";
 		} else {
-			robotPrefabName = "Robot";
+			robotPrefabName = PlayerColors.White.ToString () + "Robot";
+			PlayerTeams =  new Dictionary<string, int>();
+			PlayerTeams.Add("Bot1", 2);
 		}
 
         Debug.Log(robotPrefabName);
@@ -33,18 +35,32 @@ public class NetworkGameManager : Photon.PunBehaviour {
             Vector3.left * (PhotonNetwork.room.PlayerCount * 2), 
             Quaternion.identity, 0
         );
+		localPlayer.GetComponent<PlayerController> ().Team = Color.ToString ();
 
-        foreach(string key in PlayerTeams.Keys)
-        {
-            if (key.Contains("Bot"))
-            {
-                //Instantiate bots here
-                Debug.Log(key);
-            }
-        }
+		GameManager.Instance.LocalPlayer 
+		= localPlayer.GetComponent<PlayerController>();
 
-        GameManager.Instance.LocalPlayer 
-            = localPlayer.GetComponent<PlayerController>();
+		//INSTANTIATE AIs
+		instantiateAI = true;
+		if (PlayerTeams != null) {
+			foreach (string key in PlayerTeams.Keys) {
+				if (key.Contains ("Bot")) {
+					string team = ((PlayerColors)PlayerTeams [key]).ToString ();
+					robotPrefabName = team + "Robot";
+
+					GameObject temp = PhotonNetwork.Instantiate (
+						                  robotPrefabName, 
+						                  Vector3.left * (PhotonNetwork.room.PlayerCount * 2), 
+						                  Quaternion.identity, 0
+					                  );
+					temp.AddComponent<AI> ();
+					temp.AddComponent<AIFocus> ();
+					temp.transform.name = key + " " + robotPrefabName;
+					temp.GetComponent<PlayerController> ().Team = team;
+				}
+			}
+		}
+		instantiateAI = false;
     }
 
     public override void OnLeftRoom() {
