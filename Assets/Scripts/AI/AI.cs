@@ -39,6 +39,8 @@ public class AI : MonoBehaviour {
 		ennemyHealth_ = ennemyHealth.Health;
 		r1 = ennemyHealth_;
 
+		targetManager.updateNearestOpponent ();
+
 	}
 	
 	void Learn (bool b) {

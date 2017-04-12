@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 114558707029635774}
   - component: {fileID: 114969008695928568}
   - component: {fileID: 114217735723851946}
+  - component: {fileID: 114531342416786834}
   - component: {fileID: 114917408621014632}
   m_Layer: 9
   m_Name: RedRobot
@@ -3252,6 +3253,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6083cfc47953e5498aa7deec01f5f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114531342416786834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1062140730195602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17333a9b44397fb419937f34eb58b1f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opponents: []
+  player: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114533273232159696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3352,6 +3367,7 @@ MonoBehaviour:
   inputManager: {fileID: 0}
   Shield: {fileID: 0}
   Lightnings: {fileID: 0}
+  TargetManager: {fileID: 0}
 --- !u!114 &114775320539047524
 MonoBehaviour:
   m_ObjectHideFlags: 1

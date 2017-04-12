@@ -638,13 +638,14 @@ GameObject:
   - component: {fileID: 114571221538637962}
   - component: {fileID: 114226146591125334}
   - component: {fileID: 82790848353931964}
-  - component: {fileID: 114338728368144632}
-  - component: {fileID: 114933221315091176}
-  - component: {fileID: 114162090326630216}
   - component: {fileID: 114638386154547090}
   - component: {fileID: 114999507820983386}
   - component: {fileID: 114272918738513984}
   - component: {fileID: 114744969335900378}
+  - component: {fileID: 114387122519743958}
+  - component: {fileID: 114338728368144632}
+  - component: {fileID: 114933221315091176}
+  - component: {fileID: 114162090326630216}
   m_Layer: 9
   m_Name: AIRobot
   m_TagString: Opponent
@@ -3164,6 +3165,9 @@ MonoBehaviour:
   Canvas: {fileID: 0}
   OpponentInfo: {fileID: 0}
   inputManager: {fileID: 0}
+  Shield: {fileID: 0}
+  Lightnings: {fileID: 0}
+  TargetManager: {fileID: 0}
 --- !u!114 &114153365127453734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3228,6 +3232,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 0
     Name: RobotPowerAttackState
+  - Type: 9
+    SynchronizeType: 0
+    Name: RobotDischargeState
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
@@ -3401,6 +3408,19 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &114387122519743958
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1790823910210588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17333a9b44397fb419937f34eb58b1f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opponents: []
+  currentTarget: {fileID: 0}
 --- !u!114 &114571221538637962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3425,6 +3445,8 @@ MonoBehaviour:
   RunCap: 10
   WalkCap: 1
   MaximumSpeed: 300
+  IsDischarged: 0
+  PokeMagnitude: 100
 --- !u!114 &114638386154547090
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3447,6 +3469,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d618b3cf9946524fbc22a941eca3f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackButtonAI: 0
+  blockButtonAI: 0
+  moveForwardSpeedAI: 0
 --- !u!114 &114752172363689752
 MonoBehaviour:
   m_ObjectHideFlags: 1

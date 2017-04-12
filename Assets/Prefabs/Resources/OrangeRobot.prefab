@@ -403,6 +403,7 @@ GameObject:
   - component: {fileID: 114394149723449814}
   - component: {fileID: 114736853800437322}
   - component: {fileID: 114532053479291384}
+  - component: {fileID: 114443010648259576}
   - component: {fileID: 114860001281075466}
   m_Layer: 9
   m_Name: OrangeRobot
@@ -3330,6 +3331,20 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &114443010648259576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1448357254194948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17333a9b44397fb419937f34eb58b1f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opponents: []
+  player: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114532053479291384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3407,6 +3422,7 @@ MonoBehaviour:
   inputManager: {fileID: 0}
   Shield: {fileID: 0}
   Lightnings: {fileID: 0}
+  TargetManager: {fileID: 0}
 --- !u!114 &114804605028682296
 MonoBehaviour:
   m_ObjectHideFlags: 1

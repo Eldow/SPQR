@@ -160,6 +160,7 @@ public abstract class FollowTarget : MonoBehaviour {
     }
 
     protected void UpdateOpponent() {
+
 		GameObject opponent = this.PlayerController.TargetManager.updateNearestOpponent ();
         if (opponent == null) return;
 

@@ -156,7 +156,7 @@ public class PlayerController : Photon.MonoBehaviour {
             stream.SendNext(this.PlayerPower.Power);
         } else {
             this.PlayerHealth.Health = (int)stream.ReceiveNext();
-            this.PlayerPower.Power = (int)stream.ReceiveNext();
+            this.PlayerPower.Power = (float)stream.ReceiveNext();
         }
     }
 }

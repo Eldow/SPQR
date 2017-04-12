@@ -12,7 +12,6 @@ public class TargetManager : MonoBehaviour {
 
     // Player references
     public List<GameObject> opponents;
-	public GameObject player;
 	public GameObject currentTarget = null;
 
 
@@ -40,12 +39,6 @@ public class TargetManager : MonoBehaviour {
 		opponents.Remove(opponent);
 	}
 
-    // Sets the local player
-    public void SetPlayer(GameObject localPlayer)
-    {
-        player = localPlayer;
-    }
-    
     // TODO : Multiple ennemy focus - Gets nearest opponent to focus
 	public GameObject updateNearestOpponent()
 	{
@@ -54,7 +47,7 @@ public class TargetManager : MonoBehaviour {
 			float minDistance = Mathf.Infinity;
 			int minIndex = 0;
 			for (int i = 0; i < opponents.Count; i++) {
-				float currentDist = Vector3.Distance (opponents [i].transform.position, player.transform.position);
+				float currentDist = Vector3.Distance (opponents [i].transform.position, transform.position);
 				if (currentDist < minDistance) {
 					minDistance = currentDist;
 					minIndex = i;
