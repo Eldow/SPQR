@@ -24,6 +24,9 @@ public class AI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		if (!PhotonNetwork.isMasterClient)
+			Destroy (this.GetComponent<AI> ());
+
 		genome = new Genome();
 		PlayerController pc = gameObject.GetComponent<PlayerController> ();
 		stateMachine = pc.RobotStateMachine;

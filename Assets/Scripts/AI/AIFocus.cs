@@ -6,6 +6,8 @@ public class AIFocus : MonoBehaviour {
 
 	
 	void Start() {
+		if (!PhotonNetwork.isMasterClient)
+			Destroy (this.GetComponent<AIFocus> ());
 		targetManager = gameObject.GetComponent<PlayerController> ().TargetManager;
 	}
 	

@@ -41,26 +41,28 @@ public class NetworkGameManager : Photon.PunBehaviour {
 		= localPlayer.GetComponent<PlayerController>();
 
 		//INSTANTIATE AIs
-		instantiateAI = true;
-		if (PlayerTeams != null) {
-			foreach (string key in PlayerTeams.Keys) {
-				if (key.Contains ("Bot")) {
-					string team = ((PlayerColors)PlayerTeams [key]).ToString ();
-					robotPrefabName = team + "Robot";
+		if (PhotonNetwork.isMasterClient || PhotonNetwork.offlineMode) {
+			instantiateAI = true;
+			if (PlayerTeams != null) {
+				foreach (string key in PlayerTeams.Keys) {
+					if (key.Contains ("Bot")) {
+						string team = ((PlayerColors)PlayerTeams [key]).ToString ();
+						robotPrefabName = team + "Robot";
 
-					GameObject temp = PhotonNetwork.Instantiate (
-						                  robotPrefabName, 
-						                  Vector3.left * (PhotonNetwork.room.PlayerCount * 2), 
-						                  Quaternion.identity, 0
-					                  );
-					temp.AddComponent<AI> ();
-					temp.AddComponent<AIFocus> ();
-					temp.transform.name = key + " " + robotPrefabName;
-					temp.GetComponent<PlayerController> ().Team = team;
+						GameObject temp = PhotonNetwork.Instantiate (
+							                 robotPrefabName, 
+							                 Vector3.left * (PhotonNetwork.room.PlayerCount * 2), 
+							                 Quaternion.identity, 0
+						                 );
+						temp.AddComponent<AI> ();
+						temp.AddComponent<AIFocus> ();
+						temp.transform.name = key + " " + robotPrefabName;
+						temp.GetComponent<PlayerController> ().Team = team;
+					}
 				}
 			}
+			instantiateAI = false;
 		}
-		instantiateAI = false;
     }
 
     public override void OnLeftRoom() {
