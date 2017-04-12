@@ -16,13 +16,17 @@ public class NetworkGameManager : Photon.PunBehaviour {
 		
         if (!PhotonNetwork.connected) return;
         object teams;
+		string robotPrefabName;
 		if (!PhotonNetwork.offlineMode) {
 			PhotonNetwork.room.CustomProperties.TryGetValue ("Teams", out teams);
 			PlayerTeams = (Dictionary<string, int>)teams;
 			Team = PlayerTeams [PhotonNetwork.playerName];
 			Color = (PlayerColors)Team;
+			robotPrefabName = Color.ToString () + "Robot";
+		} else {
+			robotPrefabName = "Robot";
 		}
-		string robotPrefabName = Color.ToString() + "Robot";
+
         Debug.Log(robotPrefabName);
         GameObject localPlayer = PhotonNetwork.Instantiate(
             robotPrefabName, 
