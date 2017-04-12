@@ -430,7 +430,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
             chatEntry.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             chatEntry.GetComponent<Text>().text = playerName + " has joined the room.";
         }
-        GameObject newPlayer = Instantiate(PlayerEntry, MatchmakingPanel.transform.FindChild("PlayerList"));
+        GameObject newPlayer = Instantiate(PlayerEntry, MatchmakingPanel.transform.FindChild("PlayerListContainer/PlayerList"));
         newPlayer.transform.FindChild("Text").GetComponent<Text>().text = playerName;
         newPlayer.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         PlayerList.Add(playerName, newPlayer);
@@ -503,7 +503,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     public void AddBot()
     {
         if (PlayerList.Count >= 8) return;
-        GameObject newBot = Instantiate(PlayerEntry, MatchmakingPanel.transform.FindChild("PlayerList"));
+        GameObject newBot = Instantiate(PlayerEntry, MatchmakingPanel.transform.FindChild("PlayerListContainer/PlayerList"));
         newBot.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         _botCount++;
         string playerName = "Bot" + _botCount;
