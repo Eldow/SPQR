@@ -7278,8 +7278,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -6.825, y: 0}
+  m_SizeDelta: {x: -13.65, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &479843386
 MonoBehaviour:
@@ -7913,7 +7913,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2004408037}
   m_HandleRect: {fileID: 2004408036}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -11791,10 +11791,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab3b26b57b7db748a525549eb78e836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FriendPrefab: {fileID: 1117905743414888, guid: 1554b9ccf6b111542bc3f58e6a64aa41,
+  FriendPrefab: {fileID: 1546147247742646, guid: 1554b9ccf6b111542bc3f58e6a64aa41,
     type: 2}
-  OnlineColor: {r: 0, g: 1, b: 1, a: 1}
-  OfflineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  OnlineColor: {r: 0.29411763, g: 0.5618661, b: 1, a: 1}
+  OfflineColor: {r: 0.63235295, g: 0.63235295, b: 0.63235295, a: 1}
   NewFriend: {fileID: 1052272204}
 --- !u!114 &1032239570
 MonoBehaviour:
