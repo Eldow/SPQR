@@ -34,8 +34,6 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update() {
-		Debug.Log (AlivePlayerList.Count);
-        
     }
 
     protected virtual void Initialize() {

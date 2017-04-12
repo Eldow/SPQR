@@ -12,7 +12,8 @@ TagManager:
   - CanvasBackground
   - Lightnings
   - Shield
-  - AI_Player
+  - Puppet
+  - CameraPuppet
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - 
   - Logic
   - IgnoreCameraClipping
-  - 
+  - Puppet
   - 
   - 
   - 
