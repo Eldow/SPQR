@@ -16,6 +16,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     private int _playerReadyCount = 0;
     private string _chatRoomName;
     private Dictionary<string, GameObject> _friendChannels = new Dictionary<string, GameObject>();
+    private int _botCount = 0;
 
     public GameObject FriendChatPanel;
     public GameObject ChatEntry;
@@ -91,6 +92,10 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         ClientChat.SetOnlineStatus(ChatUserStatus.Offline);
     }
 
+    public bool IsMaster()
+    {
+        return _chatRoomName.Contains(PhotonNetwork.playerName);
+    }
     /*
         Room Messages
     */
@@ -150,7 +155,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
             else if (message.ToString().Contains(":Ready") && isMaster)
             {
                 _playerReadyCount++;
-                if(_playerReadyCount == PlayerList.Keys.Count)
+                if(_playerReadyCount == PlayerList.Keys.Count - _botCount)
                 {
                     PhotonNetwork.LoadLevel("Sandbox");
                 }
@@ -199,6 +204,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         PlayerTeams.Clear();
         PlayerList.Clear();
         _playerReadyCount = 0;
+        _botCount = 0;
         EnterChatRoom(_chatRoomName);
     }
 
@@ -264,13 +270,14 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
 
     public void SendRoomInvitation()
     {
+        if (PlayerList.Count >= 8) return;
         string friendName;
         GameObject button = EventSystem.current.currentSelectedGameObject;
         friendName = button.transform.parent.FindChild("Name").GetComponent<Text>().text;
 
         string channelName = GetChannelName(new string[] { friendName, PhotonNetwork.playerName });
-        if(_friendChannels.ContainsKey(channelName))
-            ClientChat.PublishMessage(channelName, PhotonNetwork.playerName + ":Room");
+        ShowPanel(friendName);
+        ClientChat.PublishMessage(channelName, PhotonNetwork.playerName + ":Room");
     }
 
     public void ClosePanel()
@@ -415,6 +422,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     */
     public void AddPlayerEntry(string playerName, bool verbose)
     {
+        if (PlayerList.Count >= 8) return;
         if (verbose)
         {
             GameObject panel = MatchmakingPanel.transform.FindChild("RoomChatPanel").gameObject;
@@ -483,6 +491,26 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     public void SendModifyTeam(int team)
     {
         ClientChat.PublishMessage(_chatRoomName, PhotonNetwork.playerName + ":Team:" + team.ToString());
+    }
+
+    public void SendModifyBot(string botName, int team)
+    {
+        ClientChat.PublishMessage(_chatRoomName, botName + ":Team:" + team.ToString());
+    }
+    /*
+        Bots
+    */
+    public void AddBot()
+    {
+        if (PlayerList.Count >= 8) return;
+        GameObject newBot = Instantiate(PlayerEntry, MatchmakingPanel.transform.FindChild("PlayerList"));
+        newBot.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        _botCount++;
+        string playerName = "Bot" + _botCount;
+        newBot.transform.FindChild("Text").GetComponent<Text>().text = playerName;
+        PlayerList.Add(playerName, newBot);
+        PlayerTeams.Add(playerName, 1);
+        SendPlayerList(_chatRoomName);
     }
 
     // Modify color and update list

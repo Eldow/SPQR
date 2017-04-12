@@ -53,10 +53,22 @@ public class PlayerColorSwitch : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!transform.parent.FindChild("Text").GetComponent<Text>().text.Equals(PhotonNetwork.playerName)) return;
+        bool isBot = false;
+        ChatManager chat = GameObject.Find("ChatManager").GetComponent<ChatManager>();
+        string text = transform.parent.FindChild("Text").GetComponent<Text>().text;
+
+        if (chat.IsMaster() && text.Contains("Bot")) isBot = true;
+        if (!text.Equals(PhotonNetwork.playerName) && !isBot) return;
+
         _index++;
         if (_index > 8) _index = 1;
         SetPlayerColor(_index);
-        GameObject.Find("ChatManager").GetComponent<ChatManager>().SendModifyTeam(_index);
+        if (!isBot)
+        {
+            chat.SendModifyTeam(_index);
+        } else
+        {
+            chat.SendModifyBot(text, _index);
+        }
     }
 }

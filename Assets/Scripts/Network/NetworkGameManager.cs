@@ -34,6 +34,15 @@ public class NetworkGameManager : Photon.PunBehaviour {
             Quaternion.identity, 0
         );
 
+        foreach(string key in PlayerTeams.Keys)
+        {
+            if (key.Contains("Bot"))
+            {
+                //Instantiate bots here
+                Debug.Log(key);
+            }
+        }
+
         GameManager.Instance.LocalPlayer 
             = localPlayer.GetComponent<PlayerController>();
     }
