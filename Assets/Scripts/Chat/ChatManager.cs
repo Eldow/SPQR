@@ -500,6 +500,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     public void AddBot()
     {
         GameObject newBot = Instantiate(PlayerEntry, MatchmakingPanel.transform.FindChild("PlayerList"));
+        newBot.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         _botCount++;
         string playerName = "Bot" + _botCount;
         newBot.transform.FindChild("Text").GetComponent<Text>().text = playerName;
