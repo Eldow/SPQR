@@ -204,6 +204,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         PlayerTeams.Clear();
         PlayerList.Clear();
         _playerReadyCount = 0;
+        _botCount = 0;
         EnterChatRoom(_chatRoomName);
     }
 
@@ -269,6 +270,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
 
     public void SendRoomInvitation()
     {
+        if (PlayerList.Count >= 8) return;
         string friendName;
         GameObject button = EventSystem.current.currentSelectedGameObject;
         friendName = button.transform.parent.FindChild("Name").GetComponent<Text>().text;
@@ -420,6 +422,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     */
     public void AddPlayerEntry(string playerName, bool verbose)
     {
+        if (PlayerList.Count >= 8) return;
         if (verbose)
         {
             GameObject panel = MatchmakingPanel.transform.FindChild("RoomChatPanel").gameObject;
@@ -499,6 +502,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     */
     public void AddBot()
     {
+        if (PlayerList.Count >= 8) return;
         GameObject newBot = Instantiate(PlayerEntry, MatchmakingPanel.transform.FindChild("PlayerList"));
         newBot.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         _botCount++;
