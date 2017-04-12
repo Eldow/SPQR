@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     public PlayerController LocalPlayer = null;
 
     public RoundTimer Timer = null;
-    public ScoreManager ScoreModule = null;
+    //public ScoreManager ScoreModule = null;
 
     public Dictionary<int, RobotStateMachine> PlayerList
         { get; protected set; }
@@ -25,8 +25,6 @@ public class GameManager : MonoBehaviour {
         }
         else {
           this.Timer = TaggedTimer.GetComponent<RoundTimer>();
-          if (this.Timer == null) Debug.Log("Merde");
-          else Debug.Log("Yeah");
         }
     }
 
@@ -51,11 +49,11 @@ public class GameManager : MonoBehaviour {
 
     void Update() {
 
-        while (!IsGameOver()) {
+        /*while (!IsGameOver()) {
             if (Timer.remainingTime == 0) {
                endRoundWithTimer();
             }
-        }
+        }*/
     }
 
     protected void endRoundWithTimer(){
@@ -79,7 +77,7 @@ public class GameManager : MonoBehaviour {
     protected virtual void Initialize() {
         this.AlivePlayerList = new Dictionary<int, RobotStateMachine>();
         this.PlayerList = new Dictionary<int, RobotStateMachine>();
-        this.ScoreModule = this.gameObject.AddComponent<ScoreManager>();
+        //this.ScoreModule = this.gameObject.AddComponent<ScoreManager>();
     }
 
     public virtual void RemovePlayerFromGame(int playerID) {

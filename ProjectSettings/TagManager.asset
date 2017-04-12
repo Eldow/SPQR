@@ -12,6 +12,7 @@ TagManager:
   - CanvasBackground
   - Timer
   - Score
+  - Countdown
   layers:
   - Default
   - TransparentFX

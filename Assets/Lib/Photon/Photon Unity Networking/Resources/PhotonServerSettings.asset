@@ -41,4 +41,5 @@ MonoBehaviour:
   - RequestForPickupTimes
   - SendAnimations
   - ReceiveHit
+  - ClientNewCountdown
   DisableAutoOpenWizard: 1

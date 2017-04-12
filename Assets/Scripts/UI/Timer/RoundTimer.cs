@@ -22,8 +22,10 @@ using UnityEngine.UI;
 ///
 /// Based on this, you should be able to implement a synchronized timer for turns between players.
 /// </remarks>
-public class RoundTimer : MonoBehaviour
+public class RoundTimer : Photon.MonoBehaviour
 {
+    protected PhotonView PhotonView;
+
     public int SecondsPerRound;                     // time per round/turn (set in inspector)
     public double StartTime;                        // this should could also be a private. i just like to see this in inspector
     [HideInInspector] public float elapsedTime;
@@ -33,10 +35,20 @@ public class RoundTimer : MonoBehaviour
     private const string StartTimeKey = "st";       // the name of our "start time" custom property.
 
     public Text UITimerText;
+    public Countdown Countdown = null;
+    public bool CountdownCalled = false;
 
     private void Start(){
         UITimerText = GetComponent<Text>();
         UITimerText.text = "";
+
+        GameObject TaggedCd = GameObject.FindGameObjectWithTag("Countdown");
+        if (TaggedCd == null) {
+            Debug.LogError(this.GetType().Name + ": No Tagged Countdown script found!");
+        }
+        else {
+          this.Countdown = TaggedCd.GetComponent<Countdown>();
+        }
     }
 
     private void StartRoundNow()
@@ -62,14 +74,13 @@ public class RoundTimer : MonoBehaviour
     {
         if (PhotonNetwork.isMasterClient)
         {
-            //this.StartRoundNow();
+            this.StartRoundNow();
         }
         else
         {
             // as the creator of the room sets the start time after entering the room, we may enter a room that has no timer started yet
             Debug.Log("StartTime already set: " + PhotonNetwork.room.CustomProperties.ContainsKey(StartTimeKey));
         }
-        //UITimerText = GetComponent<Text>();
     }
 
     /// <summary>Called by PUN when new properties for the room were set (by any client in the room).</summary>
@@ -104,7 +115,11 @@ public class RoundTimer : MonoBehaviour
         }
         elapsedTime = (float)(PhotonNetwork.time - StartTime);
         remainingTime = Mathf.Max(Mathf.Ceil(SecondsPerRound - elapsedTime), 0);
-        Debug.Log(remainingTime);
+
+        if ((CountdownCalled)&&(!Countdown.isCountingDown)) {
+            this.StartRoundNow();
+            CountdownCalled = false;
+        }
     }
 
     public void OnGUI()
@@ -112,9 +127,16 @@ public class RoundTimer : MonoBehaviour
         // simple gui for output
         if (GUILayout.Button("new round"))
         {
-            this.StartRoundNow();
+            Countdown.NewCountdown();
+            CountdownCalled = true;
+            this.photonView.RPC("ClientNewCountdown", PhotonTargets.AllViaServer);
         }
 
         UITimerText.text = string.Format("{0:0}", remainingTime);
+    }
+
+    [PunRPC]
+    public void ClientNewCountdown(){
+      Countdown.NewCountdown();
     }
 }
