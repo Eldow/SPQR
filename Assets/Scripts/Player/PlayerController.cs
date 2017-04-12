@@ -25,6 +25,8 @@ public class PlayerController : Photon.MonoBehaviour {
 	[HideInInspector] public InputManager inputManager;
 	[HideInInspector] public GameObject Shield;
 	[HideInInspector] public GameObject Lightnings;
+	[HideInInspector] public TargetManager TargetManager;
+
 
     void Awake() {
         this.Initialize();
@@ -67,6 +69,8 @@ public class PlayerController : Photon.MonoBehaviour {
 		this.inputManager = gameObject.GetComponent<InputManager>();
 		this.Lightnings = transform.FindChild ("Lightnings").gameObject;
 		this.Shield = transform.FindChild ("Shield").gameObject;
+		this.TargetManager = gameObject.GetComponent<TargetManager>();
+
         RobotAutomaton robotAutomaton = this.GetComponent<RobotAutomaton>();
 
         if (robotAutomaton != null && 
@@ -84,7 +88,7 @@ public class PlayerController : Photon.MonoBehaviour {
         this.GetComponent<RobotAutomaton>().enabled = true;
         /*this.GetComponentInChildren<MeshRenderer>().material.color = 
             this.PlayerColor;*/
-        TargetManager.instance.SetPlayer(gameObject);
+        //TargetManager.instance.SetPlayer(gameObject);
         this.PlayerInfo = this.Canvas.transform.GetChild(1).gameObject;
         this.PlayerInfo.SetActive(true);
 		StartCoroutine(recoverPower());
@@ -100,7 +104,7 @@ public class PlayerController : Photon.MonoBehaviour {
 		
     protected virtual void SetOpponent() {
         this.SetTag(Opponent);
-        TargetManager.instance.AddOpponent(gameObject);
+        //TargetManager.instance.AddOpponent(gameObject);
         /*this.GetComponentInChildren<MeshRenderer>().material.color =
              this.OpponentColor;*/
         this.OpponentInfo = this.Canvas.transform.GetChild(0).gameObject;

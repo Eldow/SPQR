@@ -101,9 +101,7 @@ public abstract class FollowTarget : MonoBehaviour {
     }
 
     protected void TryToGetPlayerController() {
-        if (TargetManager.instance == null) return;
-
-        GameObject player = TargetManager.instance.player;
+		GameObject player = GameObject.FindGameObjectWithTag (PlayerController.Player);
 
         if (player == null) return;
 
@@ -162,8 +160,7 @@ public abstract class FollowTarget : MonoBehaviour {
     }
 
     protected void UpdateOpponent() {
-		TargetManager.instance.updateNearestOpponent();
-		GameObject opponent = TargetManager.instance.currentTarget;
+		GameObject opponent = this.PlayerController.TargetManager.updateNearestOpponent ();
         if (opponent == null) return;
 
         this.OpponentController = opponent.GetComponent<PlayerController>();

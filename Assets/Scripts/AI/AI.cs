@@ -5,7 +5,6 @@ using UnityEngine;
 public class AI : MonoBehaviour {
 
 	private float distanceToOpponent;
-	private GameObject player;
 	private int health;
 	private float power;
 	private int ennemyHealth_;
@@ -15,31 +14,31 @@ public class AI : MonoBehaviour {
 	private PlayerPower robotPower;
 	private PlayerHealth ennemyHealth;
 	private InputManager inputManager;
+	private TargetManager targetManager;
 	
 	//local registers
 	private bool allowAction = true;
 	private int r, r1,i;
 	private float f,f1,rand;
 
-	void FindPlayer() {
-		if (TargetManager.instance == null) return;
-        player = TargetManager.instance.player;
-	}
-	
+
 	// Use this for initialization
 	void Start () {
-		FindPlayer();
 		genome = new Genome();
-		stateMachine = gameObject.GetComponent<PlayerController>().RobotStateMachine;
-		robotHealth = gameObject.GetComponent<PlayerController>().PlayerHealth;
-		robotPower = gameObject.GetComponent<PlayerController>().PlayerPower;
-		ennemyHealth = player.GetComponent<PlayerController>().PlayerHealth;
+		PlayerController pc = gameObject.GetComponent<PlayerController> ();
+		stateMachine = pc.RobotStateMachine;
+		robotHealth = pc.PlayerHealth;
+		robotPower = pc.PlayerPower;
+		ennemyHealth = pc.PlayerHealth;
+		targetManager = pc.TargetManager;
+		inputManager = pc.inputManager;
+
 		health = robotHealth.Health;
 		power = robotHealth.Health;
 		r = health;
 		ennemyHealth_ = ennemyHealth.Health;
 		r1 = ennemyHealth_;
-		inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
+
 	}
 	
 	void Learn (bool b) {
@@ -92,7 +91,7 @@ public class AI : MonoBehaviour {
 	private int count = 0;
 	// Update is called once per frame
 	void Update () {
-		if (player != null) {
+		if (targetManager.currentTarget != null) {
             //updating environment
 			r = robotHealth.Health;
 			power = robotPower.Power;
@@ -105,7 +104,7 @@ public class AI : MonoBehaviour {
 				Learn(false);
 				ennemyHealth_ = r1;
 			}
-			distanceToOpponent = Vector3.Distance(gameObject.transform.position,player.transform.position);
+			distanceToOpponent = Vector3.Distance(gameObject.transform.position,targetManager.currentTarget.transform.position);
 			//chose action
 			for(i=0 ; i<1 ;i++){
 				//1st action priority : attack
@@ -157,15 +156,13 @@ public class AI : MonoBehaviour {
 							// f = SetActionForce(distanceToOpponent);
 							// rand = Random.Range(0f,1f);
 							// if (rand < f){
-								// gameObject.GetComponent<PlayerController>().RobotStateMachine.SetState(new RobotIdleState());
+								// pc.RobotStateMachine.SetState(new RobotIdleState());
 							// }
 						// }
 					}
 				}
 			}
         }
-		else {
-			FindPlayer();
-        }
+	
 	}
 }

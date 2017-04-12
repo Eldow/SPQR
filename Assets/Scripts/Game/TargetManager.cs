@@ -15,16 +15,10 @@ public class TargetManager : MonoBehaviour {
 	public GameObject player;
 	public GameObject currentTarget = null;
 
-    // Public static intance to the manager
-    public static TargetManager instance = null;
 
     // Stores a static instance of this target manager to access it from anywhere at anytime
     void Awake ()
     {
-        if(instance == null)
-        {
-            instance = this;
-        }
         DontDestroyOnLoad(this);
     }
 
@@ -53,7 +47,7 @@ public class TargetManager : MonoBehaviour {
     }
     
     // TODO : Multiple ennemy focus - Gets nearest opponent to focus
-	public void updateNearestOpponent()
+	public GameObject updateNearestOpponent()
 	{
 		if (opponents.Count > 0) {
 			
@@ -70,5 +64,7 @@ public class TargetManager : MonoBehaviour {
 		} else {
 			currentTarget = null;
 		}
+
+		return currentTarget;
 	}
 }

@@ -2,51 +2,57 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpponentPowerView : MonoBehaviour {
-    public float AnimationSpeed = 5f;
+public class OpponentPowerView : MonoBehaviour
+{
+	public float AnimationSpeed = 5f;
 
-    private PlayerController _target;
-    private float _startPosition = 0f;
-    private float _position;
+	private PlayerController _target;
+	private float _startPosition = 0f;
+	private float _position;
 	private bool calledOnce = false;
-    private RectTransform _rect;
+	private RectTransform _rect;
+	private TargetManager targetManager;
 
-	void OnEnable()
+	void OnEnable ()
 	{
 		if (!calledOnce) {
-			this._rect = GetComponent<RectTransform>();
+			this._rect = GetComponent<RectTransform> ();
 			this._startPosition = this._rect.anchoredPosition.y;
 			calledOnce = true;
+			targetManager = GameObject.FindGameObjectWithTag (PlayerController.Player).GetComponent<TargetManager> ();
 		}
-		this.UpdateTarget();
+		this.UpdateTarget ();
 	}
-		
-    void Update() {
 
-        if (this._target == null) return;
+	void Update ()
+	{
 
-        this._position = this._startPosition*(1.0f -
-            this._target.PlayerPower.Power/(float) PlayerPower.MaxPower);
+		if (this._target == null)
+			return;
 
-        this._rect.anchoredPosition = Vector3.Lerp(
-            this._rect.anchoredPosition,
-            new Vector3(
-                this._rect.anchoredPosition.x,
-                this._position
-            ),
-            Time.deltaTime*this.AnimationSpeed);
-    }
+		this._position = this._startPosition * (1.0f -
+		this._target.PlayerPower.Power / (float)PlayerPower.MaxPower);
 
-    protected virtual void UpdateTarget() {
+		this._rect.anchoredPosition = Vector3.Lerp (
+			this._rect.anchoredPosition,
+			new Vector3 (
+				this._rect.anchoredPosition.x,
+				this._position
+			),
+			Time.deltaTime * this.AnimationSpeed);
+	}
 
-		GameObject opponent = TargetManager.instance.currentTarget;
+	protected virtual void UpdateTarget ()
+	{
 
-        if (opponent == null) {
-            this._target = null;
+		GameObject opponent = targetManager.currentTarget;
 
-            return;
-        }
+		if (opponent == null) {
+			this._target = null;
 
-        this._target = opponent.GetComponent<PlayerController>();
-    }
+			return;
+		}
+
+		this._target = opponent.GetComponent<PlayerController> ();
+	}
 }

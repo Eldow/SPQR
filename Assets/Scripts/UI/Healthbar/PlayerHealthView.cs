@@ -10,11 +10,11 @@ public class PlayerHealthView : MonoBehaviour {
 
     void Start() {
         this._rect = GetComponent<RectTransform>();
-        this._target = 
-            TargetManager.instance.player.GetComponent<PlayerController>();
+		this._target = GameObject.FindGameObjectWithTag (PlayerController.Player).GetComponent<PlayerController> ();
         this._startRotation = this._rect.eulerAngles.z;
         this._rect.eulerAngles = 
             new Vector3(this._rect.eulerAngles.x, this._rect.eulerAngles.y, 0);
+		
     }
 
     void FixedUpdate() {
