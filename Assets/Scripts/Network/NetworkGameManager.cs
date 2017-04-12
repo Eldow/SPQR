@@ -55,5 +55,5 @@ public class NetworkGameManager : Photon.PunBehaviour {
 
 public enum PlayerColors
 {
-    White = 1, Black, Blue, Red, Green, Orange, Violet, Cyan
+    Gray, White, Black, Blue, Red, Green, Orange, Violet, Cyan
 }
