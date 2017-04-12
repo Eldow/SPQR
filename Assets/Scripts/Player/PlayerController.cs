@@ -21,7 +21,10 @@ public class PlayerController : Photon.MonoBehaviour {
     [HideInInspector] public Animator Animator = null;
     [HideInInspector] public GameObject PlayerInfo;
     [HideInInspector] public GameObject Canvas;
-    [HideInInspector] public GameObject OpponentInfo;
+	[HideInInspector] public GameObject OpponentInfo;
+	[HideInInspector] public InputManager inputManager;
+	[HideInInspector] public GameObject Shield;
+	[HideInInspector] public GameObject Lightnings;
 
     void Awake() {
         this.Initialize();
@@ -61,6 +64,9 @@ public class PlayerController : Photon.MonoBehaviour {
         this.ID = this.photonView.viewID;
         this.PlayerHealth = new PlayerHealth(this);
         this.PlayerPower = new PlayerPower(this);
+		this.inputManager = gameObject.GetComponent<InputManager>();
+		this.Lightnings = transform.FindChild ("Lightnings").gameObject;
+		this.Shield = transform.FindChild ("Shield").gameObject;
         RobotAutomaton robotAutomaton = this.GetComponent<RobotAutomaton>();
 
         if (robotAutomaton != null && 
@@ -98,6 +104,9 @@ public class PlayerController : Photon.MonoBehaviour {
         /*this.GetComponentInChildren<MeshRenderer>().material.color =
              this.OpponentColor;*/
         this.OpponentInfo = this.Canvas.transform.GetChild(0).gameObject;
+		if (gameObject.GetComponent<AI> () != null) {
+			StartCoroutine(recoverPower());
+		}
     }
 
     public virtual void UpdateAnimations(string animationName) {

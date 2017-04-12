@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class NetworkGameManager : Photon.PunBehaviour {
 
+	public GameObject AIPrefab;
     public GameObject PlayerPrefab;
     protected GameObject PlayerAvatar;
     protected PhotonView PhotonView;
@@ -12,13 +13,20 @@ public class NetworkGameManager : Photon.PunBehaviour {
     public PlayerColors Color;
 
     void Start() {
+		
         if (!PhotonNetwork.connected) return;
         object teams;
-        PhotonNetwork.room.CustomProperties.TryGetValue("Teams", out teams);
-        PlayerTeams = (Dictionary<string, int>) teams;
-        Team = PlayerTeams[PhotonNetwork.playerName];
-        Color = (PlayerColors)Team;
-        string robotPrefabName = Color.ToString() + "Robot";
+		string robotPrefabName;
+		if (!PhotonNetwork.offlineMode) {
+			PhotonNetwork.room.CustomProperties.TryGetValue ("Teams", out teams);
+			PlayerTeams = (Dictionary<string, int>)teams;
+			Team = PlayerTeams [PhotonNetwork.playerName];
+			Color = (PlayerColors)Team;
+			robotPrefabName = Color.ToString () + "Robot";
+		} else {
+			robotPrefabName = "Robot";
+		}
+
         Debug.Log(robotPrefabName);
         GameObject localPlayer = PhotonNetwork.Instantiate(
             robotPrefabName, 
@@ -47,5 +55,5 @@ public class NetworkGameManager : Photon.PunBehaviour {
 
 public enum PlayerColors
 {
-    White = 1, Black, Blue, Red, Green, Orange, Violet, Cyan
+    Gray, White, Black, Blue, Red, Green, Orange, Violet, Cyan
 }

@@ -25,7 +25,7 @@ public class RobotAttackState : RobotFramedState {
 			float angleBetweenRobots = Vector3.Angle (opponent.transform.forward, handleHit.transform.root.position - opponent.transform.position);
 
 			//ignore hit
-			if (opponent.RobotStateMachine.CurrentState is RobotBlockState && angleBetweenRobots > ((RobotBlockState)opponent.RobotStateMachine.CurrentState).shieldAngle)
+			if (opponent.RobotStateMachine.CurrentState is RobotBlockState && angleBetweenRobots < ((RobotBlockState)opponent.RobotStateMachine.CurrentState).shieldAngle)
 				return;
 
 			SendAudioHit (opponent.PlayerAudio);

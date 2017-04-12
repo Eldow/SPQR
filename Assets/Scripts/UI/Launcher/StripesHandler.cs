@@ -9,9 +9,11 @@ public class StripesHandler : MonoBehaviour {
     private Vector3 _lastPosition;
     private Vector3 _targetPosition;
     private Vector3 _velocity = Vector3.zero;
+	private InputManager inputs;
 
     // Use this for initialization
     void Start () {
+		inputs = gameObject.AddComponent<InputManager> () as InputManager;
         _stripes = new List<RectTransform>();
         _randVelocities = new List<float>();
         foreach (RectTransform child in GetComponentsInChildren<RectTransform>())
@@ -26,9 +28,9 @@ public class StripesHandler : MonoBehaviour {
         for (int i = 0; i < _stripes.Count ; i++)
         {
             _lastPosition = _stripes[i].localPosition;
-            if (Mathf.Abs(InputManager.cameraX()) > 0.1f)
+			if (Mathf.Abs(inputs.cameraX()) > 0.1f)
             {
-                _targetPosition = _stripes[i].localPosition + new Vector3(InputManager.cameraX() * _randVelocities[i] * 5f, 0, 0);
+				_targetPosition = _stripes[i].localPosition + new Vector3(inputs.cameraX() * _randVelocities[i] * 5f, 0, 0);
                 _stripes[i].localPosition = Vector3.SmoothDamp(_stripes[i].localPosition, _targetPosition, ref _velocity, _randVelocities[i] * Time.deltaTime);
             } else
             {

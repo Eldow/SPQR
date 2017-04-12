@@ -290,6 +290,7 @@ GameObject:
   - component: {fileID: 82820734429075430}
   - component: {fileID: 114572893332069766}
   - component: {fileID: 114302697889255748}
+  - component: {fileID: 114645895320960744}
   - component: {fileID: 114354923637332510}
   m_Layer: 9
   m_Name: GreenRobot
@@ -3160,6 +3161,9 @@ MonoBehaviour:
   PlayerInfo: {fileID: 0}
   Canvas: {fileID: 0}
   OpponentInfo: {fileID: 0}
+  inputManager: {fileID: 0}
+  Shield: {fileID: 0}
+  Lightnings: {fileID: 0}
 --- !u!114 &114224427254092746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3279,7 +3283,7 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: RobotPowerAttackState
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: RobotDischargeState
   m_SynchronizeLayers:
   - SynchronizeType: 1
@@ -3375,6 +3379,20 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &114645895320960744
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1321281073374952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d618b3cf9946524fbc22a941eca3f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackButtonAI: 0
+  blockButtonAI: 0
+  moveForwardSpeedAI: 0
 --- !u!114 &114675630228066968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3390,6 +3408,7 @@ MonoBehaviour:
   Animator: {fileID: 95086451621568898}
   PlayerController: {fileID: 114092382925466852}
   MaxHistorySize: 12
+  inputManager: {fileID: 0}
 --- !u!114 &114717565601805630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3516,7 +3535,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1695009272971794}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -6081,7 +6100,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1170493050243406}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

@@ -1,4 +1,7 @@
 ﻿using UnityEngine.SceneManagement;
+using UnityEngine;
+
+
 public class LauncherManager : Photon.PunBehaviour {
     public const string GameVersion = "0.09";
     public PhotonLogLevel Loglevel = PhotonLogLevel.Informational;
@@ -21,7 +24,7 @@ public class LauncherManager : Photon.PunBehaviour {
 
     public virtual void Local() {
         PhotonNetwork.offlineMode = true;
-        PhotonNetwork.CreateRoom("OfflineRoom");
+		PhotonNetwork.CreateRoom("OfflineRoom"+Random.Range(0,100000));
     }
 
     public virtual void Connect() {
@@ -61,6 +64,7 @@ public class LauncherManager : Photon.PunBehaviour {
     }
 
     public override void OnJoinedRoom() {
-        //PhotonNetwork.LoadLevel(this.LevelToLoad);
+		if(PhotonNetwork.offlineMode)
+        	PhotonNetwork.LoadLevel(this.LevelToLoad);
     }
 }

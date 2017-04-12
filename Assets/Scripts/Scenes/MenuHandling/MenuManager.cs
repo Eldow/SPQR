@@ -20,7 +20,6 @@ public class MenuManager : MonoBehaviour {
         if (launcherManager == null) return;
 
         this.SetNetworkingMenu();
-
         if (!isLocal) {
             launcherManager.Connect();
 
