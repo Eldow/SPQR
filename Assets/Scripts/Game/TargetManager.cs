@@ -39,10 +39,12 @@ public class TargetManager : MonoBehaviour {
 			float minDistance = Mathf.Infinity;
 			int minIndex = 0;
 			for (int i = 0; i < opponents.Count; i++) {
-				float currentDist = Vector3.Distance (opponents [i].transform.position, transform.position);
-				if (currentDist < minDistance) {
-					minDistance = currentDist;
-					minIndex = i;
+				if (opponents [i] != null) {
+					float currentDist = Vector3.Distance (opponents [i].transform.position, transform.position);
+					if (currentDist < minDistance) {
+						minDistance = currentDist;
+						minIndex = i;
+					}
 				}
 			}
 			currentTarget = opponents [minIndex];

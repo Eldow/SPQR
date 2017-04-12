@@ -4,6 +4,6 @@
  * attributes / methods necessary for it. */
 
 public class Automaton : MonoBehaviour {
-    [HideInInspector]
+
     public StateMachine StateMachine = null;
 }

@@ -118,6 +118,17 @@ public class GameManager : MonoBehaviour {
         }
     }
     protected virtual bool IsGameOver() {
-        return this.AlivePlayerList.Count <= 1;
+
+		string teamFound = null;
+		foreach(KeyValuePair<int,RobotStateMachine> pair in GameManager.Instance.AlivePlayerList)
+		{
+			if (pair.Value.PlayerController.Team != teamFound) {
+				if (teamFound == null)
+					teamFound = pair.Value.PlayerController.Team;
+				else
+					return false; // there are at least 2 different teams;
+			}
+		}
+		return true;
     }
 }

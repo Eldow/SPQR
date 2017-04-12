@@ -155,12 +155,16 @@ public class PlayerController : Photon.MonoBehaviour {
     }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-        if (stream.isWriting) {
-            stream.SendNext(this.PlayerHealth.Health);
-            stream.SendNext(this.PlayerPower.Power);
-        } else {
-            this.PlayerHealth.Health = (int)stream.ReceiveNext();
-            this.PlayerPower.Power = (float)stream.ReceiveNext();
-        }
+		if (stream.isWriting) {
+			stream.SendNext (this.PlayerHealth.Health);
+			stream.SendNext (this.PlayerPower.Power);
+			stream.SendNext (this.Team);
+			stream.SendNext (this.isAI);
+		} else {
+			this.PlayerHealth.Health = (int)stream.ReceiveNext ();
+			this.PlayerPower.Power = (float)stream.ReceiveNext ();
+			this.Team = (string)stream.ReceiveNext ();
+			this.isAI = (bool)stream.ReceiveNext ();
+		}
     }
 }
