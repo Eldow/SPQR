@@ -50,7 +50,7 @@
 
         PlayAudioEffect(robotStateMachine.PlayerController.PlayerAudio);
 
-        this.SetLightings(true);
+		this.SetLightings(stateMachine,true);
     }
 
     public override void Exit(StateMachine stateMachine) {
@@ -60,7 +60,7 @@
 
         robotStateMachine.Animator.speed = this.InitialSpeed;
 
-        this.SetLightings(false);
+		this.SetLightings(stateMachine,false);
     }
 
     protected override void SetSpeed(RobotStateMachine robotStateMachine) {

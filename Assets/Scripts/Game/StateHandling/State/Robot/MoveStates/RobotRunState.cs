@@ -5,18 +5,22 @@ public class RobotRunState : RobotState {
 
     public override State HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
+		
         RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
+		
+		InputManager inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
+		
         // to be removed when the magic will be working all the time!
-        if (InputManager.attackButton()) {
+        if (inputManager.attackButton()) {
             Debug.Log("Can't attack while running!");
             return null;
         }
 
-        if (InputManager.blockButton()) {
+        if (inputManager.blockButton()) {
             return new RobotBlockState();
         }
 
-        if (InputManager.dashButton()) {
+        if (inputManager.dashButton()) {
             return new RobotDashState();
         }
 
@@ -24,7 +28,7 @@ public class RobotRunState : RobotState {
             return new RobotIdleState();
         }
 
-        if (!InputManager.runButton()) {
+        if (!inputManager.runButton()) {
             return new RobotWalkState();
         }
 

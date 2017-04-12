@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
 public class PlayerPower {
-    public const int MaxPower = 100;
+    public const float MaxPower = 100;
 
     public PlayerController PlayerController { get; protected set; }
 
-    private int _power = PlayerPower.MaxPower;
+    private float _power = PlayerPower.MaxPower;
 
-    public int Power {
+    public float Power {
         get {
             return this._power;
         }

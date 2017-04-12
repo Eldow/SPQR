@@ -15,9 +15,10 @@ public class HandleHit : Photon.MonoBehaviour {
         this.HandlePlayer(other);
     }
 
+
     protected virtual bool CheckIfValid() {
-        return this.photonView.isMine && 
-            this.transform.root.CompareTag(PlayerController.Player);
+		return this.photonView.isMine &&
+		this.transform.root.CompareTag (PlayerController.Player) || this.transform.root.GetComponent<AI> () != null;
     }
 
     protected virtual void HandleOpponent(Collision other) {
@@ -88,8 +89,22 @@ public class HandleHit : Photon.MonoBehaviour {
     }
 
     protected virtual void HandlePlayer(Collision other) {
-        if (!other.transform.root.CompareTag(PlayerController.Player)) return;
-    }
+		if (!PhotonNetwork.offlineMode)
+			return;
+
+		if (!other.transform.root.CompareTag (PlayerController.Player)) {
+			return;
+		}
+		if (!(this.PlayerController.RobotStateMachine.CurrentState is 
+			RobotAttackState)) {
+			return;
+		}
+		RobotAttackState robotAttackState = 
+			(RobotAttackState)this.PlayerController.RobotStateMachine
+				.CurrentState;
+
+		robotAttackState.HandleAttack (this, other);
+	}
 
     protected virtual void SendHitstun(PlayerController who, int hitstun) {
 		if(who!=null)

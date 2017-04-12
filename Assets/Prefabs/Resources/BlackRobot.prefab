@@ -828,6 +828,7 @@ GameObject:
   - component: {fileID: 82584572480203160}
   - component: {fileID: 114604503868797970}
   - component: {fileID: 114903976471468684}
+  - component: {fileID: 114908520735258194}
   - component: {fileID: 114649678462893506}
   m_Layer: 9
   m_Name: BlackRobot
@@ -3198,6 +3199,9 @@ MonoBehaviour:
   PlayerInfo: {fileID: 0}
   Canvas: {fileID: 0}
   OpponentInfo: {fileID: 0}
+  inputManager: {fileID: 0}
+  Shield: {fileID: 0}
+  Lightnings: {fileID: 0}
 --- !u!114 &114174816867857910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3306,6 +3310,7 @@ MonoBehaviour:
   Animator: {fileID: 95510971705794962}
   PlayerController: {fileID: 114138884202716648}
   MaxHistorySize: 12
+  inputManager: {fileID: 0}
 --- !u!114 &114470352854107922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3451,7 +3456,7 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: RobotPowerAttackState
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: RobotDischargeState
   m_SynchronizeLayers:
   - SynchronizeType: 1
@@ -3484,6 +3489,20 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114908520735258194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1893447826120438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d618b3cf9946524fbc22a941eca3f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackButtonAI: 0
+  blockButtonAI: 0
+  moveForwardSpeedAI: 0
 --- !u!135 &135492064314971116
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -3516,7 +3535,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1708165621664618}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -6081,7 +6100,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1276189810071190}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

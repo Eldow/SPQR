@@ -11,6 +11,8 @@
         if (!(stateMachine is RobotStateMachine)) return null;
 
         RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
+		
+		InputManager inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
 
         this.ResumeNormalAnimation(robotStateMachine);
 
@@ -25,11 +27,12 @@
             return new RobotIdleState();
         }
 
+
         if (this.IsDischarge(robotStateMachine)) {
             return new RobotDischargeState();
         }
-
-        if (InputManager.attackButton()) {
+			
+        if (inputManager.attackButton()) {
             return new RobotAttack1State();
         }
 
@@ -57,9 +60,10 @@
 
     public override void Exit(StateMachine stateMachine) {}
 
-    public override RobotState CheckInterruptibleActions() {
-        if (InputManager.moveX() > .02f || InputManager.moveY() > .02f) {
-            if (InputManager.runButton()) {
+    public override RobotState CheckInterruptibleActions(StateMachine stateMachine) {
+		InputManager inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
+        if (inputManager.moveX() > .02f || inputManager.moveY() > .02f) {
+            if (inputManager.runButton()) {
                 return new RobotRunState();
             }
 

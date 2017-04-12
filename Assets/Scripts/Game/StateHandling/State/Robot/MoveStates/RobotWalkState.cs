@@ -3,19 +3,22 @@
 public class RobotWalkState : RobotState {
     public override State HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
-        if (InputManager.attackButton()) {
+		
+		InputManager inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
+		
+        if (inputManager.attackButton()) {
             return new RobotAttack1State();
         }
 
-        if (InputManager.blockButton()) {
+        if (inputManager.blockButton()) {
             return new RobotBlockState();
         }
 
-        if (InputManager.dashButton()) {
+        if (inputManager.dashButton()) {
             return new RobotDashState();
         }
 
-        if (InputManager.powerAttackButtonDown()) {
+        if (inputManager.powerAttackButtonDown()) {
             return new RobotPowerAttackState();
         }
 
@@ -28,7 +31,7 @@ public class RobotWalkState : RobotState {
             return new RobotIdleState();
         }
 
-        if (InputManager.runButton()) {
+        if (inputManager.runButton()) {
             return new RobotRunState();
         }
 

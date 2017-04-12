@@ -31,7 +31,7 @@ public class RobotDischargeState : RobotAttackState {
 
 
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
-            RobotState newState = this.CheckInterruptibleActions();
+			RobotState newState = this.CheckInterruptibleActions(stateMachine);
 
             if (newState != null) return newState;
         }
@@ -71,7 +71,7 @@ public class RobotDischargeState : RobotAttackState {
 
         base.Enter(stateMachine);
 
-        this.SetLightings(true);
+		this.SetLightings(stateMachine,true);
         this.AreaCollider 
             = robotStateMachine.gameObject.AddComponent<SphereCollider>();
         this.AreaCollider.isTrigger = true;
@@ -85,7 +85,7 @@ public class RobotDischargeState : RobotAttackState {
 
         base.Exit(stateMachine);
 
-        this.SetLightings(false);
+		this.SetLightings(stateMachine,false);
         robotStateMachine.PlayerController.PlayerPhysics.IsDischarged = true;
 
         if (this.AreaCollider == null) return;
@@ -120,12 +120,17 @@ public class RobotDischargeState : RobotAttackState {
         this.RadiusGrowthRate = this.Radius / this.MaxFrame;
     }
 
-    public override RobotState CheckInterruptibleActions() {
-        if (!(InputManager.moveX() > .02f) && !(InputManager.moveY() > .02f)) {
+	public override RobotState CheckInterruptibleActions(StateMachine stateMachine) {
+
+		RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
+
+		InputManager inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
+
+		if (!(inputManager.moveX() > .02f) && !(inputManager.moveY() > .02f)) {
             return null;
         }
 
-        if (InputManager.runButton()) {
+		if (inputManager.runButton()) {
             return new RobotRunState();
         }
 

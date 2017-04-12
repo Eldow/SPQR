@@ -12,6 +12,7 @@ TagManager:
   - CanvasBackground
   - Lightnings
   - Shield
+  - AI_Player
   layers:
   - Default
   - TransparentFX

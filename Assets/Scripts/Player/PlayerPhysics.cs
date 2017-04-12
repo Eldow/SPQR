@@ -28,6 +28,7 @@ public class PlayerPhysics : Photon.MonoBehaviour {
 
     private float _yAxisInput = 0f;
     private float _xAxisInput = 0f;
+	private InputManager inputManager;
 
     void Start() {
         this.Initialize();
@@ -45,6 +46,7 @@ public class PlayerPhysics : Photon.MonoBehaviour {
         this._yAxisInput = this._xAxisInput = 0;
         this.CameraTransform = Camera.main.transform;
         this.IsMoving = false;
+		inputManager = gameObject.GetComponent<RobotStateMachine>().PlayerController.inputManager;
     }
 
     protected virtual void UpdatePhysics() {
@@ -69,8 +71,8 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     }
 
     protected virtual void GetInput() {
-        this._yAxisInput = InputManager.moveY();
-        this._xAxisInput = InputManager.moveX();
+        this._yAxisInput = inputManager.moveY();
+        this._xAxisInput = inputManager.moveX();
     }
 
     protected virtual void GetCameraVectors() {
