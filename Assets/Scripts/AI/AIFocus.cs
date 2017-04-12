@@ -2,27 +2,25 @@
 
 public class AIFocus : MonoBehaviour {   
 
-	private GameObject player;
+	private TargetManager targetManager;
 
-	void FindPlayer() {
-		if (TargetManager.instance == null) return;
-        player = TargetManager.instance.player;
-	}
 	
 	void Start() {
-		FindPlayer();
+		if (!PhotonNetwork.isMasterClient)
+			Destroy (this.GetComponent<AIFocus> ());
+		targetManager = gameObject.GetComponent<PlayerController> ().TargetManager;
 	}
 	
 	void Update() {	
 
         Quaternion neededRotation;
-        if (player != null) {
+		if (targetManager.currentTarget != null) {
             neededRotation = Quaternion.LookRotation(
-                player.transform.position - 
+				targetManager.currentTarget.transform.position - 
                 gameObject.transform.position
             );
         } else {
-			FindPlayer();
+			targetManager.updateNearestOpponent ();
             neededRotation = Quaternion.LookRotation(
                 gameObject.transform.forward,
                 gameObject.transform.up

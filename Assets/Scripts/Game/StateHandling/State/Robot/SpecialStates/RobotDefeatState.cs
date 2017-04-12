@@ -34,11 +34,12 @@ public class RobotDefeatState : RobotState {
                     robot.transform.rotation, 
                     0
                 );
-			TargetManager.instance.RemoveOpponent(robotStateMachine.PlayerController.gameObject);
+			//TargetManager.instance.RemoveOpponent(robotStateMachine.PlayerController.gameObject);
             PhotonNetwork.Destroy(robot.gameObject);
 
             robotRemains.transform.parent = robotStateMachine.transform.parent;
-            PlayAudioEffect(robotRemains.GetComponent<PlayerAudio>());
+			if(!robotStateMachine.PlayerController.isAI)
+            	PlayAudioEffect(robotRemains.GetComponent<PlayerAudio>());
         } catch (ArgumentException argumentException) {
             Debug.LogError(argumentException.Message);
             Debug.LogError("Failed to load RobotRemains!");

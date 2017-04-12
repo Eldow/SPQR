@@ -324,7 +324,9 @@ GameObject:
   - component: {fileID: 114194154180178772}
   - component: {fileID: 114685419613192464}
   - component: {fileID: 114469942789855958}
+  - component: {fileID: 114983013221883038}
   - component: {fileID: 114857164620498208}
+  - component: {fileID: 114630379814735524}
   m_Layer: 9
   m_Name: Robot
   m_TagString: Player
@@ -3275,6 +3277,10 @@ MonoBehaviour:
   PlayerInfo: {fileID: 0}
   Canvas: {fileID: 0}
   OpponentInfo: {fileID: 0}
+  inputManager: {fileID: 0}
+  Shield: {fileID: 0}
+  Lightnings: {fileID: 0}
+  TargetManager: {fileID: 0}
 --- !u!114 &114469942789855958
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3386,6 +3392,20 @@ MonoBehaviour:
   MaximumSpeed: 300
   IsDischarged: 0
   PokeMagnitude: 100
+--- !u!114 &114630379814735524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326889472733694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17333a9b44397fb419937f34eb58b1f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opponents: []
+  player: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114685419613192464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3436,6 +3456,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d618b3cf9946524fbc22a941eca3f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackButtonAI: 0
+  blockButtonAI: 0
+  moveForwardSpeedAI: 0
 --- !u!114 &114888279927820460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3496,6 +3519,21 @@ MonoBehaviour:
   Animator: {fileID: 95196309229997626}
   PlayerController: {fileID: 114457985870282662}
   MaxHistorySize: 12
+  inputManager: {fileID: 0}
+--- !u!114 &114983013221883038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326889472733694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17333a9b44397fb419937f34eb58b1f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opponents: []
+  player: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!135 &135441647110479512
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -3528,7 +3566,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1454311615731766}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -6093,7 +6131,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1196846318962446}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

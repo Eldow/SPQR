@@ -26,7 +26,7 @@ public class HandleHit : Photon.MonoBehaviour {
             return;
         }
 
-        if (!(this.PlayerController.RobotStateMachine.CurrentState is 
+		if (this.PlayerController==null || !(this.PlayerController.RobotStateMachine.CurrentState is 
             RobotAttackState)) {
             return;
         }
@@ -95,7 +95,7 @@ public class HandleHit : Photon.MonoBehaviour {
 		if (!other.transform.root.CompareTag (PlayerController.Player)) {
 			return;
 		}
-		if (!(this.PlayerController.RobotStateMachine.CurrentState is 
+		if (this.PlayerController == null || !(this.PlayerController.RobotStateMachine.CurrentState is 
 			RobotAttackState)) {
 			return;
 		}

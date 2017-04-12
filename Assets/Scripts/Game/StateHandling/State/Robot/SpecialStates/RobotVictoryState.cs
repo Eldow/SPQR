@@ -54,7 +54,8 @@ public class RobotVictoryState : RobotState {
         // allows jump
         this._rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionY;
 
-        PlayAudioEffect(robotStateMachine.PlayerController.PlayerAudio);
+		if(!robotStateMachine.PlayerController.isAI)
+        	PlayAudioEffect(robotStateMachine.PlayerController.PlayerAudio);
     }
 
     public override void Exit(StateMachine stateMachine) {

@@ -5,7 +5,6 @@ using UnityEngine;
 public class AI : MonoBehaviour {
 
 	private float distanceToOpponent;
-	private GameObject player;
 	private int health;
 	private float power;
 	private int ennemyHealth_;
@@ -15,31 +14,36 @@ public class AI : MonoBehaviour {
 	private PlayerPower robotPower;
 	private PlayerHealth ennemyHealth;
 	private InputManager inputManager;
+	private TargetManager targetManager;
 	
 	//local registers
 	private bool allowAction = true;
 	private int r, r1,i;
 	private float f,f1,rand;
 
-	void FindPlayer() {
-		if (TargetManager.instance == null) return;
-        player = TargetManager.instance.player;
-	}
-	
+
 	// Use this for initialization
 	void Start () {
-		FindPlayer();
+		if (!PhotonNetwork.isMasterClient)
+			Destroy (this.GetComponent<AI> ());
+
 		genome = new Genome();
-		stateMachine = gameObject.GetComponent<PlayerController>().RobotStateMachine;
-		robotHealth = gameObject.GetComponent<PlayerController>().PlayerHealth;
-		robotPower = gameObject.GetComponent<PlayerController>().PlayerPower;
-		ennemyHealth = player.GetComponent<PlayerController>().PlayerHealth;
+		PlayerController pc = gameObject.GetComponent<PlayerController> ();
+		stateMachine = pc.RobotStateMachine;
+		robotHealth = pc.PlayerHealth;
+		robotPower = pc.PlayerPower;
+		ennemyHealth = pc.PlayerHealth;
+		targetManager = pc.TargetManager;
+		inputManager = pc.inputManager;
+
 		health = robotHealth.Health;
 		power = robotHealth.Health;
 		r = health;
 		ennemyHealth_ = ennemyHealth.Health;
 		r1 = ennemyHealth_;
-		inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
+
+		targetManager.updateNearestOpponent ();
+
 	}
 	
 	void Learn (bool b) {
@@ -92,49 +96,48 @@ public class AI : MonoBehaviour {
 	private int count = 0;
 	// Update is called once per frame
 	void Update () {
-		if (player != null) {
-            //updating environment
+		if (targetManager.currentTarget != null) {
+			//updating environment
 			r = robotHealth.Health;
 			power = robotPower.Power;
 			r1 = ennemyHealth.Health;
-			if(health != r){
-				Learn(true);
+			if (health != r) {
+				Learn (true);
 				health = r;
 			}
-			if(ennemyHealth_ != r1){
-				Learn(false);
+			if (ennemyHealth_ != r1) {
+				Learn (false);
 				ennemyHealth_ = r1;
 			}
-			distanceToOpponent = Vector3.Distance(gameObject.transform.position,player.transform.position);
+			distanceToOpponent = Vector3.Distance (gameObject.transform.position, targetManager.currentTarget.transform.position);
 			//chose action
-			for(i=0 ; i<1 ;i++){
+			for (i = 0; i < 1; i++) {
 				//1st action priority : attack
-				if(distanceToOpponent > genome.dna[2].GetBorderLow() && distanceToOpponent < genome.dna[2].GetBorderUp()){
+				if (distanceToOpponent > genome.dna [2].GetBorderLow () && distanceToOpponent < genome.dna [2].GetBorderUp ()) {
 					
-					f = SetActionForce(2,distanceToOpponent);
-					Debug.Log(f);
-					rand = Random.Range(0f,1f);
-					if (f > rand){
-						if(allowAction){
+					f = SetActionForce (2, distanceToOpponent);
+					Debug.Log (f);
+					rand = Random.Range (0f, 1f);
+					if (f > rand) {
+						if (allowAction) {
 							inputManager.attackButtonAI = true;
-							Invoke("StopButtonAttack",0.1f);
+							Invoke ("StopButtonAttack", 0.1f);
 							allowAction = false;
-							Invoke("SetLatency",0.2f);
+							Invoke ("SetLatency", 0.2f);
 							break;
 						}
-					}
-					else{
+					} else {
 						//2nd action priority : block
-						if(distanceToOpponent > genome.dna[3].GetBorderLow() && distanceToOpponent < genome.dna[3].GetBorderUp()){
-							f = SetActionForce(3,distanceToOpponent);
-							rand = Random.Range(0f,1f);
-							if (f > rand){
-								if(allowAction){
-									if(!inputManager.blockButtonAI){
+						if (distanceToOpponent > genome.dna [3].GetBorderLow () && distanceToOpponent < genome.dna [3].GetBorderUp ()) {
+							f = SetActionForce (3, distanceToOpponent);
+							rand = Random.Range (0f, 1f);
+							if (f > rand) {
+								if (allowAction) {
+									if (!inputManager.blockButtonAI) {
 										inputManager.blockButtonAI = true;
-										Invoke("StopButtonBlock",1f);
+										Invoke ("StopButtonBlock", 1f);
 										allowAction = false;
-										Invoke("SetLatency",0.2f);
+										Invoke ("SetLatency", 0.2f);
 										break;
 									}
 								}
@@ -143,29 +146,28 @@ public class AI : MonoBehaviour {
 					}
 				}
 				//3rd action priority : walk
-				if(distanceToOpponent > genome.dna[1].GetBorderLow() && distanceToOpponent < genome.dna[1].GetBorderUp()){
-					f = SetActionForce(1,distanceToOpponent);
-					rand = Random.Range(0f,1f);
-					if (rand < f){
-						inputManager.moveForwardSpeedAI = -1.5f + (3*Mathf.Sqrt((100f-power)/100f));
-						Invoke("StopMove",1.2f);
+				if (distanceToOpponent > genome.dna [1].GetBorderLow () && distanceToOpponent < genome.dna [1].GetBorderUp ()) {
+					f = SetActionForce (1, distanceToOpponent);
+					rand = Random.Range (0f, 1f);
+					if (rand < f) {
+						inputManager.moveForwardSpeedAI = -1.5f + (3 * Mathf.Sqrt ((100f - power) / 100f));
+						Invoke ("StopMove", 1.2f);
 						break;
-					}
-					else{
+					} else {
 						// 4th action priority : idle
 						// if(distanceToOpponent > genome.dna[0].GetBorderLow() && distanceToOpponent < genome.dna[0].GetBorderUp()){
-							// f = SetActionForce(distanceToOpponent);
-							// rand = Random.Range(0f,1f);
-							// if (rand < f){
-								// gameObject.GetComponent<PlayerController>().RobotStateMachine.SetState(new RobotIdleState());
-							// }
+						// f = SetActionForce(distanceToOpponent);
+						// rand = Random.Range(0f,1f);
+						// if (rand < f){
+						// pc.RobotStateMachine.SetState(new RobotIdleState());
+						// }
 						// }
 					}
 				}
 			}
-        }
-		else {
-			FindPlayer();
-        }
+		} else {
+			targetManager.updateNearestOpponent ();
+		}
+	
 	}
 }

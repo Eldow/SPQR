@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 114100720661625574}
   - component: {fileID: 114492616331196312}
   - component: {fileID: 114394433713723478}
+  - component: {fileID: 114636276636207240}
   - component: {fileID: 114035938619330832}
   m_Layer: 9
   m_Name: CyanRobot
@@ -3304,6 +3305,7 @@ MonoBehaviour:
   inputManager: {fileID: 0}
   Shield: {fileID: 0}
   Lightnings: {fileID: 0}
+  TargetManager: {fileID: 0}
 --- !u!114 &114394433713723478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3428,6 +3430,20 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114636276636207240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1128726844579298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17333a9b44397fb419937f34eb58b1f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opponents: []
+  player: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114643832491066682
 MonoBehaviour:
   m_ObjectHideFlags: 1

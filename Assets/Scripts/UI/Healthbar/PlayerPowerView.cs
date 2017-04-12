@@ -10,8 +10,7 @@ public class PlayerPowerView : MonoBehaviour {
 
     void Start() {
         this._rect = GetComponent<RectTransform>();
-        this._target 
-            = TargetManager.instance.player.GetComponent<PlayerController>();
+        this._target = GameObject.FindGameObjectWithTag (PlayerController.Player).GetComponent<PlayerController> ();
         this._startPosition = this._rect.anchoredPosition.y;
     }
 

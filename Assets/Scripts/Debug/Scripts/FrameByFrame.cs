@@ -48,9 +48,8 @@ public class FrameByFrame : MonoBehaviour {
     }
 	
 	protected void TryToGetPlayerController() {
-        if (TargetManager.instance == null) return;
 
-        GameObject player = TargetManager.instance.player;
+		GameObject player = GameObject.FindGameObjectWithTag (PlayerController.Player);
 
         if (player == null) return;
 

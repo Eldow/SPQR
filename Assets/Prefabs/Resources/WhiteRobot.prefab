@@ -810,6 +810,7 @@ GameObject:
   - component: {fileID: 114248727313793172}
   - component: {fileID: 114157441547042090}
   - component: {fileID: 114887692257240360}
+  - component: {fileID: 114087906068592970}
   - component: {fileID: 114984605204710076}
   m_Layer: 9
   m_Name: WhiteRobot
@@ -3235,6 +3236,21 @@ MonoBehaviour:
   inputManager: {fileID: 0}
   Shield: {fileID: 0}
   Lightnings: {fileID: 0}
+  TargetManager: {fileID: 0}
+--- !u!114 &114087906068592970
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1958577757956638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17333a9b44397fb419937f34eb58b1f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opponents: []
+  player: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114157441547042090
 MonoBehaviour:
   m_ObjectHideFlags: 1

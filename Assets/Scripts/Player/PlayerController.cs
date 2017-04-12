@@ -4,6 +4,8 @@ using System.Reflection;
 using System;
 
 public class PlayerController : Photon.MonoBehaviour {
+
+	public bool isAI = false;
     public const string Opponent = "Opponent";
     public const string Player = "Player";
     public Color PlayerColor = Color.blue;
@@ -11,6 +13,7 @@ public class PlayerController : Photon.MonoBehaviour {
 	public int powerRecoverySpeed = 5;
 	public float timeBetweenPowerRecovery = 1.0f;
 
+	public string Team;
     public int ID { get; protected set; }
     public RobotStateMachine RobotStateMachine { get; protected set; }
 
@@ -25,8 +28,11 @@ public class PlayerController : Photon.MonoBehaviour {
 	[HideInInspector] public InputManager inputManager;
 	[HideInInspector] public GameObject Shield;
 	[HideInInspector] public GameObject Lightnings;
+	[HideInInspector] public TargetManager TargetManager;
+
 
     void Awake() {
+		isAI = NetworkGameManager.instantiateAI;
         this.Initialize();
         this.AddPlayerToGame();
     }
@@ -40,7 +46,7 @@ public class PlayerController : Photon.MonoBehaviour {
 
     protected virtual void SetEntity() {
 		
-		if (GameManager.Instance.LocalPlayer != null  || !photonView.isMine) {
+		if (GameManager.Instance.LocalPlayer != null  || isAI || !photonView.isMine) {
 			this.SetOpponent();
         } else {
             this.SetPlayer();
@@ -67,6 +73,8 @@ public class PlayerController : Photon.MonoBehaviour {
 		this.inputManager = gameObject.GetComponent<InputManager>();
 		this.Lightnings = transform.FindChild ("Lightnings").gameObject;
 		this.Shield = transform.FindChild ("Shield").gameObject;
+		this.TargetManager = gameObject.GetComponent<TargetManager>();
+
         RobotAutomaton robotAutomaton = this.GetComponent<RobotAutomaton>();
 
         if (robotAutomaton != null && 
@@ -84,7 +92,7 @@ public class PlayerController : Photon.MonoBehaviour {
         this.GetComponent<RobotAutomaton>().enabled = true;
         /*this.GetComponentInChildren<MeshRenderer>().material.color = 
             this.PlayerColor;*/
-        TargetManager.instance.SetPlayer(gameObject);
+        //TargetManager.instance.SetPlayer(gameObject);
         this.PlayerInfo = this.Canvas.transform.GetChild(1).gameObject;
         this.PlayerInfo.SetActive(true);
 		StartCoroutine(recoverPower());
@@ -100,11 +108,11 @@ public class PlayerController : Photon.MonoBehaviour {
 		
     protected virtual void SetOpponent() {
         this.SetTag(Opponent);
-        TargetManager.instance.AddOpponent(gameObject);
+        //TargetManager.instance.AddOpponent(gameObject);
         /*this.GetComponentInChildren<MeshRenderer>().material.color =
              this.OpponentColor;*/
         this.OpponentInfo = this.Canvas.transform.GetChild(0).gameObject;
-		if (gameObject.GetComponent<AI> () != null) {
+		if (isAI && PhotonNetwork.isMasterClient) {
 			StartCoroutine(recoverPower());
 		}
     }
@@ -147,12 +155,16 @@ public class PlayerController : Photon.MonoBehaviour {
     }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-        if (stream.isWriting) {
-            stream.SendNext(this.PlayerHealth.Health);
-            stream.SendNext(this.PlayerPower.Power);
-        } else {
-            this.PlayerHealth.Health = (int)stream.ReceiveNext();
-            this.PlayerPower.Power = (float)stream.ReceiveNext();
-        }
+		if (stream.isWriting) {
+			stream.SendNext (this.PlayerHealth.Health);
+			stream.SendNext (this.PlayerPower.Power);
+			stream.SendNext (this.Team);
+			stream.SendNext (this.isAI);
+		} else {
+			this.PlayerHealth.Health = (int)stream.ReceiveNext ();
+			this.PlayerPower.Power = (float)stream.ReceiveNext ();
+			this.Team = (string)stream.ReceiveNext ();
+			this.isAI = (bool)stream.ReceiveNext ();
+		}
     }
 }
