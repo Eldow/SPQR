@@ -20824,7 +20824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1865b901a155cf43bb824b477f9a589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FriendChatPanel: {fileID: 1522830894112218, guid: bf34a2a30c646944497ab8fb38d4215c,
+  FriendChatPanel: {fileID: 1519603319806008, guid: bf34a2a30c646944497ab8fb38d4215c,
     type: 2}
   ChatEntry: {fileID: 1168126170820436, guid: 0105090f1aef60f428cb6575d56dc2da, type: 2}
   PlayerEntry: {fileID: 1334920917658024, guid: f1ca968ef82ebf2468a65436f2ad5a7e,
