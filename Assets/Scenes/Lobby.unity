@@ -2258,7 +2258,7 @@ ParticleSystem:
   m_GameObject: {fileID: 254185855}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -5923,7 +5923,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1512826099}
   m_HandleRect: {fileID: 1512826098}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7913,7 +7913,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2004408037}
   m_HandleRect: {fileID: 2004408036}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -16246,7 +16246,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1657362851}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
