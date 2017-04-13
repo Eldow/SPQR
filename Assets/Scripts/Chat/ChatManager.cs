@@ -336,6 +336,10 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
             default:
                 friendListManager.SetFriendOffline(user);
                 UnsubscribeFromChannel(GetChannelName(new string[] { user, PhotonNetwork.playerName }));
+                if (PlayerList.ContainsKey(user))
+                {
+                    RemovePlayerEntry(user, false);
+                }
                 break;
         }
     }
@@ -464,11 +468,17 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
             PlayerList.TryGetValue(key, out panel);
             Destroy(panel);
         }
+        PlayerList.Clear();
         PlayerTeams.Clear();
         PlayerList = new Dictionary<string, GameObject>();
         foreach (string player in players.Split('*'))
         {
-            AddPlayerEntry(player, false);
+            string[] playerAndColor = player.Split('#');
+            Debug.Log(player);
+            Debug.Log(Int32.Parse(playerAndColor[1]));
+            AddPlayerEntry(playerAndColor[0], false);
+            PlayerTeams[playerAndColor[0]] = Int32.Parse(playerAndColor[1]);
+            SetPlayerTeam(playerAndColor[0], Int32.Parse(playerAndColor[1]));
         }
     }
 
@@ -479,10 +489,10 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         {
             if(playerList == "")
             {
-                playerList += key;
+                playerList += (key + "#" + PlayerTeams[key].ToString());
             } else
             {
-                playerList += "*" + key;
+                playerList += ("*" + key + "#" + PlayerTeams[key].ToString());
             }
         }
         ClientChat.PublishMessage(channelName, playerList + ":Players");

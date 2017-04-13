@@ -22,6 +22,7 @@ public class PlayerColorSwitch : MonoBehaviour, IPointerClickHandler
 
     public void SetPlayerColor(int index)
     {
+        _backgroundImage = GetComponent<Image>();
         switch (index)
         {
             case 1:
