@@ -33,7 +33,10 @@ public class LauncherManager : Photon.PunBehaviour {
 
         if (PhotonNetwork.connected) {
             //PhotonNetwork.JoinRandomRoom();
-
+            if (PhotonNetwork.connectedAndReady)
+            {
+                SceneManager.LoadScene("Lobby");
+            }
             return;
         }
 

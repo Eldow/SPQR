@@ -31,7 +31,6 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     // Use this for initialization
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
         // Protocol
         ConnectionProtocol connectProtocol = ConnectionProtocol.Udp;
         ClientChat = new ChatClient(this, connectProtocol);
@@ -543,6 +542,11 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
 
     // Safe exit
     void OnApplicationQuit()
+    {
+        if (ClientChat != null) { ClientChat.Disconnect(); }
+    }
+
+    void OnDestroy()
     {
         if (ClientChat != null) { ClientChat.Disconnect(); }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -57,7 +58,7 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        GameObject.DontDestroyOnLoad(gameObject);
+        //GameObject.DontDestroyOnLoad(gameObject);
 
         if (this.Running != null) return;
 
@@ -82,20 +83,23 @@ public class GameManager : MonoBehaviour {
 
 	private void leaveAfterEnding (){
 		if (PhotonNetwork.offlineMode) {
-			PhotonNetwork.LeaveRoom ();
-			PhotonNetwork.LoadLevel ("Launcher");
-			Debug.Log ("YOLO");
+            StartCoroutine(LeaveTo("Launcher"));
 			return;
 		}
 		
 		if (PhotonNetwork.isMasterClient) {
 			InvokeRepeating ("leaveAfterAll", 0f, 0.2f);
 		} else {
-			PhotonNetwork.LeaveRoom ();
-			PhotonNetwork.LoadLevel ("Lobby");
+            StartCoroutine(LeaveTo("Lobby"));
 		}
 	}
 
+    IEnumerator LeaveTo(string level)
+    {
+        yield return new WaitForSeconds(5f);
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel(level);
+    }
 	//Master checks if he is the last to leave before leaving
 	private void leaveAfterAll()
 	{

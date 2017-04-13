@@ -28,29 +28,22 @@ public class NetworkGameManager : Photon.PunBehaviour {
 		
         if (!PhotonNetwork.connected) return;
         object teams;
-		string robotPrefabName;
 		if (!PhotonNetwork.offlineMode) {
 			PhotonNetwork.room.CustomProperties.TryGetValue ("Teams", out teams);
 			PlayerTeams = (Dictionary<string, int>)teams;
-			//nbPlayersForThisGame = PlayerTeams.Count;
+			nbPlayersForThisGame = PlayerTeams.Count;
 			Team = PlayerTeams [PhotonNetwork.playerName];
 		} else {
-			robotPrefabName = PlayerColors.White.ToString () + "Robot";
 			PlayerTeams =  new Dictionary<string, int>();
 			nbPlayersForThisGame = 2;
-			PlayerTeams.Add("Bot1", 2);
+            PlayerTeams.Add(PhotonNetwork.playerName, 1);
+            PlayerTeams.Add("Bot1", 2);
 		}
 
-
-
-		//INSTANTIATE AIs
-		if (PhotonNetwork.isMasterClient || PhotonNetwork.offlineMode) {
-			instantiateAI = true;
-			if (PlayerTeams != null) {
-                DistributePlayers();
-			}
-			instantiateAI = false;
-		}
+		//INSTANTIATE Players & AIs
+	    if (PlayerTeams != null) {
+            DistributePlayers();
+	    }
     }
 
     private void DistributePlayers()
@@ -67,8 +60,9 @@ public class NetworkGameManager : Photon.PunBehaviour {
             x = radius * Mathf.Cos(angle);
             z = radius * Mathf.Sin(angle);
             spawnPos = new Vector3(x, 0, z);
-            if (key.Contains("Bot"))
+            if (key.Contains("Bot") && (PhotonNetwork.isMasterClient || PhotonNetwork.offlineMode))
             {
+                instantiateAI = true;
                 team = ((PlayerColors)PlayerTeams[key]).ToString();
                 robotPrefabName = team + "Robot";
 
@@ -81,11 +75,13 @@ public class NetworkGameManager : Photon.PunBehaviour {
                 temp.AddComponent<AIFocus>();
                 temp.transform.name = key + " " + robotPrefabName;
                 temp.GetComponent<PlayerController>().Team = team;
+                instantiateAI = false;
             }
             else if(key.Equals(PhotonNetwork.playerName))
             {
-                Color = (PlayerColors)Team;
-                robotPrefabName = Color.ToString() + "Robot";
+                Color = (PlayerColors)PlayerTeams[key];
+                team = Color.ToString();
+                robotPrefabName = team + "Robot";
                 GameObject localPlayer = PhotonNetwork.Instantiate(
                     robotPrefabName,
                     spawnPos,
