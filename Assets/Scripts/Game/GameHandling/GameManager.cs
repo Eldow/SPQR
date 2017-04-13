@@ -37,14 +37,14 @@ public class GameManager : MonoBehaviour {
 	{
 		if (PlayerList.Count < NetworkGameManager.nbPlayersForThisGame)
 			return;
-		
+
 		foreach(KeyValuePair<int,RobotStateMachine> player in this.PlayerList)
 		{
 			if (!player.Value.PlayerController.isPlayerReady) {
 				return;
 			}
 		}
-			
+
 		Timer.callTimerRPC();
 		CancelInvoke ();
 	}
@@ -71,13 +71,13 @@ public class GameManager : MonoBehaviour {
 
     void FixedUpdate() {
 
-		if (!isGameFinished && Timer.hasTimerStarted && Timer.remainingTime <= 0f) {
+		if (!isGameFinished && Timer.hasTimerStarted && Timer.remainingTime == 0f) {
 			endRoundWithTimer ();
 			isGameFinished = true;
 		}
 		if (isGameFinished && !exitStarted) {
 			exitStarted = true;
-			Invoke ("leaveAfterEnding",2.0f);
+			Invoke ("leaveAfterEnding",3.0f);
 		}
     }
 
@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour {
             StartCoroutine(LeaveTo("Launcher"));
 			return;
 		}
-		
+
 		if (PhotonNetwork.isMasterClient) {
 			InvokeRepeating ("leaveAfterAll", 0f, 0.2f);
 		} else {
@@ -113,7 +113,9 @@ public class GameManager : MonoBehaviour {
     protected void endRoundWithTimer(){
         RobotStateMachine Winner = null;
         Winner = searchForMaxHealthPlayers();
-		Winner.SetState(new RobotVictoryState());
+		    Winner.SetState(new RobotVictoryState());
+        Timer.Countdown.ManageToSprite();
+        Timer.photonView.RPC("ClientDisplayKo", PhotonTargets.AllViaServer);
     }
 
     protected RobotStateMachine searchForMaxHealthPlayers() {
@@ -225,6 +227,9 @@ public class GameManager : MonoBehaviour {
 					return false; // there are at least 2 different teams;
 			}
 		}
+    // If no two different teams are found
+    Timer.Countdown.ManageKoSprite();
+    Timer.photonView.RPC("ClientDisplayKo", PhotonTargets.AllViaServer);
 		return true;
     }
 }

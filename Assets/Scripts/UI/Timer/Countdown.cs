@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Countdown : MonoBehaviour {
 
@@ -7,6 +8,8 @@ public class Countdown : MonoBehaviour {
     private Image Cd_2;
     private Image Cd_1;
     private Image Cd_Go;
+    private Image Ko;
+    private Image To;
 
     public float StartTime;
     public float ElapsedTime;
@@ -17,6 +20,8 @@ public class Countdown : MonoBehaviour {
     public int SpriteState_2 = 0;
     public int SpriteState_1 = 0;
     public int SpriteState_Go = 0;
+    public int SpriteState_Ko = 0;
+    public int SpriteState_To = 0;
 
     private void Start() {
 
@@ -25,13 +30,16 @@ public class Countdown : MonoBehaviour {
        Cd_2 = this.transform.Find("Cd_2").gameObject.GetComponent<Image>();
        Cd_1 = this.transform.Find("Cd_1").gameObject.GetComponent<Image>();
        Cd_Go = this.transform.Find("Cd_Go").gameObject.GetComponent<Image>();
+       To = this.transform.Find("To").gameObject.GetComponent<Image>();
+       Ko = this.transform.Find("Ko").gameObject.GetComponent<Image>();
 
        //Renders them invisible
        Cd_3.canvasRenderer.SetAlpha(0.0f);
        Cd_2.canvasRenderer.SetAlpha(0.0f);
        Cd_1.canvasRenderer.SetAlpha(0.0f);
        Cd_Go.canvasRenderer.SetAlpha(0.0f);
-
+       Ko.canvasRenderer.SetAlpha(0.0f);
+       To.canvasRenderer.SetAlpha(0.0f);
     }
 
     //Resets the alpha of all sprites, stops the current countdown if any is ongoing.
@@ -41,6 +49,8 @@ public class Countdown : MonoBehaviour {
        Cd_2.canvasRenderer.SetAlpha(0.0f);
        Cd_1.canvasRenderer.SetAlpha(0.0f);
        Cd_Go.canvasRenderer.SetAlpha(0.0f);
+       Ko.canvasRenderer.SetAlpha(0.0f);
+       To.canvasRenderer.SetAlpha(0.0f);
 
        isCountingDown = false;
 
@@ -48,6 +58,8 @@ public class Countdown : MonoBehaviour {
        SpriteState_2 = 0;
        SpriteState_1 = 0;
        SpriteState_Go = 0;
+       SpriteState_Ko = 0;
+       SpriteState_To = 0;
     }
 
     //Starts a new countdown.
@@ -57,7 +69,7 @@ public class Countdown : MonoBehaviour {
         StartTime = Time.time;
     }
 
-    private void ManageCountdownSprites(){
+    public void ManageCountdownSprites(){
       if (SpriteState_3==0){
         SpriteState_3++;
         Cd_3.CrossFadeAlpha(1f, 0.1f, true);
@@ -94,6 +106,26 @@ public class Countdown : MonoBehaviour {
         Cd_Go.CrossFadeAlpha(0f, 0.7f, true);
         isCountingDown = false;
       }
+    }
+
+    public void ManageKoSprite(){
+        StartCoroutine (KoSprite());
+    }
+
+    IEnumerator KoSprite(){
+      Ko.CrossFadeAlpha(1f, 0.1f, true);
+      yield return new WaitForSeconds(0.5f);
+      Ko.CrossFadeAlpha(0f, 0.5f, true);
+    }
+
+    public void ManageToSprite(){
+        StartCoroutine (ToSprite());
+    }
+
+    IEnumerator ToSprite(){
+      To.CrossFadeAlpha(1f, 0.1f, true);
+      yield return new WaitForSeconds(0.5f);
+      To.CrossFadeAlpha(0f, 0.5f, true);
     }
 
     private void Update() {

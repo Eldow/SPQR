@@ -119,20 +119,21 @@ public class RoundTimer : Photon.MonoBehaviour
         if ((CountdownCalled)&&(!Countdown.isCountingDown)) {
             this.StartRoundNow();
             CountdownCalled = false;
-			hasTimerStarted = true;
+			      hasTimerStarted = true;
         }
 
-		if (hasTimerStarted && !GameManager.Instance.isGameFinished) {
-			UITimerText.text = string.Format ("{0:0}", remainingTime);
-			elapsedTime = (float)(PhotonNetwork.time - StartTime);
-			remainingTime = Mathf.Max(Mathf.Ceil(SecondsPerRound - elapsedTime), 0);
-		}
+    		if (hasTimerStarted && !GameManager.Instance.isGameFinished) {
+          remainingTime = Mathf.Max(Mathf.Ceil(SecondsPerRound - elapsedTime), 0);
+    			UITimerText.text = string.Format ("{0:0}", remainingTime);
+    			elapsedTime = (float)(PhotonNetwork.time - StartTime);
+    	  }
     }
 
 	public void callTimerRPC()
 	{
 		this.photonView.RPC("ClientNewCountdown", PhotonTargets.AllViaServer);
 	}
+
    /* public void OnGUI()
     {
         // simple gui for output
@@ -151,6 +152,15 @@ public class RoundTimer : Photon.MonoBehaviour
 		CountdownCalled = true;
 		Countdown.NewCountdown ();
 		UITimerText.text = string.Format("{0:0}", SecondsPerRound);
+    }
 
-	}
+    [PunRPC]
+    public void ClientDisplayKo(){
+       Countdown.ManageKoSprite();
+    }
+
+    [PunRPC]
+    public void ClientDisplayTo(){
+       Countdown.ManageToSprite();
+    }
 }
