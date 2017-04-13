@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4361513002754856}
   - component: {fileID: 114511914195339042}
   - component: {fileID: 114220312325621666}
-  - component: {fileID: 114336906633117650}
   - component: {fileID: 114501388538962168}
   m_Layer: 0
   m_Name: GameManager
@@ -55,17 +54,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Running: {fileID: 114511914195339042}
---- !u!114 &114336906633117650
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1273475618314008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d618b3cf9946524fbc22a941eca3f1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  isLocalGame: 1
+  isGameFinished: 0
+  LocalPlayer: {fileID: 0}
+  Timer: {fileID: 0}
 --- !u!114 &114501388538962168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -77,8 +69,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6bfe7a5a503ec2448ac69b050fcdd81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 1030093271883994, guid: 455f8e4704053f44c85e3c72e01499ec,
+  AIPrefab: {fileID: 1790823910210588, guid: c9d030ded21db2b48b5fb37568aa215b, type: 2}
+  PlayerPrefab: {fileID: 1326889472733694, guid: e3773d687eea24a4abfdc18697e3a380,
     type: 2}
+  Team: 0
+  Color: 0
 --- !u!114 &114511914195339042
 MonoBehaviour:
   m_ObjectHideFlags: 1

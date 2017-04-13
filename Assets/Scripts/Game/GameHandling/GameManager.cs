@@ -66,11 +66,10 @@ public class GameManager : MonoBehaviour {
         if (this.Running == null) {
             Debug.LogError(this.GetType().Name + ": No Running script found!");
         }
-
-
     }
 
     void FixedUpdate() {
+
 		if (!isGameFinished && Timer.hasTimerStarted && Timer.remainingTime <= 0f) {
 			endRoundWithTimer ();
 			isGameFinished = true;
@@ -82,7 +81,29 @@ public class GameManager : MonoBehaviour {
     }
 
 	private void leaveAfterEnding (){
-		PhotonNetwork.LoadLevel("Lobby");
+		if (PhotonNetwork.offlineMode) {
+			PhotonNetwork.LeaveRoom ();
+			PhotonNetwork.LoadLevel ("Launcher");
+			Debug.Log ("YOLO");
+			return;
+		}
+		
+		if (PhotonNetwork.isMasterClient) {
+			InvokeRepeating ("leaveAfterAll", 0f, 0.2f);
+		} else {
+			PhotonNetwork.LeaveRoom ();
+			PhotonNetwork.LoadLevel ("Lobby");
+		}
+	}
+
+	//Master checks if he is the last to leave before leaving
+	private void leaveAfterAll()
+	{
+		if (PhotonNetwork.room.PlayerCount == 1) {
+			PhotonNetwork.LeaveRoom ();
+			PhotonNetwork.LoadLevel ("Lobby");
+			CancelInvoke ();
+		}
 	}
 
     protected void endRoundWithTimer(){
