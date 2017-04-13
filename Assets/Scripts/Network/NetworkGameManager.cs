@@ -17,8 +17,8 @@ public class NetworkGameManager : Photon.PunBehaviour {
 
 	void Awake() {
 		if (NetworkGameManager.Instance == null) {
-			GameManager.Instance = this;
-		} else if (GameManager.Instance != this) {
+			NetworkGameManager.Instance = this;
+		} else if (NetworkGameManager.Instance != this) {
 			Destroy(gameObject);
 		}
 	}
