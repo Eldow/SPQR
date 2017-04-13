@@ -20,7 +20,6 @@ public class AIFocus : MonoBehaviour {
                 gameObject.transform.position
             );
         } else {
-			targetManager.updateNearestOpponent ();
             neededRotation = Quaternion.LookRotation(
                 gameObject.transform.forward,
                 gameObject.transform.up
