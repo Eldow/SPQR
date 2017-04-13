@@ -134,6 +134,10 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
             {
                 UpdatePlayerList(GetPanelName(message.ToString()));
             }
+            else if (message.ToString().Contains(":Kicked") && message.ToString().Split(':')[0].Equals(PhotonNetwork.playerName))
+            {
+                LeaveChatRoom();
+            }
             // Notify joined to master
             else if(message.ToString().Equals(sender + ":Joined") && isMaster)
             {
@@ -519,6 +523,21 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         GameObject playerEntry;
         PlayerList.TryGetValue(playerName, out playerEntry);
         playerEntry.transform.FindChild("Image").GetComponent<PlayerColorSwitch>().SetPlayerColor(colorIndex);
+    }
+
+    public void KickPlayer()
+    {
+        GameObject button = EventSystem.current.currentSelectedGameObject;
+        string playerKicked = button.transform.parent.FindChild("Text").GetComponent<Text>().text;
+        if (playerKicked.Contains("Bot"))
+        {
+            RemovePlayerEntry(playerKicked, false);
+            SendPlayerList(_chatRoomName);
+        } else
+        {
+            ClientChat.PublishMessage(_chatRoomName, playerKicked + ":Kicked");
+        }
+        button.SetActive(false);
     }
 
     // Safe exit
