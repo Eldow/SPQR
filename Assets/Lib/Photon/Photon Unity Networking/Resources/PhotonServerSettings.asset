@@ -41,6 +41,10 @@ MonoBehaviour:
   - RequestForPickupTimes
   - SendAnimations
   - ReceiveHit
+<<<<<<< HEAD
   - ReceiveAudioFromOthers
   - ReceivePoke
+=======
+  - ClientNewCountdown
+>>>>>>> ROUNDS-001
   DisableAutoOpenWizard: 1

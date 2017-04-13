@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 4053fd8353e4a014489ace65e2b0de9e
 timeCreated: 1490122372
+=======
+guid: d7a1d7d561564418199f501eced9f94c
+timeCreated: 1489664141
+>>>>>>> ROUNDS-001
 licenseType: Free
 TrueTypeFontImporter:
   serializedVersion: 4

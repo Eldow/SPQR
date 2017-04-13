@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: bcf2815288dd3b6418f3df1274a99b4f
 folderAsset: yes
 timeCreated: 1490914500
+=======
+guid: f2d43f23135394a5c8959a95f8043819
+folderAsset: yes
+timeCreated: 1490273335
+>>>>>>> ROUNDS-001
 licenseType: Free
 DefaultImporter:
   userData: 

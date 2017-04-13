@@ -6,13 +6,46 @@ public class GameManager : MonoBehaviour {
     public Running Running = null;
 	public bool isLocalGame = true;
     public static GameManager Instance = null;
+	public bool isGameFinished = false;
 
     public PlayerController LocalPlayer = null;
 
-    public Dictionary<int, RobotStateMachine> PlayerList 
+    public RoundTimer Timer = null;
+    //public ScoreManager ScoreModule = null;
+
+    public Dictionary<int, RobotStateMachine> PlayerList
         { get; protected set; }
-    public Dictionary<int, RobotStateMachine> AlivePlayerList 
+    public Dictionary<int, RobotStateMachine> AlivePlayerList
         { get; protected set; }
+
+    void Start() {
+        GameObject TaggedTimer = GameObject.FindGameObjectWithTag("Timer");
+
+        if (TaggedTimer == null) {
+            Debug.LogError(this.GetType().Name + ": No Tagged Timer script found!");
+        }
+        else {
+          this.Timer = TaggedTimer.GetComponent<RoundTimer>();
+        }
+		InvokeRepeating("waitForPlayersToBeReady", 0f, 0.3f);
+    }
+
+	void waitForPlayersToBeReady()
+	{
+		if (PlayerList.Count < NetworkGameManager.nbPlayersForThisGame)
+			return;
+		
+		foreach(KeyValuePair<int,RobotStateMachine> player in this.PlayerList)
+		{
+			if (!player.Value.PlayerController.isPlayerReady) {
+				return;
+			}
+		}
+			
+		Timer.callTimerRPC();
+		CancelInvoke ();
+	}
+
 
     void Awake() {
         if (GameManager.Instance == null) {
@@ -31,14 +64,44 @@ public class GameManager : MonoBehaviour {
         if (this.Running == null) {
             Debug.LogError(this.GetType().Name + ": No Running script found!");
         }
+
+
     }
 
-    void Update() {
+    void FixedUpdate() {
+		if (!isGameFinished && Timer.hasTimerStarted && Timer.remainingTime <= 0f) {
+			endRoundWithTimer ();
+			isGameFinished = true;
+		}
+        /*while (!IsGameOver()) {
+            if (Timer.remainingTime == 0) {
+               endRoundWithTimer();
+            }
+        }*/
     }
+
+    protected void endRoundWithTimer(){
+        RobotStateMachine Winner = null;
+        Winner = searchForMaxHealthPlayers();
+		Winner.SetState(new RobotVictoryState());
+    }
+
+    protected RobotStateMachine searchForMaxHealthPlayers() {
+		int MaxHP = 0;
+		RobotStateMachine Winner = null;
+		foreach (KeyValuePair<int,RobotStateMachine> alivePlayer in this.AlivePlayerList) {
+			if (alivePlayer.Value.PlayerController.PlayerHealth.Health >= MaxHP) {
+				Winner = alivePlayer.Value;
+				MaxHP = alivePlayer.Value.PlayerController.PlayerHealth.Health;
+			}
+		}
+		return Winner;
+	}
 
     protected virtual void Initialize() {
         this.AlivePlayerList = new Dictionary<int, RobotStateMachine>();
         this.PlayerList = new Dictionary<int, RobotStateMachine>();
+        //this.ScoreModule = this.gameObject.AddComponent<ScoreManager>();
     }
 
     public virtual void RemovePlayerFromGame(int playerID) {
@@ -111,12 +174,15 @@ public class GameManager : MonoBehaviour {
             if (robotStateMachine == null) return;
 
             robotStateMachine.SetState(new RobotVictoryState());
+			isGameFinished = true;
+
         } catch (KeyNotFoundException exception) {
             Debug.LogWarning(
                 "UpdateDeadList: key " + playerID + " was not found");
             Debug.LogWarning(exception.Message);
         }
     }
+
     protected virtual bool IsGameOver() {
 
 		string teamFound = null;

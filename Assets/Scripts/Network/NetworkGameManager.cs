@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public class NetworkGameManager : Photon.PunBehaviour {
+	public static int nbPlayersForThisGame;
 	public static bool instantiateAI = false;
 	public GameObject AIPrefab;
     public GameObject PlayerPrefab;
@@ -20,12 +21,14 @@ public class NetworkGameManager : Photon.PunBehaviour {
 		if (!PhotonNetwork.offlineMode) {
 			PhotonNetwork.room.CustomProperties.TryGetValue ("Teams", out teams);
 			PlayerTeams = (Dictionary<string, int>)teams;
+			nbPlayersForThisGame = PlayerTeams.Count;
 			Team = PlayerTeams [PhotonNetwork.playerName];
 			Color = (PlayerColors)Team;
 			robotPrefabName = Color.ToString () + "Robot";
 		} else {
 			robotPrefabName = PlayerColors.White.ToString () + "Robot";
 			PlayerTeams =  new Dictionary<string, int>();
+			nbPlayersForThisGame = 2;
 			PlayerTeams.Add("Bot1", 2);
 		}
 

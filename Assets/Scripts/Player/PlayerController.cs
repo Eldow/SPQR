@@ -5,13 +5,14 @@ using System;
 
 public class PlayerController : Photon.MonoBehaviour {
 
+	public bool isPlayerReady= false;
 	public bool isAI = false;
     public const string Opponent = "Opponent";
     public const string Player = "Player";
     public Color PlayerColor = Color.blue;
     public Color OpponentColor = Color.red;
-	public int powerRecoverySpeed = 5;
-	public float timeBetweenPowerRecovery = 1.0f;
+	  public int powerRecoverySpeed = 5;
+	  public float timeBetweenPowerRecovery = 1.0f;
 
 	public string Team;
     public int ID { get; protected set; }
@@ -45,12 +46,12 @@ public class PlayerController : Photon.MonoBehaviour {
     }
 
     protected virtual void SetEntity() {
-		
 		if (GameManager.Instance.LocalPlayer != null  || isAI || !photonView.isMine) {
 			this.SetOpponent();
         } else {
             this.SetPlayer();
         }
+		this.isPlayerReady = true;
     }
 
     protected virtual void SetTag(string tagName) {
@@ -77,9 +78,9 @@ public class PlayerController : Photon.MonoBehaviour {
 
         RobotAutomaton robotAutomaton = this.GetComponent<RobotAutomaton>();
 
-        if (robotAutomaton != null && 
+        if (robotAutomaton != null &&
             robotAutomaton.StateMachine is RobotStateMachine) {
-            this.RobotStateMachine = 
+            this.RobotStateMachine =
                 (RobotStateMachine)robotAutomaton.StateMachine;
         }
 
@@ -93,19 +94,20 @@ public class PlayerController : Photon.MonoBehaviour {
         /*this.GetComponentInChildren<MeshRenderer>().material.color = 
             this.PlayerColor;*/
         //TargetManager.instance.SetPlayer(gameObject);
+
         this.PlayerInfo = this.Canvas.transform.GetChild(1).gameObject;
         this.PlayerInfo.SetActive(true);
 		StartCoroutine(recoverPower());
     }
-		
+
 	IEnumerator recoverPower()
 	{
 		while(PlayerHealth.Health>0) {
 			this.PlayerPower.Power += powerRecoverySpeed;
 			yield return new WaitForSeconds(timeBetweenPowerRecovery);
 		}
-	}   
-		
+	}
+
     protected virtual void SetOpponent() {
         this.SetTag(Opponent);
         //TargetManager.instance.AddOpponent(gameObject);
@@ -160,11 +162,13 @@ public class PlayerController : Photon.MonoBehaviour {
 			stream.SendNext (this.PlayerPower.Power);
 			stream.SendNext (this.Team);
 			stream.SendNext (this.isAI);
+			stream.SendNext (this.isPlayerReady);
 		} else {
 			this.PlayerHealth.Health = (int)stream.ReceiveNext ();
 			this.PlayerPower.Power = (float)stream.ReceiveNext ();
 			this.Team = (string)stream.ReceiveNext ();
 			this.isAI = (bool)stream.ReceiveNext ();
+			this.isPlayerReady = (bool)stream.ReceiveNext ();
 		}
     }
 }

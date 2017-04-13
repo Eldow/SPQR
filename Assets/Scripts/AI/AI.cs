@@ -116,7 +116,7 @@ public class AI : MonoBehaviour {
 				if (distanceToOpponent > genome.dna [2].GetBorderLow () && distanceToOpponent < genome.dna [2].GetBorderUp ()) {
 					
 					f = SetActionForce (2, distanceToOpponent);
-					Debug.Log (f);
+					//Debug.Log (f);
 					rand = Random.Range (0f, 1f);
 					if (f > rand) {
 						if (allowAction) {
