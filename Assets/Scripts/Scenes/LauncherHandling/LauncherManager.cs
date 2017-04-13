@@ -16,6 +16,7 @@ public class LauncherManager : Photon.PunBehaviour {
         PhotonNetwork.autoJoinLobby = false;
         PhotonNetwork.automaticallySyncScene = true;
         PhotonNetwork.PhotonServerSettings.ChatAppID = _chatAppID;
+		PhotonNetwork.offlineMode = false;
     }
 
     void Start() {
