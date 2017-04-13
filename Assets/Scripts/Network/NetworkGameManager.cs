@@ -12,6 +12,17 @@ public class NetworkGameManager : Photon.PunBehaviour {
     public Dictionary<string, int> PlayerTeams;
     public int Team;
     public PlayerColors Color;
+	public static NetworkGameManager Instance = null;
+
+
+	void Awake() {
+		if (NetworkGameManager.Instance == null) {
+			GameManager.Instance = this;
+		} else if (GameManager.Instance != this) {
+			Destroy(gameObject);
+		}
+	}
+
 
     void Start() {
 		

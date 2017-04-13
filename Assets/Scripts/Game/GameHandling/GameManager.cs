@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
     public Dictionary<int, RobotStateMachine> AlivePlayerList
         { get; protected set; }
 
+	private bool exitStarted = false;
+
     void Start() {
         GameObject TaggedTimer = GameObject.FindGameObjectWithTag("Timer");
 
@@ -73,12 +75,15 @@ public class GameManager : MonoBehaviour {
 			endRoundWithTimer ();
 			isGameFinished = true;
 		}
-        /*while (!IsGameOver()) {
-            if (Timer.remainingTime == 0) {
-               endRoundWithTimer();
-            }
-        }*/
+		if (isGameFinished && !exitStarted) {
+			exitStarted = true;
+			Invoke ("leaveAfterEnding",2.0f);
+		}
     }
+
+	private void leaveAfterEnding (){
+		PhotonNetwork.LoadLevel("Sandbox");
+	}
 
     protected void endRoundWithTimer(){
         RobotStateMachine Winner = null;

@@ -122,7 +122,7 @@ public class RoundTimer : Photon.MonoBehaviour
 			hasTimerStarted = true;
         }
 
-		if (hasTimerStarted) {
+		if (hasTimerStarted && !GameManager.Instance.isGameFinished) {
 			UITimerText.text = string.Format ("{0:0}", remainingTime);
 			elapsedTime = (float)(PhotonNetwork.time - StartTime);
 			remainingTime = Mathf.Max(Mathf.Ceil(SecondsPerRound - elapsedTime), 0);

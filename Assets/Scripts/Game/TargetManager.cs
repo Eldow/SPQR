@@ -14,7 +14,12 @@ public class TargetManager : MonoBehaviour {
     public List<GameObject> opponents;
 	public GameObject currentTarget = null;
 	public string ownTeam;
+	private int nbPlayers;
 
+	void Start()
+	{
+		nbPlayers = GameManager.Instance.PlayerList.Count;
+	}
 
 	private void updateOpponents()
 	{
@@ -22,7 +27,7 @@ public class TargetManager : MonoBehaviour {
 
 		foreach(KeyValuePair<int,RobotStateMachine> pair in GameManager.Instance.AlivePlayerList)
 		{
-			if (pair.Value.PlayerController.Team != ownTeam) {
+			if (pair.Value.PlayerController.Team != ownTeam ) {
 				opponents.Add (pair.Value.gameObject);
 			}
 		}

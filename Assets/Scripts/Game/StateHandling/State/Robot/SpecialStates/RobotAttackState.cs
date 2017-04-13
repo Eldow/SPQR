@@ -32,7 +32,7 @@ public class RobotAttackState : RobotFramedState {
 			handleHit.SendHit (other.gameObject, this.Damage, this.Hitstun);
 			
 			//DEBUG
-			ShowContact.ShowContactInstance.showContactPoint (other);
+			//ShowContact.ShowContactInstance.showContactPoint (other);
 			//Debug.DrawRay (opponent.transform.position, opponent.transform.forward, Color.red, 3, false);
 			//Debug.DrawRay (opponent.transform.position, handleHit.transform.root.position - opponent.transform.position, Color.blue, 3, false);
 			//Debug.Log (angleBetweenRobots);
