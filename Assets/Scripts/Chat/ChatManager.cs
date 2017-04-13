@@ -40,7 +40,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
 
         // Player authentication
         ExitGames.Client.Photon.Chat.AuthenticationValues authValues = new ExitGames.Client.Photon.Chat.AuthenticationValues();
-        authValues.UserId = PlayerPrefs.GetString(_playerNamePrefKey);
+        authValues.UserId = PhotonNetwork.playerName;
         authValues.AuthType = ExitGames.Client.Photon.Chat.CustomAuthenticationType.None;
 
         // Connection
