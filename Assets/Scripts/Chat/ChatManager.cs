@@ -531,6 +531,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         string playerKicked = button.transform.parent.FindChild("Text").GetComponent<Text>().text;
         if (playerKicked.Contains("Bot"))
         {
+            _botCount--;
             RemovePlayerEntry(playerKicked, false);
             SendPlayerList(_chatRoomName);
         } else
