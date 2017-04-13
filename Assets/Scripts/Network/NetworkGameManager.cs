@@ -34,8 +34,6 @@ public class NetworkGameManager : Photon.PunBehaviour {
 			PlayerTeams = (Dictionary<string, int>)teams;
 			nbPlayersForThisGame = PlayerTeams.Count;
 			Team = PlayerTeams [PhotonNetwork.playerName];
-			Color = (PlayerColors)Team;
-			robotPrefabName = Color.ToString () + "Robot";
 		} else {
 			robotPrefabName = PlayerColors.White.ToString () + "Robot";
 			PlayerTeams =  new Dictionary<string, int>();
@@ -43,40 +41,63 @@ public class NetworkGameManager : Photon.PunBehaviour {
 			PlayerTeams.Add("Bot1", 2);
 		}
 
-        Debug.Log(robotPrefabName);
-        GameObject localPlayer = PhotonNetwork.Instantiate(
-            robotPrefabName, 
-            Vector3.left * (PhotonNetwork.room.PlayerCount * 2), 
-            Quaternion.identity, 0
-        );
-		localPlayer.GetComponent<PlayerController> ().Team = Color.ToString ();
 
-		GameManager.Instance.LocalPlayer 
-		= localPlayer.GetComponent<PlayerController>();
 
 		//INSTANTIATE AIs
 		if (PhotonNetwork.isMasterClient || PhotonNetwork.offlineMode) {
 			instantiateAI = true;
 			if (PlayerTeams != null) {
-				foreach (string key in PlayerTeams.Keys) {
-					if (key.Contains ("Bot")) {
-						string team = ((PlayerColors)PlayerTeams [key]).ToString ();
-						robotPrefabName = team + "Robot";
-
-						GameObject temp = PhotonNetwork.Instantiate (
-							                 robotPrefabName, 
-							                 Vector3.left * (PhotonNetwork.room.PlayerCount * 2), 
-							                 Quaternion.identity, 0
-						                 );
-						temp.AddComponent<AI> ();
-						temp.AddComponent<AIFocus> ();
-						temp.transform.name = key + " " + robotPrefabName;
-						temp.GetComponent<PlayerController> ().Team = team;
-					}
-				}
+                DistributePlayers();
 			}
 			instantiateAI = false;
 		}
+    }
+
+    private void DistributePlayers()
+    {
+        string team;
+        string robotPrefabName;
+        float radius = 500f;
+        float angle = 0;
+        float step = (2*Mathf.PI)/PlayerTeams.Count;
+        float x, z;
+        Vector3 spawnPos;
+        foreach (string key in PlayerTeams.Keys)
+        {
+            x = radius * Mathf.Cos(angle);
+            z = radius * Mathf.Sin(angle);
+            spawnPos = new Vector3(x, 0, z);
+            if (key.Contains("Bot"))
+            {
+                team = ((PlayerColors)PlayerTeams[key]).ToString();
+                robotPrefabName = team + "Robot";
+
+                GameObject temp = PhotonNetwork.Instantiate(
+                                     robotPrefabName,
+                                     spawnPos,
+                                     Quaternion.identity, 0
+                                 );
+                temp.AddComponent<AI>();
+                temp.AddComponent<AIFocus>();
+                temp.transform.name = key + " " + robotPrefabName;
+                temp.GetComponent<PlayerController>().Team = team;
+            }
+            else if(key.Equals(PhotonNetwork.playerName))
+            {
+                Color = (PlayerColors)Team;
+                robotPrefabName = Color.ToString() + "Robot";
+                GameObject localPlayer = PhotonNetwork.Instantiate(
+                    robotPrefabName,
+                    spawnPos,
+                    Quaternion.identity, 0
+                );
+                localPlayer.GetComponent<PlayerController>().Team = Color.ToString();
+
+                GameManager.Instance.LocalPlayer
+                = localPlayer.GetComponent<PlayerController>();
+            }
+            angle += step;
+        }
     }
 
     public override void OnLeftRoom() {
