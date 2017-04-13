@@ -57,6 +57,10 @@
         if (!(stateMachine is RobotStateMachine)) return;
 
         RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
+		
+		if( robotStateMachine.PlayerController.isAI ){
+			robotStateMachine.PlayerController.PlayerPower.Power = 100;
+		}
 
         robotStateMachine.Animator.speed = this.InitialSpeed;
 
