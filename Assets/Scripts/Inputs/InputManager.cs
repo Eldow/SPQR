@@ -13,6 +13,7 @@ public class InputManager : MonoBehaviour {
 	[HideInInspector] public bool attackButtonAI = false;
 	[HideInInspector] public bool blockButtonAI = false;
 	[HideInInspector] public float moveForwardSpeedAI = 0f;
+	[HideInInspector] public float moveSideSpeedAI = 0f;
 
 	void Start() {
 		if(gameObject.GetComponent<AI>()){isAI = true;}
@@ -47,7 +48,7 @@ public class InputManager : MonoBehaviour {
 			r += Input.GetAxis("KeyboardMove_Horizontal");
 			return Mathf.Clamp(r, -1.0f, 1.0f);
 		}
-		return 0f;
+		return moveSideSpeedAI;
     }
 
     public float moveY() {

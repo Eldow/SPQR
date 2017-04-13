@@ -91,6 +91,7 @@ public class AI : MonoBehaviour {
 	
 	void StopMove(){
 		inputManager.moveForwardSpeedAI = 0f;
+		inputManager.moveSideSpeedAI = 0f;
 	}
 	
 	private int count = 0;
@@ -142,6 +143,10 @@ public class AI : MonoBehaviour {
 									}
 								}
 							}
+							else{
+								inputManager.moveForwardSpeedAI = 1.5f;
+								Invoke("StopMove",1.8f);
+							}
 						}
 					}
 				}
@@ -150,8 +155,24 @@ public class AI : MonoBehaviour {
 					f = SetActionForce (1, distanceToOpponent);
 					rand = Random.Range (0f, 1f);
 					if (rand < f) {
-						inputManager.moveForwardSpeedAI = -1.5f + (3 * Mathf.Sqrt ((100f - power) / 100f));
-						Invoke ("StopMove", 1.2f);
+						rand =Random.Range(0f,1f);
+						if(rand > Mathf.Sqrt ((100f - power) / 100f)){
+							inputManager.moveForwardSpeedAI = -1.5f;
+							Invoke ("StopMove", 1.8f);
+						}
+						else{
+							if(distanceToOpponent < 3){
+								inputManager.moveForwardSpeedAI = 1.5f;
+							}
+							rand = Random.Range(0f,1f);
+							if(rand > 0.5f){
+								inputManager.moveSideSpeedAI = 1.5f;
+							}
+							else{
+								inputManager.moveSideSpeedAI = -1.5f;
+							}
+							Invoke ("StopMove", 1.8f);
+						}
 						break;
 					} else {
 						// 4th action priority : idle
