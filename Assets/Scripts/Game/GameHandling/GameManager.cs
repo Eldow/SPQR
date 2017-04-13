@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour {
     }
 
 	private void leaveAfterEnding (){
-		PhotonNetwork.LoadLevel("Sandbox");
+		PhotonNetwork.LoadLevel("Lobby");
 	}
 
     protected void endRoundWithTimer(){

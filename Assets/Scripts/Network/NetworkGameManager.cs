@@ -17,8 +17,8 @@ public class NetworkGameManager : Photon.PunBehaviour {
 
 	void Awake() {
 		if (NetworkGameManager.Instance == null) {
-			GameManager.Instance = this;
-		} else if (GameManager.Instance != this) {
+			NetworkGameManager.Instance = this;
+		} else if (NetworkGameManager.Instance != this) {
 			Destroy(gameObject);
 		}
 	}
@@ -32,7 +32,7 @@ public class NetworkGameManager : Photon.PunBehaviour {
 		if (!PhotonNetwork.offlineMode) {
 			PhotonNetwork.room.CustomProperties.TryGetValue ("Teams", out teams);
 			PlayerTeams = (Dictionary<string, int>)teams;
-			nbPlayersForThisGame = PlayerTeams.Count;
+			//nbPlayersForThisGame = PlayerTeams.Count;
 			Team = PlayerTeams [PhotonNetwork.playerName];
 		} else {
 			robotPrefabName = PlayerColors.White.ToString () + "Robot";
@@ -57,7 +57,7 @@ public class NetworkGameManager : Photon.PunBehaviour {
     {
         string team;
         string robotPrefabName;
-        float radius = 500f;
+        float radius = 6f;
         float angle = 0;
         float step = (2*Mathf.PI)/PlayerTeams.Count;
         float x, z;
@@ -75,7 +75,7 @@ public class NetworkGameManager : Photon.PunBehaviour {
                 GameObject temp = PhotonNetwork.Instantiate(
                                      robotPrefabName,
                                      spawnPos,
-                                     Quaternion.identity, 0
+                                     Quaternion.LookRotation(Vector3.zero - spawnPos), 0
                                  );
                 temp.AddComponent<AI>();
                 temp.AddComponent<AIFocus>();
@@ -89,7 +89,7 @@ public class NetworkGameManager : Photon.PunBehaviour {
                 GameObject localPlayer = PhotonNetwork.Instantiate(
                     robotPrefabName,
                     spawnPos,
-                    Quaternion.identity, 0
+                    Quaternion.LookRotation(Vector3.zero - spawnPos), 0
                 );
                 localPlayer.GetComponent<PlayerController>().Team = Color.ToString();
 
