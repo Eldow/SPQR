@@ -27,7 +27,7 @@ public class TargetManager : MonoBehaviour {
 
 		foreach(KeyValuePair<int,RobotStateMachine> pair in GameManager.Instance.AlivePlayerList)
 		{
-			if (pair.Value.PlayerController.Team != ownTeam ) {
+			if (pair.Value!=null && pair.Value.PlayerController.Team != ownTeam ) {
 				opponents.Add (pair.Value.gameObject);
 			}
 		}

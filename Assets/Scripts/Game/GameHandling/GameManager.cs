@@ -234,4 +234,5 @@ public class GameManager : MonoBehaviour {
     Timer.photonView.RPC("ClientDisplayKo", PhotonTargets.AllViaServer);
 		return true;
     }
+
 }

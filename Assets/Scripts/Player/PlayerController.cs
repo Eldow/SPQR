@@ -3,7 +3,7 @@ using System.Collections;
 using System.Reflection;
 using System;
 
-public class PlayerController : Photon.MonoBehaviour {
+public class PlayerController : Photon.PunBehaviour {
 
 	public bool isPlayerReady= false;
 	public bool isAI = false;
@@ -171,4 +171,6 @@ public class PlayerController : Photon.MonoBehaviour {
 			this.isPlayerReady = (bool)stream.ReceiveNext ();
 		}
     }
+
+
 }
