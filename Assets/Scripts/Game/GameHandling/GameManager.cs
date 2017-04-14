@@ -188,32 +188,34 @@ public class GameManager : MonoBehaviour {
     }
 
     public virtual void UpdateDeadList(int playerID) {
-        try {
-            RobotStateMachine robotStateMachine = null;
+		try {
+			RobotStateMachine robotStateMachine = null;
 
-            robotStateMachine = this.AlivePlayerList[playerID];
+			robotStateMachine = this.AlivePlayerList [playerID];
 
-            if (robotStateMachine == null) return;
+			if (robotStateMachine == null)
+				return;
 
-            this.AlivePlayerList.Remove(playerID);
+			this.AlivePlayerList.Remove (playerID);
 
-            if (!this.IsGameOver()) return;
+			if (!this.IsGameOver ())
+				return;
 
-            if (this.AlivePlayerList.Count <= 0) return;
+			if (this.AlivePlayerList.Count <= 0)
+				return;
 
-            robotStateMachine = this.AlivePlayerList.First().Value;
-
-            if (robotStateMachine == null) return;
-
-            robotStateMachine.SetState(new RobotVictoryState());
+			foreach (KeyValuePair<int,RobotStateMachine> winner in GameManager.Instance.AlivePlayerList) {
+				if (winner.Value != null)
+					winner.Value.SetState (new RobotVictoryState ());
+			}
 			isGameFinished = true;
 
-        } catch (KeyNotFoundException exception) {
-            Debug.LogWarning(
-                "UpdateDeadList: key " + playerID + " was not found");
-            Debug.LogWarning(exception.Message);
-        }
-    }
+		} catch (KeyNotFoundException exception) {
+			Debug.LogWarning (
+				"UpdateDeadList: key " + playerID + " was not found");
+			Debug.LogWarning (exception.Message);
+		}
+	}
 
     protected virtual bool IsGameOver() {
 
