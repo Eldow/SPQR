@@ -54,6 +54,7 @@ public class NetworkGameManager : Photon.PunBehaviour {
         float angle = 0;
         float step = (2*Mathf.PI)/PlayerTeams.Count;
         float x, z;
+
         Vector3 spawnPos;
         foreach (string key in PlayerTeams.Keys)
         {

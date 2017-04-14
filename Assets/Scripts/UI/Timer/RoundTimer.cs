@@ -40,6 +40,7 @@ public class RoundTimer : Photon.MonoBehaviour
 	public bool hasTimerStarted = false;
 
     private void Start(){
+		//SecondsPerRound = 500;
 		remainingTime = SecondsPerRound;
         UITimerText = GetComponent<Text>();
         UITimerText.text = "";

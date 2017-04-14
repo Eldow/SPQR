@@ -560,4 +560,23 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     {
         if (ClientChat != null) { ClientChat.Disconnect(); }
     }
+
+	public int getNumberOfTeams(){
+		HashSet<int> set = new HashSet<int> ();
+
+		foreach (KeyValuePair<string,int> pair in PlayerTeams) {
+			set.Add (pair.Value);
+		}
+		return set.Count;
+	}
+
+	public void preventUniqueTeam(){
+		int current = 0;
+		if (getNumberOfTeams () == 1) {
+			foreach (string key in PlayerList.Keys) {
+				PlayerTeams [key] = current;
+				current++;
+			}
+		}
+	}
 }
