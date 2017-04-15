@@ -73,8 +73,9 @@ public class PlayerAudio : Photon.MonoBehaviour {
         yield return new WaitForSeconds(0.1f);
     }
 
-    public void Hit(int force = 1)
+	public void Hit(/*int force=1*/)
     {
+		int force=1;
         _methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
         if (force == 1)
         {

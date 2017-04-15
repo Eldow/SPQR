@@ -3,7 +3,7 @@ using System.Collections;
 using System.Reflection;
 using System;
 
-public class PlayerController : Photon.MonoBehaviour {
+public class PlayerController : Photon.PunBehaviour {
 
 	public bool isPlayerReady= false;
 	public bool isAI = false;
@@ -132,7 +132,7 @@ public class PlayerController : Photon.MonoBehaviour {
 
     public virtual void UpdateAudioToOthers(string audioName)
     {
-        this.photonView.RPC("ReceiveAudioFromOthers", PhotonTargets.Others, this.ID, audioName);
+		this.photonView.RPC("ReceiveAudioFromOthers", PhotonTargets.Others, this.ID, audioName);
     }
 
     [PunRPC]
@@ -153,7 +153,9 @@ public class PlayerController : Photon.MonoBehaviour {
         PlayerAudio audio = GameManager.Instance.PlayerList[playerID].PlayerController.PlayerAudio;
         Type audioType = audio.GetType();
         MethodInfo theMethod = audioType.GetMethod(audioName);
-        theMethod.Invoke(audio, null);
+		if (theMethod != null) {
+			theMethod.Invoke (audio, null);
+		}
     }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
@@ -171,4 +173,6 @@ public class PlayerController : Photon.MonoBehaviour {
 			this.isPlayerReady = (bool)stream.ReceiveNext ();
 		}
     }
+
+
 }
