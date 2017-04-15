@@ -132,7 +132,7 @@ public class PlayerController : Photon.PunBehaviour {
 
     public virtual void UpdateAudioToOthers(string audioName)
     {
-        this.photonView.RPC("ReceiveAudioFromOthers", PhotonTargets.Others, this.ID, audioName);
+		this.photonView.RPC("ReceiveAudioFromOthers", PhotonTargets.Others, this.ID, audioName);
     }
 
     [PunRPC]
@@ -153,7 +153,9 @@ public class PlayerController : Photon.PunBehaviour {
         PlayerAudio audio = GameManager.Instance.PlayerList[playerID].PlayerController.PlayerAudio;
         Type audioType = audio.GetType();
         MethodInfo theMethod = audioType.GetMethod(audioName);
-        theMethod.Invoke(audio, null);
+		if (theMethod != null) {
+			theMethod.Invoke (audio, null);
+		}
     }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {

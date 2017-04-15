@@ -11,14 +11,27 @@ public class HandleHit : Photon.MonoBehaviour {
     void OnCollisionEnter(Collision other) {
         if (!this.CheckIfValid()) return;
 
-        this.HandleOpponent(other);
-        this.HandlePlayer(other);
+		if(!this.photonView.isMine && other.transform.root.tag.Equals (PlayerController.Opponent) &&!other.transform.root.tag.Equals (PlayerController.Player))
+			return;
+
+		if (this.PlayerController==null || !(this.PlayerController.RobotStateMachine.CurrentState is 
+			RobotAttackState)) {
+			return;
+		}
+
+		RobotAttackState robotAttackState = 
+			(RobotAttackState)this.PlayerController.RobotStateMachine
+				.CurrentState;
+
+		robotAttackState.HandleAttack(this, other);
+
+       // this.HandleOpponent(other);
+       // this.HandlePlayer(other);
     }
 
 
     protected virtual bool CheckIfValid() {
-		return this.photonView.isMine &&
-		this.transform.root.CompareTag (PlayerController.Player) || this.transform.root.GetComponent<AI> () != null;
+		return this.photonView.isMine  ;
     }
 
     protected virtual void HandleOpponent(Collision other) {
