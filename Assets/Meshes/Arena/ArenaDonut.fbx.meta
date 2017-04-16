@@ -11,12 +11,14 @@ ModelImporter:
     100006: ArenaPropulsor2
     100008: ArenaPropulsor3
     100010: ArenaPropulsor4
+    100012: bottom
     400000: ArenaBase
     400002: //RootNode
     400004: ArenaPropulsor1
     400006: ArenaPropulsor2
     400008: ArenaPropulsor3
     400010: ArenaPropulsor4
+    400012: bottom
     2300000: ArenaBase
     2300002: ArenaPropulsor1
     2300004: ArenaPropulsor2

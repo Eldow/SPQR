@@ -317,7 +317,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1068302078
+  randomSeed: -1077440525
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4454,7 +4454,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400002, guid: c4b6bfdd95ce50b468cc6b9ec0dcbc08, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -39.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: c4b6bfdd95ce50b468cc6b9ec0dcbc08, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4499,7 +4499,11 @@ Prefab:
     - target: {fileID: 2300000, guid: c4b6bfdd95ce50b468cc6b9ec0dcbc08, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 5863941017aeab34ebe1ee1c549b3aa4, type: 2}
+      objectReference: {fileID: 2100000, guid: d8aa578a98e60ee498d5f18b1e94034d, type: 2}
+    - target: {fileID: 100002, guid: c4b6bfdd95ce50b468cc6b9ec0dcbc08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c4b6bfdd95ce50b468cc6b9ec0dcbc08, type: 3}
   m_IsPrefabParent: 0
@@ -5724,7 +5728,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400002, guid: bc7cf06e3859f8c4e9c042bf0c3493e4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: bc7cf06e3859f8c4e9c042bf0c3493e4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5732,7 +5736,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: bc7cf06e3859f8c4e9c042bf0c3493e4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 27.92
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: bc7cf06e3859f8c4e9c042bf0c3493e4, type: 3}
       propertyPath: m_LocalRotation.x
@@ -5770,6 +5774,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: aa71b0e1257d19e4d836c6a7b931e53c, type: 2}
+    - target: {fileID: 100002, guid: bc7cf06e3859f8c4e9c042bf0c3493e4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bc7cf06e3859f8c4e9c042bf0c3493e4, type: 3}
   m_IsPrefabParent: 0
