@@ -11,15 +11,15 @@ public class PlayerController : Photon.PunBehaviour {
     public const string Player = "Player";
     public Color PlayerColor = Color.blue;
     public Color OpponentColor = Color.red;
-	  public int powerRecoverySpeed = 5;
-	  public float timeBetweenPowerRecovery = 1.0f;
+	public int powerRecoverySpeed = 5;
+	public float timeBetweenPowerRecovery = 1.0f;
 
 	public string Team;
     public int ID { get; protected set; }
     public RobotStateMachine RobotStateMachine { get; protected set; }
 
     [HideInInspector] public PlayerHealth PlayerHealth;
-    [HideInInspector] public PlayerPower PlayerPower;
+    [HideInInspector] public PlayerPower PlayerPower;	
     [HideInInspector] public PlayerPhysics PlayerPhysics = null;
     [HideInInspector] public PlayerAudio PlayerAudio;
     [HideInInspector] public Animator Animator = null;
@@ -173,6 +173,14 @@ public class PlayerController : Photon.PunBehaviour {
 			this.isPlayerReady = (bool)stream.ReceiveNext ();
 		}
     }
+
+	public override void OnLeftRoom()
+	{
+		if (this.photonView.isMine && !this.isAI) {
+			Debug.Log (this.photonView.owner.NickName + "LEFT, removing " + gameObject.name);
+			GameManager.Instance.RemovePlayerFromGame (this.ID);
+		}
+	}
 
 
 }

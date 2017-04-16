@@ -159,6 +159,8 @@ GameObject:
   - component: {fileID: 114969008695928568}
   - component: {fileID: 114217735723851946}
   - component: {fileID: 114531342416786834}
+  - component: {fileID: 114942486619422620}
+  - component: {fileID: 114360027262751842}
   - component: {fileID: 114917408621014632}
   m_Layer: 9
   m_Name: RedRobot
@@ -3213,9 +3215,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d618b3cf9946524fbc22a941eca3f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockInputs: 0
+  roundTimer: {fileID: 0}
   attackButtonAI: 0
   blockButtonAI: 0
   moveForwardSpeedAI: 0
+  moveSideSpeedAI: 0
 --- !u!114 &114273739800457326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3242,6 +3247,17 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114360027262751842
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1062140730195602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63695a652c89054a8dcaff599b200d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114470014906434704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3265,8 +3281,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   opponents: []
-  player: {fileID: 0}
   currentTarget: {fileID: 0}
+  ownTeam: 
 --- !u!114 &114533273232159696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3354,10 +3370,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87a2c13c89103441b9d2106650b91ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayerReady: 0
+  isAI: 0
   PlayerColor: {r: 0, g: 0, b: 1, a: 1}
   OpponentColor: {r: 1, g: 0, b: 0, a: 1}
   powerRecoverySpeed: 5
   timeBetweenPowerRecovery: 1
+  Team: 
   PlayerPhysics: {fileID: 0}
   PlayerAudio: {fileID: 0}
   Animator: {fileID: 0}
@@ -3465,6 +3484,17 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
+--- !u!114 &114942486619422620
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1062140730195602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7856f5d1c36dd344943fcf6f6cb6926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114954645795908944
 MonoBehaviour:
   m_ObjectHideFlags: 1

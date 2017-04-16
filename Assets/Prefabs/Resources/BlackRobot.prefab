@@ -830,6 +830,8 @@ GameObject:
   - component: {fileID: 114903976471468684}
   - component: {fileID: 114908520735258194}
   - component: {fileID: 114276202665844704}
+  - component: {fileID: 114531609509550358}
+  - component: {fileID: 114800755668084658}
   - component: {fileID: 114649678462893506}
   m_Layer: 9
   m_Name: BlackRobot
@@ -3190,10 +3192,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87a2c13c89103441b9d2106650b91ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayerReady: 0
+  isAI: 0
   PlayerColor: {r: 0, g: 0, b: 1, a: 1}
   OpponentColor: {r: 1, g: 0, b: 0, a: 1}
   powerRecoverySpeed: 5
   timeBetweenPowerRecovery: 1
+  Team: 
   PlayerPhysics: {fileID: 0}
   PlayerAudio: {fileID: 0}
   Animator: {fileID: 0}
@@ -3272,8 +3277,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   opponents: []
-  player: {fileID: 0}
   currentTarget: {fileID: 0}
+  ownTeam: 
 --- !u!114 &114292252996198660
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3353,6 +3358,17 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114531609509550358
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1893447826120438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7856f5d1c36dd344943fcf6f6cb6926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114604503868797970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3477,6 +3493,17 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
+--- !u!114 &114800755668084658
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1893447826120438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63695a652c89054a8dcaff599b200d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114903976471468684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3516,9 +3543,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d618b3cf9946524fbc22a941eca3f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockInputs: 0
+  roundTimer: {fileID: 0}
   attackButtonAI: 0
   blockButtonAI: 0
   moveForwardSpeedAI: 0
+  moveSideSpeedAI: 0
 --- !u!135 &135492064314971116
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -67,13 +67,17 @@ public class NetworkGameManager : Photon.PunBehaviour {
                 team = ((PlayerColors)PlayerTeams[key]).ToString();
                 robotPrefabName = team + "Robot";
 
-                GameObject temp = PhotonNetwork.Instantiate(
+				GameObject temp = PhotonNetwork.InstantiateSceneObject(
                                      robotPrefabName,
                                      spawnPos,
-                                     Quaternion.LookRotation(Vector3.zero - spawnPos), 0
+									Quaternion.LookRotation(Vector3.zero - spawnPos), 0,null
                                  );
-                temp.AddComponent<AI>();
-                temp.AddComponent<AIFocus>();
+
+
+				/*PhotonView view = temp.GetComponent<PhotonView> ();
+				view.ObservedComponents.Add (ai);
+				view.ObservedComponents.Add (aiFocus);*/
+
                 temp.transform.name = key + " " + robotPrefabName;
                 temp.GetComponent<PlayerController>().Team = team;
                 instantiateAI = false;

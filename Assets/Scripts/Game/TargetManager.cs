@@ -23,6 +23,7 @@ public class TargetManager : MonoBehaviour {
 
 	private void updateOpponents()
 	{
+		opponents.Clear ();
 		ownTeam = gameObject.GetComponent<PlayerController> ().Team;
 
 		foreach(KeyValuePair<int,RobotStateMachine> pair in GameManager.Instance.AlivePlayerList)

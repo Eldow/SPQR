@@ -617,6 +617,8 @@ GameObject:
   - component: {fileID: 114798354752546694}
   - component: {fileID: 114738358146470582}
   - component: {fileID: 114842575914385636}
+  - component: {fileID: 114021724895423590}
+  - component: {fileID: 114255679238049562}
   - component: {fileID: 114637151422091806}
   m_Layer: 9
   m_Name: BlueRobot
@@ -3141,6 +3143,17 @@ Light:
   m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114021724895423590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1725518375360580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7856f5d1c36dd344943fcf6f6cb6926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114145030973706900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3164,10 +3177,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87a2c13c89103441b9d2106650b91ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayerReady: 0
+  isAI: 0
   PlayerColor: {r: 0, g: 0, b: 1, a: 1}
   OpponentColor: {r: 1, g: 0, b: 0, a: 1}
   powerRecoverySpeed: 5
   timeBetweenPowerRecovery: 1
+  Team: 
   PlayerPhysics: {fileID: 0}
   PlayerAudio: {fileID: 0}
   Animator: {fileID: 0}
@@ -3215,6 +3231,17 @@ MonoBehaviour:
   MaximumSpeed: 300
   IsDischarged: 0
   PokeMagnitude: 100
+--- !u!114 &114255679238049562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1725518375360580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63695a652c89054a8dcaff599b200d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114471934546881820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3327,9 +3354,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d618b3cf9946524fbc22a941eca3f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockInputs: 0
+  roundTimer: {fileID: 0}
   attackButtonAI: 0
   blockButtonAI: 0
   moveForwardSpeedAI: 0
+  moveSideSpeedAI: 0
 --- !u!114 &114781256799465684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3446,8 +3476,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   opponents: []
-  player: {fileID: 0}
   currentTarget: {fileID: 0}
+  ownTeam: 
 --- !u!114 &114909495277735258
 MonoBehaviour:
   m_ObjectHideFlags: 1
