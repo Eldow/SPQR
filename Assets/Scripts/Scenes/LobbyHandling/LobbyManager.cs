@@ -49,14 +49,11 @@ public class LobbyManager : Photon.PunBehaviour
         ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
 		chat.preventUniqueTeam ();
         h.Add("Teams", chat.PlayerTeams);
+        h.Add("Map", chat.Map);
+        h.Add("Mode", chat.Mode);
         PhotonNetwork.CreateRoom(PhotonNetwork.playerName + "Room", new RoomOptions() { CustomRoomProperties = h, MaxPlayers = System.Convert.ToByte(chat.PlayerTeams.Count) }, null);
         MatchmakingPanel.transform.FindChild("ButtonsBottom/CreateGameButton").GetComponent<Button>().enabled = false;
-        //Debug.Log(_roomSize + _mapLabel + _gameMode + _visibility);
-        //PhotonNetwork.LoadLevel(_mapLabel);
-        //PhotonNetwork.LoadLevel("Sandbox");
     }
-
-
 
     public override void OnJoinedRoom()
     {

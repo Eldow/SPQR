@@ -7,6 +7,7 @@ public class NetworkGameManager : Photon.PunBehaviour {
 	public static bool instantiateAI = false;
 	public GameObject AIPrefab;
     public GameObject PlayerPrefab;
+    public GameObject[] MapPrefabs;
     protected GameObject PlayerAvatar;
     protected PhotonView PhotonView;
     public Dictionary<string, int> PlayerTeams;
@@ -27,6 +28,42 @@ public class NetworkGameManager : Photon.PunBehaviour {
     void Start() {
 		
         if (!PhotonNetwork.connected) return;
+        // Mode init
+
+        // Map init
+        object map;
+        Vector3 position = new Vector3(0, -0.6f, 0);
+        int randIndex = Random.Range(0, MapPrefabs.Length);
+        GameObject newMap;
+        if (!PhotonNetwork.offlineMode)
+        {
+            PhotonNetwork.room.CustomProperties.TryGetValue("Map", out map);
+            int mapIndex = (int)map;
+            switch (mapIndex)
+            {
+                case 0:
+                    newMap = Instantiate(MapPrefabs[randIndex], position, Quaternion.identity);
+                    break;
+                case 1:
+                    newMap = Instantiate(MapPrefabs[0], position, Quaternion.identity);
+                    break;
+                case 2:
+                    newMap = Instantiate(MapPrefabs[1], position, Quaternion.identity);
+                    break;
+                case 3:
+                    newMap = Instantiate(MapPrefabs[2], position, Quaternion.identity);
+                    break;
+                default:
+                    newMap = Instantiate(MapPrefabs[2], position, Quaternion.identity);
+                    break;
+            }
+        }
+        else
+        {
+            newMap = Instantiate(MapPrefabs[randIndex], position, Quaternion.identity);
+        }
+        newMap.transform.localScale = new Vector3(100, 100, 100);
+        // Teams init
         object teams;
 		if (!PhotonNetwork.offlineMode) {
 			PhotonNetwork.room.CustomProperties.TryGetValue ("Teams", out teams);
@@ -50,7 +87,7 @@ public class NetworkGameManager : Photon.PunBehaviour {
     {
         string team;
         string robotPrefabName;
-        float radius = 6f;
+        float radius = 6.5f;
         float angle = 0;
         float step = (2*Mathf.PI)/PlayerTeams.Count;
         float x, z;

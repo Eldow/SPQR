@@ -27,6 +27,8 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     public ChatClient ClientChat;
     public Dictionary<string, GameObject> PlayerList = new Dictionary<string, GameObject>();
     public Dictionary<string, int> PlayerTeams = new Dictionary<string, int>();
+    public int Map;
+    public int Mode;
 
     // Use this for initialization
     void Start()
@@ -142,7 +144,8 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
             {
                 AddPlayerEntry(sender, false);
                 SendPlayerList(channelName);
-
+                SendChangeMap(Map);
+                SendChangeMode(Mode);
             }
             // Notify left to master
             else if (message.ToString().Equals(sender + ":Left") && isMaster)
@@ -172,9 +175,18 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
                 if(sender != PhotonNetwork.playerName)
                     SetPlayerTeam(tokens[0], Int32.Parse(tokens[2]));
             }
+            else if (message.ToString().Contains(":Map") && !isMaster)
+            {
+                MatchmakingPanel.transform.FindChild("Filters").GetComponent<FiltersBehaviour>().SetMap(Int32.Parse(message.ToString().Split(':')[0]));
+            }
+            else if (message.ToString().Contains(":Mode") && !isMaster)
+            {
+                MatchmakingPanel.transform.FindChild("Filters").GetComponent<FiltersBehaviour>().SetMode(Int32.Parse(message.ToString().Split(':')[0]));
+            }
             // Friend chat
             else if(!message.ToString().Contains(":Friends") && !message.ToString().Contains(":Players") &&
-                !message.ToString().Contains(":Ready") && !message.ToString().Contains(":Room")
+                !message.ToString().Contains(":Ready") && !message.ToString().Contains(":Room") && 
+                !message.ToString().Contains(":Map") && !message.ToString().Contains(":Mode")
                 && !sender.Equals(PhotonNetwork.playerName))
             {
                 GameObject chatEntry = Instantiate(ChatEntry, panel.transform.FindChild("ChatLog/ScrollablePanel").transform);
@@ -208,6 +220,10 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         PlayerList.Clear();
         _playerReadyCount = 0;
         _botCount = 0;
+        Map = 0;
+        Mode = 0;
+        MatchmakingPanel.transform.FindChild("Filters").GetComponent<FiltersBehaviour>().SetMap(0);
+        MatchmakingPanel.transform.FindChild("Filters").GetComponent<FiltersBehaviour>().SetMode(0);
         EnterChatRoom(_chatRoomName);
     }
 
@@ -524,6 +540,22 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         PlayerList.Add(playerName, newBot);
         PlayerTeams.Add(playerName, 1);
         SendPlayerList(_chatRoomName);
+    }
+
+    /*
+        Maps & Mode
+    */
+
+    public void SendChangeMap(int map)
+    {
+        Map = map;
+        ClientChat.PublishMessage(_chatRoomName, map.ToString() + ":Map");
+    }
+
+    public void  SendChangeMode(int mode)
+    {
+        Mode = mode;
+        ClientChat.PublishMessage(_chatRoomName, mode.ToString() + ":Mode");
     }
 
     // Modify color and update list
