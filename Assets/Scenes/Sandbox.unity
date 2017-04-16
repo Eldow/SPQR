@@ -270,7 +270,7 @@ ParticleSystem:
   m_GameObject: {fileID: 131965643}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -5028,7 +5028,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: f7197355d4cb4e3418e720d0c4812798, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f7197355d4cb4e3418e720d0c4812798, type: 3}

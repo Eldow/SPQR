@@ -72,6 +72,10 @@ MonoBehaviour:
   AIPrefab: {fileID: 1790823910210588, guid: c9d030ded21db2b48b5fb37568aa215b, type: 2}
   PlayerPrefab: {fileID: 1326889472733694, guid: e3773d687eea24a4abfdc18697e3a380,
     type: 2}
+  MapPrefabs:
+  - {fileID: 100002, guid: c4b6bfdd95ce50b468cc6b9ec0dcbc08, type: 3}
+  - {fileID: 100002, guid: bc7cf06e3859f8c4e9c042bf0c3493e4, type: 3}
+  - {fileID: 100000, guid: f7197355d4cb4e3418e720d0c4812798, type: 3}
   Team: 0
   Color: 0
 --- !u!114 &114511914195339042
