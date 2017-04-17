@@ -72,10 +72,10 @@ MonoBehaviour:
   AIPrefab: {fileID: 1790823910210588, guid: c9d030ded21db2b48b5fb37568aa215b, type: 2}
   PlayerPrefab: {fileID: 1326889472733694, guid: e3773d687eea24a4abfdc18697e3a380,
     type: 2}
-  MapPrefabs:
-  - {fileID: 1534206368203742, guid: 94608c10f12f7c2438cbf6248ccda311, type: 2}
-  - {fileID: 1326458392141866, guid: 8401c075aaa826c4db19a805e3e54b09, type: 2}
-  - {fileID: 1708840286175138, guid: c4346bbd88b27a1409a5fb11e89d3f2f, type: 2}
+  MapSceneNames:
+  - ArenaDonut
+  - ArenaNoBorders
+  - Arena
   Team: 0
   Color: 0
 --- !u!114 &114511914195339042
