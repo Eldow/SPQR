@@ -148,7 +148,7 @@ public class InputManager : MonoBehaviour {
         return Input.GetButton("CameraButton");
     }
 
-    public  bool cameraButtonDown() {
+	public  bool cameraButtonDown() {
 		if (blockInputs)
 			return false;
         return Input.GetButtonDown("CameraButton");
