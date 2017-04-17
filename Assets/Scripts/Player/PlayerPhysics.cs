@@ -29,6 +29,9 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     private float _yAxisInput = 0f;
     private float _xAxisInput = 0f;
 	private InputManager inputManager;
+    private float _stability = 0.3f;
+    private float _torqueSpeed = 2f;
+    private Vector3 _constantForce = new Vector3(0, -50f, 0);
 
     void Start() {
         this.Initialize();
@@ -38,6 +41,14 @@ public class PlayerPhysics : Photon.MonoBehaviour {
         if (!freezeMovement) {
             this.UpdatePhysics();
         }
+    }
+    
+    void FixedUpdate()
+    {
+        Vector3 predictedUp = Quaternion.AngleAxis(RigidBody.angularVelocity.magnitude * Mathf.Rad2Deg * _stability / _torqueSpeed, RigidBody.angularVelocity) * transform.up;
+        Vector3 torqueVector = Vector3.Cross(predictedUp, Vector3.up);
+        RigidBody.AddTorque(torqueVector * _torqueSpeed * _torqueSpeed);
+        RigidBody.AddForce(_constantForce, ForceMode.Force);
     }
 
     protected virtual void Initialize() {
@@ -138,8 +149,10 @@ public class PlayerPhysics : Photon.MonoBehaviour {
 
         this.MoveDirection = this.TargetDirection.normalized;
 
-        this.RigidBody.velocity =
-            this.MoveDirection*this.UnlockedForwardSpeed*speedFactor;
+        this.RigidBody.velocity = new Vector3(this.MoveDirection.x * this.UnlockedForwardSpeed * speedFactor,
+            RigidBody.velocity.y, this.MoveDirection.z * this.UnlockedForwardSpeed * speedFactor);
+        /*this.RigidBody.velocity =
+            this.MoveDirection*this.UnlockedForwardSpeed*speedFactor;*/
 
         this.IsMoving = true;
     }
@@ -155,17 +168,20 @@ public class PlayerPhysics : Photon.MonoBehaviour {
 
         this.MoveDirection = this.MoveDirection.normalized;
 
+        this.RigidBody.velocity = new Vector3(this.MoveDirection.x * this.UnlockedForwardSpeed * speedFactor,
+            RigidBody.velocity.y, this.MoveDirection.z * this.UnlockedForwardSpeed * speedFactor);
+        /*
         this.RigidBody.velocity =
-            this.MoveDirection*this.UnlockedForwardSpeed*speedFactor;
+            this.MoveDirection*this.UnlockedForwardSpeed*speedFactor;*/
 
         if (this.MoveDirection.sqrMagnitude <= 0.02f) return;
 
-        this.gameObject.transform.rotation =
-            Quaternion.RotateTowards(
+        this.gameObject.transform.rotation = Quaternion.RotateTowards(
                 transform.rotation,
                 Quaternion.LookRotation(this.MoveDirection),
-                Time.deltaTime*500
+                Time.deltaTime * 500
             );
+
     }
 
     public virtual bool IsRunning() {
