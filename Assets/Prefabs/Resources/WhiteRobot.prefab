@@ -2446,7 +2446,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 2
 --- !u!54 &54731281525248212
 Rigidbody:
@@ -3582,7 +3582,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1266017302289866}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -6099,7 +6099,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1423057611515948}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

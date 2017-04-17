@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 4632914149014344}
   - component: {fileID: 33512470615021742}
   - component: {fileID: 23511448539261658}
+  - component: {fileID: 64494039424069736}
   m_Layer: 0
   m_Name: ArenaBase
   m_TagString: Untagged
@@ -657,6 +658,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1479056699688582}
   m_Mesh: {fileID: 4300006, guid: c4b6bfdd95ce50b468cc6b9ec0dcbc08, type: 3}
+--- !u!64 &64494039424069736
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1882588608835556}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: c4b6bfdd95ce50b468cc6b9ec0dcbc08, type: 3}
 --- !u!108 &108440947110495632
 Light:
   m_ObjectHideFlags: 1

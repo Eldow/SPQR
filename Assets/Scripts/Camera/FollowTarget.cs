@@ -149,7 +149,8 @@ public abstract class FollowTarget : MonoBehaviour {
                 this.PlayerController.gameObject.transform.up
             );
         }
-
+        neededRotation.x = this.PlayerController.gameObject.transform.rotation.x;
+        neededRotation.z = this.PlayerController.gameObject.transform.rotation.z;
         this.PlayerController.gameObject.transform.rotation = Quaternion.Slerp(
             this.PlayerController.gameObject.transform.rotation, 
             neededRotation, 

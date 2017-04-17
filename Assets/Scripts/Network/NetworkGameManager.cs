@@ -87,7 +87,7 @@ public class NetworkGameManager : Photon.PunBehaviour {
     {
         string team;
         string robotPrefabName;
-        float radius = 6.5f;
+        float radius = 9f;
         float angle = 0;
         float step = (2*Mathf.PI)/PlayerTeams.Count;
         float x, z;

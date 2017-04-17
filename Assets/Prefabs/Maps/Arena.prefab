@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4699256378950124}
   - component: {fileID: 33747467811703152}
   - component: {fileID: 23262433404883380}
+  - component: {fileID: 64812896867702286}
   m_Layer: 0
   m_Name: ArenaBorder
   m_TagString: Untagged
@@ -55,6 +56,7 @@ GameObject:
   - component: {fileID: 4138553144135092}
   - component: {fileID: 33011354567574388}
   - component: {fileID: 23092671666951926}
+  - component: {fileID: 64503457119665550}
   m_Layer: 0
   m_Name: ArenaBase
   m_TagString: Untagged
@@ -307,6 +309,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1182076622687754}
   m_Mesh: {fileID: 4300000, guid: f7197355d4cb4e3418e720d0c4812798, type: 3}
+--- !u!64 &64503457119665550
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1583004454785476}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300004, guid: f7197355d4cb4e3418e720d0c4812798, type: 3}
+--- !u!64 &64812896867702286
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1182076622687754}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: f7197355d4cb4e3418e720d0c4812798, type: 3}
 --- !u!108 &108672251185391688
 Light:
   m_ObjectHideFlags: 1
@@ -396,7 +426,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -301300301
+  randomSeed: -1678617241
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -2528,7 +2558,7 @@ ParticleSystem:
       type: 0
       properties: 0
   LightsModule:
-    enabled: 1
+    enabled: 0
     ratio: 1
     light: {fileID: 108672251185391688}
     randomDistribution: 1

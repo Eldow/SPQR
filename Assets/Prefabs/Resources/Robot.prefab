@@ -2445,7 +2445,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 2
 --- !u!54 &54938047205804208
 Rigidbody:
@@ -3267,10 +3267,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87a2c13c89103441b9d2106650b91ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayerReady: 0
+  isAI: 0
   PlayerColor: {r: 0, g: 0, b: 1, a: 1}
   OpponentColor: {r: 1, g: 0, b: 0, a: 1}
   powerRecoverySpeed: 5
   timeBetweenPowerRecovery: 1
+  Team: 
   PlayerPhysics: {fileID: 0}
   PlayerAudio: {fileID: 0}
   Animator: {fileID: 0}
@@ -3404,8 +3407,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   opponents: []
-  player: {fileID: 0}
   currentTarget: {fileID: 0}
+  ownTeam: 
 --- !u!114 &114685419613192464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3456,9 +3459,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d618b3cf9946524fbc22a941eca3f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockInputs: 0
+  roundTimer: {fileID: 0}
   attackButtonAI: 0
   blockButtonAI: 0
   moveForwardSpeedAI: 0
+  moveSideSpeedAI: 0
 --- !u!114 &114888279927820460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3532,8 +3538,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   opponents: []
-  player: {fileID: 0}
   currentTarget: {fileID: 0}
+  ownTeam: 
 --- !u!135 &135441647110479512
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -3566,7 +3572,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1454311615731766}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -6131,7 +6137,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1196846318962446}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
