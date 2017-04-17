@@ -49,6 +49,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
 
         // Connection
         ClientChat.Connect(PhotonNetwork.PhotonServerSettings.ChatAppID, _chatVersion, authValues);
+
     }
 
     // Update is called once per frame
@@ -90,6 +91,8 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         SubscribeToAllFriends();
         CreateChatRoom();
         ClientChat.SetOnlineStatus(ChatUserStatus.Online);
+		startButton = GameObject.Find ("CreateGameButton").GetComponent<Button> ();
+
     }
 
     public void OnDisconnected()
@@ -198,6 +201,11 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
                 chatEntry.GetComponent<Text>().text = sender + ": " + message.ToString();
             }
         }
+
+		if (PlayerList.Count > 1)
+			startButton.interactable = true;
+		else 
+			startButton.interactable = false;
 			
     }
 
