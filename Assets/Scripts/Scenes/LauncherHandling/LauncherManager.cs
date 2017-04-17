@@ -71,4 +71,11 @@ public class LauncherManager : Photon.PunBehaviour {
 		if(PhotonNetwork.offlineMode)
         	PhotonNetwork.LoadLevel(this.LevelToLoad);
     }
+
+	public void Quit() {
+		#if UNITY_EDITOR
+		UnityEditor.EditorApplication.isPlaying = false;
+		#endif
+			Application.Quit ();
+	}
 }

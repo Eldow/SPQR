@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LobbyManager : Photon.PunBehaviour
 {
@@ -77,6 +78,6 @@ public class LobbyManager : Photon.PunBehaviour
 
     public void Exit()
     {
-        Application.Quit();
+		SceneManager.LoadScene ("Launcher");
     }
 }
