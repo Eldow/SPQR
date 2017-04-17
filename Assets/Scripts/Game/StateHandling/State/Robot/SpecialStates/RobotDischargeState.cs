@@ -153,4 +153,9 @@ public class RobotDischargeState : RobotAttackState {
         handleHit.SendHit(other.gameObject, this.Damage, this.Hitstun);
         this.MakeHimSuffer(handleHit, other);
     }
+
+    public override void PlayAudioEffect(PlayerAudio audio)
+    {
+        audio.Discharge();
+    }
 }
