@@ -7,7 +7,8 @@ public class PlayLoop : MonoBehaviour {
     public MovieTexture MovieTexture;
 
     void Start() {
-        this.MovieTexture = RawImage.texture as MovieTexture; 
+        if (RawImage.texture == null) return;
+        this.MovieTexture = RawImage.texture as MovieTexture;
         this.MovieTexture.Play();
     }
 }
