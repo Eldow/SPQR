@@ -55,6 +55,7 @@ public class FriendListManager : MonoBehaviour {
             newFriend.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             newFriend.GetComponent<Image>().color = OfflineColor;
             FriendList.Add(friend, newFriend);
+            GameObject.Find("ChatManager").GetComponent<ChatManager>().SubscribeToNewFriend(friend);
         }
     }
 

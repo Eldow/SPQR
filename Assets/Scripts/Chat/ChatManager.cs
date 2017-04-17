@@ -88,8 +88,8 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     {
         MatchmakingPanel.SetActive(true);
         FriendList.SetActive(true);
-        SubscribeToAllFriends();
         CreateChatRoom();
+        //SubscribeToAllFriends();
         ClientChat.SetOnlineStatus(ChatUserStatus.Online);
 		startButton = GameObject.Find ("CreateGameButton").GetComponent<Button> ();
 
@@ -395,12 +395,12 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     {
         ClientChat.Unsubscribe(new string[] { channelName });
     }
-
+    /*
     private void SubscribeToAllFriends()
     {
         List<string> results = new List<string>();
         List<string> friends = new List<string>();
-        FriendListManager friendListManager = GameObject.Find("FriendPanel").GetComponent<FriendListManager>();
+        FriendListManager friendListManager = FriendList.GetComponent<FriendListManager>();
         foreach(string friend in friendListManager.FriendList.Keys)
         {
             friends.Add(friend);
@@ -408,7 +408,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         }
         ClientChat.AddFriends(friends.ToArray());
         ClientChat.Subscribe(results.ToArray(), MaxHistoryLength);
-    }
+    }*/
 
     public void SubscribeToNewFriend(string friendName)
     {
