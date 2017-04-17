@@ -44,7 +44,7 @@ public class NetworkGameManager : Photon.PunBehaviour {
 		{
 			mapIndex = Random.Range(0, MapSceneNames.Length);
 		}
-		newMapName =  MapSceneNames [mapIndex];
+		newMapName =  MapSceneNames [mapIndex-1];
 		SceneManager.LoadScene (newMapName, LoadSceneMode.Additive);
 		// newMapName.transform.localScale = new Vector3(100, 100, 100);
 		// Teams init
