@@ -88,7 +88,6 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     {
         MatchmakingPanel.SetActive(true);
         FriendList.SetActive(true);
-        SubscribeToAllFriends();
         CreateChatRoom();
         ClientChat.SetOnlineStatus(ChatUserStatus.Online);
 		startButton = GameObject.Find ("CreateGameButton").GetComponent<Button> ();
@@ -394,20 +393,6 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     public void UnsubscribeFromChannel(string channelName)
     {
         ClientChat.Unsubscribe(new string[] { channelName });
-    }
-
-    private void SubscribeToAllFriends()
-    {
-        List<string> results = new List<string>();
-        List<string> friends = new List<string>();
-        FriendListManager friendListManager = GameObject.Find("FriendPanel").GetComponent<FriendListManager>();
-        foreach(string friend in friendListManager.FriendList.Keys)
-        {
-            friends.Add(friend);
-            results.Add(GetChannelName(new string[] { friend, PhotonNetwork.playerName }));
-        }
-        ClientChat.AddFriends(friends.ToArray());
-        ClientChat.Subscribe(results.ToArray(), MaxHistoryLength);
     }
 
     public void SubscribeToNewFriend(string friendName)
