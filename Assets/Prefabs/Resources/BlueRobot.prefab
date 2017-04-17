@@ -617,6 +617,8 @@ GameObject:
   - component: {fileID: 114798354752546694}
   - component: {fileID: 114738358146470582}
   - component: {fileID: 114842575914385636}
+  - component: {fileID: 114021724895423590}
+  - component: {fileID: 114255679238049562}
   - component: {fileID: 114637151422091806}
   m_Layer: 9
   m_Name: BlueRobot
@@ -3141,6 +3143,17 @@ Light:
   m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114021724895423590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1725518375360580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7856f5d1c36dd344943fcf6f6cb6926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114145030973706900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3218,6 +3231,17 @@ MonoBehaviour:
   MaximumSpeed: 300
   IsDischarged: 0
   PokeMagnitude: 100
+--- !u!114 &114255679238049562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1725518375360580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63695a652c89054a8dcaff599b200d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114471934546881820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3330,6 +3354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d618b3cf9946524fbc22a941eca3f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAI: 0
   blockInputs: 0
   roundTimer: {fileID: 0}
   attackButtonAI: 0
@@ -3362,7 +3387,7 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 1
+  synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
@@ -3425,15 +3450,15 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    ExtrapolateOption: 1
+    ExtrapolateOption: 0
     ExtrapolateSpeed: 1
     ExtrapolateIncludingRoundTripTime: 1
     ExtrapolateNumberOfStoredPositions: 1
     DrawErrorGizmo: 0
   m_RotationModel:
     SynchronizeEnabled: 1
-    InterpolateOption: 2
-    InterpolateRotateTowardsSpeed: 1000
+    InterpolateOption: 1
+    InterpolateRotateTowardsSpeed: 180
     InterpolateLerpSpeed: 5
   m_ScaleModel:
     SynchronizeEnabled: 0

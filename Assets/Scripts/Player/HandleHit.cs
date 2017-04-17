@@ -142,6 +142,9 @@ public class HandleHit : Photon.MonoBehaviour {
         PlayerController who = 
             GameManager.Instance.PlayerList[playerID].PlayerController;
 
+		if (who==null || !who.photonView.isMine)
+			return;
+
         who.PlayerHealth.Health -= damage;
         this.SendHitstun(who, hitstun);
     }
@@ -154,6 +157,9 @@ public class HandleHit : Photon.MonoBehaviour {
         PlayerController who =
             GameManager.Instance.PlayerList[playerID].PlayerController;
 
+		if (who==null || !who.photonView.isMine)
+			return;
+		
         who.PlayerPhysics.ApplyPoke(direction);
     }
 }

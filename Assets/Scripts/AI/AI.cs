@@ -15,7 +15,7 @@ public class AI : MonoBehaviour {
 	private PlayerHealth ennemyHealth;
 	private InputManager inputManager;
 	private TargetManager targetManager;
-	
+	private PlayerController pc ;
 	//local registers
 	private bool allowAction = true;
 	private int r, r1,i;
@@ -24,11 +24,10 @@ public class AI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (!PhotonNetwork.isMasterClient)
-			Destroy (this.GetComponent<AI> ());
-
 		genome = new Genome();
-		PlayerController pc = gameObject.GetComponent<PlayerController> ();
+		pc = gameObject.GetComponent<PlayerController> ();
+		if (!pc.isAI)
+			Destroy (this);
 		stateMachine = pc.RobotStateMachine;
 		robotHealth = pc.PlayerHealth;
 		robotPower = pc.PlayerPower;
@@ -97,6 +96,9 @@ public class AI : MonoBehaviour {
 	private int count = 0;
 	// Update is called once per frame
 	void Update () {
+		if (!PhotonNetwork.isMasterClient)
+			return;
+		
 		if (targetManager.currentTarget != null) {
 			//updating environment
 			r = robotHealth.Health;

@@ -3,16 +3,25 @@
 public class AIFocus : MonoBehaviour {   
 
 	private TargetManager targetManager;
+	private PlayerController pc;
 
-	
-	void Start() {
-		if (!PhotonNetwork.isMasterClient)
-			Destroy (this.GetComponent<AIFocus> ());
-		targetManager = gameObject.GetComponent<PlayerController> ().TargetManager;
+	void Start()
+	{
+		pc = gameObject.GetComponent<PlayerController> ();
+		targetManager = pc.TargetManager;
+		if (!pc.isAI)
+			Destroy (this);
 	}
-	
+
+
 	void Update() {	
 
+		if (!PhotonNetwork.isMasterClient)
+			return;
+		
+		if (!pc.isAI)
+			Destroy (this);
+		
         Quaternion neededRotation;
 		if (targetManager.currentTarget != null) {
             neededRotation = Quaternion.LookRotation(

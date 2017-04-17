@@ -113,10 +113,12 @@ public class GameManager : MonoBehaviour {
     protected void endRoundWithTimer(){
         RobotStateMachine Winner = null;
         Winner = searchForMaxHealthPlayers();
-		    Winner.SetState(new RobotVictoryState());
+		if( Winner.PlayerController.photonView.isMine)
+			Winner.SetState(new RobotVictoryState());
         Timer.Countdown.ManageToSprite();
         Timer.photonView.RPC("ClientDisplayKo", PhotonTargets.AllViaServer);
     }
+
 
     protected RobotStateMachine searchForMaxHealthPlayers() {
 		int MaxHP = 0;
@@ -205,7 +207,7 @@ public class GameManager : MonoBehaviour {
 				return;
 
 			foreach (KeyValuePair<int,RobotStateMachine> winner in GameManager.Instance.AlivePlayerList) {
-				if (winner.Value != null)
+				if (winner.Value != null && winner.Value.PlayerController.photonView.isMine)
 					winner.Value.SetState (new RobotVictoryState ());
 			}
 			isGameFinished = true;

@@ -65,8 +65,10 @@ public class RobotBlockState : RobotFramedState {
 		if (Shield == null)
 			Shield = ((RobotStateMachine)stateMachine).PlayerController.Shield;
 			
-		if(this.CurrentFrame==this.MinActiveState && this.Shield != null)
-			this.Shield.SetActive(true);
+		if (this.CurrentFrame == this.MinActiveState) {
+			this.setShieldActive (true, stateMachine);
+		}
+
 
 		this.CurrentFrame++;
 		if (this.CheckIfBlockHolding (stateMachine)) {
@@ -75,12 +77,12 @@ public class RobotBlockState : RobotFramedState {
 		}
 
 		if(this.CurrentFrame>=MaxActiveState)
-		if (this.Shield != null) this.Shield.SetActive(false);
+		if (this.Shield != null) this.setShieldActive (false, stateMachine);
 
     }
 
     public override void Exit(StateMachine stateMachine) {
-		if (this.Shield != null) this.Shield.SetActive(false);
+		if (this.Shield != null) this.setShieldActive (false, stateMachine);
     }
 
 
@@ -108,4 +110,21 @@ public class RobotBlockState : RobotFramedState {
     {
         audio.Block();
     }
+
+
+	public void setShieldActive(bool activeState,StateMachine stateMachine)
+	{
+
+		if (!PhotonNetwork.offlineMode && this.Shield.activeSelf != activeState) {
+			PlayerController pc = ((RobotStateMachine)stateMachine).PlayerController;
+			pc.photonView.RPC ("ActivateObjectFromState", PhotonTargets.Others, Shield.name,
+				activeState, pc.ID);
+		}
+
+		if (this.Shield != null)
+			this.Shield.SetActive (activeState);
+		
+	}
+
+
 }

@@ -5,10 +5,10 @@ public class InputManager : MonoBehaviour {
     private bool _dPadYInUse = false;
     private float _timer = 0f;
     private float _previousTime = 0f;
-	private bool isAI = false;
+	public bool isAI = false;
 	public bool blockInputs = false;
 	public RoundTimer roundTimer=null;
-	
+
 	//input simulator
 	[HideInInspector] public bool attackButtonAI = false;
 	[HideInInspector] public bool blockButtonAI = false;
@@ -16,7 +16,9 @@ public class InputManager : MonoBehaviour {
 	[HideInInspector] public float moveSideSpeedAI = 0f;
 
 	void Start() {
-		if(gameObject.GetComponent<AI>()){isAI = true;}
+
+		PlayerController pc = gameObject.GetComponent<PlayerController> ();
+		if(pc!=null && pc.isAI){isAI = true;}
 		GameObject temp = GameObject.Find ("RoundTimer");
 		if(temp!=null)
 			roundTimer = temp.GetComponent<RoundTimer> ();

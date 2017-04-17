@@ -404,6 +404,8 @@ GameObject:
   - component: {fileID: 114736853800437322}
   - component: {fileID: 114532053479291384}
   - component: {fileID: 114443010648259576}
+  - component: {fileID: 114593442182818784}
+  - component: {fileID: 114376305015958874}
   - component: {fileID: 114860001281075466}
   m_Layer: 9
   m_Name: OrangeRobot
@@ -3221,6 +3223,17 @@ MonoBehaviour:
   PlayerController: {fileID: 114752654287580608}
   MaxHistorySize: 12
   inputManager: {fileID: 0}
+--- !u!114 &114376305015958874
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1448357254194948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63695a652c89054a8dcaff599b200d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114382661750439634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3316,15 +3329,15 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    ExtrapolateOption: 1
+    ExtrapolateOption: 0
     ExtrapolateSpeed: 1
     ExtrapolateIncludingRoundTripTime: 1
     ExtrapolateNumberOfStoredPositions: 1
     DrawErrorGizmo: 0
   m_RotationModel:
     SynchronizeEnabled: 1
-    InterpolateOption: 2
-    InterpolateRotateTowardsSpeed: 1000
+    InterpolateOption: 1
+    InterpolateRotateTowardsSpeed: 180
     InterpolateLerpSpeed: 5
   m_ScaleModel:
     SynchronizeEnabled: 0
@@ -3356,12 +3369,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d618b3cf9946524fbc22a941eca3f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAI: 0
   blockInputs: 0
   roundTimer: {fileID: 0}
   attackButtonAI: 0
   blockButtonAI: 0
   moveForwardSpeedAI: 0
   moveSideSpeedAI: 0
+--- !u!114 &114593442182818784
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1448357254194948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7856f5d1c36dd344943fcf6f6cb6926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114651607299964114
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3388,7 +3413,7 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 1
+  synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0

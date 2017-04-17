@@ -11,15 +11,15 @@ public class PlayerController : Photon.PunBehaviour {
     public const string Player = "Player";
     public Color PlayerColor = Color.blue;
     public Color OpponentColor = Color.red;
-	  public int powerRecoverySpeed = 5;
-	  public float timeBetweenPowerRecovery = 1.0f;
+	public int powerRecoverySpeed = 5;
+	public float timeBetweenPowerRecovery = 1.0f;
 
 	public string Team;
     public int ID { get; protected set; }
     public RobotStateMachine RobotStateMachine { get; protected set; }
 
     [HideInInspector] public PlayerHealth PlayerHealth;
-    [HideInInspector] public PlayerPower PlayerPower;
+    [HideInInspector] public PlayerPower PlayerPower;	
     [HideInInspector] public PlayerPhysics PlayerPhysics = null;
     [HideInInspector] public PlayerAudio PlayerAudio;
     [HideInInspector] public Animator Animator = null;
@@ -51,6 +51,10 @@ public class PlayerController : Photon.PunBehaviour {
         } else {
             this.SetPlayer();
         }
+		if (!this.photonView.isMine) {
+			setDistantScriptsActive (false);
+		}
+
 		this.isPlayerReady = true;
     }
 
@@ -158,6 +162,18 @@ public class PlayerController : Photon.PunBehaviour {
 		}
     }
 
+	[PunRPC]
+	public void ActivateObjectFromState(string name, bool activeState, int ID){
+		Debug.Log ("ACTIVATING " + name + " of : " + gameObject.name + " -> ID : " + ID);
+		if (ID == this.ID) {
+			
+			if (Lightnings!=null && name.Equals (Lightnings.name))
+				this.Lightnings.SetActive (activeState);
+			else if (Shield!=null && name.Equals (Shield.name))
+				this.Shield.SetActive (activeState);
+		}
+	}	
+
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 		if (stream.isWriting) {
 			stream.SendNext (this.PlayerHealth.Health);
@@ -165,14 +181,37 @@ public class PlayerController : Photon.PunBehaviour {
 			stream.SendNext (this.Team);
 			stream.SendNext (this.isAI);
 			stream.SendNext (this.isPlayerReady);
+			stream.SendNext (this.Animator.speed);
 		} else {
 			this.PlayerHealth.Health = (int)stream.ReceiveNext ();
 			this.PlayerPower.Power = (float)stream.ReceiveNext ();
 			this.Team = (string)stream.ReceiveNext ();
 			this.isAI = (bool)stream.ReceiveNext ();
 			this.isPlayerReady = (bool)stream.ReceiveNext ();
+			this.Animator.speed = (float)stream.ReceiveNext ();
 		}
     }
 
+	public override void OnLeftRoom()
+	{
+		if (this.photonView.isMine && !this.isAI) {
+			Debug.Log (this.photonView.owner.NickName + "LEFT, removing " + gameObject.name);
+			GameManager.Instance.RemovePlayerFromGame (this.ID);
+		}
+	}
+
+	public void OnMasterClientSwitched(PhotonPlayer newMasterClient){
+		if (PhotonNetwork.isMasterClient && this.isAI) {
+			setDistantScriptsActive (true);
+		}
+	}
+		
+	private void setDistantScriptsActive(bool activeState)
+	{
+		this.TargetManager.enabled = activeState;
+		this.RobotStateMachine.enabled = activeState;
+		this.PlayerPhysics.enabled = activeState;
+		this.inputManager.enabled = activeState;
+	}
 
 }
