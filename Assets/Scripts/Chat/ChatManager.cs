@@ -17,6 +17,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     private string _chatRoomName;
     private Dictionary<string, GameObject> _friendChannels = new Dictionary<string, GameObject>();
     private int _botCount = 0;
+	private Button startButton;
 
     public GameObject FriendChatPanel;
     public GameObject ChatEntry;
@@ -47,6 +48,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
 
         // Connection
         ClientChat.Connect(PhotonNetwork.PhotonServerSettings.ChatAppID, _chatVersion, authValues);
+		startButton = GameObject.Find ("CreateGameButton").GetComponent<Button> ();
     }
 
     // Update is called once per frame
@@ -194,6 +196,12 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
                 chatEntry.GetComponent<Text>().text = sender + ": " + message.ToString();
             }
         }
+			
+
+		if (PlayerList.Count > 1)
+			startButton.interactable = true;
+		else
+			startButton.interactable = false;
     }
 
     public void SayReady()
@@ -458,6 +466,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         newPlayer.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         PlayerList.Add(playerName, newPlayer);
         PlayerTeams.Add(playerName, 1);
+
     }
 
     public void RemovePlayerEntry(string playerName, bool verbose)
