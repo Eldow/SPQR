@@ -11,10 +11,15 @@ public class Countdown : MonoBehaviour {
     private Image Ko;
     private Image To;
 
+    private AudioSource _audioSource;
+
     public float StartTime;
     public float ElapsedTime;
 
     public bool isCountingDown = false;
+
+    public AudioClip HighBell;
+    public AudioClip LowBell;
 
     public int SpriteState_3 = 0;
     public int SpriteState_2 = 0;
@@ -40,6 +45,8 @@ public class Countdown : MonoBehaviour {
        Cd_Go.canvasRenderer.SetAlpha(0.0f);
        Ko.canvasRenderer.SetAlpha(0.0f);
        To.canvasRenderer.SetAlpha(0.0f);
+
+        _audioSource = GetComponent<AudioSource>();
     }
 
     //Resets the alpha of all sprites, stops the current countdown if any is ongoing.
@@ -71,6 +78,7 @@ public class Countdown : MonoBehaviour {
 
     public void ManageCountdownSprites(){
       if (SpriteState_3==0){
+        _audioSource.PlayOneShot(LowBell);
         SpriteState_3++;
         Cd_3.CrossFadeAlpha(1f, 0.1f, true);
       }
@@ -80,6 +88,7 @@ public class Countdown : MonoBehaviour {
       }
 
       if ((SpriteState_2==0) && (ElapsedTime > 1f)){
+        _audioSource.PlayOneShot(LowBell);
         SpriteState_2++;
         Cd_2.CrossFadeAlpha(1f, 0.1f, true);
       }
@@ -89,6 +98,7 @@ public class Countdown : MonoBehaviour {
       }
 
       if ((SpriteState_1==0) && (ElapsedTime > 2f)){
+         _audioSource.PlayOneShot(LowBell);
         SpriteState_1++;
         Cd_1.CrossFadeAlpha(1f, 0.1f, true);
       }
@@ -98,6 +108,7 @@ public class Countdown : MonoBehaviour {
       }
 
       if ((SpriteState_Go==0) && (ElapsedTime > 3f)){
+        _audioSource.PlayOneShot(HighBell);
         SpriteState_Go++;
         Cd_Go.CrossFadeAlpha(1f, 0.1f, true);
       }
