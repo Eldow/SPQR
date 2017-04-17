@@ -17,9 +17,17 @@ public class RobotState : State {
     }
 
 	protected virtual void SetLightings(StateMachine stateMachine, bool isActive) {
-		GameObject Lightnings = ((RobotStateMachine)stateMachine).PlayerController.Lightnings;
+		PlayerController pc = ((RobotStateMachine)stateMachine).PlayerController;
+		GameObject Lightnings = pc.Lightnings;
 
-		if (Lightnings != null) Lightnings.SetActive(isActive);
+		if (!PhotonNetwork.offlineMode && Lightnings.activeSelf != isActive) {
+			pc.photonView.RPC ("ActivateObjectFromState", PhotonTargets.Others, Lightnings.name,
+				isActive, pc.ID);
+		}
+
+		if (Lightnings != null) {
+			Lightnings.SetActive (isActive);
+		}
     }
 
     public override void Enter(StateMachine stateMachine) {
