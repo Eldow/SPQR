@@ -82,6 +82,7 @@ public class LobbyManager : Photon.PunBehaviour
 
     public void Exit()
     {
+		PhotonNetwork.Disconnect ();
 		SceneManager.LoadScene ("Launcher");
     }
 }
