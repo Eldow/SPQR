@@ -79,26 +79,51 @@ public abstract class FollowTarget : MonoBehaviour {
             Quaternion.Euler(this.MainCameraDefaultLockRotation);
     }
 
+
     protected virtual void UpdateTarget() {
-        if (this.CheckIfPlayerToFind()) {
-            this.FindTargetPlayer();
-        }
 
-        if (this.PlayerController == null) return;
+		if (this.CheckIfPlayerToFind ()) {
+			this.FindTargetPlayer ();
+		}
+
+		if (this.PlayerController == null)
+			return;
 
 
-		if (inputManager.cameraButtonDown()) {
-            this.SwitchCameraMode();
-        }
+		if (inputManager.cameraButtonDown ()) {
+			this.SwitchCameraMode ();
+		}
 
-        if (this.LockCamera) {
-            this.LookAtOpponent();
-        } else {
-            this.FindTargetPlayer();
-        }
+		if (this.LockCamera) {
+			this.LookAtOpponent ();
+		} else {
+			this.FindTargetPlayer ();
+		}
 
-        this.Follow(Time.deltaTime, LockCamera);
-    }
+		if (this.LockCamera && OpponentController == null)
+			findNewLockTarget ();
+		
+		
+		this.Follow (Time.deltaTime, LockCamera);
+	}
+
+	private void findNewLockTarget()
+	{
+		UpdateOpponent ();
+		if (this.OpponentController != null) {
+			this.IsLeftPivot = true;
+			this.ApplyOffset ();
+
+			HealthBar = this.OpponentController.OpponentInfo;
+			HealthBar.SetActive (!LockCamera);
+			HealthBar.SetActive (LockCamera);
+		} else {
+			this.LockCamera = false;
+			HealthBar.SetActive (LockCamera);
+			this.UndoOffset ();
+			this.ResetCameraUnlockPosition ();
+		}
+	}
 
     protected void TryToGetPlayerController() {
 		GameObject player = GameObject.FindGameObjectWithTag (PlayerController.Player);

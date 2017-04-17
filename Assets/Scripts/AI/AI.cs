@@ -114,80 +114,76 @@ public class AI : MonoBehaviour {
 			}
 			distanceToOpponent = Vector3.Distance (gameObject.transform.position, targetManager.currentTarget.transform.position);
 			//chose action
-			for (i = 0; i < 1; i++) {
-				//1st action priority : attack
-				if (distanceToOpponent > genome.dna [2].GetBorderLow () && distanceToOpponent < genome.dna [2].GetBorderUp ()) {
+			//1st action priority : attack
+			if (distanceToOpponent > genome.dna [2].GetBorderLow () && distanceToOpponent < genome.dna [2].GetBorderUp ()) {
 					
-					f = SetActionForce (2, distanceToOpponent);
-					//Debug.Log (f);
-					rand = Random.Range (0f, 1f);
-					if (f > rand) {
-						if (allowAction) {
-							inputManager.attackButtonAI = true;
-							Invoke ("StopButtonAttack", 0.1f);
-							allowAction = false;
-							Invoke ("SetLatency", 0.2f);
-							break;
-						}
-					} else {
-						//2nd action priority : block
-						if (distanceToOpponent > genome.dna [3].GetBorderLow () && distanceToOpponent < genome.dna [3].GetBorderUp ()) {
-							f = SetActionForce (3, distanceToOpponent);
-							rand = Random.Range (0f, 1f);
-							if (f > rand) {
-								if (allowAction) {
-									if (!inputManager.blockButtonAI) {
-										inputManager.blockButtonAI = true;
-										Invoke ("StopButtonBlock", 1f);
-										allowAction = false;
-										Invoke ("SetLatency", 0.2f);
-										break;
-									}
+				f = SetActionForce (2, distanceToOpponent);
+				//Debug.Log (f);
+				rand = Random.Range (0f, 1f);
+				if (f > rand) {
+					if (allowAction) {
+						inputManager.attackButtonAI = true;
+						Invoke ("StopButtonAttack", 0.1f);
+						allowAction = false;
+						Invoke ("SetLatency", 0.2f);
+						return;
+					}
+				} else {
+					//2nd action priority : block
+					if (distanceToOpponent > genome.dna [3].GetBorderLow () && distanceToOpponent < genome.dna [3].GetBorderUp ()) {
+						f = SetActionForce (3, distanceToOpponent);
+						rand = Random.Range (0f, 1f);
+						if (f > rand) {
+							if (allowAction) {
+								if (!inputManager.blockButtonAI) {
+									inputManager.blockButtonAI = true;
+									Invoke ("StopButtonBlock", 1f);
+									allowAction = false;
+									Invoke ("SetLatency", 0.2f);
+									return;
 								}
 							}
-							else{
-								inputManager.moveForwardSpeedAI = 1.5f;
-								Invoke("StopMove",1.8f);
-							}
-						}
-					}
-				}
-				//3rd action priority : walk
-				if (distanceToOpponent > genome.dna [1].GetBorderLow () && distanceToOpponent < genome.dna [1].GetBorderUp ()) {
-					f = SetActionForce (1, distanceToOpponent);
-					rand = Random.Range (0f, 1f);
-					if (rand < f) {
-						rand =Random.Range(0f,1f);
-						if(rand > Mathf.Sqrt ((100f - power) / 100f)){
-							inputManager.moveForwardSpeedAI = -1.5f;
+						} else {
+							inputManager.moveForwardSpeedAI = 1.5f;
 							Invoke ("StopMove", 1.8f);
 						}
-						else{
-							if(distanceToOpponent < 3){
-								inputManager.moveForwardSpeedAI = 1.5f;
-							}
-							rand = Random.Range(0f,1f);
-							if(rand > 0.5f){
-								inputManager.moveSideSpeedAI = 1.5f;
-							}
-							else{
-								inputManager.moveSideSpeedAI = -1.5f;
-							}
-							Invoke ("StopMove", 1.8f);
-						}
-						break;
-					} else {
-						// 4th action priority : idle
-						// if(distanceToOpponent > genome.dna[0].GetBorderLow() && distanceToOpponent < genome.dna[0].GetBorderUp()){
-						// f = SetActionForce(distanceToOpponent);
-						// rand = Random.Range(0f,1f);
-						// if (rand < f){
-						// pc.RobotStateMachine.SetState(new RobotIdleState());
-						// }
-						// }
 					}
 				}
 			}
+				//3rd action priority : walk
+			else if (distanceToOpponent > genome.dna [1].GetBorderLow () && distanceToOpponent < genome.dna [1].GetBorderUp ()) {
+				f = SetActionForce (1, distanceToOpponent);
+				rand = Random.Range (0f, 1f);
+				if (rand < f) {
+					rand = Random.Range (0f, 1f);
+					if (rand > Mathf.Sqrt ((100f - power) / 100f)) {
+						inputManager.moveForwardSpeedAI = -1.5f;
+						Invoke ("StopMove", 1.8f);
+					} else {
+						if (distanceToOpponent < 3) {
+							inputManager.moveForwardSpeedAI = 1.5f;
+						}
+						rand = Random.Range (0f, 1f);
+						if (rand > 0.5f) {
+							inputManager.moveSideSpeedAI = 1.5f;
+						} else {
+							inputManager.moveSideSpeedAI = -1.5f;
+						}
+						Invoke ("StopMove", 1.8f);
+					}
+					return;
+				} else {
+					// 4th action priority : idle
+					// if(distanceToOpponent > genome.dna[0].GetBorderLow() && distanceToOpponent < genome.dna[0].GetBorderUp()){
+					// f = SetActionForce(distanceToOpponent);
+					// rand = Random.Range(0f,1f);
+					// if (rand < f){
+					// pc.RobotStateMachine.SetState(new RobotIdleState());
+					// }
+					// }
+				}
+			}
+			
 		} else {
 			targetManager.updateNearestOpponent ();
 		}
