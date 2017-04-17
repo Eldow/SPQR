@@ -10,6 +10,7 @@ public class PlayerAudio : Photon.MonoBehaviour {
     private PlayerController _playerController;
 
     public AudioClip[] AttackClips;
+    public AudioClip[] SlowAttackClips;
     public AudioClip[] LightHitClips;
     public AudioClip[] MediumHitClips;
     public AudioClip[] StrongHitClips;
@@ -89,6 +90,18 @@ public class PlayerAudio : Photon.MonoBehaviour {
         {
             PlayRandomClipInArray(StrongHitClips);
         }
+    }
+
+    public void CriticalHit()
+    {
+        _methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+        PlayRandomClipInArray(StrongHitClips);
+    }
+
+    public void SlowAttack()
+    {
+        _methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+        PlayRandomClipInArray(SlowAttackClips);
     }
 
     public void StunHit()

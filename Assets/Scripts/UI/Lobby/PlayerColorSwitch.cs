@@ -71,5 +71,6 @@ public class PlayerColorSwitch : MonoBehaviour, IPointerClickHandler
         {
             chat.SendModifyBot(text, _index);
         }
+        GameObject.Find("UIAudio").GetComponent<UIAudioBehaviour>().PlayAudioClick();
     }
 }

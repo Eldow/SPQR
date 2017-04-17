@@ -3249,6 +3249,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8ced024204f5ab142829768bb4830b2f, type: 3}
   - {fileID: 8300000, guid: fa860fdd896dae94d8e83c97f5a25be5, type: 3}
   - {fileID: 8300000, guid: 86a960b9e8bd82b41976c647c1f66361, type: 3}
+  SlowAttackClips:
+  - {fileID: 8300000, guid: c67d66e54b4f1044eb04df80c72f5832, type: 3}
   LightHitClips:
   - {fileID: 8300000, guid: a5f08f38f52271243870e9aa47da8432, type: 3}
   - {fileID: 8300000, guid: a157bb2fef548b94c9f536c63bb6bcc0, type: 3}
