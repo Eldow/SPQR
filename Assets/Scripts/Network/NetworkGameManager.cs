@@ -33,7 +33,6 @@ public class NetworkGameManager : Photon.PunBehaviour {
         // Map init
         object map;
         Vector3 position = new Vector3(0, -0.6f, 0);
-        int randIndex = Random.Range(0, MapPrefabs.Length);
         GameObject newMap;
         if (!PhotonNetwork.offlineMode)
         {
@@ -41,9 +40,6 @@ public class NetworkGameManager : Photon.PunBehaviour {
             int mapIndex = (int)map;
             switch (mapIndex)
             {
-                case 0:
-                    newMap = Instantiate(MapPrefabs[randIndex], position, Quaternion.identity);
-                    break;
                 case 1:
                     newMap = Instantiate(MapPrefabs[0], position, Quaternion.identity);
                     break;
@@ -60,6 +56,7 @@ public class NetworkGameManager : Photon.PunBehaviour {
         }
         else
         {
+            int randIndex = Random.Range(0, MapPrefabs.Length);
             newMap = Instantiate(MapPrefabs[randIndex], position, Quaternion.identity);
         }
         newMap.transform.localScale = new Vector3(100, 100, 100);
