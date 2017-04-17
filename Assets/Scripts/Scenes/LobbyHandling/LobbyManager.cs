@@ -74,6 +74,10 @@ public class LobbyManager : Photon.PunBehaviour
         MatchmakingPanel.SetActive(true);
     }
 
+    public void Launcher() {
+        SceneManager.LoadScene("Launcher");
+    }
+
     public void CustomView()
     {
         MatchmakingPanel.SetActive(false);
