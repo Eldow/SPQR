@@ -24,6 +24,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     public GameObject PlayerEntry;
     public GameObject RoomInvitation;
     public GameObject MatchmakingPanel;
+    public GameObject FriendList;
     public int MaxHistoryLength = 20;
     public ChatClient ClientChat;
     public Dictionary<string, GameObject> PlayerList = new Dictionary<string, GameObject>();
@@ -48,7 +49,6 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
 
         // Connection
         ClientChat.Connect(PhotonNetwork.PhotonServerSettings.ChatAppID, _chatVersion, authValues);
-		startButton = GameObject.Find ("CreateGameButton").GetComponent<Button> ();
     }
 
     // Update is called once per frame
@@ -85,6 +85,8 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     */
     public void OnConnected()
     {
+        MatchmakingPanel.SetActive(true);
+        FriendList.SetActive(true);
         SubscribeToAllFriends();
         CreateChatRoom();
         ClientChat.SetOnlineStatus(ChatUserStatus.Online);
@@ -197,11 +199,6 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
             }
         }
 			
-
-		if (PlayerList.Count > 1)
-			startButton.interactable = true;
-		else
-			startButton.interactable = false;
     }
 
     public void SayReady()
