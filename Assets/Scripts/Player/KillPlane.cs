@@ -7,7 +7,8 @@ public class KillPlane : MonoBehaviour
 	//Can handle own collider
 	void OnTriggerEnter (Collider other)
 	{
-			Debug.Log("KILL PLANE TRIGGERED");
-			Debug.Log(other);
+        Debug.Log("KILL PLANE TRIGGERED");
+        if (other.GetComponentInParent<PlayerController>() == null) return;
+        other.GetComponentInParent<PlayerController>().PlayerHealth.Health = 0;
 	}
 }
