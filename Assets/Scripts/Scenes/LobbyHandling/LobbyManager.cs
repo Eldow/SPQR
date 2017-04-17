@@ -50,6 +50,10 @@ public class LobbyManager : Photon.PunBehaviour
         ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
 		chat.preventUniqueTeam ();
         h.Add("Teams", chat.PlayerTeams);
+        if(chat.Map == 0)
+        {
+            chat.Map = Random.Range(1, 3);
+        }
         h.Add("Map", chat.Map);
         h.Add("Mode", chat.Mode);
         PhotonNetwork.CreateRoom(PhotonNetwork.playerName + "Room", new RoomOptions() { CustomRoomProperties = h, MaxPlayers = System.Convert.ToByte(chat.PlayerTeams.Count) }, null);
