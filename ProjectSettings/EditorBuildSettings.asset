@@ -13,6 +13,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Sandbox.unity
   - enabled: 0
     path: Assets/Scenes/CollidersTest.unity
+  - enabled: 1
+    path: Assets/Scenes/Arena.unity
+  - enabled: 1
+    path: Assets/Scenes/ArenaDonut.unity
+  - enabled: 1
+    path: Assets/Scenes/ArenaNoBorders.unity
   - enabled: 0
     path: Assets/Scenes/MainMenu.unity
   - enabled: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AI : MonoBehaviour {
 
@@ -16,18 +17,21 @@ public class AI : MonoBehaviour {
 	private InputManager inputManager;
 	private TargetManager targetManager;
 	private PlayerController pc ;
+	private AIFocus aiFocus;
 	//local registers
 	private bool allowAction = true;
 	private int r, r1,i;
 	private float f,f1,rand;
 
-
 	// Use this for initialization
 	void Start () {
-		genome = new Genome();
 		pc = gameObject.GetComponent<PlayerController> ();
 		if (!pc.isAI)
 			Destroy (this);
+		
+		genome = new Genome();
+		aiFocus = this.GetComponent<AIFocus> ();
+
 		stateMachine = pc.RobotStateMachine;
 		robotHealth = pc.PlayerHealth;
 		robotPower = pc.PlayerPower;
@@ -83,7 +87,7 @@ public class AI : MonoBehaviour {
 	void StopButtonBlock() {
 		inputManager.blockButtonAI = false;
 	}
-	
+
 	void SetLatency(){
 		allowAction = true;
 	}
@@ -98,8 +102,14 @@ public class AI : MonoBehaviour {
 	void Update () {
 		if (!PhotonNetwork.isMasterClient)
 			return;
+
+		if (aiFocus.targetUnreachable) {
+			StopMove ();
+			targetManager.updateNearestOpponent ();
+		}
 		
 		if (targetManager.currentTarget != null) {
+			
 			//updating environment
 			r = robotHealth.Health;
 			power = robotPower.Power;
