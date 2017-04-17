@@ -171,7 +171,7 @@ public class FreeCameraLook : Pivot {
             this.SmoothX = cameraX;
             this.SmoothY = cameraY;
         }
-			
+
 		this.transform.Rotate (Vector3.up * this.SmoothX * this.TurnSpeed, Space.World);
 
         this.TiltAngle -= this.SmoothY * this.TurnSpeed;

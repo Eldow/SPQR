@@ -32,7 +32,7 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     private float _stability = 0.3f;
     private float _torqueSpeed = 2f;
     private Vector3 _constantForce = new Vector3(0, -50f, 0);
-
+	private PlayerController pc;
     void Start() {
         this.Initialize();
     }
@@ -57,7 +57,11 @@ public class PlayerPhysics : Photon.MonoBehaviour {
         this._yAxisInput = this._xAxisInput = 0;
         this.CameraTransform = Camera.main.transform;
         this.IsMoving = false;
-		inputManager = gameObject.GetComponent<RobotStateMachine>().PlayerController.inputManager;
+		pc = gameObject.GetComponent<RobotStateMachine> ().PlayerController;
+		inputManager = pc.inputManager;
+
+		if(pc.isAI)
+			IsLockedMovement=true;
     }
 
     protected virtual void UpdatePhysics() {
@@ -87,7 +91,7 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     }
 
     protected virtual void GetCameraVectors() {
-        this.CameraForwardDirection =
+       this.CameraForwardDirection =
             this.CameraTransform.TransformDirection(Vector3.forward);
 
         this.CameraForwardDirection = new Vector3(
@@ -106,9 +110,14 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     }
 
     protected virtual void GetTargetDirection() {
-        this.TargetDirection =
-            this._xAxisInput*this.CameraRightDirection + this._yAxisInput*
-            this.CameraForwardDirection;
+
+		if (pc.isAI) {
+			this.TargetDirection = -this._yAxisInput *this.transform.forward;
+		} else {
+			this.TargetDirection =
+            this._xAxisInput * this.CameraRightDirection + this._yAxisInput *
+			this.CameraForwardDirection;
+		}
     }
 
     public void Move() {
@@ -144,7 +153,8 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     }
 
     public void LockedMovement(float speedFactor = 1.0f) {
-        this.GetCameraVectors();
+		if(!pc.isAI)
+       		this.GetCameraVectors();
         this.GetTargetDirection();
 
         this.MoveDirection = this.TargetDirection.normalized;

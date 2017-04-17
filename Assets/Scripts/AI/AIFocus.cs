@@ -26,17 +26,17 @@ public class AIFocus : MonoBehaviour {
 		if (targetManager.currentTarget != null) {
             neededRotation = Quaternion.LookRotation(
 				targetManager.currentTarget.transform.position - 
-                gameObject.transform.position
+                transform.position
             );
         } else {
             neededRotation = Quaternion.LookRotation(
-                gameObject.transform.forward,
-                gameObject.transform.up
+                transform.forward,
+                transform.up
             );
         }
 
-        gameObject.transform.rotation = Quaternion.Slerp(
-            gameObject.transform.rotation, 
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation, 
             neededRotation, 
             Time.deltaTime * 5f
         );

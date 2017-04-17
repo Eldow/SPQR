@@ -112,13 +112,12 @@ public class AI : MonoBehaviour {
 				Learn (false);
 				ennemyHealth_ = r1;
 			}
-			distanceToOpponent = Vector3.Distance (gameObject.transform.position, targetManager.currentTarget.transform.position);
+			distanceToOpponent = Vector3.Distance (transform.position, targetManager.currentTarget.transform.position);
 			//chose action
 			//1st action priority : attack
 			if (distanceToOpponent > genome.dna [2].GetBorderLow () && distanceToOpponent < genome.dna [2].GetBorderUp ()) {
-					
+				StopMove ();
 				f = SetActionForce (2, distanceToOpponent);
-				//Debug.Log (f);
 				rand = Random.Range (0f, 1f);
 				if (f > rand) {
 					if (allowAction) {
@@ -144,8 +143,8 @@ public class AI : MonoBehaviour {
 								}
 							}
 						} else {
-							inputManager.moveForwardSpeedAI = 1.5f;
-							Invoke ("StopMove", 1.8f);
+							inputManager.moveForwardSpeedAI = -1.0f;
+							//Invoke ("StopMove", 1.8f);
 						}
 					}
 				}
@@ -157,9 +156,9 @@ public class AI : MonoBehaviour {
 				if (rand < f) {
 					rand = Random.Range (0f, 1f);
 					if (rand > Mathf.Sqrt ((100f - power) / 100f)) {
-						inputManager.moveForwardSpeedAI = -1.5f;
-						Invoke ("StopMove", 1.8f);
-					} else {
+						inputManager.moveForwardSpeedAI = -1.0f;
+						//Invoke ("StopMove", 1.8f);
+					}/* else {
 						if (distanceToOpponent < 3) {
 							inputManager.moveForwardSpeedAI = 1.5f;
 						}
@@ -169,8 +168,8 @@ public class AI : MonoBehaviour {
 						} else {
 							inputManager.moveSideSpeedAI = -1.5f;
 						}
-						Invoke ("StopMove", 1.8f);
-					}
+						//Invoke ("StopMove", 1.8f);
+					}*/
 					return;
 				} else {
 					// 4th action priority : idle
