@@ -38,6 +38,8 @@ public class FreeCameraLook : Pivot {
 
     void Start() {
         this.Initialize();
+		this.transform.localRotation = Quaternion.Euler (0, -90, 0);
+		this.PivotObject.localRotation = Quaternion.Euler (25, 0, 0);
     }
 
     void Update() {
