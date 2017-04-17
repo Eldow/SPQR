@@ -73,9 +73,9 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 1326889472733694, guid: e3773d687eea24a4abfdc18697e3a380,
     type: 2}
   MapPrefabs:
-  - {fileID: 100002, guid: c4b6bfdd95ce50b468cc6b9ec0dcbc08, type: 3}
-  - {fileID: 100002, guid: bc7cf06e3859f8c4e9c042bf0c3493e4, type: 3}
-  - {fileID: 100000, guid: f7197355d4cb4e3418e720d0c4812798, type: 3}
+  - {fileID: 1534206368203742, guid: 94608c10f12f7c2438cbf6248ccda311, type: 2}
+  - {fileID: 1326458392141866, guid: 8401c075aaa826c4db19a805e3e54b09, type: 2}
+  - {fileID: 1708840286175138, guid: c4346bbd88b27a1409a5fb11e89d3f2f, type: 2}
   Team: 0
   Color: 0
 --- !u!114 &114511914195339042
