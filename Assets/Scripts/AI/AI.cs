@@ -195,7 +195,6 @@ public class AI : MonoBehaviour {
 				}
 			}
 
-			Debug.Log (distanceToOpponent);
 			if(distanceToOpponent<=1.5f)
 				StopMove ();
 		} else {
