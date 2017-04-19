@@ -123,6 +123,8 @@ public class AI : MonoBehaviour {
 				ennemyHealth_ = r1;
 			}
 			distanceToOpponent = Vector3.Distance (transform.position, targetManager.currentTarget.transform.position);
+
+
 			//chose action
 			//1st action priority : attack
 			if (distanceToOpponent > genome.dna [2].GetBorderLow () && distanceToOpponent < genome.dna [2].GetBorderUp ()) {
@@ -192,7 +194,10 @@ public class AI : MonoBehaviour {
 					// }
 				}
 			}
-			
+
+			Debug.Log (distanceToOpponent);
+			if(distanceToOpponent<=1.5f)
+				StopMove ();
 		} else {
 			targetManager.updateNearestOpponent ();
 		}
