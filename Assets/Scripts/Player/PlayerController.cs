@@ -164,7 +164,6 @@ public class PlayerController : Photon.PunBehaviour {
 
 	[PunRPC]
 	public void ActivateObjectFromState(string name, bool activeState, int ID){
-		Debug.Log ("ACTIVATING " + name + " of : " + gameObject.name + " -> ID : " + ID);
 		if (ID == this.ID) {
 			
 			if (Lightnings!=null && name.Equals (Lightnings.name))

@@ -12,7 +12,7 @@ public class RobotRunState : RobotState {
 		
         // to be removed when the magic will be working all the time!
         if (inputManager.attackButton()) {
-            Debug.Log("Can't attack while running!");
+            //Debug.Log("Can't attack while running!");
             return null;
         }
 
@@ -86,7 +86,7 @@ public class RobotRunState : RobotState {
     }
 
     public override void PlayAudioEffect(PlayerAudio audio) {
-        Debug.Log("PLEIN DE SPEEDUP");
+       // Debug.Log("PLEIN DE SPEEDUP");
         if (entered) {
             audio.SpeedUp();
         } else {
