@@ -52,7 +52,7 @@ public class RobotDischargeState : RobotAttackState {
 
         this.CurrentFrame++;
 
-        if (this.AreaCollider == null) return;
+        /*if (this.AreaCollider == null) return;
 
         if (this.AreaCollider.radius >= this.Radius) {
             GameObject.Destroy(this.AreaCollider);
@@ -61,7 +61,7 @@ public class RobotDischargeState : RobotAttackState {
             return;
         }
 
-        this.AreaCollider.radius += this.RadiusGrowthRate;
+        this.AreaCollider.radius += this.RadiusGrowthRate;*/
     }
 
     public override void Enter(StateMachine stateMachine) {
@@ -75,7 +75,7 @@ public class RobotDischargeState : RobotAttackState {
         this.AreaCollider 
             = robotStateMachine.gameObject.AddComponent<SphereCollider>();
         this.AreaCollider.isTrigger = true;
-        this.AreaCollider.radius = 0f;
+        this.AreaCollider.radius = .12f;
     }
 
     public override void Exit(StateMachine stateMachine) {
@@ -90,7 +90,7 @@ public class RobotDischargeState : RobotAttackState {
 
         if (this.AreaCollider == null) return;
 
-        GameObject.Destroy(this.AreaCollider);
+        //GameObject.Destroy(this.AreaCollider);
     }
 
     public virtual bool CheckDistanceWithGameObject(

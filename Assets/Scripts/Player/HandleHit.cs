@@ -51,11 +51,44 @@ public class HandleHit : Photon.MonoBehaviour {
         robotAttackState.HandleAttack(this, other);
     }
 
-    void OnTriggerStay(Collider other) {
+    void OnTriggerEnter(Collider other) {
+        Debug.Log(other.tag);
+        Debug.Log(other.name);
         if (!this.CheckIfValid()) return;
 
-        this.HandleOpponentTrigger(other);
-        this.HandlePlayerTrigger(other);
+        if (!this.photonView.isMine && other.transform.root.tag.Equals(PlayerController.Opponent) && !other.transform.root.tag.Equals(PlayerController.Player))
+            return;
+
+        if (this.PlayerController == null || !(this.PlayerController.RobotStateMachine.CurrentState is
+            RobotAttackState)) {
+            return;
+        }
+
+        RobotAttackState robotAttackState =
+            (RobotAttackState)this.PlayerController.RobotStateMachine
+                .CurrentState;
+
+        robotAttackState.HandleAttackTrigger(this, other);
+    }
+
+    void OnTriggerStay(Collider other) {
+        /*Debug.Log(other.tag);
+        Debug.Log(other.name);*/
+        if (!this.CheckIfValid()) return;
+
+        if (!this.photonView.isMine && other.transform.root.tag.Equals(PlayerController.Opponent) && !other.transform.root.tag.Equals(PlayerController.Player))
+            return;
+
+        if (this.PlayerController == null || !(this.PlayerController.RobotStateMachine.CurrentState is
+            RobotAttackState)) {
+            return;
+        }
+
+        RobotAttackState robotAttackState =
+            (RobotAttackState)this.PlayerController.RobotStateMachine
+                .CurrentState;
+
+        robotAttackState.HandleAttackTrigger(this, other);
     }
 
     protected virtual void HandlePlayerTrigger(Collider other) {
