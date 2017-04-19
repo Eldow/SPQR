@@ -5,16 +5,14 @@
         this.MinActiveState = 8;
         this.MaxActiveState = 40;
         this.Damage = 5;
-        this.Hitstun = 30;
-        this.HeatCost = 10;
+        this.Hitstun = 20;
+        this.HeatCost = 20;
     }
 
     public override State HandleInput(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return null;
 
         RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
-		
-		InputManager inputManager = ((RobotStateMachine) stateMachine).PlayerController.inputManager;
 
         if (!this.IsAnimationPlaying(robotStateMachine, "RobotAttack3")) {
             return null;
