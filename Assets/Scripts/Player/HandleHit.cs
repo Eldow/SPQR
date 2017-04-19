@@ -11,7 +11,7 @@ public class HandleHit : Photon.MonoBehaviour {
     void OnCollisionEnter(Collision other) {
         if (!this.CheckIfValid()) return;
 
-		if(!this.photonView.isMine && other.transform.root.tag.Equals (PlayerController.Opponent) &&!other.transform.root.tag.Equals (PlayerController.Player))
+		if(!other.transform.root.tag.Equals (PlayerController.Opponent) && !other.transform.root.tag.Equals (PlayerController.Player))
 			return;
 
 		if (this.PlayerController==null || !(this.PlayerController.RobotStateMachine.CurrentState is 
@@ -52,13 +52,12 @@ public class HandleHit : Photon.MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
-        Debug.Log(other.tag);
-        Debug.Log(other.name);
+		Debug.Log(this.transform.root.name +" OTHER " + other.name); 
         if (!this.CheckIfValid()) return;
 
-        if (!this.photonView.isMine && other.transform.root.tag.Equals(PlayerController.Opponent) && !other.transform.root.tag.Equals(PlayerController.Player))
+        if (!other.transform.root.tag.Equals(PlayerController.Opponent) && !other.transform.root.tag.Equals(PlayerController.Player))
             return;
-
+		
         if (this.PlayerController == null || !(this.PlayerController.RobotStateMachine.CurrentState is
             RobotAttackState)) {
             return;
@@ -69,6 +68,7 @@ public class HandleHit : Photon.MonoBehaviour {
                 .CurrentState;
 
         robotAttackState.HandleAttackTrigger(this, other);
+
     }
 
     void OnTriggerStay(Collider other) {
