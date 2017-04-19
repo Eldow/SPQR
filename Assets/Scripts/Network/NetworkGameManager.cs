@@ -44,8 +44,6 @@ public class NetworkGameManager : Photon.PunBehaviour {
 		{
 			mapIndex = Random.Range(0, MapSceneNames.Length);
 		}
-		Debug.Log (MapSceneNames.Length);
-		Debug.Log (mapIndex);
 		newMapName =  MapSceneNames [mapIndex];
 		SceneManager.LoadScene (newMapName, LoadSceneMode.Additive);
 		// newMapName.transform.localScale = new Vector3(100, 100, 100);
