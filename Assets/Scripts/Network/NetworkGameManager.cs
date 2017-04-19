@@ -38,13 +38,15 @@ public class NetworkGameManager : Photon.PunBehaviour {
 		if (!PhotonNetwork.offlineMode)
 		{
 			PhotonNetwork.room.CustomProperties.TryGetValue("Map", out map);
-			mapIndex = (int)map;
+			mapIndex = (int)map-1;
 		}
 		else
 		{
 			mapIndex = Random.Range(0, MapSceneNames.Length);
 		}
-		newMapName =  MapSceneNames [mapIndex-1];
+		Debug.Log (MapSceneNames.Length);
+		Debug.Log (mapIndex);
+		newMapName =  MapSceneNames [mapIndex];
 		SceneManager.LoadScene (newMapName, LoadSceneMode.Additive);
 		// newMapName.transform.localScale = new Vector3(100, 100, 100);
 		// Teams init
