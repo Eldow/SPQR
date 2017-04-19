@@ -64,7 +64,10 @@
 
         robotStateMachine.Animator.speed = this.InitialSpeed;
 
-		this.SetLightings(stateMachine,false);
+		this.SetLightings(stateMachine, false);
+
+        robotStateMachine.PlayerController.PlayerPower.Power = 
+            PlayerPower.MaxPower;
     }
 
     protected override void SetSpeed(RobotStateMachine robotStateMachine) {
