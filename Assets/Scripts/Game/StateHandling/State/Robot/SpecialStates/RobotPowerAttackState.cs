@@ -11,9 +11,9 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
         this.Damage = 15;
         this.Hitstun = 10;
         this.HeatCost = 3;
-        this.MaxLoadingFrame = 30;
+        this.MaxLoadingFrame = 90;
         this.IsLoading = true;
-        this.DamageMultiplier = 1.5f;
+        this.DamageMultiplier = 1.05f;
         this.RefreshRate = 5;
     }
 
