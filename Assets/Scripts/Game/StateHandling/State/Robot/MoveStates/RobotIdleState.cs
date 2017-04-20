@@ -22,10 +22,6 @@ public class RobotIdleState : RobotState {
         if (inputManager.powerAttackButtonDown()) {
             return new RobotPowerAttackState();
         }
-
-        if (inputManager.dashButton()) {
-            return new RobotDashState();
-        }
 			
         if (this.IsDischarge((RobotStateMachine)stateMachine)) {
             return new RobotDischargeState();

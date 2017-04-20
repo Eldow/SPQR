@@ -36,6 +36,10 @@
             return new RobotAttack1State();
         }
 
+        if (inputManager.powerAttackButtonDown()) {
+            return new RobotPowerAttackState();
+        }
+
         /*
         if (this.IsInterruptible(robotStateMachine))
         { // can be interrupted!
