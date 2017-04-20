@@ -102,9 +102,9 @@ public class RobotDischargeState : RobotAttackState {
     }
 
     public virtual void MakeHimSuffer(
-        HandleHit player, Collider enemy) {
+        HandleDischarge player, Collider enemy) {
         PlayerPhysics enemyPhysics 
-            = enemy.gameObject.GetComponent<PlayerPhysics>();
+            = enemy.transform.root.gameObject.GetComponent<PlayerPhysics>();
 
         if (enemyPhysics == null) return;
 
@@ -137,21 +137,20 @@ public class RobotDischargeState : RobotAttackState {
         return new RobotWalkState();
     }
 
-    public override void HandleAttackTrigger(HandleHit handleHit, Collider other) {
+    public override void HandleAttackTrigger(HandleDischarge handleDischarge, Collider other) {
         if (this.AlreadyHitByAttack || !this.IsAttackActive())
             return;
 
-        this.AlreadyHitByAttack = true;
-
         PlayerController opponent = 
-            (PlayerController) other.gameObject
+            (PlayerController) other.transform.root.gameObject
             .GetComponent<PlayerController>();
 
         if (opponent == null) return;
 
         this.SendAudioHit(opponent.PlayerAudio);
-        handleHit.SendHit(other.gameObject, this.Damage, this.Hitstun);
-        this.MakeHimSuffer(handleHit, other);
+        handleDischarge.SendHit(other.gameObject, this.Damage, this.Hitstun);
+        this.MakeHimSuffer(handleDischarge, other);
+        this.AlreadyHitByAttack = true;
     }
 
     public override void PlayAudioEffect(PlayerAudio audio)

@@ -407,6 +407,7 @@ GameObject:
   - component: {fileID: 114593442182818784}
   - component: {fileID: 114376305015958874}
   - component: {fileID: 114860001281075466}
+  - component: {fileID: 114837243646558678}
   m_Layer: 9
   m_Name: OrangeRobot
   m_TagString: Player
@@ -3234,6 +3235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63695a652c89054a8dcaff599b200d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetUnreachable: 0
 --- !u!114 &114382661750439634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3493,6 +3495,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6083cfc47953e5498aa7deec01f5f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114837243646558678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1448357254194948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 427d969bb5277a547ad92a293ee884ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114860001281075466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3584,7 +3597,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1120764461511868}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -6101,7 +6114,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1499423759778358}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
