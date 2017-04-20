@@ -77,8 +77,11 @@ public class RobotBlockState : RobotFramedState {
 		}
 
 		if(this.CurrentFrame>=MaxActiveState)
+
 		if (this.Shield != null) this.setShieldActive (false, stateMachine);
 
+        ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
+            .Move();
     }
 
     public override void Exit(StateMachine stateMachine) {
