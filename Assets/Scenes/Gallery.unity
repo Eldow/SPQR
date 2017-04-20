@@ -316,6 +316,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 23243348311028692, guid: 88e5bea6443a8ee44b0d54a8988dc6a8,
+        type: 2}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4616469740631814, guid: 88e5bea6443a8ee44b0d54a8988dc6a8, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -393,6 +398,15 @@ Prefab:
       propertyPath: m_PositionModel.TeleportEnabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1965734699945948, guid: 88e5bea6443a8ee44b0d54a8988dc6a8, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23243348311028692, guid: 88e5bea6443a8ee44b0d54a8988dc6a8,
+        type: 2}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: c499131c1b71e8c41acd69c5246c8785, type: 2}
     m_RemovedComponents:
     - {fileID: 114256283319056206, guid: 88e5bea6443a8ee44b0d54a8988dc6a8, type: 2}
     - {fileID: 114484646807023522, guid: 88e5bea6443a8ee44b0d54a8988dc6a8, type: 2}
