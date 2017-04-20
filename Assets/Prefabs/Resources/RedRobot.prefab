@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 114942486619422620}
   - component: {fileID: 114360027262751842}
   - component: {fileID: 114917408621014632}
+  - component: {fileID: 114430442560211486}
   m_Layer: 9
   m_Name: RedRobot
   m_TagString: Player
@@ -3261,6 +3262,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63695a652c89054a8dcaff599b200d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetUnreachable: 0
+--- !u!114 &114430442560211486
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1062140730195602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 427d969bb5277a547ad92a293ee884ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114470014906434704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3584,7 +3597,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1262282323741762}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -6101,7 +6114,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1312196407573748}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

@@ -52,7 +52,7 @@ public class RobotDischargeState : RobotAttackState {
 
         this.CurrentFrame++;
 
-        /*if (this.AreaCollider == null) return;
+        if (this.AreaCollider == null) return;
 
         if (this.AreaCollider.radius >= this.Radius) {
             GameObject.Destroy(this.AreaCollider);
@@ -61,7 +61,7 @@ public class RobotDischargeState : RobotAttackState {
             return;
         }
 
-        this.AreaCollider.radius += this.RadiusGrowthRate;*/
+        this.AreaCollider.radius += this.RadiusGrowthRate;
     }
 
     public override void Enter(StateMachine stateMachine) {
@@ -75,7 +75,7 @@ public class RobotDischargeState : RobotAttackState {
         this.AreaCollider 
             = robotStateMachine.gameObject.AddComponent<SphereCollider>();
         this.AreaCollider.isTrigger = true;
-        this.AreaCollider.radius = .12f;
+        this.AreaCollider.radius = 0f;
     }
 
     public override void Exit(StateMachine stateMachine) {
@@ -90,7 +90,7 @@ public class RobotDischargeState : RobotAttackState {
 
         if (this.AreaCollider == null) return;
 
-        //GameObject.Destroy(this.AreaCollider);
+        GameObject.Destroy(this.AreaCollider);
     }
 
     public virtual bool CheckDistanceWithGameObject(
@@ -102,9 +102,9 @@ public class RobotDischargeState : RobotAttackState {
     }
 
     public virtual void MakeHimSuffer(
-        HandleHit player, Collider enemy) {
+        HandleDischarge player, Collider enemy) {
         PlayerPhysics enemyPhysics 
-            = enemy.gameObject.GetComponent<PlayerPhysics>();
+            = enemy.transform.root.gameObject.GetComponent<PlayerPhysics>();
 
         if (enemyPhysics == null) return;
 
@@ -137,21 +137,20 @@ public class RobotDischargeState : RobotAttackState {
         return new RobotWalkState();
     }
 
-    public override void HandleAttackTrigger(HandleHit handleHit, Collider other) {
+    public override void HandleAttackTrigger(HandleDischarge handleDischarge, Collider other) {
         if (this.AlreadyHitByAttack || !this.IsAttackActive())
             return;
 
-        this.AlreadyHitByAttack = true;
-
         PlayerController opponent = 
-            (PlayerController) other.gameObject
+            (PlayerController) other.transform.root.gameObject
             .GetComponent<PlayerController>();
 
         if (opponent == null) return;
 
         this.SendAudioHit(opponent.PlayerAudio);
-        handleHit.SendHit(other.gameObject, this.Damage, this.Hitstun);
-        this.MakeHimSuffer(handleHit, other);
+        handleDischarge.SendHit(other.gameObject, this.Damage, this.Hitstun);
+        this.MakeHimSuffer(handleDischarge, other);
+        this.AlreadyHitByAttack = true;
     }
 
     public override void PlayAudioEffect(PlayerAudio audio)

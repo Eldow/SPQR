@@ -295,6 +295,7 @@ GameObject:
   - component: {fileID: 114689091962818264}
   - component: {fileID: 114482293472443874}
   - component: {fileID: 114354923637332510}
+  - component: {fileID: 114661150892794180}
   m_Layer: 9
   m_Name: GreenRobot
   m_TagString: Player
@@ -3320,6 +3321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63695a652c89054a8dcaff599b200d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetUnreachable: 0
 --- !u!114 &114571892087085934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3429,6 +3431,17 @@ MonoBehaviour:
   blockButtonAI: 0
   moveForwardSpeedAI: 0
   moveSideSpeedAI: 0
+--- !u!114 &114661150892794180
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1321281073374952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 427d969bb5277a547ad92a293ee884ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114675630228066968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3584,7 +3597,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1695009272971794}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -6149,7 +6162,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1170493050243406}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

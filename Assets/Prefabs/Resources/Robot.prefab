@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 114983013221883038}
   - component: {fileID: 114857164620498208}
   - component: {fileID: 114630379814735524}
+  - component: {fileID: 114836616845653584}
   m_Layer: 9
   m_Name: Robot
   m_TagString: Player
@@ -3437,6 +3438,17 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114836616845653584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326889472733694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 427d969bb5277a547ad92a293ee884ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114854232327306806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3575,7 +3587,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1454311615731766}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -6140,7 +6152,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1196846318962446}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

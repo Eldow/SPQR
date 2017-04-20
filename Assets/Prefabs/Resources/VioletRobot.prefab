@@ -866,6 +866,7 @@ GameObject:
   - component: {fileID: 114060880512460832}
   - component: {fileID: 114154402690815906}
   - component: {fileID: 114920194295142408}
+  - component: {fileID: 114664324527733362}
   m_Layer: 9
   m_Name: VioletRobot
   m_TagString: Player
@@ -3193,6 +3194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63695a652c89054a8dcaff599b200d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetUnreachable: 0
 --- !u!114 &114174934464045598
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3337,6 +3339,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6083cfc47953e5498aa7deec01f5f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114664324527733362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1990545571545176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 427d969bb5277a547ad92a293ee884ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114673961982743182
@@ -3584,7 +3597,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1095735051593312}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -6149,7 +6162,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1666453719153058}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

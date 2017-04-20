@@ -30,18 +30,18 @@ public class RobotAttackState : RobotFramedState {
 
 			SendAudioHit (opponent.PlayerAudio);
 			handleHit.SendHit (other.gameObject, this.Damage, this.Hitstun);
-			
-			//DEBUG
-			//ShowContact.ShowContactInstance.showContactPoint (other);
-			//Debug.DrawRay (opponent.transform.position, opponent.transform.forward, Color.red, 3, false);
-			//Debug.DrawRay (opponent.transform.position, handleHit.transform.root.position - opponent.transform.position, Color.blue, 3, false);
-			//Debug.Log (angleBetweenRobots);
 
-		}
-		this.AlreadyHitByAttack = true;
+            //DEBUG
+            //ShowContact.ShowContactInstance.showContactPoint (other);
+            //Debug.DrawRay (opponent.transform.position, opponent.transform.forward, Color.red, 3, false);
+            //Debug.DrawRay (opponent.transform.position, handleHit.transform.root.position - opponent.transform.position, Color.blue, 3, false);
+            //Debug.Log (angleBetweenRobots);
+            this.AlreadyHitByAttack = true;
+
+        }
 	}
 
-    public virtual void HandleAttackTrigger(HandleHit handleHit, Collider other) {
+    public virtual void HandleAttackTrigger(HandleDischarge handleDischarge, Collider other) {
         if (this.AlreadyHitByAttack || !this.IsAttackActive())
             return;
 
@@ -51,16 +51,16 @@ public class RobotAttackState : RobotFramedState {
         if (opponent != null) {
            // Debug.Log("HANDLEATTACKTRIGGERFUCNTION " + opponent.ID + " " + DateTime.Now.ToShortTimeString());
 
-            float angleBetweenRobots = Vector3.Angle(opponent.transform.forward, handleHit.transform.root.position - opponent.transform.position);
+            float angleBetweenRobots = Vector3.Angle(opponent.transform.forward, handleDischarge.transform.root.position - opponent.transform.position);
             
             if (opponent.RobotStateMachine.CurrentState is RobotBlockState && angleBetweenRobots > ((RobotBlockState)opponent.RobotStateMachine.CurrentState).shieldAngle)
                 return;
 
             SendAudioHit(opponent.PlayerAudio);
-            handleHit.SendHit(other.gameObject, this.Damage, this.Hitstun);
+            handleDischarge.SendHit(other.gameObject, this.Damage, this.Hitstun);
+            this.AlreadyHitByAttack = true;
 
         }
-        this.AlreadyHitByAttack = true;
     }
 
     public virtual bool IsAttackActive() {

@@ -1,11 +1,14 @@
 ﻿public class RobotAttack3State : RobotAttackState {
+    protected int LastRefreshFrame = 0;
+    public const int RefreshRate = 5;
+
     protected override void Initialize() {
-        this.MaxFrame = 40;
-        this.IASA = 34;
+        this.MaxFrame = 45;
+        this.IASA = 38;
         this.MinActiveState = 8;
         this.MaxActiveState = 40;
-        this.Damage = 5;
-        this.Hitstun = 20;
+        this.Damage = 1;
+        this.Hitstun = 10;
         this.HeatCost = 20;
     }
 
@@ -47,9 +50,17 @@
         if (!(stateMachine is RobotStateMachine)) return;
 
         this.CurrentFrame++;
-		AlreadyHitByAttack = false;
+
+        this.RefreshAttack();
         ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
             .Move();
+    }
+
+    protected virtual void RefreshAttack() {
+        if (this.CurrentFrame - this.LastRefreshFrame < RobotAttack3State.RefreshRate) return;
+
+        this.LastRefreshFrame = this.CurrentFrame;
+        AlreadyHitByAttack = false;
     }
 
     public override void Exit(StateMachine stateMachine) {
