@@ -22,7 +22,6 @@ public class RobotLoadedAttackState : RobotAttackState {
         if (this.CurrentLoadingFrame % this.RefreshRate != 0) return;;
 
         this.Damage = Mathf.CeilToInt(this.Damage * this.DamageMultiplier);
-        Debug.Log(this.Damage);
         robotStateMachine.PlayerController.PlayerPower.Power -= this.HeatCost;
     }
 }
