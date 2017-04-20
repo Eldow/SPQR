@@ -9,12 +9,13 @@ public class HandleDischarge : Photon.MonoBehaviour {
     }
 
     protected virtual bool CheckIfValid(Collider other) {
-		return this.photonView.isMine && other.transform.root.tag.Equals(PlayerController.Opponent);
+		return this.photonView.isMine && (other.transform.root.tag.Equals (PlayerController.Opponent) || other.transform.root.tag.Equals (PlayerController.Player))
+		&& other.transform.root != PlayerController.transform;
     }
 
     void OnTriggerStay(Collider other) {
         if (!this.CheckIfValid(other)) return;
-
+		
         if (this.PlayerController == null || !(this.PlayerController.RobotStateMachine.CurrentState is
             RobotAttackState)) {
             return;
