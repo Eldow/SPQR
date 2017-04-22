@@ -175,11 +175,10 @@ public class RobotDischargeState : RobotAttackState {
 
     public void SetShockwaveActive(StateMachine stateMachine)
     {
-
+        PlayerController pc = ((RobotStateMachine)stateMachine).PlayerController;
+        pc.CastShockwave(this.ShockwaveGrowthRate);
         if (!PhotonNetwork.offlineMode)
         {
-            PlayerController pc = ((RobotStateMachine)stateMachine).PlayerController;
-            pc.CastShockwave(this.ShockwaveGrowthRate);
             pc.photonView.RPC("ActivateObjectFromState", PhotonTargets.Others, pc.ID, this.ShockwaveGrowthRate);
         }
 
