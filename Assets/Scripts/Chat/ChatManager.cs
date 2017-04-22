@@ -25,6 +25,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     public GameObject RoomInvitation;
     public GameObject MatchmakingPanel;
     public GameObject FriendList;
+    public GameObject Canvas;
     public int MaxHistoryLength = 20;
     public ChatClient ClientChat;
     public Dictionary<string, GameObject> PlayerList = new Dictionary<string, GameObject>();
@@ -86,8 +87,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     */
     public void OnConnected()
     {
-        MatchmakingPanel.SetActive(true);
-        FriendList.SetActive(true);
+        Canvas.SetActive(true);
         CreateChatRoom();
         ClientChat.SetOnlineStatus(ChatUserStatus.Online);
 		startButton = GameObject.Find ("CreateGameButton").GetComponent<Button> ();
@@ -280,6 +280,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         GameObject panel;
         GameObject button = EventSystem.current.currentSelectedGameObject;
         message = button.transform.parent.FindChild("InputText/Text").GetComponent<Text>().text;
+        if (message == "") return;
         button.transform.parent.FindChild("InputText").GetComponent<InputField>().text = "";
         if (button.transform.parent.FindChild("SenderPanel/Text") != null)
         {
