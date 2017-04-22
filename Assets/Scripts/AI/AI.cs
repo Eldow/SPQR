@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class AI : MonoBehaviour {
 
-	private float distanceToOpponent;
+	public float distanceToOpponent;
 	private int health;
 	private float power;
 	private int ennemyHealth_;
@@ -195,7 +195,7 @@ public class AI : MonoBehaviour {
 				}
 			}
 
-			if(distanceToOpponent<=1.5f)
+			if(distanceToOpponent<=1.6f)
 				StopMove ();
 		} else {
 			targetManager.updateNearestOpponent ();

@@ -99,7 +99,7 @@ Material:
       second: 1
     - first:
         name: _Inside
-      second: 1.22
+      second: 0.928
     - first:
         name: _Metallic
       second: 0

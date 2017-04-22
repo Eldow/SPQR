@@ -2200,7 +2200,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1977527276433840}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -3439,6 +3439,7 @@ MonoBehaviour:
   OpponentInfo: {fileID: 0}
   inputManager: {fileID: 0}
   Shield: {fileID: 0}
+  Shockwave: {fileID: 0}
   Lightnings: {fileID: 0}
   TargetManager: {fileID: 0}
 --- !u!114 &114775320539047524
@@ -3635,7 +3636,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1262282323741762}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -6152,7 +6153,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1312196407573748}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
