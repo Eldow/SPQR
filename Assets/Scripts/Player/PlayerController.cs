@@ -28,7 +28,8 @@ public class PlayerController : Photon.PunBehaviour {
 	[HideInInspector] public GameObject OpponentInfo;
 	[HideInInspector] public InputManager inputManager;
 	[HideInInspector] public GameObject Shield;
-	[HideInInspector] public GameObject Lightnings;
+    [HideInInspector] public GameObject Shockwave;
+    [HideInInspector] public GameObject Lightnings;
 	[HideInInspector] public TargetManager TargetManager;
 
 
@@ -78,6 +79,7 @@ public class PlayerController : Photon.PunBehaviour {
 		this.inputManager = gameObject.GetComponent<InputManager>();
 		this.Lightnings = transform.FindChild ("Lightnings").gameObject;
 		this.Shield = transform.FindChild ("Shield").gameObject;
+        this.Shockwave = transform.FindChild("Shockwave").gameObject;
 		this.TargetManager = gameObject.GetComponent<TargetManager>();
 
         RobotAutomaton robotAutomaton = this.GetComponent<RobotAutomaton>();
@@ -165,13 +167,40 @@ public class PlayerController : Photon.PunBehaviour {
 	[PunRPC]
 	public void ActivateObjectFromState(string name, bool activeState, int ID){
 		if (ID == this.ID) {
-			
-			if (Lightnings!=null && name.Equals (Lightnings.name))
-				this.Lightnings.SetActive (activeState);
-			else if (Shield!=null && name.Equals (Shield.name))
-				this.Shield.SetActive (activeState);
+
+            if (Lightnings != null && name.Equals(Lightnings.name))
+                this.Lightnings.SetActive(activeState);
+            else if (Shield != null && name.Equals(Shield.name))
+                this.Shield.SetActive(activeState);
 		}
-	}	
+	}
+
+    [PunRPC]
+    public void ActivateObjectFromState(int ID, float growthRate)
+    {
+        if (ID == this.ID)
+            CastShockwave(growthRate);
+    }
+
+    public void CastShockwave(float growthRate)
+    {
+        StartCoroutine(CastShockwaveRoutine(growthRate));
+    }
+
+    IEnumerator CastShockwaveRoutine(float growthRate)
+    {
+        Shockwave.SetActive(true);
+        Shockwave.transform.localScale = Vector3.zero;
+        Vector3 growthScale = new Vector3(growthRate, growthRate, growthRate);
+        Shockwave.SetActive(true);
+        while(Shockwave.transform.localScale.x < 0.14f)
+        {
+            Shockwave.transform.localScale += growthScale;
+            yield return new WaitForFixedUpdate();
+        }
+        Shockwave.transform.localScale = Vector3.zero;
+        Shockwave.SetActive(false);
+    }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 		if (stream.isWriting) {
