@@ -7,14 +7,17 @@ public class CameraSwitcher : MonoBehaviour {
 
     public static CameraSwitcher instance;
     public Image BlackScreen;
+    public bool Switching;
 
     void Start()
     {
         instance = this;
+        Switching = false;
     }
 
 	public void SwitchCamera()
     {
+        Switching = true;
         BlackScreen.enabled = true;
         StartCoroutine(SwitchAfterDelay(2f));
     }
@@ -23,10 +26,11 @@ public class CameraSwitcher : MonoBehaviour {
     {
         FadeToBlack(delay / 2);
         yield return new WaitForSeconds(delay/2);
-        SpectateCamera.SpectatorCamera.enabled = !SpectateCamera.SpectatorCamera.enabled;
-        FightCamera.FightingCamera.enabled = !FightCamera.FightingCamera.enabled;
+        SpectateCamera.SpectatorCamera.enabled = true;
+        FightCamera.FightingCamera.enabled = false;
         FadeFromBlack(delay / 2);
         yield return new WaitForSeconds(delay / 2);
+        BlackScreen.enabled = false;
     }
 
     void FadeToBlack(float time)

@@ -25,6 +25,8 @@ public class RobotDefeatState : RobotState {
          * destroyed after.
          */
         Transform robot = robotStateMachine.PlayerController.transform;
+        bool isAI = robotStateMachine.PlayerController.isAI;
+        bool isMine = robotStateMachine.PlayerController.photonView.isMine;
 
         try {
             string color = robotStateMachine.PlayerController.Team;
@@ -47,7 +49,7 @@ public class RobotDefeatState : RobotState {
         } catch (Exception exception) {
             Debug.LogError(exception.Message);
         }
-        CameraSwitcher.instance.SwitchCamera();
+        if(!isAI && isMine && !CameraSwitcher.instance.Switching) CameraSwitcher.instance.SwitchCamera();
     }
 
 
