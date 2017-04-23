@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 
 public class RobotDischargeState : RobotAttackState {
+
+    protected GameObject Shockwave = null;
     protected float Radius = .10f;
+    protected float ShockwaveRadius = .14f;
     protected GameObject[] Enemies = null;
     protected SphereCollider AreaCollider = null;
     protected float RadiusGrowthRate = 0f;
+    protected float ShockwaveGrowthRate = 0f;
 
     protected override void Initialize() {
         this.AlreadyHitByAttack = false;
@@ -16,6 +20,7 @@ public class RobotDischargeState : RobotAttackState {
         this.Hitstun = 60;
         this.HeatCost = 0;
         this.ComputeRadiusGrowthRate();
+        this.ComputeShockwaveGrowthRate();
     }
 
     public override State HandleInput(StateMachine stateMachine) {
@@ -48,6 +53,11 @@ public class RobotDischargeState : RobotAttackState {
 
     public override void Update(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return;
+
+        if (this.CurrentFrame == this.MinActiveState)
+        {
+            this.SetShockwaveActive(stateMachine);
+        }
 
         this.CurrentFrame++;
 
@@ -120,6 +130,11 @@ public class RobotDischargeState : RobotAttackState {
         this.RadiusGrowthRate = this.Radius / this.MaxFrame;
     }
 
+    public virtual void ComputeShockwaveGrowthRate()
+    {
+        this.ShockwaveGrowthRate = this.ShockwaveRadius / this.MaxFrame;
+    }
+
 	public override RobotState CheckInterruptibleActions(StateMachine stateMachine) {
 
 		RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
@@ -156,5 +171,16 @@ public class RobotDischargeState : RobotAttackState {
     public override void PlayAudioEffect(PlayerAudio audio)
     {
         audio.Discharge();
+    }
+
+    public void SetShockwaveActive(StateMachine stateMachine)
+    {
+        PlayerController pc = ((RobotStateMachine)stateMachine).PlayerController;
+        pc.CastShockwave(this.ShockwaveGrowthRate);
+        if (!PhotonNetwork.offlineMode)
+        {
+            pc.photonView.RPC("ActivateObjectFromState", PhotonTargets.Others, pc.ID, this.ShockwaveGrowthRate);
+        }
+
     }
 }
