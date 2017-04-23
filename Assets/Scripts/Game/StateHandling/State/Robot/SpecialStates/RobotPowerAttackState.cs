@@ -2,6 +2,8 @@
 
 public class RobotPowerAttackState : RobotLoadedAttackState {
     protected float LoadingSpeed = .5f;
+    protected SphereCollider RightSphereCollider = null;
+    protected SphereCollider LeftSphereCollider = null;
 
     protected override void Initialize() {
         this.MaxFrame = 30;
@@ -91,6 +93,27 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
 
         this.SetAnimationSpeed(robotStateMachine, this.LoadingSpeed);
 		this.SetLightings(stateMachine,true);
+        robotStateMachine.PlayerController.PlayerPower.Power -= this.HeatCost;
+
+        Transform leftSword = robotStateMachine.PlayerController.transform.Find("Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderLeft/Robot:JElbowLeft/Robot:JTipRotationLeft/Robot:JTipLeft/Robot:ForearmLeft/Robot:SwordLeft");
+        Transform rightSword = robotStateMachine.PlayerController.transform.Find("Robot:JBall/Robot:JLegsBottom/Robot:JPelvis/Robot:JTorso/Robot:JShoulderRight/Robot:JElbowRight/Robot:JTipRotationRight/Robot:JTipRight/Robot:ForearmRight/Robot:SwordRight");
+
+        if (leftSword == null || rightSword == null) return;
+
+        this.LeftSphereCollider = leftSword.gameObject.AddComponent<SphereCollider>();
+        this.RightSphereCollider = rightSword.gameObject.AddComponent<SphereCollider>();
+        this.LeftSphereCollider.radius = this.RightSphereCollider.radius = 0.010f;
+        this.LeftSphereCollider.center = this.RightSphereCollider.center = new Vector3(-0.08f, 0.01617771f, -0.002260294f);
+    }
+
+    public override void Exit(StateMachine stateMachine) {
+        base.Exit(stateMachine);
+
+        if (this.LeftSphereCollider == null || this.RightSphereCollider == null) return;
+
+        GameObject.Destroy(this.LeftSphereCollider);
+        GameObject.Destroy(this.RightSphereCollider);
+
     }
 
     public override RobotState CheckInterruptibleActions(StateMachine stateMachine) {

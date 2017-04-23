@@ -11,6 +11,8 @@ public class HandleHit : Photon.MonoBehaviour {
     void OnCollisionEnter(Collision other) {
         if (!this.CheckIfValid()) return;
 
+        if (this.transform.root == other.transform.root) return;
+
 		if(!other.transform.root.tag.Equals (PlayerController.Opponent) && !other.transform.root.tag.Equals (PlayerController.Player))
 			return;
 
@@ -31,7 +33,7 @@ public class HandleHit : Photon.MonoBehaviour {
 
 
     protected virtual bool CheckIfValid() {
-		return this.photonView.isMine  ;
+		return this.photonView.isMine;
     }
 
     protected virtual void HandleOpponent(Collision other) {
