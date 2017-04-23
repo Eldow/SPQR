@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour {
 		}
 
 		if (PhotonNetwork.isMasterClient) {
-			InvokeRepeating ("leaveAfterAll", 0f, 0.2f);
+            StartCoroutine(LeaveAfterAll());
 		} else {
             StartCoroutine(LeaveTo("Lobby"));
 		}
@@ -100,15 +100,19 @@ public class GameManager : MonoBehaviour {
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.LoadLevel(level);
     }
-	//Master checks if he is the last to leave before leaving
-	private void leaveAfterAll()
-	{
-		if (PhotonNetwork.room.PlayerCount == 1) {
-			PhotonNetwork.LeaveRoom ();
-			PhotonNetwork.LoadLevel ("Lobby");
-			CancelInvoke ();
-		}
-	}
+
+    // Master leaves the room after others
+    IEnumerator LeaveAfterAll()
+    {
+        while (true)
+        {
+            if (PhotonNetwork.room.PlayerCount == 1)
+            {
+                StartCoroutine(LeaveTo("Lobby"));
+                yield break;
+            }
+        }
+    }
 
     protected void endRoundWithTimer(){
         RobotStateMachine Winner = null;

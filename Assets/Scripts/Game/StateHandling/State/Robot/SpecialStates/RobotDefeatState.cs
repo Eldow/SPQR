@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class RobotDefeatState : RobotState {
@@ -46,7 +47,10 @@ public class RobotDefeatState : RobotState {
         } catch (Exception exception) {
             Debug.LogError(exception.Message);
         }
+        CameraSwitcher.instance.SwitchCamera();
     }
+
+
 
     public override void Exit(StateMachine stateMachine) {
     }
