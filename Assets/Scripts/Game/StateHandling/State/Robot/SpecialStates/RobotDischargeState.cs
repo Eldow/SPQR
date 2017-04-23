@@ -29,7 +29,6 @@ public class RobotDischargeState : RobotAttackState {
 
         if (!this.IsSpeedSet) this.SetSpeed(robotStateMachine);
 
-
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
 			RobotState newState = this.CheckInterruptibleActions(stateMachine);
 
@@ -86,7 +85,7 @@ public class RobotDischargeState : RobotAttackState {
         base.Exit(stateMachine);
 
 		this.SetLightings(stateMachine,false);
-        robotStateMachine.PlayerController.PlayerPhysics.IsDischarged = true;
+        //robotStateMachine.PlayerController.PlayerPhysics.IsDischarged = true;
 
         if (this.AreaCollider == null) return;
 
@@ -109,9 +108,10 @@ public class RobotDischargeState : RobotAttackState {
         if (enemyPhysics == null) return;
 
         Vector3 direction = 
-            (enemy.transform.position - player.transform.position).normalized;
+            (enemy.transform.position - player.transform.position);
 
-        direction = Vector3.Project(direction, new Vector3(1, 0, 1));
+        direction = new Vector3(direction.x, 0, direction.z);
+        direction = direction.normalized;
 
         player.SendPoke(enemy.gameObject, direction);
     }

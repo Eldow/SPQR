@@ -56,7 +56,7 @@ public class HandleDischarge : Photon.MonoBehaviour {
             return;
         }
 
-        this.photonView.RPC("ReceivePoke", PhotonTargets.Others, 
+        this.photonView.RPC("ReceivePoke", PhotonTargets.All, 
             direction, opponentID);
     }
 

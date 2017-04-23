@@ -3316,7 +3316,7 @@ MonoBehaviour:
   WalkCap: 1
   MaximumSpeed: 300
   IsDischarged: 0
-  PokeMagnitude: 100
+  PokeMagnitude: 15
 --- !u!114 &114572893332069766
 MonoBehaviour:
   m_ObjectHideFlags: 1
