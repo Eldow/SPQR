@@ -203,6 +203,20 @@ public class InputManager : MonoBehaviour
 		return false;
 	}
 
+    public bool menuButton()
+    {
+        if (!isAI)
+            return Input.GetButtonDown("MenuButton");
+        return false;
+    }
+
+    public bool infoButton()
+    {
+        if (!isAI)
+            return Input.GetButtonDown("InfoButton");
+        return false;
+    }
+
 	public  bool nextFrame ()
 	{
 		if (blockInputs)

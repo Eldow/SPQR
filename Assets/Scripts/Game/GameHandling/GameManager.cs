@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public Running Running = null;
-	  public bool isLocalGame = true;
+	public bool isLocalGame = true;
     public static GameManager Instance = null;
-	  public bool isGameFinished = false;
-    //public bool isRoundFinished = false;
+	public bool isGameFinished = false;
+    public bool isRoundFinished = false;
 
     public PlayerController LocalPlayer = null;
 
@@ -24,8 +24,6 @@ public class GameManager : MonoBehaviour {
 	private bool exitStarted = false;
 
     void Start() {
-
-        DontDestroyOnLoad(this);
 
         GameObject TaggedTimer = GameObject.FindGameObjectWithTag("Timer");
 
@@ -85,30 +83,20 @@ public class GameManager : MonoBehaviour {
     }
 
     void FixedUpdate() {
-
-        /*if (!isRoundFinished && Timer.hasTimerStarted && Timer.remainingTime == 0f) {
-          endRoundWithTimer ();
-    			isRoundFinished = true;
+        if (Timer != null && !isGameFinished && Timer.hasTimerStarted && Timer.remainingTime == 0f)
+        {
+            endRoundWithTimer();
+            isRoundFinished = true;
         }
-        if (isRoundFinished && isGameFinished && !exitStarted) {
-          exitStarted = true;
-          Debug.Log("LeaveStarted");
-          Invoke ("leaveAfterEnding",3.0f);
+        else if (isRoundFinished && !isGameFinished)
+        {
+            isRoundFinished = false;
+            StartCoroutine(NextRound());
         }
-        if (isRoundFinished && !isGameFinished && !exitStarted) {
-    			exitStarted = true;
-          Debug.Log("Reload started");
-    			Invoke ("reloadAfterEnding",3.0f);
-    		}*/
-
-    		if (!isGameFinished && Timer.hasTimerStarted && Timer.remainingTime == 0f) {
-    			endRoundWithTimer ();
-    			isGameFinished = true;
-    		}
-    		if (isGameFinished && !exitStarted) {
-    			exitStarted = true;
-    			Invoke ("leaveAfterEnding",3.0f);
-    		}
+    	else if (isGameFinished && !exitStarted) {
+    		exitStarted = true;
+    		Invoke ("leaveAfterEnding",3.0f);
+    	}
     }
 
 	private void leaveAfterEnding (){
@@ -124,17 +112,11 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-  /*private void reloadAfterEnding (){
-    Scene scene = SceneManager.GetActiveScene();
-		if (PhotonNetwork.offlineMode) {
-            StartCoroutine(LeaveTo(scene.name));
-			return;
-		}
-
-		if (PhotonNetwork.isMasterClient) {
-        StartCoroutine(LeaveTo(scene.name));
-		}
-	}*/
+    IEnumerator NextRound()
+    {
+        yield return new WaitForSeconds(5f);
+        PhotonNetwork.LoadLevel("Sandbox");
+    }
 
     IEnumerator LeaveTo(string level)
     {
@@ -255,8 +237,8 @@ public class GameManager : MonoBehaviour {
 				if (winner.Value != null && winner.Value.PlayerController.photonView.isMine)
 					winner.Value.SetState (new RobotVictoryState ());
 			}
-      //isRoundFinished = true;
-			isGameFinished = true;
+            isRoundFinished = true;
+			//isGameFinished = true;
 
 		} catch (KeyNotFoundException exception) {
 			Debug.LogWarning (
@@ -266,24 +248,22 @@ public class GameManager : MonoBehaviour {
 	}
 
     protected virtual bool IsRoundOver() {
-
-  		string teamFound = null;
-  		foreach(KeyValuePair<int,RobotStateMachine> pair in GameManager.Instance.AlivePlayerList){
-  			if (pair.Value.PlayerController.Team != teamFound) {
-  				if (teamFound == null)
-  					teamFound = pair.Value.PlayerController.Team;
-  				else
-  					return false; // there are at least 2 different teams;
-  			}
-  		}
-      // If no two different teams are found
-      Timer.Countdown.ManageKoSprite();
-      Timer.photonView.RPC("ClientDisplayKo", PhotonTargets.AllViaServer);
-      Debug.Log(teamFound);
-      Scorebrd.AddVictory(teamFound,"V");
-      /*if (Scorebrd.CheckForGameVictory()) {
-          isGameFinished = true;
-      }*/
-      return true;
+  	    string teamFound = null;
+  	    foreach(KeyValuePair<int,RobotStateMachine> pair in GameManager.Instance.AlivePlayerList){
+  		    if (pair.Value.PlayerController.Team != teamFound) {
+  			    if (teamFound == null)
+  				    teamFound = pair.Value.PlayerController.Team;
+  			    else
+  				    return false; // there are at least 2 different teams;
+  		    }
+  	    }
+        // If no two different teams are found
+        Timer.Countdown.ManageKoSprite();
+        Timer.photonView.RPC("ClientDisplayKo", PhotonTargets.AllViaServer);
+        Scorebrd.AddVictory(teamFound);
+        if (Scorebrd.CheckForGameVictory()) {
+            isGameFinished = true;
+        }
+        return true;
     }
 }
