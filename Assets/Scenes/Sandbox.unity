@@ -6241,7 +6241,7 @@ GameObject:
   - component: {fileID: 1996826757}
   m_Layer: 5
   m_Name: ScoreList
-  m_TagString: Untagged
+  m_TagString: Score
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6278,10 +6278,10 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 10
+    m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 15
+  m_Spacing: 20
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -6305,6 +6305,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TeamEntry: {fileID: 1213210349797932, guid: 2ed7091a716eb47bea4d592af1f20e1b, type: 2}
   ScoreEntry: {fileID: 1996740669452450, guid: 72e0b076564544f46a3f0a8575509c56, type: 2}
+  RoundsToWin: 0
+  scorePanel: {fileID: 720593012}
 --- !u!1 &2001155597
 GameObject:
   m_ObjectHideFlags: 0

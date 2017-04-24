@@ -42,7 +42,7 @@ public class NetworkGameManager : Photon.PunBehaviour {
 		}
 		else
 		{
-			mapIndex = Random.Range(0, MapSceneNames.Length);
+			mapIndex = Random.Range(0, MapSceneNames.Length)+1;
 		}
 		newMapName =  MapSceneNames [mapIndex-1];
 		SceneManager.LoadScene (newMapName, LoadSceneMode.Additive);

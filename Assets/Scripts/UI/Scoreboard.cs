@@ -8,32 +8,55 @@ public class Scoreboard : MonoBehaviour {
 
     public GameObject TeamEntry;
     public GameObject ScoreEntry;
+    public Dictionary<string, GameObject> ActivePlayersEntries;
+    public Dictionary<string, int> ActivePlayersVictoryCount;
+    public Dictionary<string, int> PlayerTeams;
+    public int RoundsToWin;
+
+    public GameObject scorePanel;
 
     private void Start() {
 
-      if (PhotonNetwork.offlineMode) InstantiateOfflineScoreboard();
-      else InstantiateOnlineScoreboard();
+      DontDestroyOnLoad(scorePanel);
+      ActivePlayersVictoryCount = new Dictionary<string, int>();
 
+      if (PhotonNetwork.offlineMode) {
+        ActivePlayersEntries = InstantiateOfflineScoreboard();
+        RoundsToWin = 3;
+      }
+      else {
+        object rounds;
+        ActivePlayersEntries = InstantiateOnlineScoreboard();
+        PhotonNetwork.room.CustomProperties.TryGetValue ("Mode", out rounds);
+        RoundsToWin = (int)rounds * 2 +1;
+      }
     }
 
-    private void InstantiateOfflineScoreboard(){
+    private Dictionary<string, GameObject> InstantiateOfflineScoreboard(){
       //Player List
       GameObject list = InstantiateTeamEntry("Players");
+      Dictionary<string, GameObject> activePlayers = new Dictionary<string, GameObject>();
       //Player Entry
-      InstantiatePlayerEntry("Solo", list.transform);
+      activePlayers.Add("Solo", InstantiatePlayerEntry("Solo", list.transform));
+      ActivePlayersVictoryCount.Add("Solo", 0);
       //AI Entry
-      InstantiatePlayerEntry("Computer", list.transform);
+      activePlayers.Add("Computer", InstantiatePlayerEntry("Computer", list.transform));
+      ActivePlayersVictoryCount.Add("Computer", 0);
+
+      return activePlayers;
     }
 
-    private void InstantiateOnlineScoreboard(){
+    private Dictionary<string, GameObject> InstantiateOnlineScoreboard(){
 
       //Fetches the teams custom room properties.
       object teams;
       PhotonNetwork.room.CustomProperties.TryGetValue ("Teams", out teams);
-      Dictionary<string, int> PlayerTeams = (Dictionary<string, int>)teams;
+      PlayerTeams = (Dictionary<string, int>)teams;
 
       //Dictionary that contains the instantiated teams keyed by their number.
       Dictionary<int, GameObject> usedTeams = new Dictionary<int, GameObject>();
+
+      Dictionary<string, GameObject> activePlayers = new Dictionary<string, GameObject>();
 
       foreach(KeyValuePair<string, int> entry in PlayerTeams) {
         //Instantiate team entry if it doesn't already exist.
@@ -41,17 +64,21 @@ public class Scoreboard : MonoBehaviour {
           usedTeams.Add(entry.Value, InstantiateTeamEntry("Team n°"+entry.Value.ToString()));
         }
         //Instantiate the player entry.
-        InstantiatePlayerEntry(entry.Key, usedTeams[entry.Value].transform);
+        activePlayers.Add(entry.Key, InstantiatePlayerEntry(entry.Key, usedTeams[entry.Value].transform));
+        ActivePlayersVictoryCount.Add(entry.Key, 0);
       }
+
+      return activePlayers;
     }
 
-    private void InstantiatePlayerEntry(string PlayerName, Transform parent){
-      GameObject opponent = Instantiate(ScoreEntry, parent);
-      Text opponentName = opponent.transform.GetChild(0).gameObject.GetComponent<Text>();
-      Text opponentScore = opponent.transform.GetChild(1).gameObject.GetComponent<Text>();
-      opponent.transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
-      opponentName.text = PlayerName;
-      opponentScore.text = "---";
+    private GameObject InstantiatePlayerEntry(string PlayerName, Transform parent){
+      GameObject player = Instantiate(ScoreEntry, parent);
+      Text playerName = player.transform.GetChild(0).gameObject.GetComponent<Text>();
+      Text playerScore = player.transform.GetChild(1).gameObject.GetComponent<Text>();
+      player.transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
+      playerName.text = PlayerName;
+      playerScore.text = "";
+      return player;
     }
 
     private GameObject InstantiateTeamEntry(string TeamName){
@@ -60,6 +87,65 @@ public class Scoreboard : MonoBehaviour {
       listName.text = "   "+TeamName;
       list.transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
       return list;
+    }
+
+    public void AddVictory(string teamColor, string VictoryType){
+      if (PhotonNetwork.offlineMode) {}//TODO
+      else {
+        foreach(KeyValuePair<string, int> player in PlayerTeams){
+           if (player.Value == ColorToInt(teamColor)) {
+             Text playerScore = ActivePlayersEntries[player.Key].transform.GetChild(1).gameObject.GetComponent<Text>();
+             playerScore.text += VictoryType;
+             ActivePlayersVictoryCount[player.Key]++;
+           }
+        }
+      }
+    }
+
+    public int ColorToInt (string teamColor){
+        switch (teamColor){
+            case "White":
+                return 1;
+                break;
+            case "Black":
+                return 2;
+                break;
+            case "Blue":
+                return 3;
+                break;
+            case "Red":
+                return 4;
+                break;
+            case "Green":
+                return 5;
+                break;
+            case "Orange":
+                return 6;
+                break;
+            case "Violet":
+                return 7;
+                break;
+            case "Cyan":
+                return 8;
+                break;
+            default:
+                return 8;
+        }
+    }
+
+    public bool CheckForGameVictory(){
+       int WinningTeam = CheckTeamScores();
+       if  (WinningTeam < 8) {
+         return true;
+       }
+       else return false;
+    }
+
+    public int CheckTeamScores(){
+       foreach(KeyValuePair<string, int> player in PlayerTeams) {
+          if (ActivePlayersVictoryCount[player.Key] >= RoundsToWin ) return player.Value;
+       }
+       return 8;
     }
 
 }
