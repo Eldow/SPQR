@@ -26,18 +26,17 @@ public class Scoreboard : Photon.MonoBehaviour
     {
         PlayerTeams = GameObject.Find("GameManager").GetComponent<NetworkGameManager>().PlayerTeams;
         RoundGiven = false;
-        //DontDestroyOnLoad(scorePanel);
         ActivePlayersVictoryCount = new Dictionary<string, int>();
 
         if (PhotonNetwork.offlineMode)
         {
-            ActivePlayersEntries = InstantiateOnlineScoreboard();
+            ActivePlayersEntries = InstantiateScoreboard();
             RoundsToWin = 3;
         }
         else
         {
             object rounds;
-            ActivePlayersEntries = InstantiateOnlineScoreboard();
+            ActivePlayersEntries = InstantiateScoreboard();
             PhotonNetwork.room.CustomProperties.TryGetValue("Mode", out rounds);
             // Any mode selected
             if ((int)rounds == 0)
@@ -55,22 +54,7 @@ public class Scoreboard : Photon.MonoBehaviour
         LoadScoreboardFromCustomProperties();
     }
 
-    private Dictionary<string, GameObject> InstantiateOfflineScoreboard()
-    {
-        //Player List
-        GameObject list = InstantiateTeamEntry("Players");
-        Dictionary<string, GameObject> activePlayers = new Dictionary<string, GameObject>();
-        //Player Entry
-        activePlayers.Add("Solo", InstantiatePlayerEntry("Solo", list.transform));
-        ActivePlayersVictoryCount.Add("Solo", 0);
-        //AI Entry
-        activePlayers.Add("Computer", InstantiatePlayerEntry("Computer", list.transform));
-        ActivePlayersVictoryCount.Add("Computer", 0);
-
-        return activePlayers;
-    }
-
-    private Dictionary<string, GameObject> InstantiateOnlineScoreboard()
+    private Dictionary<string, GameObject> InstantiateScoreboard()
     {
 
         //Dictionary that contains the instantiated teams keyed by their number.
