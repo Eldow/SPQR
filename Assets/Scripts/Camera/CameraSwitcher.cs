@@ -24,6 +24,7 @@ public class CameraSwitcher : MonoBehaviour {
 
     IEnumerator SwitchAfterDelay(float delay)
     {
+        yield return new WaitForSeconds(1f);
         FadeToBlack(delay / 2);
         yield return new WaitForSeconds(delay/2);
         SpectateCamera.SpectatorCamera.enabled = true;
