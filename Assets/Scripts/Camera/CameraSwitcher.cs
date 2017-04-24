@@ -18,13 +18,13 @@ public class CameraSwitcher : MonoBehaviour {
 	public void SwitchCamera()
     {
         Switching = true;
-        BlackScreen.enabled = true;
         StartCoroutine(SwitchAfterDelay(2f));
     }
 
     IEnumerator SwitchAfterDelay(float delay)
     {
         yield return new WaitForSeconds(1f);
+        BlackScreen.enabled = true;
         FadeToBlack(delay / 2);
         yield return new WaitForSeconds(delay/2);
         SpectateCamera.SpectatorCamera.enabled = true;
