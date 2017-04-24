@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2419,7 +2419,7 @@ ParticleSystem:
   m_GameObject: {fileID: 729672328}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -5543,7 +5543,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: LOCAL
+  m_Text: Training
 --- !u!222 &1007493754
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5870,7 +5870,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1112023296}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -9497,8 +9497,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -121.5, y: 347.1}
-  m_SizeDelta: {x: 240, y: 90}
+  m_AnchoredPosition: {x: -297, y: 347.1}
+  m_SizeDelta: {x: 600, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1538323098
 MonoBehaviour:
@@ -10223,7 +10223,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: PLAY
+  m_Text: PLAY ONLINE
 --- !u!222 &1752862165
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10278,8 +10278,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -145.5, y: 249}
-  m_SizeDelta: {x: 288, y: 90}
+  m_AnchoredPosition: {x: -203, y: 249}
+  m_SizeDelta: {x: 400, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1755173503
 MonoBehaviour:

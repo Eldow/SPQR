@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 
 public class RobotDischargeState : RobotAttackState {
+
+    protected GameObject Shockwave = null;
     protected float Radius = .10f;
+    protected float ShockwaveRadius = .14f;
     protected GameObject[] Enemies = null;
     protected SphereCollider AreaCollider = null;
     protected float RadiusGrowthRate = 0f;
+    protected float ShockwaveGrowthRate = 0f;
 
     protected override void Initialize() {
         this.AlreadyHitByAttack = false;
@@ -16,6 +20,7 @@ public class RobotDischargeState : RobotAttackState {
         this.Hitstun = 60;
         this.HeatCost = 0;
         this.ComputeRadiusGrowthRate();
+        this.ComputeShockwaveGrowthRate();
     }
 
     public override State HandleInput(StateMachine stateMachine) {
@@ -28,7 +33,6 @@ public class RobotDischargeState : RobotAttackState {
         }
 
         if (!this.IsSpeedSet) this.SetSpeed(robotStateMachine);
-
 
         if (this.IsInterruptible(robotStateMachine)) { // can be interrupted!
 			RobotState newState = this.CheckInterruptibleActions(stateMachine);
@@ -49,6 +53,11 @@ public class RobotDischargeState : RobotAttackState {
 
     public override void Update(StateMachine stateMachine) {
         if (!(stateMachine is RobotStateMachine)) return;
+
+        if (this.CurrentFrame == this.MinActiveState)
+        {
+            this.SetShockwaveActive(stateMachine);
+        }
 
         this.CurrentFrame++;
 
@@ -102,22 +111,28 @@ public class RobotDischargeState : RobotAttackState {
     }
 
     public virtual void MakeHimSuffer(
-        HandleHit player, Collider enemy) {
+        HandleDischarge player, Collider enemy) {
         PlayerPhysics enemyPhysics 
-            = enemy.gameObject.GetComponent<PlayerPhysics>();
+            = enemy.transform.root.gameObject.GetComponent<PlayerPhysics>();
 
         if (enemyPhysics == null) return;
 
         Vector3 direction = 
-            (enemy.transform.position - player.transform.position).normalized;
+            (enemy.transform.position - player.transform.position);
 
-        direction = Vector3.Project(direction, new Vector3(1, 0, 1));
+        direction = new Vector3(direction.x, 0, direction.z);
+        direction = direction.normalized;
 
         player.SendPoke(enemy.gameObject, direction);
     }
 
     public virtual void ComputeRadiusGrowthRate() {
         this.RadiusGrowthRate = this.Radius / this.MaxFrame;
+    }
+
+    public virtual void ComputeShockwaveGrowthRate()
+    {
+        this.ShockwaveGrowthRate = this.ShockwaveRadius / this.MaxFrame;
     }
 
 	public override RobotState CheckInterruptibleActions(StateMachine stateMachine) {
@@ -137,25 +152,35 @@ public class RobotDischargeState : RobotAttackState {
         return new RobotWalkState();
     }
 
-    public override void HandleAttackTrigger(HandleHit handleHit, Collider other) {
+    public override void HandleAttackTrigger(HandleDischarge handleDischarge, Collider other) {
         if (this.AlreadyHitByAttack || !this.IsAttackActive())
             return;
 
-        this.AlreadyHitByAttack = true;
-
         PlayerController opponent = 
-            (PlayerController) other.gameObject
+            (PlayerController) other.transform.root.gameObject
             .GetComponent<PlayerController>();
 
         if (opponent == null) return;
 
         this.SendAudioHit(opponent.PlayerAudio);
-        handleHit.SendHit(other.gameObject, this.Damage, this.Hitstun);
-        this.MakeHimSuffer(handleHit, other);
+        handleDischarge.SendHit(other.gameObject, this.Damage, this.Hitstun);
+        this.MakeHimSuffer(handleDischarge, other);
+        this.AlreadyHitByAttack = true;
     }
 
     public override void PlayAudioEffect(PlayerAudio audio)
     {
         audio.Discharge();
+    }
+
+    public void SetShockwaveActive(StateMachine stateMachine)
+    {
+        PlayerController pc = ((RobotStateMachine)stateMachine).PlayerController;
+        pc.CastShockwave(this.ShockwaveGrowthRate);
+        if (!PhotonNetwork.offlineMode)
+        {
+            pc.photonView.RPC("ActivateObjectFromState", PhotonTargets.Others, pc.ID, this.ShockwaveGrowthRate);
+        }
+
     }
 }

@@ -12,6 +12,7 @@ public class Scoreboard : MonoBehaviour {
     public Dictionary<string, int> ActivePlayersVictoryCount;
     public Dictionary<string, int> PlayerTeams;
     public int RoundsToWin;
+    public bool RoundGiven = false;
 
     public GameObject scorePanel;
 
@@ -90,15 +91,29 @@ public class Scoreboard : MonoBehaviour {
     }
 
     public void AddVictory(string teamColor, string VictoryType){
-      if (PhotonNetwork.offlineMode) {}//TODO
-      else {
-        foreach(KeyValuePair<string, int> player in PlayerTeams){
-           if (player.Value == ColorToInt(teamColor)) {
-             Text playerScore = ActivePlayersEntries[player.Key].transform.GetChild(1).gameObject.GetComponent<Text>();
-             playerScore.text += VictoryType;
-             ActivePlayersVictoryCount[player.Key]++;
-           }
+      if (!RoundGiven) {
+        if (PhotonNetwork.offlineMode) {
+            if (teamColor == "White"){
+               Text playerScore = ActivePlayersEntries["Solo"].transform.GetChild(1).gameObject.GetComponent<Text>();
+               playerScore.text += VictoryType;
+               ActivePlayersVictoryCount["Solo"]++;
+            }
+            else {
+              Text playerScore = ActivePlayersEntries["Computer"].transform.GetChild(1).gameObject.GetComponent<Text>();
+              playerScore.text += VictoryType;
+              ActivePlayersVictoryCount["Computer"]++;
+            }
         }
+        else {
+          foreach(KeyValuePair<string, int> player in PlayerTeams){
+             if (player.Value == ColorToInt(teamColor)) {
+               Text playerScore = ActivePlayersEntries[player.Key].transform.GetChild(1).gameObject.GetComponent<Text>();
+               playerScore.text += VictoryType;
+               ActivePlayersVictoryCount[player.Key]++;
+             }
+          }
+        }
+        RoundGiven = true;
       }
     }
 

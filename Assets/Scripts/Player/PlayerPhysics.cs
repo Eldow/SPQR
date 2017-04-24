@@ -24,7 +24,7 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     public float WalkCap = 1f;
     public float MaximumSpeed = 300f;
     public bool IsDischarged = false;
-    public float PokeMagnitude = 100f;
+    public float PokeMagnitude = 1f;
 
     private float _yAxisInput = 0f;
     private float _xAxisInput = 0f;
@@ -135,8 +135,7 @@ public class PlayerPhysics : Photon.MonoBehaviour {
     }
 
     public void ApplyPoke(Vector3 direction) {
-        this.RigidBody.AddForce(
-            transform.position + direction * this.PokeMagnitude,
+        this.RigidBody.AddForce(direction * this.PokeMagnitude,
             ForceMode.Impulse);
     }
 

@@ -23,6 +23,7 @@ public class FollowOpponent : MonoBehaviour
 			this.gameObject.SetActive (false);
 			return;
 		}
+        if (!FightCamera.FightingCamera.enabled) return;
 		Vector3 pos = opponent.position + offset;  // get the game object position
 		Vector3 viewportPoint = Camera.main.WorldToViewportPoint (pos);  //convert game object position to VievportPoint
 

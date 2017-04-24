@@ -80,7 +80,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.6
+    agentRadius: 0.8
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
@@ -88,7 +88,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.2
+    cellSize: 0.26666668
     accuratePlacement: 0
   m_NavMeshData: {fileID: 23800000, guid: 3b482bf1dcd2364418f853ac45833990, type: 2}
 --- !u!1 &87124326

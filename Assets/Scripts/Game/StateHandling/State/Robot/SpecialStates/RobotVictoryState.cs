@@ -31,9 +31,6 @@ public class RobotVictoryState : RobotState {
             RobotVictoryState.JumpForce, 
             0), 
             ForceMode.Impulse);
-        
-        ((RobotStateMachine)stateMachine).PlayerController.PlayerPhysics
-            .Move();
     }
 
     public override void Enter(StateMachine stateMachine) {
@@ -42,6 +39,8 @@ public class RobotVictoryState : RobotState {
         if (!(stateMachine is RobotStateMachine)) return;
 
         RobotStateMachine robotStateMachine = (RobotStateMachine)stateMachine;
+        bool isAI = robotStateMachine.PlayerController.isAI;
+        bool isMine = robotStateMachine.PlayerController.photonView.isMine;
         this._rigidbody =
             robotStateMachine.gameObject.GetComponent<Rigidbody>();
 
@@ -52,10 +51,10 @@ public class RobotVictoryState : RobotState {
         this._rigidbody.mass = RobotVictoryState.Mass;
 
         // allows jump
-        this._rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionY;
-
-		if(!robotStateMachine.PlayerController.isAI)
+        this._rigidbody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        if (!robotStateMachine.PlayerController.isAI)
         	PlayAudioEffect(robotStateMachine.PlayerController.PlayerAudio);
+        if (!isAI && isMine && !CameraSwitcher.instance.Switching) CameraSwitcher.instance.SwitchCamera();
     }
 
     public override void Exit(StateMachine stateMachine) {

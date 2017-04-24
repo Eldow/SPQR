@@ -1,5 +1,5 @@
 ﻿public class RobotOverheatState : RobotFramedState {
-    protected int Duration = 100;
+    protected int Duration = 200;
 
     protected override void Initialize() {
         this.MaxFrame = this.Duration;
@@ -64,7 +64,10 @@
 
         robotStateMachine.Animator.speed = this.InitialSpeed;
 
-		this.SetLightings(stateMachine,false);
+		this.SetLightings(stateMachine, false);
+
+        robotStateMachine.PlayerController.PlayerPower.Power = 
+            PlayerPower.MaxPower;
     }
 
     protected override void SetSpeed(RobotStateMachine robotStateMachine) {

@@ -58,12 +58,16 @@ public class RobotBlockState : RobotFramedState {
     }
 		
     public override void Update(StateMachine stateMachine) {
-		
-		if(isHolding)
-			((RobotStateMachine)stateMachine).PlayerController.PlayerPower.Power -= 0.25f;
+
+		PlayerController playerController = ((RobotStateMachine)stateMachine).PlayerController;
+		if (isHolding) {
+			playerController.PlayerPower.Power -= 0.25f;
+			if (playerController.PlayerPower.Power <= 0)
+				playerController.RobotStateMachine.SetState (new RobotOverheatState ());
+		}
 
 		if (Shield == null)
-			Shield = ((RobotStateMachine)stateMachine).PlayerController.Shield;
+			Shield = playerController.Shield;
 			
 		if (this.CurrentFrame == this.MinActiveState) {
 			this.setShieldActive (true, stateMachine);
@@ -77,8 +81,9 @@ public class RobotBlockState : RobotFramedState {
 		}
 
 		if(this.CurrentFrame>=MaxActiveState)
-		if (this.Shield != null) this.setShieldActive (false, stateMachine);
 
+		if (this.Shield != null) this.setShieldActive (false, stateMachine);
+		playerController.PlayerPhysics.Move();
     }
 
     public override void Exit(StateMachine stateMachine) {
