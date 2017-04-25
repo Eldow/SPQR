@@ -10,9 +10,12 @@ public class Scoreboard : Photon.MonoBehaviour
 
     public GameObject TeamEntry;
     public GameObject ScoreEntry;
-    public Dictionary<string, GameObject> ActivePlayersEntries;
-    public Dictionary<string, int> ActivePlayersVictoryCount;
+
     public Dictionary<string, int> PlayerTeams;
+
+    public Dictionary<int, int> TeamVictories = new Dictionary<int, int>();
+    public Dictionary<int, GameObject> TeamPanels = new Dictionary<int, GameObject>();
+
     public int RoundsToWin;
     public GameObject scorePanel;
     public Text GamemodeLabel;
@@ -24,17 +27,14 @@ public class Scoreboard : Photon.MonoBehaviour
     private void Start()
     {
         PlayerTeams = GameObject.Find("GameManager").GetComponent<NetworkGameManager>().PlayerTeams;
-        ActivePlayersVictoryCount = new Dictionary<string, int>();
-
+        InstantiateScoreboard();
         if (PhotonNetwork.offlineMode)
         {
-            ActivePlayersEntries = InstantiateScoreboard();
             RoundsToWin = 3;
         }
         else
         {
             object rounds;
-            ActivePlayersEntries = InstantiateScoreboard();
             PhotonNetwork.room.CustomProperties.TryGetValue("Mode", out rounds);
             // Any mode selected
             if ((int)rounds == 0)
@@ -52,80 +52,64 @@ public class Scoreboard : Photon.MonoBehaviour
         LoadScoreboardFromCustomProperties();
     }
 
-    private Dictionary<string, GameObject> InstantiateScoreboard()
+    private void InstantiateScoreboard()
     {
-
         //Dictionary that contains the instantiated teams keyed by their number.
-        Dictionary<int, GameObject> usedTeams = new Dictionary<int, GameObject>();
 
         Dictionary<string, GameObject> activePlayers = new Dictionary<string, GameObject>();
 
         foreach (KeyValuePair<string, int> entry in PlayerTeams)
         {
             //Instantiate team entry if it doesn't already exist.
-            if (!usedTeams.ContainsKey(entry.Value))
+            if (!TeamPanels.ContainsKey(entry.Value))
             {
-                usedTeams.Add(entry.Value, InstantiateTeamEntry("Team " + (PlayerColors)entry.Value));
+                TeamPanels.Add(entry.Value, InstantiateTeamEntry(((PlayerColors)entry.Value).ToString()));
+                TeamVictories.Add(entry.Value, 0);
             }
-            //Instantiate the player entry.
-            activePlayers.Add(entry.Key, InstantiatePlayerEntry(entry.Key, usedTeams[entry.Value].transform));
-            ActivePlayersVictoryCount.Add(entry.Key, 0);
         }
-
-        return activePlayers;
-    }
-
-    private GameObject InstantiatePlayerEntry(string PlayerName, Transform parent)
-    {
-        GameObject player = Instantiate(ScoreEntry, parent);
-        Text playerName = player.transform.GetChild(0).gameObject.GetComponent<Text>();
-        Text playerScore = player.transform.GetChild(1).gameObject.GetComponent<Text>();
-        player.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        playerName.text = PlayerName;
-        playerScore.text = "";
-        return player;
     }
 
     private GameObject InstantiateTeamEntry(string TeamName)
     {
         GameObject list = Instantiate(TeamEntry, this.transform);
         Text listName = list.transform.GetChild(0).gameObject.GetComponent<Text>();
-        listName.text = "   " + TeamName;
+        listName.text = "";
         list.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        Image backgroundImage = list.GetComponent<Image>();
+        Color color = Color.clear;
 
-        Color color;
+        ColorUtility.TryParseHtmlString(TeamName, out color);
 
-        try { 
-            color = (Color)typeof(Color).GetProperty(TeamName.Replace(@"Team ", "").ToLowerInvariant()).GetValue(null, null);
-        } catch (NullReferenceException exception) { 
-            color = Color.white;
-        }
+        backgroundImage.color = color;
 
-        listName.color = color;
+        listName.color = new Color(1.0f - color.r, 1.0f - color.g, 1.0f - color.b); ;
         return list;
     }
 
     public void AddVictory(string teamColor)
     {
-        foreach (KeyValuePair<string, int> player in PlayerTeams)
+        if (teamColor == "")
         {
-            if (player.Value == (int)(PlayerColors)Enum.Parse(typeof(PlayerColors), teamColor, true))
-            {
-                ActivePlayersVictoryCount[player.Key]++;
-            }
+            GameManager.Instance.SetRoundFinished();// Players died at the same moment ? Let's call it a draft
+            return;
+        }
+        PlayerColors color = (PlayerColors)Enum.Parse(typeof(PlayerColors), teamColor, true);
+        int colorIndex = (int)color;
+        if (TeamVictories.ContainsKey(colorIndex)){
+            TeamVictories[colorIndex]++;
         }
         SaveScoreboardToCustomProperties();
     }
 
     private void UpdatePlayerScoreEntries()
     {
-        foreach (KeyValuePair<string, int> player in ActivePlayersVictoryCount)
+        foreach (KeyValuePair<int, int> team in TeamVictories)
         {
-            Text playerScore = ActivePlayersEntries[player.Key].transform.GetChild(1).gameObject.GetComponent<Text>();
-            playerScore.text = "";
-            for (int i = 0; i < player.Value; i++)
+            Text teamScore = TeamPanels[team.Key].transform.GetChild(0).gameObject.GetComponent<Text>();
+            teamScore.text = "";
+            for (int i = 0; i < team.Value; i++)
             {
-                playerScore.text += VictoryLabel;
+                teamScore.text += VictoryLabel;
             }
         }
     }
@@ -142,9 +126,9 @@ public class Scoreboard : Photon.MonoBehaviour
 
     public int CheckTeamScores()
     {
-        foreach (KeyValuePair<string, int> player in PlayerTeams)
+        foreach (KeyValuePair<int, int> team in TeamVictories)
         {
-            if (ActivePlayersVictoryCount[player.Key] >= Mathf.Ceil(RoundsToWin/2)+1) return player.Value;
+            if (TeamVictories[team.Key] >= Mathf.Ceil(RoundsToWin/2)+1) return team.Value;
         }
         return -1;
     }
@@ -152,7 +136,7 @@ public class Scoreboard : Photon.MonoBehaviour
     private void SaveScoreboardToCustomProperties()
     {
         ExitGames.Client.Photon.Hashtable scoresHashtable = new ExitGames.Client.Photon.Hashtable();
-        scoresHashtable[_scoreKey] = ActivePlayersVictoryCount;
+        scoresHashtable[_scoreKey] = TeamVictories;
         PhotonNetwork.room.SetCustomProperties(scoresHashtable);
     }
 
@@ -184,7 +168,7 @@ public class Scoreboard : Photon.MonoBehaviour
     {
         object scores;
         PhotonNetwork.room.CustomProperties.TryGetValue("Scores", out scores);
-        ActivePlayersVictoryCount = (Dictionary<string, int>)scores;
+        TeamVictories = (Dictionary<int, int>)scores;
         UpdatePlayerScoreEntries();
     }
 

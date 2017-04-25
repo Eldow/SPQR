@@ -249,7 +249,6 @@ public class GameManager : MonoBehaviour
             Timer.Countdown.ManageKoSprite();
             Timer.photonView.RPC("ClientDisplayKo", PhotonTargets.AllViaServer);
         }
-        if (victoriousTeam == "") SetRoundFinished(); // Players died at the same moment ? Let's call it a draft
         if (PhotonNetwork.isMasterClient) Scores.AddVictory(victoriousTeam);
     }
 
