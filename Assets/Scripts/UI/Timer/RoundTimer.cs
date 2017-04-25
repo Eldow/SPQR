@@ -28,29 +28,34 @@ public class RoundTimer : Photon.MonoBehaviour
 
     public int SecondsPerRound;                     // time per round/turn (set in inspector)
     public double StartTime;                        // this should could also be a private. i just like to see this in inspector
-    [HideInInspector] public float elapsedTime;
-    [HideInInspector] public float remainingTime;
+    [HideInInspector]
+    public float elapsedTime;
+    [HideInInspector]
+    public float remainingTime;
 
     private bool startRoundWhenTimeIsSynced;        // used in an edge-case when we wanted to set a start time but don't know it yet.
     private const string StartTimeKey = "st";       // the name of our "start time" custom property.
 
     public Text UITimerText;
     public Countdown Countdown = null;
-	public bool CountdownCalled = false;
-	public bool hasTimerStarted = false;
+    public bool CountdownCalled = false;
+    public bool hasTimerStarted = false;
 
-    private void Start(){
-		//SecondsPerRound = 500;
-		remainingTime = SecondsPerRound;
+    private void Start()
+    {
+        //SecondsPerRound = 500;
+        remainingTime = SecondsPerRound;
         UITimerText = GetComponent<Text>();
         UITimerText.text = "";
 
         GameObject TaggedCd = GameObject.FindGameObjectWithTag("Countdown");
-        if (TaggedCd == null) {
+        if (TaggedCd == null)
+        {
             Debug.LogError(this.GetType().Name + ": No Tagged Countdown script found!");
         }
-        else {
-          this.Countdown = TaggedCd.GetComponent<Countdown>();
+        else
+        {
+            this.Countdown = TaggedCd.GetComponent<Countdown>();
         }
     }
 
@@ -117,51 +122,56 @@ public class RoundTimer : Photon.MonoBehaviour
             this.StartRoundNow();   // the "time is known" check is done inside the method.
         }
 
-        if ((CountdownCalled)&&(!Countdown.isCountingDown)) {
+        if ((CountdownCalled) && (!Countdown.isCountingDown))
+        {
             this.StartRoundNow();
             CountdownCalled = false;
-			      hasTimerStarted = true;
+            hasTimerStarted = true;
         }
 
-    		if (hasTimerStarted && !GameManager.Instance.isGameFinished) {
-          remainingTime = Mathf.Max(Mathf.Ceil(SecondsPerRound - elapsedTime), 0);
-    			UITimerText.text = string.Format ("{0:0}", remainingTime);
-    			elapsedTime = (float)(PhotonNetwork.time - StartTime);
-    	  }
-    }
-
-	public void callTimerRPC()
-	{
-		this.photonView.RPC("ClientNewCountdown", PhotonTargets.AllViaServer);
-	}
-
-   /* public void OnGUI()
-    {
-        // simple gui for output
-        if (GUILayout.Button("new round"))
+        if (hasTimerStarted)
         {
-            Countdown.NewCountdown();
-            CountdownCalled = true;
-            this.photonView.RPC("ClientNewCountdown", PhotonTargets.AllViaServer);
+            remainingTime = Mathf.Max(Mathf.Ceil(SecondsPerRound - elapsedTime), 0);
+            UITimerText.text = string.Format("{0:0}", remainingTime);
+            elapsedTime = (float)(PhotonNetwork.time - StartTime);
         }
+    }
 
-        UITimerText.text = string.Format("{0:0}", remainingTime);
-    }*/
+    public void callTimerRPC()
+    {
+        this.photonView.RPC("ClientNewCountdown", PhotonTargets.AllViaServer);
+    }
+
+    /* public void OnGUI()
+     {
+         // simple gui for output
+         if (GUILayout.Button("new round"))
+         {
+             Countdown.NewCountdown();
+             CountdownCalled = true;
+             this.photonView.RPC("ClientNewCountdown", PhotonTargets.AllViaServer);
+         }
+
+         UITimerText.text = string.Format("{0:0}", remainingTime);
+     }*/
 
     [PunRPC]
-    public void ClientNewCountdown(){
-		CountdownCalled = true;
-		Countdown.NewCountdown ();
-		UITimerText.text = string.Format("{0:0}", SecondsPerRound);
+    public void ClientNewCountdown()
+    {
+        CountdownCalled = true;
+        Countdown.NewCountdown();
+        UITimerText.text = string.Format("{0:0}", SecondsPerRound);
     }
 
     [PunRPC]
-    public void ClientDisplayKo(){
-       Countdown.ManageKoSprite();
+    public void ClientDisplayKo()
+    {
+        Countdown.ManageKoSprite();
     }
 
     [PunRPC]
-    public void ClientDisplayTo(){
-       Countdown.ManageToSprite();
+    public void ClientDisplayTo()
+    {
+        Countdown.ManageToSprite();
     }
 }
