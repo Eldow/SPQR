@@ -224,7 +224,7 @@ public class PlayerController : Photon.PunBehaviour {
     {
         if (this.photonView.isMine && !this.isAI)
         {
-            GameManager.Instance.UpdateDeadList(this.ID);
+            GameManager.Instance.UpdateDeadListToOthers(this);
            // GameManager.Instance.RemovePlayerFromGame(this.ID);
            // GameManager.Instance.IsRoundOver();
         }
@@ -235,7 +235,7 @@ public class PlayerController : Photon.PunBehaviour {
         MakePlayerLeaveProperly();
 	}
 
-    void OnDestroy()
+    void OnApplicationQuit()
     {
         MakePlayerLeaveProperly();
     }
