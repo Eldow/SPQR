@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
     public PlayerController LocalPlayer = null;
 
     public RoundTimer Timer = null;
-    public Scoreboard Scorebrd = null;
+    public Scoreboard Scoreboard = null;
 
     public Dictionary<int, RobotStateMachine> PlayerList
         { get; protected set; }
@@ -22,6 +22,29 @@ public class GameManager : MonoBehaviour {
         { get; protected set; }
 
 	private bool exitStarted = false;
+
+
+    void Awake()
+    {
+        if (GameManager.Instance == null)
+        {
+            GameManager.Instance = this;
+            this.Initialize();
+        }
+        else if (GameManager.Instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        if (this.Running != null) return;
+
+        this.Running = this.gameObject.GetComponent<Running>();
+
+        if (this.Running == null)
+        {
+            Debug.LogError(this.GetType().Name + ": No Running script found!");
+        }
+    }
 
     void Start() {
 
@@ -40,13 +63,13 @@ public class GameManager : MonoBehaviour {
             Debug.LogError(this.GetType().Name + ": No Tagged Scoreboard script found!");
         }
         else {
-          this.Scorebrd = TaggedSb.GetComponent<Scoreboard>();
+          this.Scoreboard = TaggedSb.GetComponent<Scoreboard>();
         }
 
-		    InvokeRepeating("waitForPlayersToBeReady", 0f, 0.3f);
+		    InvokeRepeating("WaitForPlayersToBeReady", 0f, 0.3f);
     }
 
-	void waitForPlayersToBeReady()
+	void WaitForPlayersToBeReady()
 	{
 		if (PlayerList.Count < NetworkGameManager.nbPlayersForThisGame)
 			return;
@@ -62,30 +85,11 @@ public class GameManager : MonoBehaviour {
 		CancelInvoke ();
 	}
 
-
-    void Awake() {
-        if (GameManager.Instance == null) {
-            GameManager.Instance = this;
-            this.Initialize();
-        } else if (GameManager.Instance != this) {
-            Destroy(gameObject);
-        }
-
-        //GameObject.DontDestroyOnLoad(gameObject);
-
-        if (this.Running != null) return;
-
-        this.Running = this.gameObject.GetComponent<Running>();
-
-        if (this.Running == null) {
-            Debug.LogError(this.GetType().Name + ": No Running script found!");
-        }
-    }
-
+    // Game ending, round ending management
     void FixedUpdate() {
         if (Timer != null && !isGameFinished && Timer.hasTimerStarted && Timer.remainingTime == 0f)
         {
-            endRoundWithTimer();
+            TimeoutEnding();
             isRoundFinished = true;
         }
         else if (isRoundFinished && !isGameFinished)
@@ -95,16 +99,16 @@ public class GameManager : MonoBehaviour {
         }
     	else if (isGameFinished && !exitStarted) {
     		exitStarted = true;
-    		Invoke ("leaveAfterEnding",3.0f);
+    		Invoke ("LeaveAfterEnding",3.0f);
     	}
     }
 
-	private void leaveAfterEnding (){
+    // Calls the right leaving routine
+	private void LeaveAfterEnding (){
 		if (PhotonNetwork.offlineMode) {
             StartCoroutine(LeaveTo("Launcher"));
 			return;
 		}
-
 		if (PhotonNetwork.isMasterClient) {
             StartCoroutine(LeaveAfterAll());
 		} else {
@@ -112,12 +116,14 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+    // Prepare the scene for a new round
     IEnumerator NextRound()
     {
         yield return new WaitForSeconds(5f);
         PhotonNetwork.LoadLevel("Sandbox");
     }
 
+    // Leave to launcher or lobby
     IEnumerator LeaveTo(string level)
     {
         yield return new WaitForSeconds(5f);
@@ -138,16 +144,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    protected void endRoundWithTimer(){
-        RobotStateMachine Winner = null;
-        Winner = searchForMaxHealthPlayers();
-		if( Winner.PlayerController.photonView.isMine)
-			Winner.SetState(new RobotVictoryState());
-        Timer.Countdown.ManageToSprite();
-        Timer.photonView.RPC("ClientDisplayKo", PhotonTargets.AllViaServer);
-    }
-
-    protected RobotStateMachine searchForMaxHealthPlayers() {
+    private RobotStateMachine SearchForMaxHealthPlayers() {
 		int MaxHP = 0;
 		RobotStateMachine Winner = null;
 		foreach (KeyValuePair<int,RobotStateMachine> alivePlayer in this.AlivePlayerList) {
@@ -162,7 +159,6 @@ public class GameManager : MonoBehaviour {
     protected virtual void Initialize() {
         this.AlivePlayerList = new Dictionary<int, RobotStateMachine>();
         this.PlayerList = new Dictionary<int, RobotStateMachine>();
-        //this.ScoreModule = this.gameObject.AddComponent<ScoreManager>();
     }
 
     public virtual void RemovePlayerFromGame(int playerID) {
@@ -227,7 +223,7 @@ public class GameManager : MonoBehaviour {
 
 			this.AlivePlayerList.Remove (playerID);
 
-			if (!this.IsRoundOver ())
+			if (!this.IsLastTeamStanding())
 				return;
 
 			if (this.AlivePlayerList.Count <= 0)
@@ -247,7 +243,8 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-    public virtual bool IsRoundOver() {
+    // If only only team left, declare the win
+    public virtual bool IsLastTeamStanding() {
   	    string teamFound = null;
   	    foreach(KeyValuePair<int,RobotStateMachine> pair in GameManager.Instance.AlivePlayerList){
   		    if (pair.Value.PlayerController.Team != teamFound) {
@@ -257,16 +254,32 @@ public class GameManager : MonoBehaviour {
   				    return false; // there are at least 2 different teams;
   		    }
   	    }
+        ManageEndRound(teamFound);
+        return true;
+    }
+
+    // Time off ! Get the best team an declare the win - TODO : Get team health points and not single player health points
+    protected void TimeoutEnding()
+    {
+        RobotStateMachine Winner = null;
+        Winner = SearchForMaxHealthPlayers();
+        if (Winner.PlayerController.photonView.isMine)
+            Winner.SetState(new RobotVictoryState());
+        ManageEndRound(Winner.PlayerController.Team);
+    }
+
+    private void ManageEndRound(string victoriousTeam)
+    {
         // If no two different teams are found
         if (Timer.Countdown != null)
         {
             Timer.Countdown.ManageKoSprite();
             Timer.photonView.RPC("ClientDisplayKo", PhotonTargets.AllViaServer);
         }
-        Scorebrd.AddVictory(teamFound);
-        if (Scorebrd.CheckForGameVictory()) {
+        Scoreboard.AddVictory(victoriousTeam);
+        if (Scoreboard.CheckForGameVictory())
+        {
             isGameFinished = true;
         }
-        return true;
     }
 }
