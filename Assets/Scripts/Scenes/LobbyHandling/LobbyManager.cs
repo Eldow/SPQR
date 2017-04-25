@@ -52,7 +52,7 @@ public class LobbyManager : Photon.PunBehaviour
         h.Add("Teams", chat.PlayerTeams);
         if(chat.Map == 0)
         {
-            chat.Map = Random.Range(1, 3);
+            chat.Map = Random.Range(1, 4); // 4 because random range is exclusive
         }
         h.Add("Map", chat.Map);
         h.Add("Mode", chat.Mode);
