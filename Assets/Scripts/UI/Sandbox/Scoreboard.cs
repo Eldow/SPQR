@@ -92,6 +92,16 @@ public class Scoreboard : Photon.MonoBehaviour
         Text listName = list.transform.GetChild(0).gameObject.GetComponent<Text>();
         listName.text = "   " + TeamName;
         list.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+        Color color;
+
+        try { 
+            color = (Color)typeof(Color).GetProperty(TeamName.Replace(@"Team ", "").ToLowerInvariant()).GetValue(null, null);
+        } catch (NullReferenceException exception) { 
+            color = Color.white;
+        }
+
+        listName.color = color;
         return list;
     }
 

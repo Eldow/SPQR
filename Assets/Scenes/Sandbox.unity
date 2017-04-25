@@ -1421,8 +1421,9 @@ GameObject:
   m_Component:
   - component: {fileID: 720593013}
   - component: {fileID: 720593015}
-  - component: {fileID: 720593014}
   - component: {fileID: 720593016}
+  - component: {fileID: 720593014}
+  - component: {fileID: 720593017}
   m_Layer: 5
   m_Name: ScorePanel
   m_TagString: Untagged
@@ -1458,25 +1459,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 720593012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: -98529514, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.31617647, g: 0.31617647, b: 0.31617647, a: 0.429}
+  m_Color: {r: 0, g: 0.006896496, b: 1, a: 0.347}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!222 &720593015
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1505,6 +1505,19 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
+--- !u!114 &720593017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 720593012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad056df20909d9f4783b696026b12b8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RawImage: {fileID: 720593014}
+  MovieTexture: {fileID: 0}
 --- !u!1001 &736477155
 Prefab:
   m_ObjectHideFlags: 0
@@ -2992,7 +3005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3006,13 +3019,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 140
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 0
-  m_Text: Score
+  m_Text: SCORE
 --- !u!222 &1550338832
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3669,7 +3682,6 @@ MonoBehaviour:
   TeamEntry: {fileID: 1213210349797932, guid: 2ed7091a716eb47bea4d592af1f20e1b, type: 2}
   ScoreEntry: {fileID: 1996740669452450, guid: 72e0b076564544f46a3f0a8575509c56, type: 2}
   RoundsToWin: 0
-  RoundGiven: 0
   scorePanel: {fileID: 720593012}
   GamemodeLabel: {fileID: 1550338831}
   VictoryLabel: X
