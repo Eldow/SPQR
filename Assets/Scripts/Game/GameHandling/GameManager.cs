@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     { get; protected set; }
 
     private bool exitStarted = false;
+    private bool isCompletingRound = false;
 
 
     void Awake()
@@ -243,6 +244,8 @@ public class GameManager : MonoBehaviour
 
     private void ManageEndRound(string victoriousTeam)
     {
+        if (isCompletingRound) return;
+        isCompletingRound = true;
         if (victoriousTeam == null) return;
         if (Timer.Countdown != null)
         {
