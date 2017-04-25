@@ -57,10 +57,6 @@
         if (!(stateMachine is RobotStateMachine)) return;
 
         RobotStateMachine robotStateMachine = (RobotStateMachine) stateMachine;
-		
-		if( robotStateMachine.PlayerController.isAI ){
-			robotStateMachine.PlayerController.PlayerPower.Power = 100;
-		}
 
         robotStateMachine.Animator.speed = this.InitialSpeed;
 
@@ -68,6 +64,7 @@
 
         robotStateMachine.PlayerController.PlayerPower.Power = 
             PlayerPower.MaxPower;
+        robotStateMachine.PlayerController.PlayerPhysics.IsDischarged = false;
     }
 
     protected override void SetSpeed(RobotStateMachine robotStateMachine) {
