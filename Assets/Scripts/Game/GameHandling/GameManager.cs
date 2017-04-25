@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
     public PlayerController LocalPlayer = null;
 
     public RoundTimer Timer = null;
-    public Scoreboard Scoreboard = null;
+    public Scoreboard Scores = null;
 
     public Dictionary<int, RobotStateMachine> PlayerList
         { get; protected set; }
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour {
             Debug.LogError(this.GetType().Name + ": No Tagged Scoreboard script found!");
         }
         else {
-          this.Scoreboard = TaggedSb.GetComponent<Scoreboard>();
+          this.Scores = TaggedSb.GetComponent<Scoreboard>();
         }
 
 		    InvokeRepeating("WaitForPlayersToBeReady", 0f, 0.3f);
@@ -276,8 +276,8 @@ public class GameManager : MonoBehaviour {
             Timer.Countdown.ManageKoSprite();
             Timer.photonView.RPC("ClientDisplayKo", PhotonTargets.AllViaServer);
         }
-        Scoreboard.AddVictory(victoriousTeam);
-        if (Scoreboard.CheckForGameVictory())
+        Scores.AddVictory(victoriousTeam);
+        if (Scores.CheckForGameVictory())
         {
             isGameFinished = true;
         }
