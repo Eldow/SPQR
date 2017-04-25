@@ -273,7 +273,7 @@ public class GameManager : MonoBehaviour {
             Timer.Countdown.ManageKoSprite();
             Timer.photonView.RPC("ClientDisplayKo", PhotonTargets.AllViaServer);
         }
-        Scores.AddVictory(victoriousTeam);
+        if(PhotonNetwork.isMasterClient) Scores.AddVictory(victoriousTeam);
         if (Scores.CheckForGameVictory())
         {
             isGameFinished = true;

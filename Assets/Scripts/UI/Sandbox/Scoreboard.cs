@@ -149,12 +149,9 @@ public class Scoreboard : Photon.MonoBehaviour
 
     private void SaveScoreboardToCustomProperties()
     {
-        if (PhotonNetwork.isMasterClient)
-        {
-            ExitGames.Client.Photon.Hashtable scoresHashtable = new ExitGames.Client.Photon.Hashtable();
-            scoresHashtable[_scoreKey] = ActivePlayersVictoryCount;
-            PhotonNetwork.room.SetCustomProperties(scoresHashtable);
-        }
+        ExitGames.Client.Photon.Hashtable scoresHashtable = new ExitGames.Client.Photon.Hashtable();
+        scoresHashtable[_scoreKey] = ActivePlayersVictoryCount;
+        PhotonNetwork.room.SetCustomProperties(scoresHashtable);
     }
 
     private void LoadScoreboardFromCustomProperties()
