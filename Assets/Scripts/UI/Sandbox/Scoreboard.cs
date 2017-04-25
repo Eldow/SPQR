@@ -162,7 +162,7 @@ public class Scoreboard : Photon.MonoBehaviour
 
     public void OnPhotonCustomRoomPropertiesChanged(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
     {
-        if (propertiesThatChanged.ContainsKey(_scoreKey) && !PhotonNetwork.isMasterClient)
+        if (propertiesThatChanged.ContainsKey(_scoreKey))
         {
             UpdateVictoryCountFromCustomProperties();
         }
