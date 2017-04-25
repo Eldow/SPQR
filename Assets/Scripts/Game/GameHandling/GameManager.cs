@@ -233,9 +233,6 @@ public class GameManager : MonoBehaviour {
 				if (winner.Value != null && winner.Value.PlayerController.photonView.isMine)
 					winner.Value.SetState (new RobotVictoryState ());
 			}
-            isRoundFinished = true;
-			//isGameFinished = true;
-
 		} catch (KeyNotFoundException exception) {
 			Debug.LogWarning (
 				"UpdateDeadList: key " + playerID + " was not found");
@@ -280,6 +277,9 @@ public class GameManager : MonoBehaviour {
         if (Scores.CheckForGameVictory())
         {
             isGameFinished = true;
+        } else
+        {
+            isRoundFinished = true;
         }
     }
 }
