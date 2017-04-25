@@ -79,7 +79,7 @@ public class Scoreboard : Photon.MonoBehaviour
         Color color = Color.clear;
 
         ColorUtility.TryParseHtmlString(TeamName, out color);
-
+        color.a = 0.8f;
         backgroundImage.color = color;
 
         listName.color = new Color(1.0f - color.r, 1.0f - color.g, 1.0f - color.b); ;
