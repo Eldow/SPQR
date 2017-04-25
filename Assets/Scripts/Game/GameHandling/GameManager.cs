@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour {
 			return;
 		}
 		if (PhotonNetwork.isMasterClient) {
-            StartCoroutine(LeaveAfterAll());
+            InvokeRepeating("LeaveAfterAll", 1f, 2f);
 		} else {
             StartCoroutine(LeaveTo("Lobby"));
 		}
@@ -132,17 +132,14 @@ public class GameManager : MonoBehaviour {
     }
 
     // Master leaves the room after others
-    IEnumerator LeaveAfterAll()
+    void LeaveAfterAll()
     {
         bool leaving = false;
-        while (true)
+        if (PhotonNetwork.room.PlayerCount == 1 && !leaving)
         {
-            if (PhotonNetwork.room.PlayerCount == 1 && !leaving)
-            {
-                leaving = true;
-                StartCoroutine(LeaveTo("Lobby"));
-                yield break;
-            }
+            leaving = true;
+            StartCoroutine(LeaveTo("Lobby"));
+            CancelInvoke();
         }
     }
 
