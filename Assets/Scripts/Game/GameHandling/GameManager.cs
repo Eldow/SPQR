@@ -247,7 +247,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-    protected virtual bool IsRoundOver() {
+    public virtual bool IsRoundOver() {
   	    string teamFound = null;
   	    foreach(KeyValuePair<int,RobotStateMachine> pair in GameManager.Instance.AlivePlayerList){
   		    if (pair.Value.PlayerController.Team != teamFound) {
@@ -258,8 +258,11 @@ public class GameManager : MonoBehaviour {
   		    }
   	    }
         // If no two different teams are found
-        Timer.Countdown.ManageKoSprite();
-        Timer.photonView.RPC("ClientDisplayKo", PhotonTargets.AllViaServer);
+        if (Timer.Countdown != null)
+        {
+            Timer.Countdown.ManageKoSprite();
+            Timer.photonView.RPC("ClientDisplayKo", PhotonTargets.AllViaServer);
+        }
         Scorebrd.AddVictory(teamFound);
         if (Scorebrd.CheckForGameVictory()) {
             isGameFinished = true;

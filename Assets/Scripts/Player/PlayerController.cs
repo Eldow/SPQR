@@ -220,13 +220,25 @@ public class PlayerController : Photon.PunBehaviour {
 		}
     }
 
+    private void MakePlayerLeaveProperly()
+    {
+        if (this.photonView.isMine && !this.isAI)
+        {
+            GameManager.Instance.UpdateDeadList(this.ID);
+           // GameManager.Instance.RemovePlayerFromGame(this.ID);
+           // GameManager.Instance.IsRoundOver();
+        }
+    }
+
 	public override void OnLeftRoom()
 	{
-		if (this.photonView.isMine && !this.isAI) {
-			Debug.Log (this.photonView.owner.NickName + "LEFT, removing " + gameObject.name);
-			GameManager.Instance.RemovePlayerFromGame (this.ID);
-		}
+        MakePlayerLeaveProperly();
 	}
+
+    void OnDestroy()
+    {
+        MakePlayerLeaveProperly();
+    }
 
 	public void OnMasterClientSwitched(PhotonPlayer newMasterClient){
 		if (PhotonNetwork.isMasterClient && this.isAI) {
