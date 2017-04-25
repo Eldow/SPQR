@@ -204,16 +204,13 @@ public class GameManager : MonoBehaviour
         foreach (KeyValuePair<int, RobotStateMachine> player in GameManager.Instance.AlivePlayerList)
         {
             currentTeam = player.Value.PlayerController.Team;
-            if (numberOfTeams > 1)
-            {
-                return false;
-            }
             if (currentTeam != nextTeam)
             {
                 if (nextTeam != "") { numberOfTeams++; }
                 nextTeam = currentTeam;
             }
         }
+        if (numberOfTeams > 1) return false;
         ManageEndRound(nextTeam);
         return true;
     }
