@@ -67,7 +67,7 @@ public class Scoreboard : Photon.MonoBehaviour
             //Instantiate team entry if it doesn't already exist.
             if (!usedTeams.ContainsKey(entry.Value))
             {
-                usedTeams.Add(entry.Value, InstantiateTeamEntry("Team n°" + entry.Value.ToString()));
+                usedTeams.Add(entry.Value, InstantiateTeamEntry("Team " + (PlayerColors)entry.Value));
             }
             //Instantiate the player entry.
             activePlayers.Add(entry.Key, InstantiatePlayerEntry(entry.Key, usedTeams[entry.Value].transform));
@@ -105,8 +105,6 @@ public class Scoreboard : Photon.MonoBehaviour
             {
                 if (player.Value == (int)(PlayerColors)Enum.Parse(typeof(PlayerColors), teamColor, true))
                 {
-                    Text playerScore = ActivePlayersEntries[player.Key].transform.GetChild(1).gameObject.GetComponent<Text>();
-                    playerScore.text += VictoryLabel;
                     ActivePlayersVictoryCount[player.Key]++;
                 }
             }

@@ -134,10 +134,12 @@ public class GameManager : MonoBehaviour {
     // Master leaves the room after others
     IEnumerator LeaveAfterAll()
     {
+        bool leaving = false;
         while (true)
         {
-            if (PhotonNetwork.room.PlayerCount == 1)
+            if (PhotonNetwork.room.PlayerCount == 1 && !leaving)
             {
+                leaving = true;
                 StartCoroutine(LeaveTo("Lobby"));
                 yield break;
             }
