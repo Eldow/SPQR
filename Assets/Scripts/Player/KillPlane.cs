@@ -9,7 +9,7 @@ public class KillPlane : MonoBehaviour
 	{
     // Debug.Log("KILL PLANE TRIGGERED");
 		PlayerController pc = other.GetComponentInParent<PlayerController>();
-		if (pc == null || !pc.photonView.isMine) return;
-    pc.PlayerHealth.Health = 0;
+        if (pc == null || (!pc.photonView.isMine && !pc.isAI)) return;
+        pc.PlayerHealth.Health = 0;
 	}
 }

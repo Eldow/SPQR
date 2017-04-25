@@ -14,7 +14,6 @@ public class Scoreboard : Photon.MonoBehaviour
     public Dictionary<string, int> ActivePlayersVictoryCount;
     public Dictionary<string, int> PlayerTeams;
     public int RoundsToWin;
-    public bool RoundGiven;
     public GameObject scorePanel;
     public Text GamemodeLabel;
 
@@ -25,7 +24,6 @@ public class Scoreboard : Photon.MonoBehaviour
     private void Start()
     {
         PlayerTeams = GameObject.Find("GameManager").GetComponent<NetworkGameManager>().PlayerTeams;
-        RoundGiven = false;
         ActivePlayersVictoryCount = new Dictionary<string, int>();
 
         if (PhotonNetwork.offlineMode)
@@ -99,18 +97,14 @@ public class Scoreboard : Photon.MonoBehaviour
 
     public void AddVictory(string teamColor)
     {
-        if (!RoundGiven)
+        foreach (KeyValuePair<string, int> player in PlayerTeams)
         {
-            foreach (KeyValuePair<string, int> player in PlayerTeams)
+            if (player.Value == (int)(PlayerColors)Enum.Parse(typeof(PlayerColors), teamColor, true))
             {
-                if (player.Value == (int)(PlayerColors)Enum.Parse(typeof(PlayerColors), teamColor, true))
-                {
-                    ActivePlayersVictoryCount[player.Key]++;
-                }
+                ActivePlayersVictoryCount[player.Key]++;
             }
-            SaveScoreboardToCustomProperties();
-            RoundGiven = true;
         }
+        SaveScoreboardToCustomProperties();
     }
 
     private void UpdatePlayerScoreEntries()
@@ -174,6 +168,14 @@ public class Scoreboard : Photon.MonoBehaviour
         PhotonNetwork.room.CustomProperties.TryGetValue("Scores", out scores);
         ActivePlayersVictoryCount = (Dictionary<string, int>)scores;
         UpdatePlayerScoreEntries();
+        if (CheckForGameVictory())
+        {
+            GameManager.Instance.SetGameFinished();
+        }
+        else
+        {
+            GameManager.Instance.SetRoundFinished();
+        }
     }
 
 }

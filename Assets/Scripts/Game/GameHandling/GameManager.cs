@@ -266,19 +266,21 @@ public class GameManager : MonoBehaviour {
 
     private void ManageEndRound(string victoriousTeam)
     {
-        // If no two different teams are found
         if (Timer.Countdown != null)
         {
             Timer.Countdown.ManageKoSprite();
             Timer.photonView.RPC("ClientDisplayKo", PhotonTargets.AllViaServer);
         }
         if(PhotonNetwork.isMasterClient) Scores.AddVictory(victoriousTeam);
-        if (Scores.CheckForGameVictory())
-        {
-            isGameFinished = true;
-        } else
-        {
-            isRoundFinished = true;
-        }
+    }
+
+    public void SetRoundFinished()
+    {
+        isRoundFinished = true;
+    }
+
+    public void SetGameFinished()
+    {
+        isGameFinished = true;
     }
 }
