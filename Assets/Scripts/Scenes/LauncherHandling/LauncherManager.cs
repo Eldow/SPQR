@@ -24,6 +24,7 @@ public class LauncherManager : Photon.PunBehaviour {
     }
 
     public virtual void Local() {
+        PhotonNetwork.Disconnect();
         PhotonNetwork.offlineMode = true;
 		PhotonNetwork.CreateRoom("OfflineRoom"+Random.Range(0,100000));
     }
