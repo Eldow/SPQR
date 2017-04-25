@@ -107,7 +107,6 @@ public class Scoreboard : Photon.MonoBehaviour
 
     public void AddVictory(string teamColor)
     {
-        if (teamColor == "") return;
         foreach (KeyValuePair<string, int> player in PlayerTeams)
         {
             if (player.Value == (int)(PlayerColors)Enum.Parse(typeof(PlayerColors), teamColor, true))
