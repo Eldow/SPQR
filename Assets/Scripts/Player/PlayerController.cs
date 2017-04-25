@@ -222,7 +222,7 @@ public class PlayerController : Photon.PunBehaviour {
 
     private void MakePlayerLeaveProperly()
     {
-        if (this.photonView.isMine && !this.isAI)
+        if (this.photonView.isMine && !this.isAI && !PhotonNetwork.offlineMode)
         {
             GameManager.Instance.UpdateDeadListToOthers(this);
            // GameManager.Instance.RemovePlayerFromGame(this.ID);
