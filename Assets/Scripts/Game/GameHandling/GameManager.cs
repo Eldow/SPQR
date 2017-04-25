@@ -4,12 +4,11 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
     public Running Running = null;
-	public bool isLocalGame = true;
+    public bool isLocalGame = true;
     public static GameManager Instance = null;
-	public bool isGameFinished = false;
-    public bool isRoundFinished = false;
 
     public PlayerController LocalPlayer = null;
 
@@ -17,11 +16,11 @@ public class GameManager : MonoBehaviour {
     public Scoreboard Scores = null;
 
     public Dictionary<int, RobotStateMachine> PlayerList
-        { get; protected set; }
+    { get; protected set; }
     public Dictionary<int, RobotStateMachine> AlivePlayerList
-        { get; protected set; }
+    { get; protected set; }
 
-	private bool exitStarted = false;
+    private bool exitStarted = false;
 
 
     void Awake()
@@ -46,75 +45,247 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    void Start() {
-
+    void Start()
+    {
         GameObject TaggedTimer = GameObject.FindGameObjectWithTag("Timer");
 
-        if (TaggedTimer == null) {
+        if (TaggedTimer == null)
+        {
             Debug.LogError(this.GetType().Name + ": No Tagged Timer script found!");
         }
-        else {
-          this.Timer = TaggedTimer.GetComponent<RoundTimer>();
+        else
+        {
+            this.Timer = TaggedTimer.GetComponent<RoundTimer>();
         }
 
         GameObject TaggedSb = GameObject.FindGameObjectWithTag("Score");
 
-        if (TaggedSb == null) {
+        if (TaggedSb == null)
+        {
             Debug.LogError(this.GetType().Name + ": No Tagged Scoreboard script found!");
         }
-        else {
-          this.Scores = TaggedSb.GetComponent<Scoreboard>();
+        else
+        {
+            this.Scores = TaggedSb.GetComponent<Scoreboard>();
         }
 
-		    InvokeRepeating("WaitForPlayersToBeReady", 0f, 0.3f);
+        InvokeRepeating("WaitForPlayersToBeReady", 0f, 0.3f);
     }
 
-	void WaitForPlayersToBeReady()
-	{
-		if (PlayerList.Count < NetworkGameManager.nbPlayersForThisGame)
-			return;
+    void WaitForPlayersToBeReady()
+    {
+        if (PlayerList.Count < NetworkGameManager.nbPlayersForThisGame)
+            return;
 
-		foreach(KeyValuePair<int,RobotStateMachine> player in this.PlayerList)
-		{
-			if (!player.Value.PlayerController.isPlayerReady) {
-				return;
-			}
-		}
+        foreach (KeyValuePair<int, RobotStateMachine> player in this.PlayerList)
+        {
+            if (!player.Value.PlayerController.isPlayerReady)
+            {
+                return;
+            }
+        }
 
-		Timer.callTimerRPC();
-		CancelInvoke ();
-	}
+        Timer.callTimerRPC();
+        CancelInvoke();
+    }
 
     // Game ending, round ending management
-    void FixedUpdate() {
-        if (Timer != null && !isGameFinished && Timer.hasTimerStarted && Timer.remainingTime == 0f)
+    void FixedUpdate()
+    {
+        if (Timer != null && Timer.hasTimerStarted && Timer.remainingTime == 0f)
         {
             TimeoutEnding();
-            isRoundFinished = true;
         }
-        else if (isRoundFinished && !isGameFinished)
-        {
-            isRoundFinished = false;
-            StartCoroutine(NextRound());
-        }
-    	else if (isGameFinished && !exitStarted) {
-    		exitStarted = true;
-    		Invoke ("LeaveAfterEnding",3.0f);
-    	}
     }
 
+    protected virtual void Initialize()
+    {
+        this.AlivePlayerList = new Dictionary<int, RobotStateMachine>();
+        this.PlayerList = new Dictionary<int, RobotStateMachine>();
+    }
+
+    public virtual void RemovePlayerFromGame(int playerID)
+    {
+        RobotStateMachine robotStateMachine = null;
+
+        try
+        {
+            robotStateMachine = this.AlivePlayerList[playerID];
+        }
+        catch (KeyNotFoundException exception)
+        {
+            Debug.LogWarning(
+                "RemovePlayerFromGame: key " + playerID + " was not found");
+            Debug.LogWarning(exception.Message);
+        }
+
+        if (robotStateMachine != null)
+        {
+            this.AlivePlayerList.Remove(playerID);
+        }
+
+        robotStateMachine = this.PlayerList[playerID];
+
+        if (robotStateMachine == null) return;
+
+        this.PlayerList.Remove(playerID);
+    }
+
+    public virtual void AddPlayerToGame(PlayerController playerAvatar)
+    {
+        if (!playerAvatar.photonView.isMine)
+            isLocalGame = false;
+
+        this.AlivePlayerList.Add(
+            playerAvatar.ID,
+            playerAvatar.RobotStateMachine
+        );
+
+        this.PlayerList.Add(
+            playerAvatar.ID,
+            playerAvatar.RobotStateMachine
+        );
+    }
+
+    public virtual void UpdateDeadListToOthers(
+        PlayerController playerController)
+    {
+        this.UpdateDeadList(playerController.ID);
+
+        playerController.UpdateDeadToOthers();
+
+        RobotStateMachine robotStateMachine =
+             playerController.RobotStateMachine;
+
+        if (robotStateMachine == null) return;
+
+        robotStateMachine.SetState(new RobotDefeatState());
+    }
+
+    public virtual void UpdateDeadList(int playerID)
+    {
+        try
+        {
+            RobotStateMachine robotStateMachine = null;
+
+            robotStateMachine = this.AlivePlayerList[playerID];
+
+            if (robotStateMachine == null)
+                return;
+
+            this.AlivePlayerList.Remove(playerID);
+
+            if (!this.IsLastTeamStanding())
+                return;
+
+            if (this.AlivePlayerList.Count <= 0)
+                return;
+
+            foreach (KeyValuePair<int, RobotStateMachine> winner in GameManager.Instance.AlivePlayerList)
+            {
+                if (winner.Value != null && winner.Value.PlayerController.photonView.isMine)
+                    winner.Value.SetState(new RobotVictoryState());
+            }
+        }
+        catch (KeyNotFoundException exception)
+        {
+            Debug.LogWarning(
+                "UpdateDeadList: key " + playerID + " was not found");
+            Debug.LogWarning(exception.Message);
+        }
+    }
+
+    // If only only team left, declare the win
+    public virtual bool IsLastTeamStanding()
+    {
+        int numberOfTeams = 1;
+        string currentTeam, nextTeam;
+        nextTeam = "";
+        foreach (KeyValuePair<int, RobotStateMachine> player in GameManager.Instance.AlivePlayerList)
+        {
+            currentTeam = player.Value.PlayerController.Team;
+            if (numberOfTeams > 1)
+            {
+                return false;
+            }
+            if (currentTeam != nextTeam)
+            {
+                if (nextTeam != "") { numberOfTeams++; }
+                nextTeam = currentTeam;
+            }
+        }
+        ManageEndRound(nextTeam);
+        return true;
+    }
+
+    // Time off ! Get the best team an declare the win - TODO : Get team health points and not single player health points
+    protected void TimeoutEnding()
+    {
+        RobotStateMachine Winner = null;
+        Winner = SearchForMaxHealthPlayers();
+        if (Winner.PlayerController.photonView.isMine)
+            Winner.SetState(new RobotVictoryState());
+        ManageEndRound(Winner.PlayerController.Team);
+    }
+
+
+    private RobotStateMachine SearchForMaxHealthPlayers()
+    {
+        int MaxHP = 0;
+        RobotStateMachine Winner = null;
+        foreach (KeyValuePair<int, RobotStateMachine> alivePlayer in this.AlivePlayerList)
+        {
+            if (alivePlayer.Value.PlayerController.PlayerHealth.Health >= MaxHP)
+            {
+                Winner = alivePlayer.Value;
+                MaxHP = alivePlayer.Value.PlayerController.PlayerHealth.Health;
+            }
+        }
+        return Winner;
+    }
+
+    private void ManageEndRound(string victoriousTeam)
+    {
+        if (victoriousTeam == null) return;
+        if (Timer.Countdown != null)
+        {
+            Timer.Countdown.ManageKoSprite();
+            Timer.photonView.RPC("ClientDisplayKo", PhotonTargets.AllViaServer);
+        }
+        if (PhotonNetwork.isMasterClient) Scores.AddVictory(victoriousTeam);
+    }
+
+    public void SetRoundFinished()
+    {
+        StartCoroutine(NextRound());
+    }
+
+    public void SetGameFinished()
+    {
+        Invoke("LeaveAfterEnding", 3.0f);
+    }
+
+    /*
+        AUTO-LEAVE MANAGEMENT 
+    */
+
     // Calls the right leaving routine
-	private void LeaveAfterEnding (){
-		if (PhotonNetwork.offlineMode) {
+    private void LeaveAfterEnding()
+    {
+        if (PhotonNetwork.offlineMode)
+        {
             StartCoroutine(LeaveTo("Launcher"));
-			return;
-		}
-		if (PhotonNetwork.isMasterClient) {
+            return;
+        }
+        if (PhotonNetwork.isMasterClient)
+        {
             InvokeRepeating("LeaveAfterAll", 1f, 2f);
-		} else {
+        }
+        else
+        {
             StartCoroutine(LeaveTo("Lobby"));
-		}
-	}
+        }
+    }
 
     // Prepare the scene for a new round
     IEnumerator NextRound()
@@ -141,146 +312,5 @@ public class GameManager : MonoBehaviour {
             StartCoroutine(LeaveTo("Lobby"));
             CancelInvoke();
         }
-    }
-
-    private RobotStateMachine SearchForMaxHealthPlayers() {
-		int MaxHP = 0;
-		RobotStateMachine Winner = null;
-		foreach (KeyValuePair<int,RobotStateMachine> alivePlayer in this.AlivePlayerList) {
-			if (alivePlayer.Value.PlayerController.PlayerHealth.Health >= MaxHP) {
-				Winner = alivePlayer.Value;
-				MaxHP = alivePlayer.Value.PlayerController.PlayerHealth.Health;
-			}
-		}
-		return Winner;
-	}
-
-    protected virtual void Initialize() {
-        this.AlivePlayerList = new Dictionary<int, RobotStateMachine>();
-        this.PlayerList = new Dictionary<int, RobotStateMachine>();
-    }
-
-    public virtual void RemovePlayerFromGame(int playerID) {
-        RobotStateMachine robotStateMachine = null;
-
-        try {
-            robotStateMachine = this.AlivePlayerList[playerID];
-        } catch (KeyNotFoundException exception) {
-            Debug.LogWarning(
-                "RemovePlayerFromGame: key " + playerID + " was not found");
-            Debug.LogWarning(exception.Message);
-        }
-
-        if (robotStateMachine != null) {
-            this.AlivePlayerList.Remove(playerID);
-        }
-
-        robotStateMachine = this.PlayerList[playerID];
-
-        if (robotStateMachine == null) return;
-
-        this.PlayerList.Remove(playerID);
-    }
-
-    public virtual void AddPlayerToGame(PlayerController playerAvatar) {
-		if (!playerAvatar.photonView.isMine)
-			isLocalGame = false;
-
-        this.AlivePlayerList.Add(
-            playerAvatar.ID,
-            playerAvatar.RobotStateMachine
-        );
-
-        this.PlayerList.Add(
-            playerAvatar.ID,
-            playerAvatar.RobotStateMachine
-        );
-    }
-
-    public virtual void UpdateDeadListToOthers(
-        PlayerController playerController) {
-        this.UpdateDeadList(playerController.ID);
-
-        playerController.UpdateDeadToOthers();
-
-        RobotStateMachine robotStateMachine =
-             playerController.RobotStateMachine;
-
-        if (robotStateMachine == null) return;
-
-        robotStateMachine.SetState(new RobotDefeatState());
-    }
-
-    public virtual void UpdateDeadList(int playerID) {
-		try {
-			RobotStateMachine robotStateMachine = null;
-
-			robotStateMachine = this.AlivePlayerList [playerID];
-
-			if (robotStateMachine == null)
-				return;
-
-			this.AlivePlayerList.Remove (playerID);
-
-			if (!this.IsLastTeamStanding())
-				return;
-
-			if (this.AlivePlayerList.Count <= 0)
-				return;
-
-			foreach (KeyValuePair<int,RobotStateMachine> winner in GameManager.Instance.AlivePlayerList) {
-				if (winner.Value != null && winner.Value.PlayerController.photonView.isMine)
-					winner.Value.SetState (new RobotVictoryState ());
-			}
-		} catch (KeyNotFoundException exception) {
-			Debug.LogWarning (
-				"UpdateDeadList: key " + playerID + " was not found");
-			Debug.LogWarning (exception.Message);
-		}
-	}
-
-    // If only only team left, declare the win
-    public virtual bool IsLastTeamStanding() {
-  	    string teamFound = null;
-  	    foreach(KeyValuePair<int,RobotStateMachine> pair in GameManager.Instance.AlivePlayerList){
-  		    if (pair.Value.PlayerController.Team != teamFound) {
-  			    if (teamFound == null)
-  				    teamFound = pair.Value.PlayerController.Team;
-  			    else
-  				    return false; // there are at least 2 different teams;
-  		    }
-  	    }
-        ManageEndRound(teamFound);
-        return true;
-    }
-
-    // Time off ! Get the best team an declare the win - TODO : Get team health points and not single player health points
-    protected void TimeoutEnding()
-    {
-        RobotStateMachine Winner = null;
-        Winner = SearchForMaxHealthPlayers();
-        if (Winner.PlayerController.photonView.isMine)
-            Winner.SetState(new RobotVictoryState());
-        ManageEndRound(Winner.PlayerController.Team);
-    }
-
-    private void ManageEndRound(string victoriousTeam)
-    {
-        if (Timer.Countdown != null)
-        {
-            Timer.Countdown.ManageKoSprite();
-            Timer.photonView.RPC("ClientDisplayKo", PhotonTargets.AllViaServer);
-        }
-        if(PhotonNetwork.isMasterClient) Scores.AddVictory(victoriousTeam);
-    }
-
-    public void SetRoundFinished()
-    {
-        isRoundFinished = true;
-    }
-
-    public void SetGameFinished()
-    {
-        isGameFinished = true;
     }
 }

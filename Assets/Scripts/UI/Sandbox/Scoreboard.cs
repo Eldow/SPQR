@@ -107,6 +107,7 @@ public class Scoreboard : Photon.MonoBehaviour
 
     public void AddVictory(string teamColor)
     {
+        if (teamColor == "") return;
         foreach (KeyValuePair<string, int> player in PlayerTeams)
         {
             if (player.Value == (int)(PlayerColors)Enum.Parse(typeof(PlayerColors), teamColor, true))
@@ -169,6 +170,14 @@ public class Scoreboard : Photon.MonoBehaviour
         if (propertiesThatChanged.ContainsKey(_scoreKey))
         {
             UpdateVictoryCountFromCustomProperties();
+            if (CheckForGameVictory())
+            {
+                GameManager.Instance.SetGameFinished();
+            }
+            else
+            {
+                GameManager.Instance.SetRoundFinished();
+            }
         }
     }
 
@@ -178,14 +187,6 @@ public class Scoreboard : Photon.MonoBehaviour
         PhotonNetwork.room.CustomProperties.TryGetValue("Scores", out scores);
         ActivePlayersVictoryCount = (Dictionary<string, int>)scores;
         UpdatePlayerScoreEntries();
-        if (CheckForGameVictory())
-        {
-            GameManager.Instance.SetGameFinished();
-        }
-        else
-        {
-            GameManager.Instance.SetRoundFinished();
-        }
     }
 
 }
