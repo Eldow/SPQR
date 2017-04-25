@@ -48,7 +48,6 @@ public class Scoreboard : Photon.MonoBehaviour
             }
         }
         GamemodeLabel.text = "BO " + RoundsToWin.ToString();
-        scorePanel.SetActive(false);
         LoadScoreboardFromCustomProperties();
     }
 
@@ -167,7 +166,7 @@ public class Scoreboard : Photon.MonoBehaviour
     private void UpdateVictoryCountFromCustomProperties()
     {
         object scores;
-        PhotonNetwork.room.CustomProperties.TryGetValue("Scores", out scores);
+        PhotonNetwork.room.CustomProperties.TryGetValue(_scoreKey, out scores);
         TeamVictories = (Dictionary<int, int>)scores;
         UpdatePlayerScoreEntries();
     }
