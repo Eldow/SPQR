@@ -8,11 +8,13 @@ public class PanelToggler : MonoBehaviour {
     public GameObject ScorePanel;
     public GameObject MenuPanel;
     public GameObject Trash;
+	private bool doItOnce;
 
     void Start()
     {
         _inputManager = GetComponent<InputManager>();
         ScorePanel.transform.parent = Trash.transform;
+		doItOnce = false;
 
     }
     void Update()
@@ -28,5 +30,9 @@ public class PanelToggler : MonoBehaviour {
                 ScorePanel.transform.parent = transform;
             }
         }
+		if (GameManager.Instance.isCompletingRound && !doItOnce) {
+			ScorePanel.transform.parent = transform;
+			doItOnce = true;
+		}
     }
 }
