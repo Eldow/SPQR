@@ -644,7 +644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.00746108, g: 0.010908582, b: 0.50735295, a: 0.666}
+  m_Color: {r: 0.00746108, g: 0.010908582, b: 0.50735295, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5934,8 +5934,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1957593993}
-        m_MethodName: SendPrivateMessage
+      - m_Target: {fileID: 1107380887}
+        m_MethodName: Callback
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5944,7 +5944,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &307037661
@@ -6083,7 +6083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.00746108, g: 0.010908582, b: 0.50735295, a: 0.666}
+  m_Color: {r: 0.00746108, g: 0.010908582, b: 0.50735295, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7465,19 +7465,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1032239569}
-        m_MethodName: AddFriend
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: PlayAudioClick
+      - m_Target: {fileID: 672431666}
+        m_MethodName: Callback
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8037,7 +8026,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.007843138, g: 0.011764706, b: 0.5058824, a: 0.6666667}
+  m_Color: {r: 0.007843138, g: 0.011764706, b: 0.5058824, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8486,7 +8475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.00746108, g: 0.010908582, b: 0.50735295, a: 0.666}
+  m_Color: {r: 0.00746108, g: 0.010908582, b: 0.50735295, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -11298,7 +11287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.007843138, g: 0.011764706, b: 0.5058824, a: 0.6666667}
+  m_Color: {r: 0.007843138, g: 0.011764706, b: 0.5058824, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -13202,7 +13191,7 @@ GameObject:
   - component: {fileID: 1082095267}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: LobbyCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13756,6 +13745,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InputField: {fileID: 1107380884}
   ChatManager: {fileID: 1957593993}
+  ScrollRect: {fileID: 1741205211}
+  Scrollbar: {fileID: 618050630}
+  Canvas: {fileID: 1082095269}
 --- !u!1 &1110656823
 GameObject:
   m_ObjectHideFlags: 0
@@ -15833,7 +15825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.00746108, g: 0.010908582, b: 0.50735295, a: 0.666}
+  m_Color: {r: 0.007843138, g: 0.011764706, b: 0.5058824, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

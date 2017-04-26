@@ -24,7 +24,7 @@ public class SubmitEnter : MonoBehaviour {
             Input.GetKey(KeyCode.Return);
     }
 
-    protected virtual void Callback() {
+    public virtual void Callback() {
         Debug.LogWarning("Callback not implemented");
     }
 }
