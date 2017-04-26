@@ -17,6 +17,7 @@ TagManager:
   - Timer
   - Countdown
   - Score
+  - LobbyCanvas
   layers:
   - Default
   - TransparentFX
