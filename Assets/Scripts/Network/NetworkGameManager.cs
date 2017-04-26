@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.Collections;
 
 public class NetworkGameManager : Photon.PunBehaviour {
 	public static int nbPlayersForThisGame;
@@ -45,7 +46,7 @@ public class NetworkGameManager : Photon.PunBehaviour {
 			mapIndex = Random.Range(0, MapSceneNames.Length);
 		}
 		newMapName =  MapSceneNames [mapIndex];
-		SceneManager.LoadScene (newMapName, LoadSceneMode.Additive);
+		AsyncOperation async = SceneManager.LoadSceneAsync (newMapName, LoadSceneMode.Additive);
 		// newMapName.transform.localScale = new Vector3(100, 100, 100);
 		// Teams init
 		object teams;
@@ -61,11 +62,19 @@ public class NetworkGameManager : Photon.PunBehaviour {
 			PlayerTeams.Add("Bot1", 2);
 		}
 
-		//INSTANTIATE Players & AIs
-		if (PlayerTeams != null) {
-			DistributePlayers();
-		}
-	}
+        StartCoroutine(InitPlayers(async.allowSceneActivation));
+    }
+
+    IEnumerator InitPlayers(bool async)
+    {
+        while(!async)
+            yield return "";
+        //INSTANTIATE Players & AIs
+        if (PlayerTeams != null)
+        {
+            DistributePlayers();
+        }
+    }
 
 	private void DistributePlayers()
 	{
@@ -81,7 +90,7 @@ public class NetworkGameManager : Photon.PunBehaviour {
 		{
 			x = radius * Mathf.Cos(angle);
 			z = radius * Mathf.Sin(angle);
-			spawnPos = new Vector3(x, 0, z);
+			spawnPos = new Vector3(x, 0.5f, z);
 			if (key.Contains("Bot") && (PhotonNetwork.isMasterClient || PhotonNetwork.offlineMode))
 			{
 				instantiateAI = true;
