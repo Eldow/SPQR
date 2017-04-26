@@ -2377,7 +2377,7 @@ ParticleSystem:
   m_GameObject: {fileID: 729672328}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -5822,7 +5822,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1112023296}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -9216,7 +9216,6 @@ MonoBehaviour:
   highPitchRange: 1
   LobbyMusic: {fileID: 8300000, guid: 48bce902af6ba304b8fb3ea8883cfdf2, type: 3}
   GameMusic: {fileID: 8300000, guid: 436afdb710ec97e48967fd01ca1a256a, type: 3}
-  Mixer: {fileID: 24300001, guid: 0bb37ac7a2c50304cbd6f9eba5f0225e, type: 2}
 --- !u!4 &1478946126
 Transform:
   m_ObjectHideFlags: 0
