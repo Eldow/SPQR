@@ -290,7 +290,6 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
             channelName = GetChannelName(new string[] { friendName, PhotonNetwork.playerName });
             panel = ShowPanel(GetPanelName(channelName));
             AppendMessageToPanel(message, panel);
-            if (!_friendChannels.ContainsKey(channelName)) return;
         } else
         {
             channelName = _chatRoomName;
