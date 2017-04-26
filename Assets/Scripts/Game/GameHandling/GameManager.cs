@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     { get; protected set; }
 
     private bool exitStarted = false;
-    private bool isCompletingRound = false;
+    public bool isCompletingRound = false;
 
 
     void Awake()

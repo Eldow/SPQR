@@ -638,6 +638,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 18
       objectReference: {fileID: 0}
+    - target: {fileID: 1817152420016454, guid: 35860a00629b5614095af0875e9a1a7a, type: 2}
+      propertyPath: m_Name
+      value: GreyRemains
+      objectReference: {fileID: 0}
     - target: {fileID: 114008915261646094, guid: 35860a00629b5614095af0875e9a1a7a,
         type: 2}
       propertyPath: viewIdField
@@ -958,22 +962,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 114906100525624826, guid: 541e515d92824fd4b8834bc202738c92,
+    - target: {fileID: 1814031122505032, guid: 541e515d92824fd4b8834bc202738c92, type: 2}
+      propertyPath: m_Name
+      value: GreyRobot
+      objectReference: {fileID: 0}
+    - target: {fileID: 114253020596146902, guid: 541e515d92824fd4b8834bc202738c92,
         type: 2}
       propertyPath: viewIdField
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114906100525624826, guid: 541e515d92824fd4b8834bc202738c92,
+    - target: {fileID: 114253020596146902, guid: 541e515d92824fd4b8834bc202738c92,
         type: 2}
       propertyPath: instantiationId
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114253020596146902, guid: 541e515d92824fd4b8834bc202738c92,
+    - target: {fileID: 114906100525624826, guid: 541e515d92824fd4b8834bc202738c92,
         type: 2}
       propertyPath: viewIdField
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 114253020596146902, guid: 541e515d92824fd4b8834bc202738c92,
+    - target: {fileID: 114906100525624826, guid: 541e515d92824fd4b8834bc202738c92,
         type: 2}
       propertyPath: instantiationId
       value: 5

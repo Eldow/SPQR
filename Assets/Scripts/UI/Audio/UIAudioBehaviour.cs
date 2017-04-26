@@ -14,6 +14,9 @@ public class UIAudioBehaviour : MonoBehaviour {
 
     void Start()
     {
+		if (GameObject.FindGameObjectsWithTag ("Audio").Length > 1)
+			Destroy (this.gameObject);
+		
         DontDestroyOnLoad(this);
     }
 

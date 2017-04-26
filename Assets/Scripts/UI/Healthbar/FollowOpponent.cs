@@ -8,18 +8,20 @@ public class FollowOpponent : MonoBehaviour
 	public Vector3 offset;
 	private RectTransform rect;
 	private Transform opponent;
+	private PlayerController playerController;
 
 	void OnEnable ()
 	{
 		offset = new Vector3 (0, 3.5f, 0);
 		rect = GetComponent<RectTransform> ();
-		opponent = GameObject.FindGameObjectWithTag (PlayerController.Player).GetComponent<TargetManager> ().currentTarget.transform;
+		playerController = GameObject.FindGameObjectWithTag (PlayerController.Player).GetComponent<PlayerController> ();
+		opponent = playerController.TargetManager.currentTarget.transform;
 	
 	}
 
 	void Update ()
 	{
-		if (opponent == null) {
+		if (opponent == null || playerController==null) {
 			this.gameObject.SetActive (false);
 			return;
 		}
@@ -33,3 +35,4 @@ public class FollowOpponent : MonoBehaviour
 	}
 }
 
+ 

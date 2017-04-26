@@ -108,6 +108,7 @@ public class RobotPowerAttackState : RobotLoadedAttackState {
 
     public override void Exit(StateMachine stateMachine) {
         base.Exit(stateMachine);
+		this.SetLightings(stateMachine,false);
 
         if (this.LeftSphereCollider == null || this.RightSphereCollider == null) return;
 

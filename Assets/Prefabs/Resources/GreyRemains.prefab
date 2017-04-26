@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 82189776187304162}
   - component: {fileID: 114828297220639036}
   m_Layer: 0
-  m_Name: GrayRemains
+  m_Name: GreyRemains
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
