@@ -192,7 +192,6 @@ GameObject:
   - component: {fileID: 20197181}
   - component: {fileID: 20197180}
   - component: {fileID: 20197182}
-  - component: {fileID: 20197183}
   m_Layer: 5
   m_Name: MenuPanel
   m_TagString: Untagged
@@ -278,22 +277,6 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
---- !u!114 &20197183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 20197178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c088996ba2fae3f4db98c763d12511fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Mixer: {fileID: 24300001, guid: 0bb37ac7a2c50304cbd6f9eba5f0225e, type: 2}
-  MasterSlider: {fileID: 1358250276}
-  MusicSlider: {fileID: 1445582451}
-  FXSlider: {fileID: 144698777}
-  UISlider: {fileID: 643005878}
 --- !u!1 &102530732
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,7 +593,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 20197183}
+      - m_Target: {fileID: 803777770}
         m_MethodName: ChangeMusicVolume
         m_Mode: 0
         m_Arguments:
@@ -1785,7 +1768,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 20197183}
+      - m_Target: {fileID: 803777770}
         m_MethodName: ChangeUIVolume
         m_Mode: 0
         m_Arguments:
@@ -2432,6 +2415,51 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 800126874}
+--- !u!1 &803777769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 803777771}
+  - component: {fileID: 803777770}
+  m_Layer: 0
+  m_Name: VolumeInitializer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &803777770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 803777769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c088996ba2fae3f4db98c763d12511fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mixer: {fileID: 24300001, guid: 0bb37ac7a2c50304cbd6f9eba5f0225e, type: 2}
+  MasterSlider: {fileID: 1358250276}
+  MusicSlider: {fileID: 144698777}
+  FXSlider: {fileID: 1445582451}
+  UISlider: {fileID: 643005878}
+--- !u!4 &803777771
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 803777769}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 848.3916, y: 614.724, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &833922214
 GameObject:
   m_ObjectHideFlags: 0
@@ -3787,7 +3815,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 20197183}
+      - m_Target: {fileID: 803777770}
         m_MethodName: ChangeMasterVolume
         m_Mode: 0
         m_Arguments:
@@ -4109,7 +4137,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 20197183}
+      - m_Target: {fileID: 803777770}
         m_MethodName: ChangeFXVolume
         m_Mode: 0
         m_Arguments:
