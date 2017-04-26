@@ -14,7 +14,15 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: d104077d74de5dc40a97c1d25324ce60
+    name: FXVolume
+  - guid: 69c8c63bcd16403439bb5a2d6359d363
+    name: MasterVolume
+  - guid: 4bf3564ce2a1131459751da1649fb07b
+    name: MusicVolume
+  - guid: d2e0d72f1393b0f43b744d72e32c8b1d
+    name: UIVolume
   m_AudioMixerGroupViews:
   - guids:
     - c37b624b0f2d17040a92b334ddad376c
@@ -40,7 +48,7 @@ AudioMixerGroupController:
   m_Pitch: 514956bf910a9f24894dad1d568ca91c
   m_Effects:
   - {fileID: 24400002}
-  m_UserColorIndex: 0
+  m_UserColorIndex: 1
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
@@ -80,7 +88,7 @@ AudioMixerGroupController:
   m_Pitch: 15efffdda54e4e44ebab9594357783e0
   m_Effects:
   - {fileID: 244865396315784590}
-  m_UserColorIndex: 0
+  m_UserColorIndex: 2
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
@@ -97,7 +105,7 @@ AudioMixerGroupController:
   m_Pitch: 4b9c6b6252cf86047af6b9f3f6385e49
   m_Effects:
   - {fileID: 244032972459590846}
-  m_UserColorIndex: 0
+  m_UserColorIndex: 4
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
@@ -114,7 +122,7 @@ AudioMixerGroupController:
   m_Pitch: c7391b4dc1cb2a44a9116133c293d6cc
   m_Effects:
   - {fileID: 244750476942596832}
-  m_UserColorIndex: 0
+  m_UserColorIndex: 3
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0

@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class PanelToggler : MonoBehaviour {
 
-    private InputManager _inputManager;
     public GameObject ScorePanel;
     public GameObject MenuPanel;
     public GameObject Trash;
-	private bool doItOnce;
+    private InputManager _inputManager;
+    private bool doItOnce;
+    private bool _isMenuActive = false;
 
     void Start()
     {
         _inputManager = GetComponent<InputManager>();
-        ScorePanel.transform.parent = Trash.transform;
+        if(ScorePanel != null)ScorePanel.transform.parent = Trash.transform;
 		doItOnce = false;
-
+        MenuPanel.SetActive(false);
     }
     void Update()
     {
-        if (_inputManager.infoButton())
+        if (_inputManager.infoButton() && ScorePanel != null)
         {
             if (ScorePanel.transform.parent.name.Equals("Canvas"))
             {
@@ -30,7 +31,12 @@ public class PanelToggler : MonoBehaviour {
                 ScorePanel.transform.parent = transform;
             }
         }
-		if (GameManager.Instance.isCompletingRound && !doItOnce) {
+        if (_inputManager.menuButton())
+        {
+            _isMenuActive = !_isMenuActive;
+            MenuPanel.SetActive(_isMenuActive);
+        }
+        if (GameManager.Instance != null && GameManager.Instance.isCompletingRound && !doItOnce) {
 			ScorePanel.transform.parent = transform;
 			doItOnce = true;
 		}

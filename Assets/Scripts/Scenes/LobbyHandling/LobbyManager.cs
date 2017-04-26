@@ -11,12 +11,22 @@ public class LobbyManager : Photon.PunBehaviour
     private bool _visibility = true;
 
     public GameObject MatchmakingPanel;
-    public GameObject CustomPanel;
+    public GameObject MenuPanel;
 
+    private bool _isMenuActive = false;
     // Initialize the room list panel
     private void Start()
     {
         SoundManager.instance.PlayLobbyMusic();
+    }
+
+    void Update()
+    {
+        if (Input.GetButtonDown("MenuButton"))
+        {
+            _isMenuActive = !_isMenuActive;
+            MenuPanel.SetActive(_isMenuActive);
+        }
     }
 
     // Apply filters and refresh the room list
@@ -33,6 +43,7 @@ public class LobbyManager : Photon.PunBehaviour
 
     public void StartGame()
     {
+        SoundManager.instance.PlayClick();
         ChatManager chat = GameObject.Find("ChatManager").GetComponent<ChatManager>();
         ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
 		chat.preventUniqueTeam ();
@@ -55,22 +66,10 @@ public class LobbyManager : Photon.PunBehaviour
         chat.SayReady();
     }
 
-    public void MatchmakingView()
-    {
-        CustomPanel.SetActive(false);
-        MatchmakingPanel.SetActive(true);
-    }
-
     public void Launcher() {
         SoundManager.instance.StopMusic();
         SoundManager.instance.PlayClick();
         SceneManager.LoadScene("Launcher");
-    }
-
-    public void CustomView()
-    {
-        MatchmakingPanel.SetActive(false);
-        CustomPanel.SetActive(true);
     }
 
     public void Exit()
