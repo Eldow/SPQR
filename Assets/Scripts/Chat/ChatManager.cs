@@ -252,6 +252,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
 
     public void LeaveChatRoom()
     {
+        SoundManager.instance.PlayClick();
         ClientChat.PublishMessage(_chatRoomName, PhotonNetwork.playerName + ":Left");
         UnsubscribeFromChannel(_chatRoomName);
         CleanChatRoom();
@@ -276,6 +277,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
 
     public void SendPrivateMessage()
     {
+        SoundManager.instance.PlayClick();
         string friendName, message, channelName;
         GameObject panel;
         GameObject button = EventSystem.current.currentSelectedGameObject;
@@ -531,6 +533,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
     */
     public void AddBot()
     {
+        SoundManager.instance.PlayClick();
         if (PlayerList.Count >= 8) return;
         GameObject newBot = Instantiate(PlayerEntry, MatchmakingPanel.transform.FindChild("PlayerListContainer/PlayerList"));
         newBot.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);

@@ -2545,7 +2545,7 @@ AudioSource:
   m_GameObject: {fileID: 1326889472733694}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300001, guid: 0bb37ac7a2c50304cbd6f9eba5f0225e,
+  OutputAudioMixerGroup: {fileID: 243297230568521436, guid: 0bb37ac7a2c50304cbd6f9eba5f0225e,
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
@@ -3283,6 +3283,7 @@ MonoBehaviour:
   OpponentInfo: {fileID: 0}
   inputManager: {fileID: 0}
   Shield: {fileID: 0}
+  Shockwave: {fileID: 0}
   Lightnings: {fileID: 0}
   TargetManager: {fileID: 0}
 --- !u!114 &114469942789855958
@@ -3587,7 +3588,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1454311615731766}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -6152,7 +6153,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1196846318962446}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

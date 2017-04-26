@@ -16,21 +16,8 @@ public class LobbyManager : Photon.PunBehaviour
     // Initialize the room list panel
     private void Start()
     {
-        RefreshRoomList();
-        //PhotonNetwork.CreateRoom(PhotonNetwork.playerName + ":Room");
+        SoundManager.instance.PlayLobbyMusic();
     }
-
-
-    // Create a room and switch the list panel to the detail panel
-    public void CreateRoom()
-    {
-        /*
-        PhotonNetwork.CreateRoom(null,
-            new RoomOptions() { MaxPlayers = _roomSize,  IsVisible = _visibility },
-            null
-        );*/
-    }
-
 
     // Apply filters and refresh the room list
     public void RefreshRoomList()
@@ -75,6 +62,8 @@ public class LobbyManager : Photon.PunBehaviour
     }
 
     public void Launcher() {
+        SoundManager.instance.StopMusic();
+        SoundManager.instance.PlayClick();
         SceneManager.LoadScene("Launcher");
     }
 
@@ -86,6 +75,8 @@ public class LobbyManager : Photon.PunBehaviour
 
     public void Exit()
     {
+        SoundManager.instance.StopMusic();
+        SoundManager.instance.PlayClick();
 		PhotonNetwork.Disconnect ();
 		SceneManager.LoadScene ("Launcher");
     }

@@ -232,6 +232,7 @@ public class PlayerController : Photon.PunBehaviour {
 
 	public override void OnLeftRoom()
 	{
+        SoundManager.instance.StopMusic();
         MakePlayerLeaveProperly();
 	}
 

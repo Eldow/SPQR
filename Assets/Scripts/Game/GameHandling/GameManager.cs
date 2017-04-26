@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        SoundManager.instance.PlayGameMusic();
         GameObject TaggedTimer = GameObject.FindGameObjectWithTag("Timer");
 
         if (TaggedTimer == null)

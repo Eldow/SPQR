@@ -24,12 +24,14 @@ public class LauncherManager : Photon.PunBehaviour {
     }
 
     public virtual void Local() {
+        SoundManager.instance.PlayClick();
         PhotonNetwork.Disconnect();
         PhotonNetwork.offlineMode = true;
 		PhotonNetwork.CreateRoom("OfflineRoom"+Random.Range(0,100000));
     }
 
     public virtual void Connect() {
+        SoundManager.instance.PlayClick();
         this._isConnecting = true;
 
         if (PhotonNetwork.connected) {
@@ -74,6 +76,7 @@ public class LauncherManager : Photon.PunBehaviour {
     }
 
 	public void Quit() {
+        SoundManager.instance.PlayClick();
 		#if UNITY_EDITOR
 		UnityEditor.EditorApplication.isPlaying = false;
 		#endif

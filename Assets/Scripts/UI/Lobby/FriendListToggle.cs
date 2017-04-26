@@ -8,7 +8,8 @@ public class FriendListToggle : MonoBehaviour {
 
     public void ToggleFriendList()
     {
-        if(FriendList.activeInHierarchy)
+        SoundManager.instance.PlayClick();
+        if (FriendList.activeInHierarchy)
             FriendList.SetActive(false);
         else
             FriendList.SetActive(true);

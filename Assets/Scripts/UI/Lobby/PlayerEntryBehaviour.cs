@@ -27,6 +27,7 @@ public class PlayerEntryBehaviour : MonoBehaviour {
 
     public void KickPlayer()
     {
+        SoundManager.instance.PlayClick();
         _chatManager.KickPlayer();
     }
 }

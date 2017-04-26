@@ -2584,7 +2584,7 @@ AudioSource:
   m_GameObject: {fileID: 1990545571545176}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300001, guid: 0bb37ac7a2c50304cbd6f9eba5f0225e,
+  OutputAudioMixerGroup: {fileID: 243297230568521436, guid: 0bb37ac7a2c50304cbd6f9eba5f0225e,
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
@@ -3222,6 +3222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7856f5d1c36dd344943fcf6f6cb6926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceToOpponent: 0
 --- !u!114 &114154402690815906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3636,7 +3637,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1095735051593312}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -6201,7 +6202,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1666453719153058}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
