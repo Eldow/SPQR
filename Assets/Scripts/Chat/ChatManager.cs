@@ -289,14 +289,19 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
             friendName = button.transform.parent.FindChild("SenderPanel/Text").GetComponent<Text>().text;
             channelName = GetChannelName(new string[] { friendName, PhotonNetwork.playerName });
             panel = ShowPanel(GetPanelName(channelName));
+            AppendMessageToPanel(message, panel);
+            if (!_friendChannels.ContainsKey(channelName)) return;
         } else
         {
             channelName = _chatRoomName;
             panel = MatchmakingPanel.transform.FindChild("RoomChatPanel").gameObject;
+            AppendMessageToPanel(message, panel);
         }
         ClientChat.PublishMessage(channelName, message);
+    }
 
-
+    private void AppendMessageToPanel(string message, GameObject panel)
+    {
         GameObject chatEntry = Instantiate(ChatEntry, panel.transform.FindChild("ChatLog/ScrollablePanel").transform);
         chatEntry.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         chatEntry.GetComponent<Text>().text = PhotonNetwork.playerName + ": " + message.ToString();
@@ -310,6 +315,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         friendName = button.transform.parent.FindChild("Name").GetComponent<Text>().text;
 
         string channelName = GetChannelName(new string[] { friendName, PhotonNetwork.playerName });
+        if (!_friendChannels.ContainsKey(channelName)) return;
         ShowPanel(friendName);
         ClientChat.PublishMessage(channelName, PhotonNetwork.playerName + ":Room");
     }
