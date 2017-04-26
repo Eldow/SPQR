@@ -6296,7 +6296,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1512826099}
   m_HandleRect: {fileID: 1512826098}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -8582,7 +8582,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2004408037}
   m_HandleRect: {fileID: 2004408036}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -9418,6 +9418,7 @@ GameObject:
   - component: {fileID: 672431665}
   - component: {fileID: 672431664}
   - component: {fileID: 672431663}
+  - component: {fileID: 672431666}
   m_Layer: 5
   m_Name: InputField
   m_TagString: Untagged
@@ -9545,6 +9546,19 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 672431661}
+--- !u!114 &672431666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 672431661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e0d300c7b3acb347b4ad8c8ef0d86f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InputField: {fileID: 672431663}
+  FriendListManager: {fileID: 1032239569}
 --- !u!1 &676684158
 GameObject:
   m_ObjectHideFlags: 0
@@ -12313,7 +12327,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 638726305}
   m_HandleRect: {fileID: 638726304}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -13605,6 +13619,7 @@ GameObject:
   - component: {fileID: 1107380886}
   - component: {fileID: 1107380885}
   - component: {fileID: 1107380884}
+  - component: {fileID: 1107380887}
   m_Layer: 5
   m_Name: InputText
   m_TagString: Untagged
@@ -13728,6 +13743,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1107380882}
+--- !u!114 &1107380887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1107380882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2495e084781df5547b58a3e7a7cb9e8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InputField: {fileID: 1107380884}
+  ChatManager: {fileID: 1957593993}
 --- !u!1 &1110656823
 GameObject:
   m_ObjectHideFlags: 0
