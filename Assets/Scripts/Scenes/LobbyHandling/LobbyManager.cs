@@ -74,9 +74,12 @@ public class LobbyManager : Photon.PunBehaviour
 
     public void Exit()
     {
-        SoundManager.instance.StopMusic();
+
         SoundManager.instance.PlayClick();
-		PhotonNetwork.Disconnect ();
-		SceneManager.LoadScene ("Launcher");
+
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+            Application.Quit();
     }
 }
