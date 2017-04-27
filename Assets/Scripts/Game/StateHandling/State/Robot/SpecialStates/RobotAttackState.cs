@@ -20,12 +20,13 @@ public class RobotAttackState : RobotFramedState {
 		PlayerController opponent = (PlayerController)other.gameObject.GetComponent<PlayerController> ();
 
 
+
 		if (opponent != null) {
 			
 			float angleBetweenRobots = Vector3.Angle (opponent.transform.forward, handleHit.transform.root.position - opponent.transform.position);
 
 			//ignore hit
-			if (opponent.RobotStateMachine.CurrentState is RobotBlockState && angleBetweenRobots < ((RobotBlockState)opponent.RobotStateMachine.CurrentState).shieldAngle)
+			if (opponent.RobotStateMachine.Animator.GetCurrentAnimatorStateInfo (0).IsName("RobotBlock") && angleBetweenRobots < ((RobotBlockState)opponent.RobotStateMachine.CurrentState).shieldAngle)
 				return;
 
 			SendAudioHit (opponent.PlayerAudio);
@@ -46,7 +47,6 @@ public class RobotAttackState : RobotFramedState {
             return;
 
         PlayerController opponent = (PlayerController)other.gameObject.GetComponent<PlayerController>();
-
 
         if (opponent != null) {
            // Debug.Log("HANDLEATTACKTRIGGERFUCNTION " + opponent.ID + " " + DateTime.Now.ToShortTimeString());
