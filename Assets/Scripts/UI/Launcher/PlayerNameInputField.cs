@@ -28,7 +28,7 @@ public class PlayerNameInputField : MonoBehaviour
 
     public void SetPlayerName(string value)
     {
-        PhotonNetwork.playerName = value + " ";
+        PhotonNetwork.playerName = value;
         PlayerPrefs.SetString(playerNamePrefKey, value);
     }
 }
