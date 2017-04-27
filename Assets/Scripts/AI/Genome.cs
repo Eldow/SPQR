@@ -71,8 +71,14 @@ public class Genome {
 		//attack
 		dna[2].SetBorderLow(0);
 		dna[2].SetBorderUp(4);
+		dna[2].SetRecordTable(1.5f);
+		dna[2].SetRecordTable(1.65f);
+		dna[2].SetRecordTable(1.8f);
 		//block
 		dna[3].SetBorderLow(0);
 		dna[3].SetBorderUp(8);
+		dna[3].SetRecordTable(1.5f);
+		dna[3].SetRecordTable(2f);
+		dna[3].SetRecordTable(2.1f);
 	}
 }
