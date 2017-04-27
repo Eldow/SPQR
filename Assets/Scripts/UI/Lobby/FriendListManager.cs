@@ -100,7 +100,6 @@ public class FriendListManager : MonoBehaviour {
         else
             friends += name;
         PlayerPrefs.SetString(_friendListKey, friends);
-        GameObject.Find("ChatManager").GetComponent<ChatManager>().SubscribeToNewFriend(name);
         InstantiateOfflineFriend(name);
     }
 
