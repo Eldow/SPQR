@@ -90,7 +90,7 @@ public class NetworkGameManager : Photon.PunBehaviour {
 		{
 			x = radius * Mathf.Cos(angle);
 			z = radius * Mathf.Sin(angle);
-			spawnPos = new Vector3(x, 0.5f, z);
+			spawnPos = new Vector3(x, 1f, z);
 			if (key.Contains("Bot") && (PhotonNetwork.isMasterClient || PhotonNetwork.offlineMode))
 			{
 				instantiateAI = true;
