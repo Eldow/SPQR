@@ -96,7 +96,16 @@ public class AI : MonoBehaviour {
 		inputManager.moveForwardSpeedAI = 0f;
 		inputManager.moveSideSpeedAI = 0f;
 	}
-	
+		
+	private float calculateDistanteToTarget()
+	{
+		Vector3 src = transform.position;
+		Vector3 target = targetManager.currentTarget.transform.position;
+		src.y = 0;
+		target.z = 0;
+		return Vector2.Distance (src,target);
+	}
+
 	private int count = 0;
 	// Update is called once per frame
 	void Update () {
@@ -122,9 +131,7 @@ public class AI : MonoBehaviour {
 				Learn (false);
 				ennemyHealth_ = r1;
 			}
-			distanceToOpponent = Vector3.Distance (transform.position, targetManager.currentTarget.transform.position);
-
-
+			distanceToOpponent = calculateDistanteToTarget ();
 			//chose action
 			//1st action priority : attack
 			if (distanceToOpponent > genome.dna [2].GetBorderLow () && distanceToOpponent < genome.dna [2].GetBorderUp ()) {
