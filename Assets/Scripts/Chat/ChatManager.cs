@@ -91,7 +91,6 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         CreateChatRoom();
         ClientChat.SetOnlineStatus(ChatUserStatus.Online);
 		startButton = GameObject.Find ("CreateGameButton").GetComponent<Button> ();
-
     }
 
     public void OnDisconnected()
@@ -312,9 +311,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
         string friendName;
         GameObject button = EventSystem.current.currentSelectedGameObject;
         friendName = button.transform.parent.FindChild("Name").GetComponent<Text>().text;
-
         string channelName = GetChannelName(new string[] { friendName, PhotonNetwork.playerName });
-        if (!_friendChannels.ContainsKey(channelName)) return;
         ShowPanel(friendName);
         ClientChat.PublishMessage(channelName, PhotonNetwork.playerName + ":Room");
     }
