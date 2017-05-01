@@ -43,7 +43,7 @@ public class LauncherManager : Photon.PunBehaviour {
             return;
         }
 
-        PhotonNetwork.ConnectToRegion(CloudRegionCode.us, LauncherManager.GameVersion);
+        PhotonNetwork.ConnectToRegion(CloudRegionCode.eu, LauncherManager.GameVersion);
     }
 
     public override void OnConnectedToMaster() {

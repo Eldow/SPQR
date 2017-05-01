@@ -10,7 +10,7 @@ using UnityEngine.EventSystems;
 public class ChatManager : MonoBehaviour, IChatClientListener {
 
     private static string _playerNamePrefKey = "PlayerName";
-    private static string _chatRegion = "US" ;
+    private static string _chatRegion = "EU" ;
     private static string _chatVersion = "1.0";
 
     private int _playerReadyCount = 0;
